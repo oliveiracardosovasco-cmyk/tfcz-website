@@ -5,57 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tischfussball Club Zürich – TFCZ | Wo Zürich kickt</title>
 <meta name="description" content="Der Tischfussball Club Zürich (TFCZ): Offenes Training, wöchentliche Turniere, Kindertraining und Events in Zürich Wipkingen. Von Anfänger bis Profi – alle willkommen. Leonhart-Verein.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,500;0,700;0,900;1,900&display=swap" rel="stylesheet">
 <style>
-/* ════════════════════════════════════════════════════════════
-   TFCZ DESIGN SYSTEM — Tokens (siehe DESIGN-SYSTEM.md)
-   ════════════════════════════════════════════════════════════ */
 :root{
-  /* Brand colours (kanonisch) */
-  --blue:#5ca7dc; --blue-mid:#4489c7; --blue-dk:#005a94;
-  --navy:#0d273d; --navy-2:#0a1f31; --navy-3:#081826;
-  --gold:#cda857; --gold-lt:#e9c475; --sand:#e6e3da;
-  --white:#fff; --text:#0d273d; --muted:#5a6e80;
-  /* Neutral helpers */
-  --ink-2:#33475a; --line:#e6ebf0; --bg-light:#f4f6f8;
-  /* Category accent system (Hierarchie) */
-  --cat-all:#5ca7dc;     /* Für alle */
-  --cat-pro:#cda857;     /* Wettkampf / Pro */
-  --cat-event:#005a94;   /* Events / Special */
-  /* Type scale */
-  --fs-hero:clamp(54px,9vw,128px);
-  --fs-h2:clamp(34px,5vw,58px);
-  --fs-h3:20px;
-  --fs-body:17px;
-  /* Spacing scale (8pt) */
-  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px; --s7:96px;
-  --space-scale:1;                 /* CMS-Regler: Abstände */
-  --band-pad:calc(104px * var(--space-scale));
-  --maxw:1240px; --r:16px; --r-lg:22px;
+  --blue:#5ca7dc;--blue-mid:#4489c7;--blue-dk:#005a94;
+  --navy:#0d273d;--navy-2:#0a1f31;--navy-3:#081826;
+  --gold:#cda857;--gold-lt:#e9c475;--sand:#e6e3da;
+  --white:#fff;--text:#0d273d;--muted:#5a6e80;--ink-2:#33475a;--line:#e6ebf0;--bg-light:#f4f6f8;
+  --cat-all:#5ca7dc;--cat-pro:#cda857;--cat-event:#005a94;
+  --fs-hero:clamp(54px,9vw,128px);--fs-h2:clamp(34px,5vw,58px);
+  --maxw:1240px;--r:16px;--r-lg:22px;--space-scale:1;--font-scale:1;--band-pad:calc(104px * var(--space-scale));
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Nunito Sans','Helvetica Neue',sans-serif;color:var(--text);background:var(--navy);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
+body{font-family:'Nunito Sans','Helvetica Neue',sans-serif;color:var(--text);background:var(--navy);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:calc(16px * var(--font-scale))}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
 .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 28px}
 section{position:relative}
-
-/* Background canvas */
 #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-
-/* Brand line — Blau oben, Gold unten (strikt) */
-.brand-top{height:5px;background:var(--blue)}
-.brand-bottom{height:5px;background:var(--gold)}
-
-/* ════════ KICKER (Signature: Goldstrich + · Punkt-Trenner) ════════ */
+.brand-top{height:5px;background:var(--blue)}.brand-bottom{height:5px;background:var(--gold)}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-dk);margin-bottom:16px}
 .kicker::before{content:"";width:28px;height:2px;background:var(--gold);flex-shrink:0}
-.band-navy .kicker,.band-deep .kicker{color:var(--gold-lt)}
+.band-navy .kicker,.band-deep .kicker,.band-img .kicker{color:var(--gold-lt)}
 
-/* ════════ NAV ════════ */
+/* NAV */
 .nav{position:sticky;top:0;z-index:100;background:rgba(8,24,38,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(205,168,87,.25)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:70px;max-width:var(--maxw);margin:0 auto;padding:0 28px}
 .brand{display:flex;align-items:center;gap:13px}
@@ -70,12 +44,20 @@ section{position:relative}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:0}
 .burger span{width:26px;height:3px;background:var(--gold-lt);border-radius:2px;transition:.25s}
 
-/* ════════ HERO ════════ */
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;border-radius:12px;font-weight:900;font-size:16px;transition:.2s;cursor:pointer;border:0;text-align:center}
+.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 28px rgba(205,168,87,.4)}
+.btn-gold:hover{background:var(--gold-lt);transform:translateY(-3px);box-shadow:0 14px 34px rgba(205,168,87,.5)}
+.btn-ghost{background:rgba(255,255,255,.07);color:#fff;border:1.5px solid rgba(255,255,255,.28)}
+.btn-ghost:hover{background:rgba(255,255,255,.14);border-color:var(--blue);transform:translateY(-3px)}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:var(--navy-3);transform:translateY(-3px)}
+.btn-wa{background:#25D366;color:#06320f}.btn-wa:hover{background:#34e878;transform:translateY(-3px)}
+
+/* HERO */
 .hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:80px 0 60px;overflow:hidden}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,24,38,.97) 0%,rgba(10,31,49,.92) 40%,rgba(13,39,61,.66) 100%)}
-.hero-crest{position:absolute;right:-6%;top:50%;transform:translateY(-50%);width:min(56vw,720px);opacity:.07;z-index:0;pointer-events:none}
 .hero-in{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 28px;width:100%}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:22px}
 .eyebrow::before{content:"";width:34px;height:2px;background:var(--gold)}
@@ -84,262 +66,607 @@ section{position:relative}
 .hero-sub{font-size:clamp(17px,2.2vw,22px);color:rgba(255,255,255,.86);max-width:620px;margin:26px 0 8px;font-weight:500}
 .hero-sub strong{color:#fff;font-weight:900}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:34px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;border-radius:12px;font-weight:900;font-size:16px;transition:.2s;cursor:pointer;border:0;text-align:center}
-.btn-gold{background:var(--gold);color:var(--navy);box-shadow:0 8px 28px rgba(205,168,87,.4)}
-.btn-gold:hover{background:var(--gold-lt);transform:translateY(-3px);box-shadow:0 14px 34px rgba(205,168,87,.5)}
-.btn-ghost{background:rgba(255,255,255,.07);color:#fff;border:1.5px solid rgba(255,255,255,.28)}
-.btn-ghost:hover{background:rgba(255,255,255,.14);border-color:var(--blue);transform:translateY(-3px)}
-.btn-navy{background:var(--navy);color:#fff}
-.btn-navy:hover{background:var(--navy-3);transform:translateY(-3px)}
-.btn-wa{background:#25D366;color:#06320f}
-.btn-wa:hover{background:#34e878;transform:translateY(-3px)}
 .hero-stats{display:flex;gap:38px;flex-wrap:wrap;margin-top:54px;padding-top:30px;border-top:1px solid rgba(255,255,255,.12)}
 .hstat b{display:block;font-size:clamp(28px,4vw,42px);font-weight:900;color:var(--gold-lt);line-height:1}
+.hstat b .mini{font-size:.4em;font-weight:800;color:rgba(255,255,255,.7);text-transform:lowercase;letter-spacing:.04em;vertical-align:middle;margin-right:3px}
 .hstat span{font-size:13px;color:rgba(255,255,255,.6);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
 
-/* ════════ MARQUEE (eigener Block, kein Overlap) ════════ */
+/* MARQUEE */
 .marquee{position:relative;z-index:2;background:var(--gold);color:var(--navy);overflow:hidden;padding:14px 0;border-top:3px solid var(--navy);border-bottom:3px solid var(--navy)}
-.marquee-tr{display:flex;white-space:nowrap;width:max-content;animation:scroll 30s linear infinite;font-weight:900;font-size:15px;letter-spacing:.05em;text-transform:uppercase}
-.marquee-tr span{padding:0 26px;display:inline-flex;align-items:center;gap:26px}
-.marquee-tr span::after{content:"⚽";font-size:13px}
+.marquee-tr{display:flex;align-items:center;white-space:nowrap;width:max-content;animation:scroll 32s linear infinite;font-weight:900;font-size:15px;letter-spacing:.04em;text-transform:uppercase}
+.marquee-tr .mq{padding:0 30px}
+.marquee-tr .sep{width:7px;height:7px;background:var(--navy);border-radius:2px;transform:rotate(45deg);flex-shrink:0;opacity:.75}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ════════ BANDS ════════ */
+/* BANDS */
 .band{position:relative;z-index:1;padding:var(--band-pad) 0}
 .band-light{background:var(--bg-light);color:var(--navy)}
 .band-navy{background:transparent;color:#fff}
 .band-deep{background:linear-gradient(180deg,var(--navy-2),var(--navy-3));color:#fff}
-.sec-head{max-width:760px;margin-bottom:var(--s5)}
+.band-img{position:relative;z-index:1;overflow:hidden;color:#fff;padding:var(--band-pad) 0}
+.band-img>.bgimg{position:absolute;inset:0;z-index:0}
+.band-img>.bgimg img{width:100%;height:100%;object-fit:cover}
+.band-img>.bgimg::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(8,24,38,.96),rgba(10,31,49,.9) 55%,rgba(13,39,61,.74))}
+.band-img>.wrap{position:relative;z-index:2}
+.band-img .kicker{color:var(--gold-lt)}
+.sec-head{max-width:760px;margin-bottom:48px}
 .sec-head h2{font-size:var(--fs-h2);font-weight:900;line-height:.98;letter-spacing:-.02em;text-transform:uppercase}
 .sec-head p{font-size:18px;color:var(--muted);margin-top:18px;font-weight:500}
-.band-navy .sec-head p,.band-deep .sec-head p{color:rgba(255,255,255,.72)}
-.band-navy .sec-head h2,.band-deep .sec-head h2{color:#fff}
+.band-navy .sec-head p,.band-deep .sec-head p,.band-img .sec-head p{color:rgba(255,255,255,.72)}
+.band-navy .sec-head h2,.band-deep .sec-head h2,.band-img .sec-head h2{color:#fff}
 
-/* ════════ ABOUT + FACT CAROUSEL ════════ */
-.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
-.about-grid p{font-size:17px;margin-bottom:18px;color:var(--ink-2)}
-.about-grid p strong{color:var(--navy)}
-.fact-car{background:var(--navy);border-radius:var(--r-lg);padding:38px 34px;color:#fff;position:relative;overflow:hidden;min-height:300px;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(13,39,61,.28)}
-.fact-car::before{content:"";position:absolute;inset:0;background:url('assets/img/pattern.png') no-repeat right -50px bottom -50px;background-size:260px;opacity:.07}
-.fact-head{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-lt);font-weight:900;position:relative;margin-bottom:6px}
-.fact-track{position:relative;flex:1}
-.fact-slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:14px;opacity:0;transform:translateY(14px);transition:.5s;pointer-events:none}
-.fact-slide.on{opacity:1;transform:none;pointer-events:auto}
-.fact-ico{width:62px;height:62px;border-radius:16px;background:rgba(92,167,220,.18);display:flex;align-items:center;justify-content:center;font-size:30px}
-.fact-lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:900}
-.fact-val{font-size:25px;font-weight:900;color:#fff;line-height:1.2}
-.fact-val a{color:var(--blue)}
-.fact-dots{display:flex;gap:8px;margin-top:20px;position:relative}
-.fact-dots button{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.25);cursor:pointer;padding:0;transition:.2s}
-.fact-dots button.on{background:var(--gold);width:26px;border-radius:6px}
-
-/* ════════ MITSPIELEN / WHATSAPP ════════ */
+/* MITSPIELEN — flip cards */
 .play-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.play-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-lg);padding:34px;position:relative;overflow:hidden}
-.play-card .day{font-size:13px;font-weight:900;color:var(--gold-lt);text-transform:uppercase;letter-spacing:.1em}
-.play-card h3{font-size:30px;font-weight:900;color:#fff;margin:4px 0 6px;line-height:1}
-.play-card .time{font-size:17px;color:#fff;font-weight:700;margin-bottom:8px}
-.play-card p{font-size:15px;color:rgba(255,255,255,.7)}
+.pflip{height:280px;perspective:1300px}
+.pflip-in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;cursor:pointer}
+.pflip:hover .pflip-in,.pflip.flip .pflip-in{transform:rotateY(180deg)}
+.pflip-f,.pflip-b{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r-lg);padding:32px;border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column}
+.pflip-f{background:rgba(255,255,255,.05);justify-content:center}
+.pflip-f .day{font-size:13px;font-weight:900;color:var(--gold-lt);text-transform:uppercase;letter-spacing:.1em}
+.pflip-f h3{font-size:30px;font-weight:900;color:#fff;margin:4px 0 6px;line-height:1}
+.pflip-f .time{font-size:16px;color:#fff;font-weight:700}
+.pflip-f .more{margin-top:18px;font-size:11px;color:var(--gold-lt);text-transform:uppercase;letter-spacing:.1em;opacity:.8}
+.pflip-b{background:linear-gradient(160deg,var(--navy),var(--navy-3));transform:rotateY(180deg);justify-content:center;gap:8px;overflow:auto}
+.pflip-b .bt{font-size:18px;font-weight:900;color:var(--gold-lt)}
+.pflip-b p{font-size:14px;color:rgba(255,255,255,.85);line-height:1.55}
 .wa-band{margin-top:24px;background:linear-gradient(135deg,rgba(37,211,102,.16),rgba(37,211,102,.04));border:1px solid rgba(37,211,102,.4);border-radius:var(--r-lg);padding:30px 34px;display:flex;gap:26px;align-items:center;flex-wrap:wrap;justify-content:space-between}
 .wa-band .wt{max-width:640px}
 .wa-band h3{font-size:22px;font-weight:900;color:#fff;display:flex;align-items:center;gap:10px}
 .wa-band p{font-size:15px;color:rgba(255,255,255,.78);margin-top:8px}
 
-/* ════════ CARDS GRID + Category hierarchy ════════ */
-.cat-legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:30px}
-.cat-key{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:800;color:rgba(255,255,255,.8)}
-.cat-key i{width:14px;height:14px;border-radius:4px;display:inline-block}
-.k-all{background:var(--cat-all)} .k-pro{background:var(--cat-pro)} .k-event{background:var(--cat-event)}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:30px 28px;transition:.25s;position:relative;overflow:hidden;color:#fff;border-top:3px solid transparent}
-.band-light .card{background:#fff;border-color:var(--line);color:var(--navy)}
-.card.c-all{border-top-color:var(--cat-all)} .card.c-pro{border-top-color:var(--cat-pro)} .card.c-event{border-top-color:var(--cat-event)}
-.card:hover{transform:translateY(-7px);box-shadow:0 22px 48px rgba(0,0,0,.4)}
-.card-ico{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;background:rgba(92,167,220,.16);margin-bottom:20px}
-.card h3{font-size:var(--fs-h3);font-weight:900;margin-bottom:4px}
-.card .when{font-size:13px;color:var(--gold-lt);font-weight:900;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
-.card p{font-size:14.5px;color:rgba(255,255,255,.68);line-height:1.55}
-.band-light .card p{color:var(--muted)}
-.tag{display:inline-block;margin-top:16px;font-size:11.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;padding:5px 12px;border-radius:30px}
-.tag.t-all{color:#0a3252;background:rgba(92,167,220,.22)} .tag.t-pro{color:#5a4410;background:rgba(205,168,87,.24)} .tag.t-event{color:#cfe5f5;background:rgba(0,90,148,.3)}
+/* CARD STACK */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.about-grid .lead p{font-size:17px;margin-bottom:18px;color:rgba(255,255,255,.82)}
+.about-grid .lead p strong{color:#fff}
+.stack-wrap{position:relative}
+.stack{position:relative;height:330px}
+.scard{position:absolute;inset:0;border-radius:var(--r-lg);padding:34px;color:#fff;overflow:hidden;box-shadow:0 22px 50px rgba(0,0,0,.45);display:flex;flex-direction:column;justify-content:center;gap:13px;transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .5s,background .3s;cursor:grab;border:1px solid rgba(255,255,255,.12)}
+.scard::before{content:"";position:absolute;inset:0;background:url('assets/img/pattern.png') no-repeat right -30px bottom -30px;background-size:230px;opacity:.18}
+.scard .si{width:60px;height:60px;border-radius:16px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font-size:29px;position:relative}
+.scard .sl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);font-weight:900;position:relative}
+.scard .sv{font-size:24px;font-weight:900;line-height:1.2;position:relative}
+.scard .sa{position:relative;margin-top:4px;font-size:13px;font-weight:900;color:var(--gold-lt);display:inline-flex;align-items:center;gap:6px;width:fit-content}
+.scard .sa:hover{color:#fff}
+.scard.gone{transform:translateX(-46px) rotate(-3deg) scale(.96);opacity:0}
+.stack-dots{display:flex;gap:8px;margin-top:20px}
+.stack-dots button{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.25);cursor:pointer;padding:0;transition:.2s}
+.stack-dots button.on{background:var(--gold);width:26px;border-radius:6px}
+.stack-hint{font-size:12px;color:rgba(255,255,255,.5);margin-top:10px;font-weight:700}
 
-/* ════════ MEMBERSHIP ════════ */
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
-.price{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:34px 30px;display:flex;flex-direction:column;transition:.25s;position:relative}
-.price:hover{transform:translateY(-6px);border-color:var(--blue)}
-.price.feature{background:linear-gradient(180deg,rgba(92,167,220,.16),rgba(92,167,220,.02));border-color:var(--gold)}
-.price-flag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:5px 16px;border-radius:30px}
-.price h3{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);font-weight:900}
-.price .amt{font-size:46px;font-weight:900;color:#fff;margin:14px 0 2px;line-height:1}
-.price .amt small{font-size:16px;font-weight:700;color:rgba(255,255,255,.55)}
-.price .per{font-size:13px;color:rgba(255,255,255,.5);font-weight:700;margin-bottom:22px}
-.price ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;flex:1}
-.price li{font-size:14.5px;color:rgba(255,255,255,.82);display:flex;gap:11px;align-items:flex-start}
-.price li::before{content:"●";color:var(--blue);font-size:9px;margin-top:6px;flex-shrink:0}
+/* FILTER CHIPS */
+.chips-filter{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.fchip{font-size:13.5px;font-weight:900;padding:9px 18px;border-radius:30px;border:1.5px solid rgba(255,255,255,.18);color:rgba(255,255,255,.75);background:transparent;cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:8px}
+.fchip i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.fchip:hover{border-color:var(--blue)}.fchip.active{background:#fff;color:var(--navy);border-color:#fff}
+.i-all{background:var(--cat-all)}.i-pro{background:var(--cat-pro)}.i-event{background:var(--cat-event)}
+
+/* FORMATE */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:22px;transition:.25s;color:#fff;border-top:3px solid transparent;display:flex;flex-direction:column;gap:6px}
+.card.c-all{border-top-color:var(--cat-all)}.card.c-pro{border-top-color:var(--cat-pro)}.card.c-event{border-top-color:var(--cat-event)}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.card .ci{display:flex;align-items:center;gap:12px}
+.card-ico{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(92,167,220,.16);flex-shrink:0}
+.card h3{font-size:17px;font-weight:900}
+.card .when{font-size:12px;color:var(--gold-lt);font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+.card p{font-size:13.5px;color:rgba(255,255,255,.66);line-height:1.5;margin-top:4px}
+
+/* MEMBERSHIP */
+.proof{display:flex;gap:40px;flex-wrap:wrap;margin-bottom:40px;padding:24px 30px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg)}
+.proof div b{display:block;font-size:clamp(26px,3.4vw,38px);font-weight:900;color:var(--gold-lt);line-height:1}
+.proof div span{font-size:13px;color:rgba(255,255,255,.6);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.price-grid{display:grid;grid-template-columns:.85fr 1.3fr .85fr;gap:18px;align-items:center}
+.price{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:30px 26px;display:flex;flex-direction:column;transition:.3s cubic-bezier(.2,.7,.2,1);position:relative;z-index:1}
+.price:hover{transform:scale(1.12);z-index:5;border-color:var(--gold);box-shadow:0 30px 70px rgba(0,0,0,.55)}
+.price.feature{background:linear-gradient(180deg,rgba(92,167,220,.18),rgba(92,167,220,.03));border-color:var(--gold);padding:38px 30px}
+.price.feature:hover{transform:scale(1.08)}
+.price-flag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:5px 16px;border-radius:30px;white-space:nowrap}
+.price h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-lt);font-weight:900}
+.price .amt{font-size:40px;font-weight:900;color:#fff;margin:12px 0 2px;line-height:1}
+.price.feature .amt{font-size:48px}
+.price .amt small{font-size:15px;font-weight:700;color:rgba(255,255,255,.55)}
+.price .per{font-size:12.5px;color:rgba(255,255,255,.5);font-weight:700;margin-bottom:20px}
+.price ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px;flex:1}
+.price li{font-size:13.5px;color:rgba(255,255,255,.82);display:flex;gap:10px;align-items:flex-start}
+.price li::before{content:"●";color:var(--blue);font-size:8px;margin-top:6px;flex-shrink:0}
 .price.feature li::before{color:var(--gold-lt)}
-.price .btn{justify-content:center;width:100%}
-.goenner{margin-top:24px;background:linear-gradient(135deg,rgba(205,168,87,.16),rgba(205,168,87,.03));border:1px solid rgba(205,168,87,.4);border-radius:var(--r-lg);padding:36px;display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.goenner .gt{max-width:680px}
-.goenner h3{font-size:26px;font-weight:900;color:#fff;display:flex;align-items:center;gap:12px}
-.goenner p{font-size:15.5px;color:rgba(255,255,255,.8);margin-top:10px}
+.price .btn{justify-content:center;width:100%;padding:13px 18px;font-size:14px}
+.sponsor{margin-top:22px;background:linear-gradient(135deg,rgba(205,168,87,.16),rgba(205,168,87,.03));border:1px solid rgba(205,168,87,.4);border-radius:var(--r-lg);padding:30px 34px;display:flex;gap:26px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.sponsor .st{max-width:680px}
+.sponsor h3{font-size:23px;font-weight:900;color:#fff;display:flex;align-items:center;gap:12px}
+.sponsor p{font-size:15px;color:rgba(255,255,255,.8);margin-top:8px}
 
-/* ════════ EVENTS CALENDAR / AGENDA ════════ */
-.cal-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
-.fchip{font-size:13.5px;font-weight:900;padding:9px 18px;border-radius:30px;border:1.5px solid rgba(255,255,255,.18);color:rgba(255,255,255,.75);background:transparent;cursor:pointer;transition:.18s}
-.fchip:hover{border-color:var(--blue)}
-.fchip.active{background:#fff;color:var(--navy);border-color:#fff}
-.agenda{display:flex;flex-direction:column;gap:12px}
-.ev{display:grid;grid-template-columns:90px 1fr auto;gap:22px;align-items:center;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-left:5px solid var(--c);border-radius:14px;padding:18px 24px;transition:.2s}
-.ev:hover{transform:translatex(4px);background:rgba(255,255,255,.08)}
-.ev .date{text-align:center}
-.ev .date b{display:block;font-size:24px;font-weight:900;color:#fff;line-height:1}
-.ev .date span{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.55)}
-.ev .info b{display:block;font-size:17px;font-weight:900;color:#fff}
-.ev .info span{font-size:13.5px;color:rgba(255,255,255,.6);font-weight:600}
-.ev .badge{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;padding:6px 13px;border-radius:30px;color:#06121d;background:var(--c);white-space:nowrap}
-.cal-foot{margin-top:24px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.ev[data-cat=all]{--c:var(--cat-all)} .ev[data-cat=pro]{--c:var(--cat-pro)} .ev[data-cat=event]{--c:var(--cat-event)}
+/* CALENDAR */
+.cal-views{display:flex;gap:8px;margin-bottom:18px}
+.cv{font-size:13px;font-weight:900;padding:8px 18px;border-radius:30px;border:1.5px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.75);cursor:pointer;transition:.18s}
+.cv.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.agenda-wrap{position:relative}
+.agenda-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46px;background:linear-gradient(transparent,var(--navy-3));pointer-events:none;border-radius:0 0 14px 14px}
+.cal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-height:340px;overflow-y:auto;padding:4px 12px 30px 0;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+.cal-grid::-webkit-scrollbar{width:9px}.cal-grid::-webkit-scrollbar-thumb{background:var(--gold);border-radius:8px}.cal-grid::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:8px}
+.scroll-tag{position:absolute;top:-2px;right:0;font-size:11px;font-weight:900;color:var(--gold-lt);text-transform:uppercase;letter-spacing:.08em;opacity:.8}
+.ev{display:grid;grid-template-columns:58px 1fr;gap:16px;align-items:center;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-left:5px solid var(--c);border-radius:12px;padding:14px 16px;transition:.2s}
+.ev:hover{background:rgba(255,255,255,.09)}
+.ev[data-cat=all]{--c:var(--cat-all)}.ev[data-cat=pro]{--c:var(--cat-pro)}.ev[data-cat=event]{--c:var(--cat-event)}
+.ev .date{text-align:center}.ev .date b{display:block;font-size:21px;font-weight:900;color:#fff;line-height:1}
+.ev .date span{font-size:11px;font-weight:800;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.ev .info b{display:block;font-size:15px;font-weight:900;color:#fff}.ev .info span{font-size:12.5px;color:rgba(255,255,255,.6);font-weight:600}
+/* month grid */
+.calm{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-lg);padding:22px}
+.calm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.calm-head .mt{font-size:20px;font-weight:900;color:#fff}
+.calm-head button{background:rgba(255,255,255,.1);border:0;color:#fff;width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:16px;font-weight:900}
+.calm-head button:hover{background:var(--gold);color:var(--navy)}
+.calm-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.calm-dow{font-size:11px;font-weight:900;text-transform:uppercase;color:rgba(255,255,255,.4);text-align:center;padding:4px 0}
+.calm-cell{min-height:74px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:6px;display:flex;flex-direction:column;gap:3px}
+.calm-cell.empty{background:transparent;border:0}
+.calm-cell .dn{font-size:12px;font-weight:800;color:rgba(255,255,255,.6)}
+.calm-cell.today{border-color:var(--gold)}
+.cev{font-size:9.5px;font-weight:800;color:#06121d;border-radius:4px;padding:2px 4px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cev.all{background:var(--cat-all)}.cev.pro{background:var(--cat-pro)}.cev.event{background:var(--cat-event);color:#fff}
+.cal-foot{margin-top:22px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 
-/* Zürich Open highlight */
-.tcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:var(--r-lg);overflow:hidden;margin-top:40px}
-.tcard-head{background:var(--navy);padding:34px 38px;border-bottom:3px solid var(--gold);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
-.tcard-head h3{font-size:clamp(24px,3.4vw,34px);font-weight:900;color:#fff;text-transform:uppercase;line-height:1}
-.tcard-head .meta{font-size:13.5px;color:rgba(255,255,255,.6);font-weight:700;margin-top:8px}
-.tprize{text-align:right}
-.tprize b{display:block;font-size:34px;font-weight:900;color:var(--gold-lt);line-height:1}
-.tprize span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:800}
-.tcard-body{padding:34px 38px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
-.tinfo b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-lt);font-weight:900;margin-bottom:7px}
-.tinfo p{font-size:14.5px;color:rgba(255,255,255,.82);font-weight:600}
-.dates{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
-.date-pill{background:rgba(92,167,220,.16);border:1px solid rgba(92,167,220,.3);color:#fff;font-size:13px;font-weight:800;padding:6px 13px;border-radius:9px}
-
-/* ════════ TABLES (Leonhart-Verein) ════════ */
-.leon-hero{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;background:linear-gradient(135deg,rgba(92,167,220,.14),rgba(92,167,220,.02));border:1px solid rgba(92,167,220,.3);border-radius:var(--r-lg);padding:40px;margin-bottom:26px}
-.leon-hero .big{font-size:clamp(72px,12vw,150px);font-weight:900;color:var(--blue);line-height:.85;letter-spacing:-.03em}
-.leon-hero .big small{display:block;font-size:24px;color:#fff;letter-spacing:0;font-weight:900;text-transform:uppercase;margin-top:6px}
-.leon-hero p{font-size:16px;color:rgba(255,255,255,.8)}
-.leon-hero p strong{color:#fff}
+/* TABLES flip */
+.leon-line{font-size:17px;color:rgba(255,255,255,.8);max-width:760px;margin-bottom:34px}
+.leon-line strong{color:#fff}
 .tables{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.tbl{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px;text-align:center;transition:.22s}
-.tbl.permanent{border-color:var(--blue);background:rgba(92,167,220,.1)}
-.tbl:hover{transform:translateY(-5px);border-color:var(--gold)}
-.tbl b{display:block;font-size:38px;font-weight:900;color:var(--gold-lt);line-height:1}
-.tbl.permanent b{color:var(--blue)}
-.tbl .nm{font-size:14.5px;font-weight:900;color:#fff;margin:8px 0 2px}
-.tbl .sub{font-size:12px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.tbl .opt{display:inline-block;margin-top:8px;font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-lt);opacity:.8}
+.flip{height:210px;perspective:1000px}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.flip:hover .flip-in{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:20px;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.12)}
+.flip-f{background:rgba(255,255,255,.045);align-items:center;justify-content:center;text-align:center;gap:6px}
+.flip-f.lead{background:rgba(92,167,220,.12);border-color:var(--blue)}
+.flip-f b{font-size:44px;font-weight:900;color:var(--gold-lt);line-height:1}
+.flip-f.lead b{color:var(--blue)}
+.flip-f .nm{font-size:20px;font-weight:900;color:#fff}
+.flip-f .sub{font-size:11px;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.flip-b{background:linear-gradient(160deg,var(--navy),var(--navy-3));transform:rotateY(180deg);justify-content:center;gap:8px}
+.flip-b .origin{font-size:11px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.05em}
+.flip-b .btn2{font-size:15px;font-weight:900;color:var(--gold-lt)}
+.flip-b p{font-size:12.5px;color:rgba(255,255,255,.82);line-height:1.5}
 
-/* ════════ SPLIT (Events / Kinder) ════════ */
+/* EVENTS bg */
+.ev-lead{font-size:18px;color:rgba(255,255,255,.82);max-width:680px;margin-top:16px}
+.ev-lead strong{color:#fff}
+.ev-types{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:34px 0 30px}
+.ev-type{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:24px 22px;transition:.22s}
+.ev-type:hover{transform:translateY(-6px);border-color:var(--gold);background:rgba(255,255,255,.1)}
+.ev-type .tt{font-size:18px;font-weight:900;color:#fff;margin-bottom:6px}
+.ev-type p{font-size:13.5px;color:rgba(255,255,255,.7);line-height:1.5}
+.ev-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.ev-meta span{font-size:13px;font-weight:800;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.88);padding:8px 15px;border-radius:30px}
+
+/* SPLIT */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .split-media{border-radius:var(--r-lg);overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.4);aspect-ratio:4/3}
 .split-media img{width:100%;height:100%;object-fit:cover}
 .split-media.right{order:2}
 .split h2{font-size:clamp(30px,4.5vw,48px);font-weight:900;line-height:1;text-transform:uppercase;letter-spacing:-.02em;color:#fff}
-.split .lead{font-size:17px;color:rgba(255,255,255,.78);margin-top:18px}
-.split .lead strong{color:#fff}
-.feat-list{display:flex;flex-direction:column;gap:14px;margin:24px 0 26px}
-.feat-list .fi{display:flex;gap:14px;align-items:flex-start;font-size:15.5px;color:rgba(255,255,255,.82)}
-.feat-ico{width:40px;height:40px;border-radius:11px;background:rgba(205,168,87,.16);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.split .lead{font-size:17px;color:rgba(255,255,255,.78);margin-top:18px}.split .lead strong{color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
 .chip{font-size:13px;font-weight:800;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.85);padding:8px 15px;border-radius:30px}
-.soon{display:inline-block;margin-top:18px;font-size:13px;font-style:italic;color:rgba(255,255,255,.5)}
 
-/* ════════ PHOTO CAROUSEL (laufende Slideshow) ════════ */
+/* PHOTO CAROUSEL */
 .pcar{overflow:hidden;position:relative}
 .pcar-row{display:flex;gap:14px;width:max-content}
-.pcar-row.r1{animation:slideL 55s linear infinite}
-.pcar-row.r2{animation:slideR 60s linear infinite;margin-top:14px}
+.pcar-row.r1{animation:slideL 55s linear infinite}.pcar-row.r2{animation:slideR 60s linear infinite;margin-top:14px}
 .pcar:hover .pcar-row{animation-play-state:paused}
 @keyframes slideL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes slideR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-.pcar-row.r1 img{height:260px}
-.pcar-row.r2 img{height:180px}
+.pcar-row.r1 img{height:260px}.pcar-row.r2 img{height:180px}
 .pcar img{width:auto;border-radius:14px;cursor:pointer;object-fit:cover;flex-shrink:0;transition:.3s;filter:saturate(.96)}
 .pcar img:hover{filter:saturate(1.1) brightness(1.05)}
 .pcar::before,.pcar::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:3;pointer-events:none}
-.pcar::before{left:0;background:linear-gradient(90deg,var(--navy-2),transparent)}
-.pcar::after{right:0;background:linear-gradient(270deg,var(--navy-3),transparent)}
-/* Lightbox */
+.pcar::before{left:0;background:linear-gradient(90deg,var(--navy-2),transparent)}.pcar::after{right:0;background:linear-gradient(270deg,var(--navy-3),transparent)}
 .lb{position:fixed;inset:0;background:rgba(5,15,24,.94);z-index:9000;display:none;align-items:center;justify-content:center;padding:30px;cursor:zoom-out}
-.lb.on{display:flex}
-.lb img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.lb.on{display:flex}.lb img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 30px 90px rgba(0,0,0,.6)}
 
-/* ════════ SOCIAL ════════ */
-.soc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
-.soc-card{border-radius:var(--r-lg);padding:34px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;min-height:200px}
+/* SOCIAL */
+.soc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.soc-card{border-radius:var(--r-lg);padding:34px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;min-height:220px}
 .soc-card.ig{background:linear-gradient(135deg,#833ab4,#fd1d1d 60%,#fcb045)}
 .soc-card.yt{background:linear-gradient(135deg,#1a1a1a,#c4302b)}
 .soc-card h3{font-size:26px;font-weight:900;display:flex;align-items:center;gap:12px}
 .soc-card p{font-size:15px;opacity:.92;margin-top:8px;max-width:90%}
 .soc-card .handle{font-weight:900;margin-top:18px;font-size:15px}
-.soc-tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-.soc-tiles a{aspect-ratio:1;overflow:hidden;border-radius:12px;position:relative}
-.soc-tiles img{width:100%;height:100%;object-fit:cover;transition:.4s}
-.soc-tiles a:hover img{transform:scale(1.08)}
-.soc-tiles a::after{content:"📷";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(131,58,180,.5);opacity:0;transition:.25s;font-size:24px}
-.soc-tiles a:hover::after{opacity:1}
+.yt-embed{margin-top:24px;border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(255,255,255,.12);aspect-ratio:16/9;background:rgba(255,255,255,.04)}
+.yt-embed iframe{width:100%;height:100%;border:0;display:block}
 
-/* ════════ CONTACT ════════ */
-.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:start}
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:stretch}
 .cinfo{display:flex;flex-direction:column;gap:14px}
 .crow{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 20px}
-.crow .ci{width:44px;height:44px;border-radius:12px;background:rgba(205,168,87,.16);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+.crow .cic{width:44px;height:44px;border-radius:12px;background:rgba(205,168,87,.16);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
 .crow .cl{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45)}
 .crow .cv{font-size:16px;color:#fff;font-weight:700;margin-top:2px}
-.crow .cv a{color:var(--blue)} .crow .cv a:hover{color:var(--gold-lt)}
+.crow .cv a{color:var(--blue)}.crow .cv a:hover{color:var(--gold-lt)}
 .socials{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .soc{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:11px;font-size:13.5px;font-weight:900;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);transition:.2s}
 .soc:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-.map{width:100%;height:100%;min-height:420px;border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(255,255,255,.13)}
-.map iframe{width:100%;height:100%;border:0;filter:grayscale(.3) invert(.92) hue-rotate(180deg)}
+.map{border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(255,255,255,.13);min-height:430px}
+.map iframe{width:100%;height:100%;min-height:430px;border:0}
 
-/* ════════ CTA STRIP ════════ */
+/* CTA */
 .cta-strip{position:relative;z-index:1;background:var(--gold);color:var(--navy);text-align:center;padding:74px 28px;overflow:hidden}
 .cta-strip::before{content:"";position:absolute;inset:0;background:url('assets/img/pattern.png') repeat;background-size:170px;opacity:.05;mix-blend-mode:multiply}
 .cta-strip h2{font-size:clamp(30px,5vw,52px);font-weight:900;text-transform:uppercase;line-height:1;letter-spacing:-.02em;position:relative}
-.cta-strip p{font-size:18px;font-weight:700;margin:16px 0 30px;position:relative}
-.cta-strip .btn{position:relative}
+.cta-strip p{font-size:18px;font-weight:700;margin:16px 0 30px;position:relative}.cta-strip .btn{position:relative}
 
-/* ════════ FOOTER ════════ */
+/* FOOTER */
 footer{position:relative;z-index:1;background:var(--navy-3);padding:56px 0 36px;color:#fff}
 .foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start;margin-bottom:34px}
-.foot-brand{max-width:330px}
-.foot-brand img{height:48px;margin-bottom:16px;opacity:.92}
-.foot-brand p{font-size:14px;color:rgba(255,255,255,.55)}
+.foot-brand{max-width:330px}.foot-brand img{height:48px;margin-bottom:16px;opacity:.92}.foot-brand p{font-size:14px;color:rgba(255,255,255,.55)}
 .foot-cols{display:flex;gap:60px;flex-wrap:wrap}
 .foot-col h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);font-weight:900;margin-bottom:14px}
-.foot-col a{display:block;font-size:14px;color:rgba(255,255,255,.6);padding:5px 0;transition:.18s}
-.foot-col a:hover{color:#fff;padding-left:5px}
+.foot-col a{display:block;font-size:14px;color:rgba(255,255,255,.6);padding:5px 0;transition:.18s}.foot-col a:hover{color:#fff;padding-left:5px}
 .foot-div{height:1px;background:rgba(255,255,255,.1);margin:0 0 22px}
-.foot-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:rgba(255,255,255,.32)}
-.foot-bot .gold{color:var(--gold-lt)}
+.foot-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:rgba(255,255,255,.32)}.foot-bot .gold{color:var(--gold-lt)}
 
-/* ════════ REVEAL ════════ */
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
-/* ════════ CMS ════════ */
+@media(max-width:1024px){
+  .about-grid,.split,.contact-grid,.play-grid,.soc-grid{grid-template-columns:1fr;gap:38px}
+  .split-media.right{order:0}
+  .cards,.tables,.ev-types{grid-template-columns:repeat(2,1fr)}
+  .price-grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+  .price:hover,.price.feature:hover{transform:scale(1.03)}
+  .cal-grid{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  :root{--band-pad:calc(70px * var(--space-scale))}
+  .wrap,.nav-in,.hero-in{padding-left:20px;padding-right:20px}
+  .nav-links{position:fixed;inset:70px 0 auto 0;flex-direction:column;background:var(--navy-3);padding:16px;gap:4px;border-bottom:2px solid var(--gold);transform:translateY(-130%);transition:.32s;align-items:stretch}
+  .nav-links.open{transform:none}.nav-links a{padding:13px}.burger{display:flex}
+  .cards,.tables,.ev-types{grid-template-columns:1fr}
+  .hero-stats{gap:24px}.hero h1{font-size:clamp(46px,15vw,74px)}.split-media{aspect-ratio:16/11}
+  .calm-cell{min-height:54px}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="brand-top"></div>
+<nav class="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand"><img src="assets/img/logo-crest.png" alt="TFCZ Wappen"><div class="brand-txt">Tischfussball Club<span>Zürich · TFCZ</span></div></a>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="#mitspielen">Mitspielen</a></li>
+      <li><a href="#angebot">Angebot</a></li>
+      <li><a href="#mitglied">Mitglied</a></li>
+      <li><a href="#kalender">Kalender</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#mitspielen" class="nav-cta">Komm vorbei</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="brand-bottom"></div>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-bg"><img src="assets/img/hero-hall.jpg" alt="Tischfussball-Turnier im TFCZ"></div>
+  <div class="hero-in">
+    <span class="eyebrow">Zürich Wipkingen · seit Jahren am Kicken</span>
+    <h1>Wo Zürich<br><span class="blue">kickt.</span></h1>
+    <p class="hero-sub">Offenes Training, wöchentliche Turniere, Kindertraining und Events rund um den Tischfussball. <strong>Vom ersten Mal bis zur Schweizermeisterschaft — bei uns sind alle willkommen.</strong></p>
+    <div class="hero-cta">
+      <a href="#mitspielen" class="btn btn-gold">Wann kann ich vorbeikommen? →</a>
+      <a href="#mitglied" class="btn btn-ghost">Mitglied werden</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><b>100+</b><span>Mitglieder</span></div>
+      <div class="hstat"><b>10×</b><span>Leonhart-Tische</span></div>
+      <div class="hstat"><b><span class="mini">mind.</span>2×</b><span>pro Woche offen</span></div>
+      <div class="hstat"><b>100 m²</b><span>Clublokal</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee"><div class="marquee-tr" id="marquee">
+  <span class="mq">Offenes Training</span><i class="sep"></i><span class="mq">Crazy DYP</span><i class="sep"></i><span class="mq">Käsekick</span><i class="sep"></i><span class="mq">STF Turniere</span><i class="sep"></i><span class="mq">Kindertraining</span><i class="sep"></i><span class="mq">Events</span><i class="sep"></i><span class="mq">Anfänger bis Profi</span><i class="sep"></i>
+  <span class="mq">Offenes Training</span><i class="sep"></i><span class="mq">Crazy DYP</span><i class="sep"></i><span class="mq">Käsekick</span><i class="sep"></i><span class="mq">STF Turniere</span><i class="sep"></i><span class="mq">Kindertraining</span><i class="sep"></i><span class="mq">Events</span><i class="sep"></i><span class="mq">Anfänger bis Profi</span><i class="sep"></i>
+</div></div>
+
+<!-- MITSPIELEN (zuerst) -->
+<section class="band band-navy" id="mitspielen">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Mitspielen</span>
+      <h2>Einfach vorbeikommen</h2>
+      <p>Kein Anmelden, kein fixer Partner, auch alleine — komm an einem Spielabend vorbei und du wirst sofort mitgenommen. Fahr über eine Karte für alle Details.</p>
+    </div>
+    <div class="play-grid reveal">
+      <div class="pflip"><div class="pflip-in"><div class="pflip-f"><div class="day">Dienstag</div><h3>Offenes Training</h3><div class="time">18:00 – ca. 23:00</div><div class="more">↻ Mehr erfahren</div></div>
+        <div class="pflip-b"><div class="bt">Offenes Training</div><p>Jeden <strong style="color:#fff">Dienstag ab 18 Uhr</strong> offen für alle — Mitglieder und Gäste, Anfänger:innen bis Profis. Kein Anmelden, kein Druck: einfach vorbeikommen, auch alleine. Erfahrene Spieler:innen nehmen dich an die Hand und geben Tipps zu Technik und Stellungsspiel. Schläger brauchst du keine — die Tische stehen bereit. Der perfekte Abend zum Reinschnuppern.</p></div></div></div>
+      <div class="pflip"><div class="pflip-in"><div class="pflip-f"><div class="day">Mittwoch</div><h3>Mittwochs Crazy DYP</h3><div class="time">Türöffnung 19:00 · Start 20:15</div><div class="more">↻ Modus erklärt</div></div>
+        <div class="pflip-b"><div class="bt">Was ist Crazy DYP?</div><p><strong style="color:#fff">DYP = „Draw Your Partner"</strong>: dein Doppelpartner wird <strong style="color:#fff">zufällig zugelost</strong> — du musst also niemanden mitbringen und kannst problemlos alleine kommen. „Crazy" steht für den variablen Modus mit wechselnden Regeln, der für Spass und Überraschungen sorgt. Türöffnung 19:00, Start 20:15. Einzelanmeldung möglich, jedes Niveau willkommen. Über die Saison läuft die DYP-Challenge-Jahreswertung.</p></div></div></div>
+    </div>
+    <div class="wa-band reveal">
+      <div class="wt"><h3>💬 Tritt unserer WhatsApp-Gruppe bei</h3><p>So verpasst du nichts: In der Gruppe siehst du immer, wann der Club geöffnet ist — inklusive <strong style="color:#fff">spontaner Sonderöffnungen</strong>. Der einfachste Weg, um zu wissen, wann du vorbeikommen kannst.</p></div>
+      <a href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp-Gruppe beitreten →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBER UNS (dunkel mit Bild) -->
+<section class="band-img" id="ueber">
+  <div class="bgimg"><img src="assets/img/wide-hall.jpg" alt=""></div>
+  <div class="wrap">
+    <div class="about-grid reveal">
+      <div class="lead">
+        <span class="kicker">Der Verein</span>
+        <h2 style="font-size:var(--fs-h2);font-weight:900;line-height:.98;text-transform:uppercase;letter-spacing:-.02em;color:#fff">Wo aus Töggelä<br>Sport wird.</h2>
+        <p style="margin-top:24px">Der <strong>TFCZ</strong> ist der Tischfussball-Verein für Zürich. Seit Jahren bieten wir eine Heimat für alle, die kicken wollen — egal ob Mann oder Frau, jung oder alt, Einsteiger oder Profi.</p>
+        <p>Unser Clublokal an der <strong>Landenbergstrasse 10 in Zürich Wipkingen</strong> umfasst rund 100 m² mit Bar und Aussenbereich. Wir sind ein echter <strong>Leonhart-Verein</strong> mit zehn permanent aufgestellten Turniertischen.</p>
+        <p>Getragen wird der Verein durch <strong>Freiwilligenarbeit</strong> — angetrieben vom Sport, der Gemeinschaft und der Überzeugung, dass Tischfussball viel mehr ist als ein Spiel für nebenbei. Wir sind Teil des <strong>Schweizer Tischfussball-Verbands (STF)</strong>.</p>
+      </div>
+      <div class="stack-wrap">
+        <div class="stack" id="stack">
+          <div class="scard" data-i="0"><div class="si">📍</div><div class="sl">Adresse</div><div class="sv">Landenbergstrasse 10<br>8037 Zürich (Wipkingen)</div><a class="sa" href="https://www.google.com/maps?q=Landenbergstrasse+10,+8037+Z%C3%BCrich" target="_blank" rel="noopener">📍 Auf Karte zeigen →</a></div>
+          <div class="scard" data-i="1"><div class="si">🏟️</div><div class="sl">Lokal</div><div class="sv">ca. 100 m² · Bar<br>Aussenbereich vorhanden</div><a class="sa" href="#tische">Unsere Tische →</a></div>
+          <div class="scard" data-i="2"><div class="si">⚽</div><div class="sl">Tische</div><div class="sv">10× Leonhart permanent<br>+ Ullrich, Garlando &amp; Co.</div><a class="sa" href="#tische">Tisch-Kunde →</a></div>
+          <div class="scard" data-i="3"><div class="si">🕐</div><div class="sl">Geöffnet</div><div class="sv">Dienstag &amp; Mittwoch<br>+ Events &amp; Spontanöffnungen</div><a class="sa" href="#mitspielen">Wann offen? →</a></div>
+          <div class="scard" data-i="4"><div class="si">🤝</div><div class="sl">Träger</div><div class="sv">Verein · Freiwilligenarbeit<br>Mitglied im STF-Verband</div><a class="sa" href="#mitglied">Mitglied werden →</a></div>
+          <div class="scard" data-i="5"><div class="si">✉️</div><div class="sl">Kontakt</div><div class="sv">info@tfcz.ch · tfcz.ch</div><a class="sa" href="mailto:info@tfcz.ch">Schreib uns →</a></div>
+        </div>
+        <div class="stack-dots" id="stackdots"></div>
+        <div class="stack-hint">↔ Karte wegwischen oder antippen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANGEBOT -->
+<section class="band band-deep" id="angebot">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Unser Angebot</span>
+      <h2>Für jedes Niveau<br>das richtige Format</h2>
+      <p>Vom entspannten Trainingsabend bis zum ernsthaften Wettkampf. Filtere nach dem, was zu dir passt.</p>
+    </div>
+    <div class="chips-filter reveal" id="formatFilter">
+      <button class="fchip active" data-f="alle">Alle</button>
+      <button class="fchip" data-f="all"><i class="i-all"></i>Für alle</button>
+      <button class="fchip" data-f="pro"><i class="i-pro"></i>Wettkampf</button>
+      <button class="fchip" data-f="event"><i class="i-event"></i>Spezial</button>
+    </div>
+    <div class="cards" id="formatCards">
+      <div class="card c-all reveal" data-cat="all"><div class="ci"><div class="card-ico">⚽</div><div><h3>Offenes Training</h3><div class="when">Dienstag · 18:00</div></div></div><p>Kein Anmelden, einfach vorbeikommen und mitspielen. Auch alleine — geübte Spieler nehmen dich mit.</p></div>
+      <div class="card c-all reveal" data-cat="all"><div class="ci"><div class="card-ico">🎲</div><div><h3>Mittwochs Crazy DYP</h3><div class="when">Mittwoch · 20:15</div></div></div><p>Draw Your Partner: zufälliger Partner, variabler Modus. Einzelanmeldung möglich, mit Jahreswertung.</p></div>
+      <div class="card c-all reveal" data-cat="all"><div class="ci"><div class="card-ico">🧀</div><div><h3>Käsekick</h3><div class="when">Letzter Freitag · 19:30</div></div></div><p>Fun-Turnier mit Walliser Raclette inklusive, CHF 5.– Eintritt. Das Niveau ist hier Nebensache.</p></div>
+      <div class="card c-pro reveal" data-cat="pro"><div class="ci"><div class="card-ico">🏆</div><div><h3>STF Regio Turniere</h3><div class="when">10–15× pro Jahr</div></div></div><p>Für die schweizweite STF-Rangliste. Einzel und Doppel, Niveau mittel bis Profi.</p></div>
+      <div class="card c-pro reveal" data-cat="pro"><div class="ci"><div class="card-ico">🥇</div><div><h3>Zürich Open</h3><div class="when">Regio Tour Pro</div></div></div><p>Offenes Doppel nach ITSF-Regelwerk auf 10 Leonhart-Tischen. Mit YouTube-Stream.</p></div>
+      <div class="card c-event reveal" data-cat="event"><div class="ci"><div class="card-ico">👶</div><div><h3>Kindertraining</h3><div class="when">Eigenes Angebot</div></div></div><p>Spielerischer Zugang zum Tischfussball für Kinder und Jugendliche, begleitet von erfahrenen Mitgliedern.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MITGLIEDSCHAFT -->
+<section class="band band-navy" id="mitglied">
+  <div class="wrap">
+    <div class="sec-head reveal" style="max-width:780px">
+      <span class="kicker">Werde Teil vom Club</span>
+      <h2>Werde eine:r<br>von uns</h2>
+      <p>Probier es zuerst gratis aus. Danach entscheidest du, wie viel du dabei sein willst.</p>
+    </div>
+    <div class="proof reveal">
+      <div><b>100+</b><span>Mitglieder</span></div>
+      <div><b>2×</b><span>Spielabende / Woche</span></div>
+      <div><b>15+</b><span>Turniere / Jahr</span></div>
+      <div><b>10×</b><span>Leonhart-Tische</span></div>
+    </div>
+    <div class="price-grid">
+      <div class="price reveal"><h3>Schnuppern</h3><div class="amt">Gratis</div><div class="per">danach CHF 5.– / Eintritt</div><ul><li>Erster Abend komplett gratis</li><li>Danach CHF 5.– pro Mal im Club</li><li>Kein Abo, keine Verpflichtung</li></ul><a href="#mitspielen" class="btn btn-ghost">Vorbeikommen</a></div>
+      <div class="price feature reveal"><div class="price-flag">Beliebt</div><h3>Aktivmitglied</h3><div class="amt">CHF&nbsp;200<small>/Jahr</small></div><div class="per">Volles Vereinsjahr</div><ul><li>Unbegrenzt Training &amp; Crazy DYP</li><li>Zugang zu allen Vereinsabenden</li><li>Vergünstigte Startgelder</li><li>WhatsApp-Community &amp; Spontanöffnungen</li><li>DYP-Challenge Jahreswertung</li></ul><a href="mailto:info@tfcz.ch?subject=Aktivmitgliedschaft" class="btn btn-gold">Mitglied werden</a></div>
+      <div class="price reveal"><h3>Key Player</h3><div class="amt">CHF&nbsp;250<small>/Jahr</small></div><div class="per">Aktiv + Schlüssel</div><ul><li>Alles aus dem Aktivmitglied</li><li>Eigener Schlüssel zum Lokal</li><li>Mehr Verantwortung &amp; Mitgestaltung</li></ul><a href="mailto:info@tfcz.ch?subject=Key%20Player" class="btn btn-ghost">Key Player werden</a></div>
+    </div>
+    <div class="sponsor reveal">
+      <div class="st"><h3>🤝 Sponsor oder Gönner werden</h3><p>Du willst den TFCZ unterstützen, ohne selbst am Tisch zu stehen? Als Sponsor oder Gönner förderst du Sport, Lokal und Nachwuchs. Den Betrag bestimmst du — wir melden uns mit den Details.</p></div>
+      <a href="mailto:info@tfcz.ch?subject=Sponsor%2FG%C3%B6nner" class="btn btn-gold">Anfragen →</a>
+    </div>
+  </div>
+</section>
+
+<!-- KALENDER -->
+<section class="band band-deep" id="kalender">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Kalender</span>
+      <h2>Was als Nächstes<br>ansteht</h2>
+      <p>Alle Anlässe, farblich nach Kategorie. Wechsle zwischen Listen- und Kalenderansicht und filtere nach Typ.</p>
+    </div>
+    <div class="cal-views reveal">
+      <button class="cv active" data-v="list" id="vList">☰ Liste</button>
+      <button class="cv" data-v="cal" id="vCal">▦ Kalender</button>
+    </div>
+    <div class="chips-filter reveal" id="calFilter">
+      <button class="fchip active" data-f="alle">Alle</button>
+      <button class="fchip" data-f="all"><i class="i-all"></i>Für alle</button>
+      <button class="fchip" data-f="pro"><i class="i-pro"></i>Wettkampf</button>
+      <button class="fchip" data-f="event"><i class="i-event"></i>Spezial</button>
+    </div>
+    <div class="agenda-wrap reveal" id="listView">
+      <span class="scroll-tag">↕ scrollen</span>
+      <div class="cal-grid" id="agenda"></div>
+    </div>
+    <div class="calm reveal" id="calView" style="display:none">
+      <div class="calm-head"><button id="calPrev">‹</button><div class="mt" id="calTitle">—</div><button id="calNext">›</button></div>
+      <div class="calm-grid" id="calMonth"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TISCHE -->
+<section class="band band-navy" id="tische">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Ausstattung</span><h2>Wir sind ein<br>Leonhart-Verein</h2></div>
+    <p class="leon-line reveal"><strong>Zehn Leonhart-Turniertische stehen bei uns permanent</strong> — unser Markenzeichen und die Basis fürs Zürich Open. Fahr mit der Maus über einen Tisch: kleine Tisch-Kunde inklusive.</p>
+    <div class="tables reveal">
+      <div class="flip"><div class="flip-in"><div class="flip-f lead"><b>10×</b><div class="nm">Leonhart</div><div class="sub">Turniertisch</div></div><div class="flip-b"><div class="origin">Deutschland</div><div class="btn2">Leonhart</div><p>Der deutsche Turnierstandard: kontrollierte Stangen, harte Bälle, präzises Spiel. Unser Haupttisch — zehn Stück fürs Zürich Open.</p></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="flip-f"><b>1×</b><div class="nm">Ullrich</div><div class="sub">Tournament</div></div><div class="flip-b"><div class="origin">Deutschland</div><div class="btn2">Ullrich Tournament</div><p>Klassischer deutscher Turniertisch mit ruhigem, kontrolliertem Spielgefühl — beliebt in der deutschen Turnierszene.</p></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="flip-f"><b>3×</b><div class="nm">Garlando</div><div class="sub">Deluxe</div></div><div class="flip-b"><div class="origin">Italien</div><div class="btn2">Garlando</div><p>Italienischer Klassiker, schnelles Spiel, europaweit verbreitet. Bei uns gleich dreimal — ideal für Training und Plausch.</p></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="flip-f"><b>1×</b><div class="nm">Garlando WC</div><div class="sub">World Champion</div></div><div class="flip-b"><div class="origin">Italien</div><div class="btn2">Garlando World Champion</div><p>Die Wettkampf-Version des Garlando: robustes Spielfeld, schnelles Tempo, weltweit auf Turnieren im Einsatz.</p></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="flip-f"><b>1×</b><div class="nm">Bonzini</div><div class="sub">Babyfoot</div></div><div class="flip-b"><div class="origin">Frankreich</div><div class="btn2">Bonzini</div><p>Der französische Kult-Tisch („Babyfoot"): Teleskop-Stangen, ganz eigenes Spielgefühl — ein Erlebnis für sich.</p></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="flip-f"><b>1×</b><div class="nm">Roberto Sport</div><div class="sub">Classic</div></div><div class="flip-b"><div class="origin">Italien</div><div class="btn2">Roberto Sport</div><p>Italienischer Tisch, robust und beliebt im Wettkampf — bringt nochmals ein anderes Spielgefühl an den Tisch.</p></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="flip-f"><b>1×</b><div class="nm">Tornado</div><div class="sub">USA-Standard</div></div><div class="flip-b"><div class="origin">USA</div><div class="btn2">Tornado</div><p>Der US-amerikanische Standard: harte, schnelle Bälle und griffige Stangen — das Spielgefühl der amerikanischen Szene.</p></div></div></div>
+      <div class="flip"><div class="flip-in"><div class="flip-f"><b>16+</b><div class="nm">Total</div><div class="sub">je nach Anlass</div></div><div class="flip-b"><div class="btn2">Von jedem etwas</div><p>10 Leonhart stehen immer. Der Rest wird je nach Turnier und Anlass dazugestellt — so spielst du bei uns auf Tischen aus aller Welt.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="band-img" id="events">
+  <div class="bgimg"><img src="assets/img/g2.jpg" alt="Event am Tischfussball"></div>
+  <div class="wrap">
+    <div class="reveal" style="max-width:760px">
+      <span class="kicker">Feiern &amp; Teambuilding</span>
+      <h2 style="font-size:var(--fs-h2);font-weight:900;line-height:.98;text-transform:uppercase;letter-spacing:-.02em;color:#fff">Unsere Events,<br>die hängen bleiben</h2>
+      <p class="ev-lead">Ob <strong>Firmenevent, Geburtstag, Polterabend</strong> oder Teamausflug — bei uns wird euer Anlass zum Erlebnis. Rund <strong>2 Stunden</strong>, <strong>4 bis 50 Personen</strong>, das ganze Lokal exklusiv und die Bar inklusive.</p>
+    </div>
+    <div class="ev-types reveal">
+      <div class="ev-type"><div class="tt">Firmenevent</div><p>Teambuilding mit Plauschturnier, Workshop und Apéro — professionell geleitet vom TFCZ.</p></div>
+      <div class="ev-type"><div class="tt">Geburtstag</div><p>Feier deinen Tag am Tisch: Turnier, Bar und das ganze Lokal nur für euch.</p></div>
+      <div class="ev-type"><div class="tt">Polterabend</div><p>Ein Abend, der bleibt: Wettkampf, Spass und Drinks für die Gruppe.</p></div>
+      <div class="ev-type"><div class="tt">Vereins-/Gruppenevent</div><p>Schulklasse, Verein oder Freundeskreis — wir gestalten das Programm passend.</p></div>
+    </div>
+    <div class="ev-meta reveal"><span>👥 4–50 Personen</span><span>⏱️ ca. 2 Stunden</span><span>📍 Wipkingen</span><span>💰 Preis auf Anfrage</span></div>
+    <div class="reveal"><a href="mailto:info@tfcz.ch?subject=Event%20Anfrage" class="btn btn-gold">Unverbindlich anfragen →</a> <span style="display:inline-block;margin-left:14px;font-size:13px;font-style:italic;color:rgba(255,255,255,.55)">Eigene Events-Seite mit allen Details folgt bald.</span></div>
+  </div>
+</section>
+
+<!-- KINDERTRAINING -->
+<section class="band band-navy" id="kinder">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <span class="kicker">Nachwuchs</span>
+        <h2>Kindertraining</h2>
+        <p class="lead">Tischfussball ist für jedes Alter. In unserem eigenen Angebot für <strong>Kinder und Jugendliche</strong> geht es um den spielerischen Zugang zum Sport — Technik, Fairplay und vor allem Spass am Spiel, begleitet von erfahrenen Mitgliedern.</p>
+        <div class="chips" style="margin-top:22px"><span class="chip">🧒 Kinder &amp; Jugend</span><span class="chip">⚽ Spielerisch</span><span class="chip">🤝 Begleitet</span></div>
+        <div style="margin-top:26px"><a href="#kontakt" class="btn btn-ghost">Details &amp; Termine anfragen</a></div>
+      </div>
+      <div class="split-media right reveal"><img src="assets/img/g5.jpg" alt="Kindertraining im TFCZ"></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="band band-deep" style="padding-bottom:calc(var(--band-pad) - 20px)">
+  <div class="wrap"><div class="sec-head reveal"><span class="kicker">Aus dem Lokal</span><h2>Spannung am Tisch</h2><p>Impressionen von Turnieren und Trainingsabenden. Klick auf ein Bild, um es gross zu sehen.</p></div></div>
+  <div class="pcar reveal" id="pcar">
+    <div class="pcar-row r1"><img src="assets/img/c01.jpg" alt=""><img src="assets/img/c02.jpg" alt=""><img src="assets/img/c03.jpg" alt=""><img src="assets/img/c04.jpg" alt=""><img src="assets/img/c05.jpg" alt=""><img src="assets/img/c06.jpg" alt=""><img src="assets/img/c01.jpg" alt=""><img src="assets/img/c02.jpg" alt=""><img src="assets/img/c03.jpg" alt=""><img src="assets/img/c04.jpg" alt=""><img src="assets/img/c05.jpg" alt=""><img src="assets/img/c06.jpg" alt=""></div>
+    <div class="pcar-row r2"><img src="assets/img/c07.jpg" alt=""><img src="assets/img/c08.jpg" alt=""><img src="assets/img/c09.jpg" alt=""><img src="assets/img/c10.jpg" alt=""><img src="assets/img/c11.jpg" alt=""><img src="assets/img/c12.jpg" alt=""><img src="assets/img/g1.jpg" alt=""><img src="assets/img/g3.jpg" alt=""><img src="assets/img/c07.jpg" alt=""><img src="assets/img/c08.jpg" alt=""><img src="assets/img/c09.jpg" alt=""><img src="assets/img/c10.jpg" alt=""><img src="assets/img/c11.jpg" alt=""><img src="assets/img/c12.jpg" alt=""><img src="assets/img/g1.jpg" alt=""><img src="assets/img/g3.jpg" alt=""></div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="band band-navy" id="social">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Folge uns</span><h2>Bleib am Ball</h2><p>Trickshots, Turnier-Highlights und Behind-the-Scenes — auf Instagram und im Livestream auf YouTube.</p></div>
+    <div class="soc-grid reveal">
+      <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener" class="soc-card ig"><h3>📷 Instagram</h3><p>Reels, Stories und Eindrücke aus dem Lokal und von den Turnieren — folg uns für alles Aktuelle.</p><div class="handle">@tischfussballclub_zuerich →</div></a>
+      <a href="https://www.youtube.com/results?search_query=Tischfussball+Club+Z%C3%BCrich" target="_blank" rel="noopener" class="soc-card yt"><h3>▶ YouTube</h3><p>Livestreams unserer Turniere mit Kommentar — z.B. vom Zürich Open.</p><div class="handle">Zum Kanal →</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="band band-deep" id="kontakt">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Kontakt &amp; Anfahrt</span><h2>Komm vorbei</h2><p>Spontan am Dienstag oder Mittwoch, oder schreib uns kurz. ÖV empfohlen — direkt vor Ort gibt es keine Parkplätze.</p></div>
+    <div class="contact-grid">
+      <div class="cinfo reveal">
+        <div class="crow"><div class="cic">📍</div><div><div class="cl">Adresse</div><div class="cv">Landenbergstrasse 10<br>8037 Zürich (Wipkingen)</div></div></div>
+        <div class="crow"><div class="cic">✉️</div><div><div class="cl">E-Mail</div><div class="cv"><a href="mailto:info@tfcz.ch">info@tfcz.ch</a></div></div></div>
+        <div class="crow"><div class="cic">🕐</div><div><div class="cl">Geöffnet</div><div class="cv">Di 18:00–23:00 · Mi ab 19:00<br><span style="font-size:13px;color:rgba(255,255,255,.55);font-weight:600">+ Events &amp; Spontanöffnungen (WhatsApp)</span></div></div></div>
+        <div class="crow"><div class="cic">🔗</div><div><div class="cl">Online</div><div class="socials"><a class="soc" href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener">📷 Instagram</a><a class="soc" href="https://www.facebook.com/groups/tischfussballclubzuerich/" target="_blank" rel="noopener">f Facebook</a><a class="soc" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener">💬 WhatsApp</a></div></div></div>
+      </div>
+      <div class="reveal"><div class="map"><iframe src="https://www.google.com/maps?q=Landenbergstrasse%2010,%208037%20Z%C3%BCrich&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="TFCZ Standort"></iframe></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="brand-top"></div>
+<section class="cta-strip"><h2>Bereit zum Kicken?</h2><p>Dienstag, 18:00 Uhr. Einfach vorbeikommen — auch alleine. Wir nehmen dich mit.</p><a href="#mitspielen" class="btn btn-navy">Wann ist offen? →</a></section>
+<div class="brand-bottom"></div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand"><img src="assets/img/logo-crest.png" alt="TFCZ"><p>Tischfussball Club Zürich — wo Zürich kickt. Von Anfänger bis Profi, mitten in Wipkingen. Ein Leonhart-Verein.</p></div>
+      <div class="foot-cols">
+        <div class="foot-col"><h4>Club</h4><a href="#mitspielen">Mitspielen</a><a href="#angebot">Angebot</a><a href="#kalender">Kalender</a><a href="#mitglied">Mitglied werden</a></div>
+        <div class="foot-col"><h4>Angebot</h4><a href="#events">Events</a><a href="#kinder">Kindertraining</a><a href="#tische">Tische</a><a href="#kontakt">Kontakt</a></div>
+        <div class="foot-col"><h4>Folgen</h4><a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/groups/tischfussballclubzuerich/" target="_blank" rel="noopener">Facebook</a><a href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener">WhatsApp-Gruppe</a><a href="mailto:info@tfcz.ch">info@tfcz.ch</a></div>
+      </div>
+    </div>
+    <div class="foot-div"></div>
+    <div class="foot-bot"><span>© 2026 Tischfussball Club Zürich — Landenbergstrasse 10, 8037 Zürich</span><span class="gold">⚽ Made with passion in Zürich</span></div>
+  </div>
+</footer>
+
+<div class="lb" id="lb"><img src="" alt=""></div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+let calFilterCat='alle',calY=2026,calM=6; // July 2026 (0-based 6)
+const SPECIALS=[{d:'2026-07-03',t:'Käsekick',time:'19:30',cat:'all'},{d:'2026-07-18',t:'Zürich Open',time:'ab 10:00',cat:'pro'},{d:'2026-09-12',t:'Zürich Open',time:'ab 10:00',cat:'pro'},{d:'2026-11-14',t:'Zürich Open',time:'ab 10:00',cat:'pro'}];
+function eventsForDate(dt){const out=[];const dow=dt.getDay();if(dow===2)out.push({t:'Offenes Training',time:'18:00',cat:'all'});if(dow===3)out.push({t:'Crazy DYP',time:'20:15',cat:'all'});const iso=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');SPECIALS.forEach(s=>{if(s.d===iso)out.push(s);});return out;}
+function buildAgenda(){const a=$('#agenda');if(!a)return;a.innerHTML='';const start=new Date(2026,5,23);const items=[];for(let i=0;i<70;i++){const dt=new Date(start);dt.setDate(start.getDate()+i);eventsForDate(dt).forEach(ev=>items.push({dt,ev}));}items.slice(0,24).forEach(({dt,ev})=>{const el=document.createElement('div');el.className='ev';el.dataset.cat=ev.cat;el.innerHTML='<div class="date"><b>'+String(dt.getDate()).padStart(2,'0')+'</b><span>'+['So','Mo','Di','Mi','Do','Fr','Sa'][dt.getDay()]+' '+['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'][dt.getMonth()]+'</span></div><div class="info"><b>'+ev.t+'</b><span>'+ev.time+(ev.t==='Käsekick'?' · Raclette · CHF 5.–':'')+'</span></div>';a.appendChild(el);});applyCalFilter();}
+function renderMonth(){const t=$('#calTitle'),g=$('#calMonth');if(!g)return;const names=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];t.textContent=names[calM]+' '+calY;g.innerHTML='';['Mo','Di','Mi','Do','Fr','Sa','So'].forEach(d=>{const h=document.createElement('div');h.className='calm-dow';h.textContent=d;g.appendChild(h);});const first=new Date(calY,calM,1);let off=(first.getDay()+6)%7;for(let i=0;i<off;i++){const e=document.createElement('div');e.className='calm-cell empty';g.appendChild(e);}const dim=new Date(calY,calM+1,0).getDate();for(let d=1;d<=dim;d++){const dt=new Date(calY,calM,d);const cell=document.createElement('div');cell.className='calm-cell';cell.innerHTML='<div class="dn">'+d+'</div>';eventsForDate(dt).forEach(ev=>{if(calFilterCat!=='alle'&&ev.cat!==calFilterCat)return;const c=document.createElement('div');c.className='cev '+ev.cat;c.textContent=ev.time+' '+ev.t;cell.appendChild(c);});g.appendChild(cell);}}
+function applyCalFilter(){$$('#agenda .ev').forEach(e=>e.style.display=(calFilterCat==='alle'||e.dataset.cat===calFilterCat)?'':'none');renderMonth();}
+function initCal(){buildAgenda();renderMonth();
+  const cf=$('#calFilter');if(cf&&!cf._b){cf._b=1;cf.addEventListener('click',e=>{const c=e.target.closest('.fchip');if(!c)return;$$('.fchip',cf).forEach(x=>x.classList.remove('active'));c.classList.add('active');calFilterCat=c.dataset.f;applyCalFilter();});}
+  const vl=$('#vList'),vc=$('#vCal');if(vl&&!vl._b){vl._b=1;vl.addEventListener('click',()=>{vl.classList.add('active');vc.classList.remove('active');$('#listView').style.display='';$('#calView').style.display='none';});vc.addEventListener('click',()=>{vc.classList.add('active');vl.classList.remove('active');$('#listView').style.display='none';$('#calView').style.display='';renderMonth();});}
+  const pv=$('#calPrev'),nx=$('#calNext');if(pv&&!pv._b){pv._b=1;pv.addEventListener('click',()=>{calM--;if(calM<0){calM=11;calY--;}renderMonth();});nx.addEventListener('click',()=>{calM++;if(calM>11){calM=0;calY++;}renderMonth();});}
+}
+function initBurger(){const b=$('#burger'),n=$('#navlinks');if(!b||b._b)return;b._b=1;b.addEventListener('click',()=>n.classList.toggle('open'));n.addEventListener('click',e=>{if(e.target.closest('a'))n.classList.remove('open')});}
+let revObs;function initReveal(){if(!revObs)revObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revObs.unobserve(e.target)}}),{threshold:.08});$$('.reveal:not(.in)').forEach(el=>revObs.observe(el));}
+function initStack(){const stack=$('#stack');if(!stack)return;let cards=$$('.scard',stack);const dots=$('#stackdots');if(!cards.length)return;let order=cards.map((_,i)=>i),timer;const cols=['#0d273d','#16395a','#1f4e78','#26608f','#2d6ea3'];
+  function layout(){order.forEach((ci,pos)=>{const c=cards[ci];c.style.zIndex=cards.length-pos;c.classList.remove('gone');c.style.transform='translateY('+(pos*13)+'px) scale('+(1-pos*0.045)+')';c.style.opacity=pos>3?0:1;c.style.background=cols[Math.min(pos,cols.length-1)];});if(dots){[...dots.children].forEach((d,i)=>d.classList.toggle('on',i===order[0]));}}
+  function advance(){const top=cards[order[0]];top.classList.add('gone');setTimeout(()=>{order.push(order.shift());layout();},380);reset();}
+  function reset(){clearInterval(timer);timer=setInterval(advance,4200);}
+  if(dots&&!dots.children.length){cards.forEach((_,i)=>{const b=document.createElement('button');b.addEventListener('click',()=>{while(order[0]!==i)order.push(order.shift());layout();reset();});dots.appendChild(b);});}
+  let sx=0,drag=false;stack.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;});addEventListener('pointerup',e=>{if(!drag)return;drag=false;if(Math.abs(e.clientX-sx)>50)advance();});
+  stack.addEventListener('click',e=>{if(!e.target.closest('a'))advance();});layout();reset();}
+function initFilter(id,grid){const w=$('#'+id);if(!w||w._b)return;w._b=1;w.addEventListener('click',e=>{const c=e.target.closest('.fchip');if(!c)return;$$('.fchip',w).forEach(x=>x.classList.remove('active'));c.classList.add('active');const f=c.dataset.f;$$(grid+' [data-cat]').forEach(it=>it.style.display=(f==='alle'||it.dataset.cat===f)?'':'none');});}
+function initPflip(){$$('.pflip').forEach(p=>{if(p._b)return;p._b=1;p.addEventListener('click',()=>p.classList.toggle('flip'));});}
+function initLightbox(){const lb=$('#lb'),pc=$('#pcar');if(!lb)return;const img=lb.querySelector('img');if(pc&&!pc._b){pc._b=1;pc.addEventListener('click',e=>{if(e.target.tagName!=='IMG')return;if(document.body.classList.contains('edit-on'))return;img.src=e.target.src;lb.classList.add('on');});}if(!lb._b){lb._b=1;lb.addEventListener('click',()=>lb.classList.remove('on'));}}
+let bgRAF=null,bgEnabled=true;
+function initBg(){const c=$('#bg-canvas');if(!c)return;const x=c.getContext('2d');let W,H,t=0;const mouse={x:.5,y:.5,tx:.5,ty:.5};function size(){W=c.width=innerWidth;H=c.height=innerHeight;}size();if(!c._b){c._b=1;addEventListener('resize',size);addEventListener('mousemove',e=>{mouse.tx=e.clientX/innerWidth;mouse.ty=e.clientY/innerHeight;});}
+  const lines=[{col:'92,167,220',amp:80,base:.16,sp:.6,w:2,o:.5},{col:'205,168,87',amp:62,base:.34,sp:.85,w:1.7,o:.42},{col:'68,137,199',amp:100,base:.55,sp:.5,w:1.8,o:.4},{col:'233,196,117',amp:70,base:.72,sp:.7,w:1.5,o:.34},{col:'92,167,220',amp:90,base:.88,sp:.4,w:1.9,o:.36}];
+  function draw(){if(!bgEnabled){x.clearRect(0,0,W,H);bgRAF=requestAnimationFrame(draw);return;}x.clearRect(0,0,W,H);mouse.x+=(mouse.tx-mouse.x)*.05;mouse.y+=(mouse.ty-mouse.y)*.05;const mx=(mouse.x-.5),my=(mouse.y-.5);lines.forEach((L,i)=>{x.beginPath();const yb=H*L.base+my*120*(i%2?1:-1);for(let px=-20;px<=W+20;px+=14){const k=px/W;const y=yb+Math.sin(k*6.2+t*L.sp+i)*L.amp+Math.sin(k*13+t*L.sp*1.7)*L.amp*.35+mx*90*Math.sin(k*3.1+i);px===-20?x.moveTo(px,y):x.lineTo(px,y);}x.strokeStyle='rgba('+L.col+','+L.o+')';x.lineWidth=L.w;x.stroke();});t+=.006;bgRAF=requestAnimationFrame(draw);}if(bgRAF)cancelAnimationFrame(bgRAF);draw();}
+function initAll(){initBurger();initReveal();initStack();initFilter('formatFilter','#formatCards');initCal();initPflip();initLightbox();}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{initBg();initAll();});else{initBg();initAll();}
+window.__tfczInit=initAll;window.__tfczBg=v=>{bgEnabled=v;};
+</script>
+<!-- ═══════════ TFCZ CMS ═══════════ -->
+<style>
 .cms-fab{position:fixed;right:20px;bottom:20px;z-index:8200;border:0;cursor:pointer;font-weight:900;font-family:inherit;border-radius:30px;padding:14px 22px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.4);background:var(--gold);color:var(--navy);transition:.2s}
 .cms-fab:hover{background:var(--gold-lt);transform:translateY(-2px)}
 .cms-panel{position:fixed;top:0;right:0;height:100%;width:340px;max-width:90vw;background:#0b1f30;border-left:1px solid rgba(205,168,87,.4);box-shadow:-14px 0 50px rgba(0,0,0,.5);z-index:8300;transform:translateX(105%);transition:.32s cubic-bezier(.2,.7,.2,1);display:flex;flex-direction:column;color:#fff;font-size:14px}
 .cms-panel.on{transform:none}
 .cms-h{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
-.cms-h b{font-size:15px;font-weight:900;color:var(--gold-lt);letter-spacing:.04em}
-.cms-h .x{background:none;border:0;color:#fff;font-size:20px;cursor:pointer;line-height:1}
+.cms-h b{font-size:15px;font-weight:900;color:var(--gold-lt)}
+.cms-h .x{background:none;border:0;color:#fff;font-size:20px;cursor:pointer}
 .cms-body{flex:1;overflow-y:auto;padding:6px 20px 20px}
 .cms-grp{border-bottom:1px solid rgba(255,255,255,.08);padding:16px 0}
-.cms-grp>h4{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-lt);margin-bottom:12px;cursor:pointer;display:flex;justify-content:space-between}
+.cms-grp>h4{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.12em;color:var(--gold-lt);margin-bottom:12px}
 .cms-grp .gcont{display:flex;flex-direction:column;gap:12px}
 .cms-row{display:flex;flex-direction:column;gap:6px}
 .cms-row label{font-size:11px;font-weight:800;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;display:flex;justify-content:space-between}
 .cms-row input[type=range]{width:100%;accent-color:var(--gold)}
-.cms-row input[type=text],.cms-row input[type=url]{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:8px 10px;font-family:inherit;font-size:13px}
 .cms-btn{border:0;cursor:pointer;font-family:inherit;font-weight:900;border-radius:9px;padding:11px 14px;font-size:13px;transition:.18s;width:100%}
-.b-gold{background:var(--gold);color:var(--navy)} .b-gold:hover{background:var(--gold-lt)}
-.b-green{background:#25D366;color:#06320f} .b-green:hover{background:#34e878}
-.b-ghost{background:rgba(255,255,255,.1);color:#fff} .b-ghost:hover{background:rgba(255,255,255,.18)}
-.b-red{background:rgba(225,80,80,.18);color:#ff9b9b;border:1px solid rgba(225,80,80,.4)} .b-red:hover{background:rgba(225,80,80,.3)}
+.b-gold{background:var(--gold);color:var(--navy)}.b-gold:hover{background:var(--gold-lt)}
+.b-green{background:#25D366;color:#06320f}.b-green:hover{background:#34e878}
+.b-ghost{background:rgba(255,255,255,.1);color:#fff}.b-ghost:hover{background:rgba(255,255,255,.18)}
+.b-red{background:rgba(225,80,80,.18);color:#ff9b9b;border:1px solid rgba(225,80,80,.4)}.b-red:hover{background:rgba(225,80,80,.3)}
 .cms-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .cms-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;font-weight:700}
 .cms-sw{width:42px;height:24px;border-radius:30px;background:rgba(255,255,255,.2);position:relative;cursor:pointer;transition:.2s;flex-shrink:0}
@@ -353,836 +680,132 @@ footer{position:relative;z-index:1;background:var(--navy-3);padding:56px 0 36px;
 .sec-item button:hover{background:var(--gold);color:var(--navy)}
 .lk-item{display:flex;flex-direction:column;gap:5px;background:rgba(255,255,255,.05);border-radius:9px;padding:9px 10px;margin-bottom:8px}
 .lk-item .lt{font-size:11px;font-weight:800;color:var(--gold-lt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* on-canvas editing affordances */
+.lk-item input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:7px;padding:7px;font-size:12px;font-family:inherit}
 .cms-hint{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 20px;border-radius:30px;font-size:13px;font-weight:800;z-index:8400;border:1px solid rgba(205,168,87,.4);display:none}
 body.edit-on .cms-hint{display:block}
-body.edit-on [data-ce]{outline:1.5px dashed rgba(205,168,87,.55);outline-offset:3px;border-radius:3px}
-body.edit-on [data-ce]:hover{background:rgba(205,168,87,.1)}
+body.edit-on [contenteditable]{outline:1.5px dashed rgba(205,168,87,.55);outline-offset:3px;border-radius:3px}
+body.edit-on [contenteditable]:hover{background:rgba(205,168,87,.1)}
 body.edit-on #site img{outline:2px dashed var(--blue);outline-offset:2px;cursor:pointer}
 body.edit-on .cms-rep{position:relative;outline:1px dashed rgba(92,167,220,.4);outline-offset:4px}
 .cms-tools{position:absolute;top:-12px;right:-6px;display:flex;gap:4px;z-index:60}
 .cms-tools button{width:24px;height:24px;border-radius:6px;border:0;cursor:pointer;font-size:12px;font-weight:900;background:var(--navy);color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.4)}
-.cms-tools .dup:hover{background:var(--blue);color:var(--navy)} .cms-tools .del:hover{background:#e15050}
+.cms-tools .dup:hover{background:var(--blue);color:var(--navy)}.cms-tools .del:hover{background:#e15050}
 .cms-add{display:block;margin:14px auto 0;background:rgba(92,167,220,.16);border:1px dashed var(--blue);color:#cfe5f5;border-radius:9px;padding:8px 16px;font-weight:900;font-size:12px;cursor:pointer}
 .cms-add:hover{background:rgba(92,167,220,.3)}
-.cms-linkpop{position:fixed;z-index:8500;background:var(--navy);border:1px solid rgba(205,168,87,.5);border-radius:10px;padding:10px;display:none;gap:6px;flex-direction:column;width:280px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.cms-linkpop.on{display:flex}
-.cms-linkpop input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:7px;padding:8px;font-size:12px;font-family:inherit}
-.cms-linkpop .lr{display:flex;gap:6px}
-.cms-linkpop button{flex:1;border:0;border-radius:7px;padding:7px;font-weight:800;font-size:12px;cursor:pointer}
+.ctbar{position:fixed;z-index:8500;background:var(--navy);border:1px solid rgba(205,168,87,.5);border-radius:10px;padding:6px;display:none;gap:6px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.ctbar.on{display:flex}
+.ctbar button{border:0;background:rgba(255,255,255,.12);color:#fff;border-radius:7px;width:30px;height:30px;font-weight:900;cursor:pointer;font-size:13px}
+.ctbar button:hover{background:var(--gold);color:var(--navy)}
+.ctbar .lp{display:none;gap:5px}.ctbar.link-on .lp{display:flex}
+.ctbar input{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:7px;padding:6px 8px;font-size:12px;font-family:inherit;width:200px}
 body:not(.cms-ready) .cms-fab{display:none}
-
-/* ════════ RESPONSIVE ════════ */
-@media(max-width:1024px){
-  .about-grid,.split,.contact-grid,.play-grid,.leon-hero,.soc-grid{grid-template-columns:1fr;gap:38px}
-  .split-media.right{order:0}
-  .cards{grid-template-columns:repeat(2,1fr)}
-  .price-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}
-  .tcard-body{grid-template-columns:repeat(2,1fr)}
-  .tables{grid-template-columns:repeat(3,1fr)}
-  .soc-tiles{grid-template-columns:repeat(3,1fr)}
-  .map{min-height:320px}
-}
-@media(max-width:680px){
-  :root{--band-pad:calc(70px * var(--space-scale))}
-  .wrap,.nav-in,.hero-in{padding-left:20px;padding-right:20px}
-  .nav-links{position:fixed;inset:70px 0 auto 0;flex-direction:column;background:var(--navy-3);padding:16px;gap:4px;border-bottom:2px solid var(--gold);transform:translateY(-130%);transition:.32s;align-items:stretch}
-  .nav-links.open{transform:none}
-  .nav-links a{padding:13px}
-  .burger{display:flex}
-  .cards,.tcard-body,.tables{grid-template-columns:1fr}
-  .soc-tiles{grid-template-columns:repeat(2,1fr)}
-  .hero-stats{gap:24px}
-  .hero h1{font-size:clamp(46px,15vw,74px)}
-  .split-media{aspect-ratio:16/11}
-  .ev{grid-template-columns:64px 1fr;gap:14px}
-  .ev .badge{grid-column:2;justify-self:start;margin-top:4px}
-}
 </style>
-</head>
-<body>
 
-<canvas id="bg-canvas"></canvas>
-<div class="cms-hint">✎ Bearbeiten-Modus aktiv — Texte klicken · Bilder klicken zum Ersetzen · Links klicken für URL · ＋ ⧉ ✕ an Blöcken</div>
-
-<!-- ═══ NAV ═══ -->
-<div class="brand-top"></div>
-<nav class="nav">
-  <div class="nav-in">
-    <a href="#top" class="brand">
-      <img src="assets/img/logo-crest.png" alt="TFCZ Wappen" data-img="logo">
-      <div class="brand-txt">Tischfussball Club<span>Zürich · TFCZ</span></div>
-    </a>
-    <ul class="nav-links" id="navlinks">
-      <li><a href="#ueber">Verein</a></li>
-      <li><a href="#formate">Formate</a></li>
-      <li><a href="#mitglied">Mitglied</a></li>
-      <li><a href="#kalender">Kalender</a></li>
-      <li><a href="#events">Events</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
-      <li><a href="#mitspielen" class="nav-cta">Mitspielen</a></li>
-    </ul>
-    <button class="burger" id="burger" aria-label="Menü"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-<div class="brand-bottom"></div>
-
-<!-- ═══ HERO ═══ -->
-<header class="hero" id="top">
-  <div class="hero-bg"><img src="assets/img/hero-hall.jpg" alt="Tischfussball-Turnier im TFCZ" data-img="hero"></div>
-  <img class="hero-crest" src="assets/img/logo-crest.png" alt="">
-  <div class="hero-in">
-    <span class="eyebrow" data-edit>Zürich Wipkingen · seit Jahren am Kicken</span>
-    <h1 data-edit>Wo Zürich<br><span class="blue">kickt.</span></h1>
-    <p class="hero-sub" data-edit>Offenes Training, wöchentliche Turniere, Kindertraining und Events rund um den Tischfussball. <strong>Vom ersten Mal bis zur Schweizermeisterschaft — bei uns sind alle willkommen.</strong></p>
-    <div class="hero-cta">
-      <a href="#mitspielen" class="btn btn-gold">Wann kann ich vorbeikommen? →</a>
-      <a href="#mitglied" class="btn btn-ghost">Mitglied werden</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hstat"><b>10×</b><span>Leonhart-Tische</span></div>
-      <div class="hstat"><b>2×</b><span>pro Woche offen</span></div>
-      <div class="hstat"><b>1</b><span>Clublokal · 100 m²</span></div>
-      <div class="hstat"><b>∞</b><span>Niveaus willkommen</span></div>
-    </div>
-  </div>
-</header>
-
-<!-- ═══ MARQUEE ═══ -->
-<div class="marquee">
-  <div class="marquee-tr">
-    <span>Offenes Training</span><span>Crazy DYP</span><span>Käsekick</span><span>Zürich Open</span><span>STF Regio</span><span>Kindertraining</span><span>Events</span><span>Anfänger bis Profi</span>
-    <span>Offenes Training</span><span>Crazy DYP</span><span>Käsekick</span><span>Zürich Open</span><span>STF Regio</span><span>Kindertraining</span><span>Events</span><span>Anfänger bis Profi</span>
-  </div>
-</div>
-
-<!-- ═══ ÜBER UNS ═══ -->
-<section class="band band-light" id="ueber">
-  <div class="wrap">
-    <div class="about-grid reveal">
-      <div>
-        <span class="kicker" data-edit>Der Verein</span>
-        <h2 style="font-size:var(--fs-h2);font-weight:900;line-height:.98;text-transform:uppercase;letter-spacing:-.02em" data-edit>Wo aus Töggelä<br>Sport wird.</h2>
-        <p style="margin-top:24px" data-edit>Der <strong>TFCZ</strong> ist der Tischfussball-Verein für Zürich. Seit Jahren bieten wir eine Heimat für alle, die kicken wollen — egal ob Mann oder Frau, jung oder alt, Einsteiger oder Profi.</p>
-        <p data-edit>Unser Clublokal an der <strong>Landenbergstrasse 10 in Zürich Wipkingen</strong> umfasst rund 100 m² mit Bar und im Sommer einem Aussenbereich. Wir haben nur ein Lokal — dafür sind wir ein echter <strong>Leonhart-Verein</strong> mit zehn permanent aufgestellten Leonhart-Turniertischen.</p>
-        <p data-edit>Getragen wird der Verein durch <strong>Freiwilligenarbeit</strong>. Was uns antreibt: der Sport, die Gemeinschaft und die Überzeugung, dass Tischfussball viel mehr ist als ein Spiel für nebenbei. Wir sind Teil des <strong>Schweizer Tischfussball-Verbands (STF)</strong> und Partner der SC Devils Richterswil für die Swiss Tablesoccer Series.</p>
-      </div>
-      <!-- FACT CAROUSEL -->
-      <div class="fact-car" id="factcar">
-        <div class="fact-head">Auf einen Blick</div>
-        <div class="fact-track">
-          <div class="fact-slide on"><div class="fact-ico">📍</div><div class="fact-lbl">Adresse</div><div class="fact-val">Landenbergstrasse 10<br>8037 Zürich (Wipkingen)</div></div>
-          <div class="fact-slide"><div class="fact-ico">🏟️</div><div class="fact-lbl">Lokal</div><div class="fact-val">ca. 100 m² · 1 Standort<br>Bar &amp; Aussenbereich im Sommer</div></div>
-          <div class="fact-slide"><div class="fact-ico">⚽</div><div class="fact-lbl">Tische</div><div class="fact-val">10× Leonhart permanent<br>+ 1 Ullrich · weitere optional</div></div>
-          <div class="fact-slide"><div class="fact-ico">🕐</div><div class="fact-lbl">Geöffnet</div><div class="fact-val">Dienstag &amp; Mittwoch<br>+ Events &amp; Spontanöffnungen</div></div>
-          <div class="fact-slide"><div class="fact-ico">🤝</div><div class="fact-lbl">Träger</div><div class="fact-val">Verein · Freiwilligenarbeit<br>Mitglied im STF-Verband</div></div>
-          <div class="fact-slide"><div class="fact-ico">✉️</div><div class="fact-lbl">Kontakt</div><div class="fact-val"><a href="mailto:info@tfcz.ch">info@tfcz.ch</a><br><a href="https://tfcz.ch">tfcz.ch</a></div></div>
-        </div>
-        <div class="fact-dots" id="factdots"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ MITSPIELEN / WHATSAPP ═══ -->
-<section class="band band-navy" id="mitspielen">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker" data-edit>Mitspielen</span>
-      <h2 data-edit>Einfach vorbeikommen</h2>
-      <p data-edit>Kein Anmelden, kein fixer Partner, auch alleine — komm an einem Spielabend vorbei und du wirst sofort mitgenommen. Zwei fixe Abende pro Woche, dazu spontane Öffnungen und Events.</p>
-    </div>
-    <div class="play-grid reveal">
-      <div class="play-card">
-        <div class="day">Dienstag</div>
-        <h3>Offenes Training</h3>
-        <div class="time">18:00 – ca. 23:00</div>
-        <p>Der Einstieg schlechthin. Anfänger bis Profi, Mitglieder und Gäste. Erfahrene Spieler stehen für Fragen und Tipps bereit.</p>
-      </div>
-      <div class="play-card">
-        <div class="day">Mittwoch</div>
-        <h3>Mittwochs Crazy DYP</h3>
-        <div class="time">Türöffnung 19:00 · Start 20:15</div>
-        <p>Doppelturnier mit zufällig zugelostem Partner. Einzelanmeldung möglich — perfekt, um einfach reinzukommen und zu spielen.</p>
-      </div>
-    </div>
-    <div class="wa-band reveal">
-      <div class="wt">
-        <h3>💬 Tritt unserer WhatsApp-Gruppe bei</h3>
-        <p data-edit>So verpasst du nichts: In der Gruppe siehst du immer, wann der Club geöffnet ist — inklusive <strong style="color:#fff">spontaner Sonderöffnungen</strong> und kurzfristiger Infos. Der einfachste Weg, um zu wissen, wann du vorbeikommen kannst.</p>
-      </div>
-      <a href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp-Gruppe beitreten →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FORMATE ═══ -->
-<section class="band band-deep" id="formate">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker" data-edit>Was bei uns läuft</span>
-      <h2 data-edit>Für jedes Niveau<br>das richtige Format</h2>
-      <p data-edit>Vom entspannten Trainingsabend bis zum ernsthaften Wettkampf. Farblich unterscheiden wir, was für alle offen ist, was Wettkampf ist und was Spezial-Anlässe sind.</p>
-    </div>
-    <div class="cat-legend reveal">
-      <span class="cat-key"><i class="k-all"></i>Für alle</span>
-      <span class="cat-key"><i class="k-pro"></i>Wettkampf / Pro</span>
-      <span class="cat-key"><i class="k-event"></i>Events / Spezial</span>
-    </div>
-    <div class="cards">
-      <div class="card c-all reveal">
-        <div class="card-ico">⚽</div>
-        <h3>Offenes Training</h3>
-        <div class="when">Dienstag · 18:00–23:00</div>
-        <p>Kein Anmelden, kein Druck — einfach vorbeikommen und mitspielen. Auch alleine. Geübte Spieler nehmen dich mit.</p>
-        <span class="tag t-all">Für alle</span>
-      </div>
-      <div class="card c-all reveal">
-        <div class="card-ico">🎲</div>
-        <h3>Mittwochs Crazy DYP</h3>
-        <div class="when">Mittwoch · Start 20:15</div>
-        <p>Draw Your Partner: zufällig zugeloster Partner, variabler Modus. Einzelanmeldung möglich. Mit Jahreswertung (DYP-Challenge).</p>
-        <span class="tag t-all">Für alle · Rangliste</span>
-      </div>
-      <div class="card c-all reveal">
-        <div class="card-ico">🧀</div>
-        <h3>Käsekick</h3>
-        <div class="when">Letzter Freitag · 19:30</div>
-        <p>Monster-Crazy-DYP + Lord-Have-Mercy-KO. Walliser Raclette inklusive, CHF 5.– Eintritt. Niveau ist Nebensache, Spass garantiert.</p>
-        <span class="tag t-all">Für alle</span>
-      </div>
-      <div class="card c-pro reveal">
-        <div class="card-ico">🏆</div>
-        <h3>STF Regio Turniere</h3>
-        <div class="when">10–15× pro Jahr · 19:30</div>
-        <p>Für die gesamtschweizerische STF-Rangliste. Einzel und Doppel je nach Ausschreibung. Niveau mittel bis Profi.</p>
-        <span class="tag t-pro">Wettkampf</span>
-      </div>
-      <div class="card c-pro reveal">
-        <div class="card-ico">🥇</div>
-        <h3>Zürich Open</h3>
-        <div class="when">4× pro Jahr · Regio Tour Pro</div>
-        <p>Offenes Doppel nach ITSF-Regelwerk auf 10 Leonhart-Tischen. Max. 48 Teams, CHF 1'050.– Preisgeld. Mit YouTube-Stream.</p>
-        <span class="tag t-pro">Pro</span>
-      </div>
-      <div class="card c-event reveal">
-        <div class="card-ico">👶</div>
-        <h3>Kindertraining</h3>
-        <div class="when">Eigenes Angebot</div>
-        <p>Spielerischer Zugang zum Tischfussball für Kinder und Jugendliche, begleitet von erfahrenen Mitgliedern.</p>
-        <span class="tag t-event">Spezial</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ MITGLIEDSCHAFT ═══ -->
-<section class="band band-navy" id="mitglied">
-  <div class="wrap">
-    <div class="sec-head reveal" style="max-width:780px">
-      <span class="kicker" data-edit>Mitmachen</span>
-      <h2 data-edit>Werd Teil<br>vom Club</h2>
-      <p data-edit>Probier es zuerst gratis aus. Danach entscheidest du, wie viel du dabei sein willst — vom gelegentlichen Eintritt bis zum Key Player mit eigenem Schlüssel.</p>
-    </div>
-    <div class="price-grid">
-      <div class="price reveal">
-        <h3>Schnuppern &amp; Drop-in</h3>
-        <div class="amt">Gratis</div>
-        <div class="per">Schnuppertag · danach CHF 5.– / Eintritt</div>
-        <ul>
-          <li>Erster Abend komplett gratis — einfach vorbeikommen</li>
-          <li>Danach CHF 5.– pro Mal, das du im Club spielst</li>
-          <li>Kein Abo, keine Verpflichtung</li>
-          <li>Ideal für alle, die unregelmässig kicken</li>
-        </ul>
-        <a href="#mitspielen" class="btn btn-ghost">Vorbeikommen</a>
-      </div>
-      <div class="price feature reveal">
-        <div class="price-flag">Beliebt</div>
-        <h3>Aktivmitglied</h3>
-        <div class="amt">CHF&nbsp;200<small>/Jahr</small></div>
-        <div class="per">Volles Vereinsjahr</div>
-        <ul>
-          <li>Unbegrenzt offenes Training &amp; Crazy DYP</li>
-          <li>Zugang zu allen Vereinsabenden &amp; Lokal</li>
-          <li>Vergünstigte Startgelder an Turnieren</li>
-          <li>WhatsApp-Community &amp; Spontanöffnungen</li>
-          <li>DYP-Challenge Jahreswertung</li>
-        </ul>
-        <a href="mailto:info@tfcz.ch?subject=Aktivmitgliedschaft" class="btn btn-gold">Mitglied werden</a>
-      </div>
-      <div class="price reveal">
-        <h3>Key Player</h3>
-        <div class="amt">CHF&nbsp;250<small>/Jahr</small></div>
-        <div class="per">Aktivmitglied + Schlüssel</div>
-        <ul>
-          <li>Alles aus dem Aktivmitglied</li>
-          <li>Eigener Schlüssel zum Vereinslokal</li>
-          <li>Mehr Verantwortung &amp; Mitgestaltung im Verein</li>
-          <li>Lokal öffnen &amp; eigene Sessions ermöglichen</li>
-        </ul>
-        <a href="mailto:info@tfcz.ch?subject=Key%20Player" class="btn btn-ghost">Key Player werden</a>
-      </div>
-    </div>
-    <!-- GÖNNER -->
-    <div class="goenner reveal">
-      <div class="gt">
-        <h3>🤝 Gönner werden</h3>
-        <p data-edit>Du willst den TFCZ unterstützen, ohne selbst am Tisch zu stehen? Als Gönner hilfst du uns, den Sport, das Lokal und den Nachwuchs zu fördern. Den Betrag bestimmst du — wir melden uns mit den Details.</p>
-      </div>
-      <a href="mailto:info@tfcz.ch?subject=G%C3%B6nner%20werden" class="btn btn-gold">Als Gönner anfragen →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ KALENDER / AGENDA ═══ -->
-<section class="band band-deep" id="kalender">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker" data-edit>Kalender</span>
-      <h2 data-edit>Was als Nächstes<br>ansteht</h2>
-      <p data-edit>Übersicht aller Anlässe, farblich nach Kategorie. Filtere nach dem, was dich interessiert — der volle Kalender liegt auf tfcz.ch.</p>
-    </div>
-    <div class="cal-filters reveal" id="calfilters">
-      <button class="fchip active" data-f="alle">Alle</button>
-      <button class="fchip" data-f="all">Für alle</button>
-      <button class="fchip" data-f="pro">Wettkampf / Pro</button>
-      <button class="fchip" data-f="event">Events / Spezial</button>
-    </div>
-    <div class="agenda reveal" id="agenda">
-      <div class="ev" data-cat="all"><div class="date"><b>23</b><span>Di · Jun</span></div><div class="info"><b>Offenes Training</b><span>18:00 – 23:45 · alle willkommen</span></div><span class="badge">Für alle</span></div>
-      <div class="ev" data-cat="all"><div class="date"><b>24</b><span>Mi · Jun</span></div><div class="info"><b>Mittwochs Crazy DYP</b><span>Türöffnung 19:00 · Start 20:15</span></div><span class="badge">Für alle</span></div>
-      <div class="ev" data-cat="all"><div class="date"><b>30</b><span>Di · Jun</span></div><div class="info"><b>Offenes Training</b><span>18:00 – 23:45</span></div><span class="badge">Für alle</span></div>
-      <div class="ev" data-cat="all"><div class="date"><b>01</b><span>Mi · Jul</span></div><div class="info"><b>Mittwochs Crazy DYP</b><span>Start 20:15</span></div><span class="badge">Für alle</span></div>
-      <div class="ev" data-cat="all"><div class="date"><b>03</b><span>Fr · Jul</span></div><div class="info"><b>Käsekick</b><span>19:00 – 01:00 · Raclette inkl. · CHF 5.–</span></div><span class="badge">Für alle</span></div>
-      <div class="ev" data-cat="pro"><div class="date"><b>18</b><span>Sa · Jul</span></div><div class="info"><b>Zürich Open — Regio Tour Pro</b><span>Side-Event Crazy DYP ab 17:30 · YouTube-Stream</span></div><span class="badge">Pro</span></div>
-      <div class="ev" data-cat="pro"><div class="date"><b>12</b><span>Sa · Sep</span></div><div class="info"><b>Zürich Open — Regio Tour Pro</b><span>10× Leonhart · max. 48 Teams</span></div><span class="badge">Pro</span></div>
-      <div class="ev" data-cat="event"><div class="date"><b>—</b><span>n. Absprache</span></div><div class="info"><b>Events &amp; Vermietung</b><span>Firmen, Geburtstage, Polterabende — auf Anfrage</span></div><span class="badge">Spezial</span></div>
-      <div class="ev" data-cat="pro"><div class="date"><b>14</b><span>Sa · Nov</span></div><div class="info"><b>Zürich Open — Regio Tour Pro</b><span>Saisonfinale · Tour-Gesamtwertung</span></div><span class="badge">Pro</span></div>
-    </div>
-    <div class="cal-foot reveal">
-      <a href="https://tfcz.ch/kalender" target="_blank" rel="noopener" class="btn btn-ghost">Voller Kalender auf tfcz.ch →</a>
-      <a href="https://tfcz.ch/?b=1000022&c=EL&s=djEt1dSC-wuUYIeTa-pQvgVNeeARKJGvjNzDKS0TLT2VXTE=&subscribe=true" target="_blank" rel="noopener" class="btn btn-navy">📅 Termine abonnieren</a>
-    </div>
-
-    <!-- ZÜRICH OPEN HIGHLIGHT -->
-    <div class="tcard reveal">
-      <div class="tcard-head">
-        <div>
-          <h3>Zürich Open</h3>
-          <div class="meta">Swiss Tablesoccer Regio Tour Pro · Offenes Doppel · ITSF-Regelwerk · 10× Leonhart · max. 48 Teams</div>
-        </div>
-        <div class="tprize"><b>CHF 1'050.–</b><span>Preisgeld total</span></div>
-      </div>
-      <div class="tcard-body">
-        <div class="tinfo"><b>Termine 2026</b><div class="dates"><span class="date-pill">18. Juli</span><span class="date-pill">12. Sept.</span><span class="date-pill">14. Nov.</span></div></div>
-        <div class="tinfo"><b>Startgeld</b><p>CHF 20.– / Person<br>Karte oder Twint · kein Bargeld</p></div>
-        <div class="tinfo"><b>Modus</b><p>6 Runden Schweizer System + A/B/C Tableau KO</p></div>
-        <div class="tinfo"><b>Anmeldung</b><p>app.tablesoccer.org<br>via Coral-System</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TISCHE (Leonhart-Verein) ═══ -->
-<section class="band band-navy" id="tische">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker" data-edit>Ausstattung</span>
-      <h2 data-edit>Ein Leonhart-Verein</h2>
-      <p data-edit>Bei uns stehen permanent zehn Leonhart-Turniertische. Der Ullrich und weitere Klassiker kommen je nach Anlass dazu.</p>
-    </div>
-    <div class="leon-hero reveal">
-      <div class="big">10×<small>Leonhart · immer aufgestellt</small></div>
-      <div>
-        <p data-edit><strong>Wir sind ein Leonhart-Verein.</strong> Zehn Leonhart-Turniertische stehen bei uns dauerhaft — das ist unser Markenzeichen und die Grundlage für das Zürich Open und unser tägliches Spiel. Dazu kommt ein Ullrich Tournament. Weitere Tische (Garlando, Bonzini, Roberto Sport, Tornado) stellen wir je nach Turnier und Anlass optional dazu.</p>
-      </div>
-    </div>
-    <div class="tables reveal">
-      <div class="tbl permanent"><b>10</b><div class="nm">Leonhart</div><div class="sub">Turniertisch</div><span class="opt">Permanent</span></div>
-      <div class="tbl permanent"><b>1</b><div class="nm">Ullrich Tournament</div><div class="sub">Turniertisch</div><span class="opt">Permanent</span></div>
-      <div class="tbl"><b>·</b><div class="nm">Garlando Deluxe</div><div class="sub">Fun / Casual</div><span class="opt">Optional</span></div>
-      <div class="tbl"><b>·</b><div class="nm">Bonzini</div><div class="sub">Klassiker</div><span class="opt">Optional</span></div>
-      <div class="tbl"><b>·</b><div class="nm">Garlando World Ch.</div><div class="sub">Classic</div><span class="opt">Optional</span></div>
-      <div class="tbl"><b>·</b><div class="nm">Roberto Sport</div><div class="sub">Classic</div><span class="opt">Optional</span></div>
-      <div class="tbl"><b>·</b><div class="nm">Tornado</div><div class="sub">Classic</div><span class="opt">Optional</span></div>
-      <div class="tbl"><b>11+</b><div class="nm">Permanent</div><div class="sub">je nach Anlass mehr</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ EVENTS (allgemein) ═══ -->
-<section class="band band-deep" id="events">
-  <div class="wrap">
-    <div class="split">
-      <div class="split-media reveal"><img src="assets/img/g2.jpg" alt="Event am Tischfussball" data-img="events"></div>
-      <div class="reveal">
-        <span class="kicker" data-edit>Feiern &amp; Teambuilding</span>
-        <h2 data-edit>Events,<br>die hängen bleiben</h2>
-        <p class="lead" data-edit>Ob <strong>Firmenevent, Geburtstag, Polterabend</strong> oder Teamausflug — bei uns wird euer Anlass zum Erlebnis. Rund <strong>2 Stunden</strong>, <strong>4 bis 50 Personen</strong>, das ganze Lokal exklusiv und die Bar inklusive. Ihr bringt die Gruppe, wir den Rest.</p>
-        <div class="feat-list">
-          <div class="fi"><div class="feat-ico">🏆</div><div>Plauschturnier mit professioneller Turnierleitung durch den TFCZ</div></div>
-          <div class="fi"><div class="feat-ico">🎯</div><div>Workshop: Einführung in Techniken und Tricks</div></div>
-          <div class="fi"><div class="feat-ico">🍷</div><div>Bar-Abend mit Getränkeservice oder Apéro-Kombination</div></div>
-          <div class="fi"><div class="feat-ico">🕐</div><div>Flexible Zeiten ausserhalb der Vereinsabende, Programm auf Gruppe &amp; Budget angepasst</div></div>
-        </div>
-        <div class="chips">
-          <span class="chip">🏢 Firmenevent</span>
-          <span class="chip">🎂 Geburtstag</span>
-          <span class="chip">🎉 Polterabend</span>
-          <span class="chip">👥 4–50 Personen</span>
-          <span class="chip">⏱️ ca. 2 Stunden</span>
-        </div>
-        <span class="soon">Eigene Events-Seite mit allen Details folgt bald.</span>
-        <div style="margin-top:22px"><a href="mailto:info@tfcz.ch?subject=Event%20Anfrage" class="btn btn-gold">Unverbindlich anfragen →</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ KINDERTRAINING ═══ -->
-<section class="band band-navy" id="kinder">
-  <div class="wrap">
-    <div class="split">
-      <div class="reveal">
-        <span class="kicker" data-edit>Nachwuchs</span>
-        <h2 data-edit>Kindertraining</h2>
-        <p class="lead" data-edit>Tischfussball ist für jedes Alter. In unserem eigenen Angebot für <strong>Kinder und Jugendliche</strong> geht es um den spielerischen Zugang zum Sport — Technik, Fairplay und vor allem Spass am Spiel, begleitet von erfahrenen Mitgliedern.</p>
-        <div class="chips" style="margin-top:22px">
-          <span class="chip">🧒 Kinder &amp; Jugend</span>
-          <span class="chip">⚽ Spielerisch</span>
-          <span class="chip">🤝 Begleitet</span>
-        </div>
-        <div style="margin-top:26px"><a href="#kontakt" class="btn btn-ghost">Details &amp; Termine anfragen</a></div>
-      </div>
-      <div class="split-media right reveal"><img src="assets/img/g5.jpg" alt="Kindertraining im TFCZ" data-img="kinder"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FOTO-KARUSSELL ═══ -->
-<section class="band band-deep" style="padding-bottom:calc(var(--band-pad) - 20px)">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker" data-edit>Aus dem Lokal</span>
-      <h2 data-edit>Spannung am Tisch</h2>
-      <p data-edit>Impressionen von Turnieren und Trainingsabenden. Klick auf ein Bild, um es gross zu sehen.</p>
-    </div>
-  </div>
-  <div class="pcar reveal" id="pcar">
-    <div class="pcar-row r1">
-      <img src="assets/img/c01.jpg" alt=""><img src="assets/img/c02.jpg" alt=""><img src="assets/img/c03.jpg" alt=""><img src="assets/img/c04.jpg" alt=""><img src="assets/img/c05.jpg" alt=""><img src="assets/img/c06.jpg" alt="">
-      <img src="assets/img/c01.jpg" alt=""><img src="assets/img/c02.jpg" alt=""><img src="assets/img/c03.jpg" alt=""><img src="assets/img/c04.jpg" alt=""><img src="assets/img/c05.jpg" alt=""><img src="assets/img/c06.jpg" alt="">
-    </div>
-    <div class="pcar-row r2">
-      <img src="assets/img/c07.jpg" alt=""><img src="assets/img/c08.jpg" alt=""><img src="assets/img/c09.jpg" alt=""><img src="assets/img/c10.jpg" alt=""><img src="assets/img/c11.jpg" alt=""><img src="assets/img/c12.jpg" alt=""><img src="assets/img/g1.jpg" alt=""><img src="assets/img/g3.jpg" alt="">
-      <img src="assets/img/c07.jpg" alt=""><img src="assets/img/c08.jpg" alt=""><img src="assets/img/c09.jpg" alt=""><img src="assets/img/c10.jpg" alt=""><img src="assets/img/c11.jpg" alt=""><img src="assets/img/c12.jpg" alt=""><img src="assets/img/g1.jpg" alt=""><img src="assets/img/g3.jpg" alt="">
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SOCIAL ═══ -->
-<section class="band band-navy" id="social">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker" data-edit>Folge uns</span>
-      <h2 data-edit>Bleib am Ball</h2>
-      <p data-edit>Trickshots, Turnier-Highlights und Behind-the-Scenes — auf Instagram und im Livestream auf YouTube.</p>
-    </div>
-    <div class="soc-grid reveal">
-      <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener" class="soc-card ig">
-        <h3>📷 Instagram</h3>
-        <p>Reels, Stories und Eindrücke aus dem Lokal und von den Turnieren.</p>
-        <div class="handle">@tischfussballclub_zuerich →</div>
-      </a>
-      <a href="https://www.youtube.com/results?search_query=Tischfussball+Club+Z%C3%BCrich" target="_blank" rel="noopener" class="soc-card yt" data-edit-href>
-        <h3>▶ YouTube</h3>
-        <p>Livestreams unserer Turniere mit Kommentar — z.B. vom Zürich Open.</p>
-        <div class="handle">Zum Kanal →</div>
-      </a>
-    </div>
-    <div class="soc-tiles reveal">
-      <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener"><img src="assets/img/c03.jpg" alt=""></a>
-      <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener"><img src="assets/img/c06.jpg" alt=""></a>
-      <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener"><img src="assets/img/c08.jpg" alt=""></a>
-      <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener"><img src="assets/img/c10.jpg" alt=""></a>
-      <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener"><img src="assets/img/c11.jpg" alt=""></a>
-      <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener"><img src="assets/img/c12.jpg" alt=""></a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ KONTAKT ═══ -->
-<section class="band band-deep" id="kontakt">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="kicker" data-edit>Kontakt &amp; Anfahrt</span>
-      <h2 data-edit>Komm vorbei</h2>
-      <p data-edit>Spontan am Dienstag oder Mittwoch, oder schreib uns kurz. ÖV empfohlen — direkt vor Ort gibt es keine Parkplätze.</p>
-    </div>
-    <div class="contact-grid">
-      <div class="cinfo reveal">
-        <div class="crow"><div class="ci">📍</div><div><div class="cl">Adresse</div><div class="cv">Landenbergstrasse 10<br>8037 Zürich (Wipkingen)</div></div></div>
-        <div class="crow"><div class="ci">✉️</div><div><div class="cl">E-Mail</div><div class="cv"><a href="mailto:info@tfcz.ch">info@tfcz.ch</a></div></div></div>
-        <div class="crow"><div class="ci">🕐</div><div><div class="cl">Geöffnet</div><div class="cv">Di 18:00–23:00 · Mi ab 19:00<br><span style="font-size:13px;color:rgba(255,255,255,.55);font-weight:600">+ Events &amp; Spontanöffnungen (WhatsApp)</span></div></div></div>
-        <div class="crow"><div class="ci">🚇</div><div><div class="cl">Anreise</div><div class="cv" style="font-size:14px;font-weight:600;color:rgba(255,255,255,.8)">ÖV empfohlen · kein Parkplatz vor Ort · Blaue Zone 1h bis 19:00 (Tagesbew. CHF 15.–)</div></div></div>
-        <div class="crow"><div class="ci">🔗</div><div><div class="cl">Online</div>
-          <div class="socials">
-            <a class="soc" href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener">📷 Instagram</a>
-            <a class="soc" href="https://www.facebook.com/groups/tischfussballclubzuerich/" target="_blank" rel="noopener">f Facebook</a>
-            <a class="soc" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener">💬 WhatsApp</a>
-          </div>
-        </div></div>
-      </div>
-      <div class="reveal"><div class="map"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=8.520,47.382,8.540,47.392&layer=mapnik&marker=47.387,8.530" loading="lazy" title="TFCZ Standort"></iframe></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CTA STRIP ═══ -->
-<div class="brand-top"></div>
-<section class="cta-strip">
-  <h2 data-edit>Bereit zum Kicken?</h2>
-  <p data-edit>Dienstag, 18:00 Uhr. Einfach vorbeikommen — auch alleine. Wir nehmen dich mit.</p>
-  <a href="#mitspielen" class="btn btn-navy">Wann ist offen? →</a>
-</section>
-<div class="brand-bottom"></div>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-brand">
-        <img src="assets/img/logo-crest.png" alt="TFCZ">
-        <p>Tischfussball Club Zürich — wo Zürich kickt. Von Anfänger bis Profi, mitten in Wipkingen. Ein Leonhart-Verein.</p>
-      </div>
-      <div class="foot-cols">
-        <div class="foot-col">
-          <h4>Club</h4>
-          <a href="#ueber">Verein</a><a href="#formate">Formate</a><a href="#kalender">Kalender</a><a href="#mitglied">Mitglied werden</a>
-        </div>
-        <div class="foot-col">
-          <h4>Angebot</h4>
-          <a href="#events">Events</a><a href="#kinder">Kindertraining</a><a href="#tische">Tische</a><a href="#kontakt">Kontakt</a>
-        </div>
-        <div class="foot-col">
-          <h4>Folgen</h4>
-          <a href="https://www.instagram.com/tischfussballclub_zuerich" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://www.facebook.com/groups/tischfussballclubzuerich/" target="_blank" rel="noopener">Facebook</a>
-          <a href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener">WhatsApp-Gruppe</a>
-          <a href="mailto:info@tfcz.ch">info@tfcz.ch</a>
-        </div>
-      </div>
-    </div>
-    <div class="foot-div"></div>
-    <div class="foot-bot">
-      <span>© 2026 Tischfussball Club Zürich — Landenbergstrasse 10, 8037 Zürich</span>
-      <span class="gold">⚽ Made with passion in Zürich</span>
-    </div>
-  </div>
-</footer>
-
-<!-- ═══ LIGHTBOX ═══ -->
-<div class="lb" id="lb"><img src="" alt=""></div>
-
-<!-- ═══ CMS ═══ -->
+<div class="cms-hint">✎ Bearbeiten — Texte/Menü klicken · Bilder klicken zum Ersetzen · A−/A+ Schriftgrösse · 🔗 Link · ＋⧉✕ an Blöcken</div>
 <button class="cms-fab" id="cmsFab">✎ Bearbeiten</button>
-<div class="cms-linkpop" id="linkpop">
-  <input type="url" id="lpHref" placeholder="https://…">
-  <div class="lr"><button class="b-gold" id="lpApply">Übernehmen</button><button class="b-ghost" id="lpClose">Schliessen</button></div>
+<div class="ctbar" id="ctbar">
+  <button id="ctMinus" title="Kleiner">A−</button>
+  <button id="ctPlus" title="Grösser">A+</button>
+  <button id="ctLink" title="Link setzen">🔗</button>
+  <span class="lp"><input type="url" id="ctHref" placeholder="https://… oder #abschnitt"><button id="ctApply" title="OK">✓</button></span>
 </div>
 <aside class="cms-panel" id="cmsPanel">
   <div class="cms-h"><b>✎ TFCZ CMS</b><button class="x" id="cmsClose">✕</button></div>
   <div class="cms-body">
-    <div class="cms-grp">
-      <div class="gcont">
-        <button class="cms-btn b-gold" id="cmsEdit">Bearbeiten starten</button>
-        <p style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.5;margin-top:2px">Im Bearbeiten-Modus: auf <b>Texte</b> klicken zum Ändern, auf <b>Bilder</b> zum Ersetzen, auf <b>Links/Buttons</b> für die Ziel-URL. Nutze die <b>＋</b>/<b>⧉</b>/<b>✕</b> an den Blöcken zum Hinzufügen, Duplizieren, Löschen.</p>
-      </div>
-    </div>
-    <div class="cms-grp">
-      <h4>Design</h4>
-      <div class="gcont">
-        <div class="cms-row"><label>Abstände <span id="vSpace">1.00</span></label><input type="range" id="rSpace" min="0.8" max="1.3" step="0.02" value="1"></div>
-        <div class="cms-row"><label>Eckenradius <span id="vRad">16px</span></label><input type="range" id="rRad" min="0" max="28" step="1" value="16"></div>
-        <div class="cms-toggle">Hintergrund-Animation<div class="cms-sw on" id="swBg"></div></div>
-      </div>
-    </div>
-    <div class="cms-grp">
-      <h4>Sektionen <span style="opacity:.5">👁 / ↑↓</span></h4>
-      <div class="gcont" id="secList"></div>
-    </div>
-    <div class="cms-grp">
-      <h4>Links &amp; Buttons</h4>
-      <div class="gcont" id="linkList"></div>
-    </div>
-    <div class="cms-grp">
-      <h4>Speichern &amp; Export</h4>
-      <div class="gcont">
-        <button class="cms-btn b-green" id="cmsSave">✓ Speichern (im Browser)</button>
-        <button class="cms-btn b-gold" id="cmsExport">⬇ Fertige HTML exportieren</button>
-        <div class="cms-2">
-          <button class="cms-btn b-ghost" id="cmsBackup">Backup ⬇</button>
-          <button class="cms-btn b-ghost" id="cmsRestore">Backup ⬆</button>
-        </div>
-        <button class="cms-btn b-red" id="cmsReset">↺ Alles zurücksetzen</button>
-        <input type="file" id="restoreFile" accept="application/json" hidden>
-      </div>
-    </div>
+    <div class="cms-grp"><div class="gcont">
+      <button class="cms-btn b-gold" id="cmsEdit">Bearbeiten starten</button>
+      <p style="font-size:12px;color:rgba(255,255,255,.55);line-height:1.5">Klick auf <b>Texte/Menüpunkte</b> zum Ändern, auf <b>Bilder</b> zum Ersetzen. Beim Anklicken erscheint eine kleine Leiste: <b>A−/A+</b> für Schriftgrösse, <b>🔗</b> für den Link. Mit <b>＋ ⧉ ✕</b> Einträge hinzufügen/duplizieren/löschen.</p>
+    </div></div>
+    <div class="cms-grp"><h4>Design</h4><div class="gcont">
+      <div class="cms-row"><label>Schriftgrösse <span id="vFont">100%</span></label><input type="range" id="rFont" min="0.85" max="1.25" step="0.01" value="1"></div>
+      <div class="cms-row"><label>Abstände <span id="vSpace">1.00</span></label><input type="range" id="rSpace" min="0.8" max="1.3" step="0.02" value="1"></div>
+      <div class="cms-row"><label>Eckenradius <span id="vRad">16px</span></label><input type="range" id="rRad" min="0" max="28" step="1" value="16"></div>
+      <div class="cms-toggle">Hintergrund-Animation<div class="cms-sw on" id="swBg"></div></div>
+    </div></div>
+    <div class="cms-grp"><h4>Sektionen</h4><div class="gcont" id="secList"></div></div>
+    <div class="cms-grp"><h4>Links &amp; Buttons</h4><div class="gcont" id="linkList"></div></div>
+    <div class="cms-grp"><h4>Speichern &amp; Export</h4><div class="gcont">
+      <button class="cms-btn b-green" id="cmsSave">✓ Speichern</button>
+      <button class="cms-btn b-gold" id="cmsExport">⬇ Fertige HTML exportieren</button>
+      <div class="cms-2"><button class="cms-btn b-ghost" id="cmsBackup">Backup ⬇</button><button class="cms-btn b-ghost" id="cmsRestore">Backup ⬆</button></div>
+      <button class="cms-btn b-red" id="cmsReset">↺ Zurücksetzen</button>
+      <input type="file" id="restoreFile" accept="application/json" hidden>
+    </div></div>
   </div>
 </aside>
 
 <script>
-/* ════════ TFCZ CMS ENGINE ════════ */
-const $=(s,r=document)=>r.querySelector(s);
-const $$=(s,r=document)=>[...r.querySelectorAll(s)];
-const KEY='tfcz-cms-v3';
-let editOn=false, bgRAF=null, bgEnabled=true;
+(function(){
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const KEY='tfcz-cms-v4';let editOn=false;
+function wrapSite(){if($('#site'))return;const ex=new Set(['bg-canvas','lb','cmsPanel','cmsFab','ctbar']);const site=document.createElement('div');site.id='site';[...document.body.children].forEach(n=>{if(n.tagName==='SCRIPT')return;if(n.id&&ex.has(n.id))return;if(n.classList&&n.classList.contains('cms-hint'))return;site.appendChild(n);});document.body.insertBefore(site,$('#lb')||null);}
+const TEXT_SEL='h1,h2,h3,h4,h5,p,li,blockquote,.amt,.per,.day,.time,.nm,.sub,.sl,.sv,.bt,.tt,.origin,.fact-lbl,.kicker,.eyebrow,.mq,.cl,.cv,.handle,.leon-line,.ev-lead,.lead,.chip,.hint,.price-flag,.brand-txt,.foot-brand p,.nav-links a,.btn,a.soc,.hstat b,.hstat span,.proof b,.proof span,.ev .info b,.ev .info span,.ev-type .tt,.ev-type p,.ev-meta span,.flip-b p';
+const REP_SEL='.cards,.cal-grid,.price-grid,.play-grid,.soc-tiles,.tables,.ev-types,.ev-meta,.chips,.pcar-row,.proof,.nav-links';
+function makeEditable(root){$$(TEXT_SEL,root).forEach(el=>{if(el.querySelector(TEXT_SEL))return;el.setAttribute('contenteditable','true');});}
+function unmake(root){$$('[contenteditable]',root).forEach(el=>el.removeAttribute('contenteditable'));}
 
-/* ---- 1. WRAP CONTENT INTO #site ---- */
-function wrapSite(){
-  if($('#site'))return;
-  const exclude=new Set(['bg-canvas','lb','cmsPanel','cmsFab','linkpop']);
-  const keepClass=['cms-hint'];
-  const site=document.createElement('div');site.id='site';
-  const kids=[...document.body.children];
-  let anchor=null;
-  kids.forEach(n=>{
-    if(n.tagName==='SCRIPT')return;
-    if(n.id&&exclude.has(n.id))return;
-    if(keepClass.some(c=>n.classList&&n.classList.contains(c)))return;
-    if(!anchor)anchor=n;
-    site.appendChild(n);
-  });
-  document.body.insertBefore(site, $('#lb')||null);
-}
+/* design */
+let bgState=true;
+function applyDesign(d){if(!d)return;const r=document.documentElement.style;if(d.font){r.setProperty('--font-scale',d.font);$('#rFont').value=d.font;$('#vFont').textContent=Math.round(d.font*100)+'%';}if(d.space){r.setProperty('--space-scale',d.space);$('#rSpace').value=d.space;$('#vSpace').textContent=(+d.space).toFixed(2);}if(d.rad!=null){const v=parseInt(d.rad);r.setProperty('--r',v+'px');r.setProperty('--r-lg',(v+6)+'px');$('#rRad').value=v;$('#vRad').textContent=v+'px';}if(typeof d.bg==='boolean'){bgState=d.bg;$('#swBg').classList.toggle('on',d.bg);try{window.__tfczBg&&window.__tfczBg(d.bg)}catch(e){}}}
+function getDesign(){const cs=getComputedStyle(document.documentElement);return{font:cs.getPropertyValue('--font-scale').trim()||'1',space:cs.getPropertyValue('--space-scale').trim()||'1',rad:document.documentElement.style.getPropertyValue('--r')||'16px',bg:bgState};}
 
-/* ---- 2. RE-RUNNABLE INITS ---- */
-function initBurger(){
-  const b=$('#burger'),n=$('#navlinks');if(!b||!n||b._b)return;b._b=1;
-  b.addEventListener('click',()=>n.classList.toggle('open'));
-  n.addEventListener('click',e=>{if(e.target.closest('a'))n.classList.remove('open');});
-}
-let revObs;
-function initReveal(){
-  if(!revObs)revObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revObs.unobserve(e.target);}}),{threshold:.1});
-  $$('#site .reveal:not(.in)').forEach(el=>revObs.observe(el));
-}
-function initFactCar(){
-  const car=$('#factcar');if(!car)return;
-  const slides=$$('.fact-slide',car);const dots=$('#factdots',car);if(!dots)return;
-  dots.innerHTML='';if(car._t)clearInterval(car._t);
-  let i=slides.findIndex(s=>s.classList.contains('on'));if(i<0){i=0;slides[0]&&slides[0].classList.add('on');}
-  slides.forEach((_,n)=>{const b=document.createElement('button');if(n===i)b.classList.add('on');b.addEventListener('click',()=>{go(n);reset();});dots.appendChild(b);});
-  const db=[...dots.children];
-  function go(n){if(!slides[n])return;slides[i].classList.remove('on');db[i]&&db[i].classList.remove('on');i=n;slides[i].classList.add('on');db[i]&&db[i].classList.add('on');}
-  function reset(){clearInterval(car._t);car._t=setInterval(()=>go((i+1)%slides.length),3800);}
-  reset();
-}
-function initCalFilter(){
-  const wrap=$('#calfilters');if(!wrap||wrap._b)return;wrap._b=1;
-  wrap.addEventListener('click',e=>{const c=e.target.closest('.fchip');if(!c)return;
-    $$('.fchip',wrap).forEach(x=>x.classList.remove('active'));c.classList.add('active');
-    const f=c.dataset.f;$$('#agenda .ev').forEach(ev=>ev.style.display=(f==='alle'||ev.dataset.cat===f)?'':'none');
-  });
-}
-function initLightbox(){
-  const lb=$('#lb'),pc=$('#pcar');if(!lb)return;const img=lb.querySelector('img');
-  if(pc&&!pc._b){pc._b=1;pc.addEventListener('click',e=>{const t=e.target;if(t.tagName!=='IMG')return;if(editOn)return;img.src=t.src;lb.classList.add('on');});}
-  if(!lb._b){lb._b=1;lb.addEventListener('click',()=>lb.classList.remove('on'));}
-}
-function initBg(){
-  const c=$('#bg-canvas');if(!c)return;const x=c.getContext('2d');let W,H,t=0;
-  const mouse={x:.5,y:.5,tx:.5,ty:.5};
-  function size(){W=c.width=innerWidth;H=c.height=innerHeight;}size();
-  if(!c._b){c._b=1;addEventListener('resize',size);addEventListener('mousemove',e=>{mouse.tx=e.clientX/innerWidth;mouse.ty=e.clientY/innerHeight;});}
-  const lines=[{col:'92,167,220',amp:70,base:.18,sp:.6,w:1.6,o:.30},{col:'205,168,87',amp:55,base:.34,sp:.85,w:1.3,o:.24},{col:'68,137,199',amp:90,base:.55,sp:.5,w:1.4,o:.22},{col:'233,196,117',amp:60,base:.72,sp:.7,w:1.1,o:.18},{col:'92,167,220',amp:80,base:.88,sp:.4,w:1.5,o:.20}];
-  function draw(){
-    if(!bgEnabled){x.clearRect(0,0,W,H);bgRAF=requestAnimationFrame(draw);return;}
-    x.clearRect(0,0,W,H);mouse.x+=(mouse.tx-mouse.x)*.05;mouse.y+=(mouse.ty-mouse.y)*.05;
-    const mx=(mouse.x-.5),my=(mouse.y-.5);
-    lines.forEach((L,i)=>{x.beginPath();const yb=H*L.base+my*120*(i%2?1:-1);
-      for(let px=-20;px<=W+20;px+=14){const k=px/W;const y=yb+Math.sin(k*6.2+t*L.sp+i)*L.amp+Math.sin(k*13+t*L.sp*1.7)*L.amp*.35+mx*90*Math.sin(k*3.1+i);px===-20?x.moveTo(px,y):x.lineTo(px,y);}
-      x.strokeStyle='rgba('+L.col+','+L.o+')';x.lineWidth=L.w;x.stroke();});
-    t+=0.006;bgRAF=requestAnimationFrame(draw);
-  }
-  if(bgRAF)cancelAnimationFrame(bgRAF);draw();
-}
-function initAll(){initBurger();initReveal();initFactCar();initCalFilter();initLightbox();}
+/* persistence */
+function cleanClone(node){const c=node.cloneNode(true);c.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));c.querySelectorAll('.cms-tools,.cms-add').forEach(n=>n.remove());c.querySelectorAll('.cms-rep').forEach(n=>n.classList.remove('cms-rep'));['#stackdots','#agenda','#calMonth'].forEach(sel=>{const e=c.querySelector(sel);if(e)e.innerHTML='';});return c;}
+function flash(t){const h=$('.cms-hint');if(!h)return;const o='✎ Bearbeiten — Texte/Menü klicken · Bilder klicken zum Ersetzen · A−/A+ Schriftgrösse · 🔗 Link · ＋⧉✕ an Blöcken';h.textContent=t;h.style.display='block';clearTimeout(h._t);h._t=setTimeout(()=>{h.textContent=o;if(!editOn)h.style.display=''},1500);}
+function save(silent){try{const data={v:4,html:cleanClone($('#site')).innerHTML,design:getDesign()};localStorage.setItem(KEY,JSON.stringify(data));if(!silent)flash('Gespeichert ✓');return true;}catch(e){flash('⚠ Zu gross — Bilder kleiner wählen');return false;}}
+function load(){let d;try{d=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}if(d){if(d.html){$('#site').innerHTML=d.html;try{window.__tfczInit&&window.__tfczInit()}catch(e){}}applyDesign(d.design);}}
 
-/* ---- 3. PERSISTENCE (Snapshot) ---- */
-const REP_SEL='.cards,.agenda,.price-grid,.play-grid,.soc-tiles,.tables,.dates,.feat-list,.chips,.pcar-row';
-const TEXT_SEL='h1,h2,h3,h4,h5,p,li,blockquote,.amt,.per,.day,.time,.nm,.sub,.opt,.fact-lbl,.fact-val,.badge,.meta,.handle,.tag,.chip,.eyebrow,.kicker,.cl,.cv,.date-pill,.fchip,.cat-key,.hstat b,.hstat span,.big,.brand-txt,.foot-brand p,.price-flag,.fact-head,a.btn,a.soc';
-function cleanClone(node){
-  const c=node.cloneNode(true);
-  c.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));
-  c.querySelectorAll('.cms-tools,.cms-add').forEach(n=>n.remove());
-  c.querySelectorAll('.cms-rep').forEach(n=>n.classList.remove('cms-rep'));
-  const fd=c.querySelector('#factdots');if(fd)fd.innerHTML='';
-  return c;
-}
-function getDesign(){
-  const cs=getComputedStyle(document.documentElement);
-  return{space:cs.getPropertyValue('--space-scale').trim()||'1',
-    rad:document.documentElement.style.getPropertyValue('--r')||'16px',
-    bg:bgEnabled};
-}
-function applyDesign(d){
-  if(!d)return;const r=document.documentElement.style;
-  if(d.space){r.setProperty('--space-scale',d.space);$('#rSpace').value=d.space;$('#vSpace').textContent=(+d.space).toFixed(2);}
-  if(d.rad){const v=parseInt(d.rad);r.setProperty('--r',v+'px');r.setProperty('--r-lg',(v+6)+'px');$('#rRad').value=v;$('#vRad').textContent=v+'px';}
-  if(typeof d.bg==='boolean'){bgEnabled=d.bg;$('#swBg').classList.toggle('on',d.bg);}
-}
-function save(silent){
-  try{
-    const data={v:3,html:cleanClone($('#site')).innerHTML,design:getDesign()};
-    localStorage.setItem(KEY,JSON.stringify(data));
-    if(!silent)flash('Gespeichert ✓');
-    return true;
-  }catch(e){flash('⚠ Zu gross — Bilder kleiner wählen');return false;}
-}
-function load(){
-  let data;try{data=JSON.parse(localStorage.getItem(KEY)||'null');}catch(e){}
-  if(data){if(data.html)$('#site').innerHTML=data.html;applyDesign(data.design);}
-}
-function flash(t){const h=$('.cms-hint');if(!h)return;const o='✎ Bearbeiten-Modus aktiv — Texte klicken · Bilder klicken zum Ersetzen · Links klicken für URL · ＋ ⧉ ✕ an Blöcken';h.textContent=t;h.style.display='block';clearTimeout(h._t);h._t=setTimeout(()=>{h.textContent=o;if(!editOn)h.style.display='';},1500);}
+/* context toolbar (font size + link) */
+const ct=$('#ctbar');let ctTarget=null;
+function showCt(el){ctTarget=el;const a=el.closest('a');ct.classList.toggle('link-on',false);const r=el.getBoundingClientRect();ct.style.left=Math.max(8,Math.min(r.left,innerWidth-360))+'px';ct.style.top=Math.max(8,r.top-46)+'px';ct.classList.add('on');ct._link=a;}
+function hideCt(){ct.classList.remove('on','link-on');ctTarget=null;}
+$('#ctMinus').addEventListener('mousedown',e=>{e.preventDefault();if(!ctTarget)return;const s=parseFloat(getComputedStyle(ctTarget).fontSize);ctTarget.style.fontSize=(s-1.5)+'px';});
+$('#ctPlus').addEventListener('mousedown',e=>{e.preventDefault();if(!ctTarget)return;const s=parseFloat(getComputedStyle(ctTarget).fontSize);ctTarget.style.fontSize=(s+1.5)+'px';});
+$('#ctLink').addEventListener('mousedown',e=>{e.preventDefault();const a=ct._link;ct.classList.add('link-on');$('#ctHref').value=a?a.getAttribute('href'):'';$('#ctHref').focus();});
+$('#ctApply').addEventListener('mousedown',e=>{e.preventDefault();let a=ct._link;const v=$('#ctHref').value;if(!a&&ctTarget){a=document.createElement('a');a.innerHTML=ctTarget.innerHTML;ctTarget.innerHTML='';ctTarget.appendChild(a);ct._link=a;}if(a)a.setAttribute('href',v);flash('Link gesetzt');buildLinks();});
+function onFocusIn(e){const el=e.target.closest('[contenteditable]');if(el&&$('#site').contains(el))showCt(el);}
 
-/* ---- 4. EDIT MODE ---- */
-function makeEditable(root){
-  $$(TEXT_SEL,root).forEach(el=>{if(el.closest('.cms-tools'))return;el.setAttribute('contenteditable','true');});
-}
-function unmakeEditable(root){$$('[contenteditable]',root).forEach(el=>el.removeAttribute('contenteditable'));}
-function addRepTools(){
-  $$(REP_SEL,$('#site')).forEach(cont=>{
-    [...cont.children].forEach(item=>decorateRepItem(item));
-    if(!cont.querySelector(':scope>.cms-add')){
-      const add=document.createElement('button');add.className='cms-add';add.textContent='＋ Hinzufügen';
-      add.addEventListener('click',()=>{const last=[...cont.children].reverse().find(c=>!c.classList.contains('cms-add'));if(!last)return;const cl=last.cloneNode(true);cl.classList.remove('cms-tools');cont.insertBefore(cl,add);decorateRepItem(cl);makeEditable(cl);cl.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));initAll();});
-      cont.appendChild(add);
-    }
-  });
-}
-function decorateRepItem(item){
-  if(item.classList.contains('cms-add')||item.classList.contains('cms-tools'))return;
-  item.classList.add('cms-rep');
-  if(item.querySelector(':scope>.cms-tools'))return;
-  const t=document.createElement('div');t.className='cms-tools';t.contentEditable='false';
-  t.innerHTML='<button class="dup" title="Duplizieren">⧉</button><button class="del" title="Löschen">✕</button>';
-  t.querySelector('.dup').addEventListener('click',e=>{e.stopPropagation();const cl=item.cloneNode(true);item.after(cl);decorateRepItem(cl);makeEditable(cl);cl.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));initAll();});
-  t.querySelector('.del').addEventListener('click',e=>{e.stopPropagation();item.remove();});
-  item.appendChild(t);
-}
-function removeRepTools(){$$('#site .cms-tools,#site .cms-add').forEach(n=>n.remove());$$('#site .cms-rep').forEach(n=>n.classList.remove('cms-rep'));}
+/* images */
+function onImg(e){if(!editOn)return;const img=e.target.closest('#site img');if(!img)return;e.preventDefault();e.stopPropagation();const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=()=>{const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>img.src=r.result;r.readAsDataURL(f);};inp.click();}
 
-function onImgClick(e){
-  if(!editOn)return;const img=e.target.closest('#site img');if(!img)return;
-  e.preventDefault();e.stopPropagation();
-  const inp=document.createElement('input');inp.type='file';inp.accept='image/*';
-  inp.onchange=()=>{const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>img.src=r.result;r.readAsDataURL(f);};
-  inp.click();
-}
-let lpTarget=null;
-function onLinkClick(e){
-  if(!editOn)return;const a=e.target.closest('#site a');if(!a)return;
-  e.preventDefault();
-  // allow text editing too; show URL popover anchored to link
-  lpTarget=a;const pop=$('#linkpop');$('#lpHref').value=a.getAttribute('href')||'';
-  const rc=a.getBoundingClientRect();pop.style.left=Math.min(rc.left,innerWidth-300)+'px';pop.style.top=(rc.bottom+8)+'px';pop.classList.add('on');$('#lpHref').focus();
-}
-function enterEdit(){
-  editOn=true;document.body.classList.add('edit-on');
-  makeEditable($('#site'));addRepTools();
-  $('#site').addEventListener('click',onImgClick,true);
-  $('#site').addEventListener('click',onLinkClick,true);
-  $('#cmsEdit').textContent='Bearbeiten beenden';$('#cmsEdit').classList.remove('b-gold');$('#cmsEdit').classList.add('b-green');
-  buildSectionList();buildLinkList();flash('Bearbeiten aktiv');
-}
-function exitEdit(){
-  editOn=false;document.body.classList.remove('edit-on');
-  $('#linkpop').classList.remove('on');
-  unmakeEditable($('#site'));removeRepTools();
-  $('#site').removeEventListener('click',onImgClick,true);
-  $('#site').removeEventListener('click',onLinkClick,true);
-  $('#cmsEdit').textContent='Bearbeiten starten';$('#cmsEdit').classList.add('b-gold');$('#cmsEdit').classList.remove('b-green');
-}
+/* repeaters */
+function decorate(item){if(item.classList.contains('cms-add'))return;item.classList.add('cms-rep');if(item.querySelector(':scope>.cms-tools'))return;const t=document.createElement('div');t.className='cms-tools';t.contentEditable='false';t.innerHTML='<button class="dup" title="Duplizieren">⧉</button><button class="del" title="Löschen">✕</button>';t.querySelector('.dup').addEventListener('click',ev=>{ev.stopPropagation();const cl=item.cloneNode(true);item.after(cl);decorate(cl);makeEditable(cl);cl.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));});t.querySelector('.del').addEventListener('click',ev=>{ev.stopPropagation();item.remove();});item.appendChild(t);}
+function addReps(){$$(REP_SEL,$('#site')).forEach(cont=>{[...cont.children].forEach(decorate);if(!cont.querySelector(':scope>.cms-add')){const add=document.createElement('button');add.className='cms-add';add.textContent='＋ Hinzufügen';add.addEventListener('click',()=>{const last=[...cont.children].reverse().find(c=>!c.classList.contains('cms-add'));if(!last)return;const cl=last.cloneNode(true);cl.querySelectorAll&&cl.querySelectorAll('.cms-tools').forEach(n=>n.remove());cont.insertBefore(cl,add);decorate(cl);makeEditable(cl);cl.querySelectorAll&&cl.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));});cont.appendChild(add);}});}
+function rmReps(){$$('#site .cms-tools,#site .cms-add').forEach(n=>n.remove());$$('#site .cms-rep').forEach(n=>n.classList.remove('cms-rep'));}
 
-/* ---- 5. SECTION MANAGER ---- */
-function topSections(){return $$('#site > *').filter(n=>/^(SECTION|HEADER|FOOTER)$/.test(n.tagName)||n.classList.contains('marquee')||n.classList.contains('cta-strip'));}
-function secName(n){if(n.id)return n.id;const h=n.querySelector('h1,h2');if(h)return h.textContent.trim().slice(0,22);if(n.classList.contains('marquee'))return 'Laufband';if(n.classList.contains('cta-strip'))return 'CTA-Streifen';return n.tagName.toLowerCase();}
-function buildSectionList(){
-  const list=$('#secList');if(!list)return;list.innerHTML='';
-  topSections().forEach(sec=>{
-    const row=document.createElement('div');row.className='sec-item'+(sec.style.display==='none'?' hidden':'');
-    row.innerHTML='<span class="nm">'+secName(sec)+'</span>';
-    const eye=document.createElement('button');eye.textContent='👁';eye.title='Ein/Ausblenden';
-    eye.addEventListener('click',()=>{sec.style.display=sec.style.display==='none'?'':'none';row.classList.toggle('hidden',sec.style.display==='none');});
-    const up=document.createElement('button');up.textContent='↑';up.addEventListener('click',()=>{const arr=topSections();const k=arr.indexOf(sec);if(k>0){sec.parentNode.insertBefore(sec,arr[k-1]);buildSectionList();}});
-    const dn=document.createElement('button');dn.textContent='↓';dn.addEventListener('click',()=>{const arr=topSections();const k=arr.indexOf(sec);if(k<arr.length-1){sec.parentNode.insertBefore(arr[k+1],sec);buildSectionList();}});
-    row.append(eye,up,dn);list.appendChild(row);
-  });
-}
+/* sections */
+function tops(){return $$('#site > *').filter(n=>/^(SECTION|HEADER|FOOTER)$/.test(n.tagName)||n.classList.contains('marquee')||n.classList.contains('cta-strip'));}
+function secName(n){if(n.id)return n.id;const h=n.querySelector('h1,h2');if(h)return h.textContent.trim().slice(0,22);if(n.classList.contains('marquee'))return'Laufband';if(n.classList.contains('cta-strip'))return'CTA';return n.tagName.toLowerCase();}
+function buildSecs(){const l=$('#secList');if(!l)return;l.innerHTML='';tops().forEach(sec=>{const row=document.createElement('div');row.className='sec-item'+(sec.style.display==='none'?' hidden':'');row.innerHTML='<span class="nm">'+secName(sec)+'</span>';const eye=document.createElement('button');eye.textContent='👁';eye.addEventListener('click',()=>{sec.style.display=sec.style.display==='none'?'':'none';row.classList.toggle('hidden',sec.style.display==='none');});const up=document.createElement('button');up.textContent='↑';up.addEventListener('click',()=>{const a=tops(),k=a.indexOf(sec);if(k>0){sec.parentNode.insertBefore(sec,a[k-1]);buildSecs();}});const dn=document.createElement('button');dn.textContent='↓';dn.addEventListener('click',()=>{const a=tops(),k=a.indexOf(sec);if(k<a.length-1){sec.parentNode.insertBefore(a[k+1],sec);buildSecs();}});row.append(eye,up,dn);l.appendChild(row);});}
 
-/* ---- 6. LINK MANAGER ---- */
-function buildLinkList(){
-  const list=$('#linkList');if(!list)return;list.innerHTML='';
-  const seen=new Set();
-  $$('#site a[href]').forEach(a=>{
-    const label=(a.textContent.trim()||a.getAttribute('aria-label')||a.getAttribute('href')).slice(0,30);
-    if(a.getAttribute('href').startsWith('#'))return; // skip in-page anchors
-    const key=label+a.getAttribute('href');if(seen.has(key))return;seen.add(key);
-    const it=document.createElement('div');it.className='lk-item';
-    const lt=document.createElement('div');lt.className='lt';lt.textContent=label;
-    const inp=document.createElement('input');inp.type='url';inp.value=a.getAttribute('href');
-    inp.addEventListener('change',()=>{a.setAttribute('href',inp.value);});
-    it.append(lt,inp);list.appendChild(it);
-  });
-  if(!list.children.length)list.innerHTML='<p style="font-size:12px;color:rgba(255,255,255,.5)">Externe Links erscheinen hier, sobald vorhanden.</p>';
-}
+/* links panel */
+function buildLinks(){const l=$('#linkList');if(!l)return;l.innerHTML='';const seen=new Set();$$('#site a[href]').forEach(a=>{const href=a.getAttribute('href');if(href.startsWith('#'))return;const label=(a.textContent.trim()||a.getAttribute('aria-label')||href).slice(0,30);const key=label+href;if(seen.has(key))return;seen.add(key);const it=document.createElement('div');it.className='lk-item';const lt=document.createElement('div');lt.className='lt';lt.textContent=label;const inp=document.createElement('input');inp.type='url';inp.value=href;inp.addEventListener('change',()=>a.setAttribute('href',inp.value));it.append(lt,inp);l.appendChild(it);});if(!l.children.length)l.innerHTML='<p style="font-size:12px;color:rgba(255,255,255,.5)">Externe Links erscheinen hier.</p>';}
 
-/* ---- 7. EXPORT / BACKUP ---- */
-function exportHTML(){
-  save(true);const wasOn=editOn;if(wasOn)exitEdit();
-  const doc=document.documentElement.cloneNode(true);
-  doc.querySelectorAll('#cmsPanel,#cmsFab,#linkpop,.cms-hint,.cms-tools,.cms-add').forEach(n=>n.remove());
-  doc.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));
-  doc.querySelectorAll('.cms-rep').forEach(n=>n.classList.remove('cms-rep'));
-  doc.querySelector('body').classList.remove('edit-on','cms-ready');
-  const d=getDesign(),bs=doc.querySelector('body').style;
-  bs.setProperty('--space-scale',d.space);
-  doc.querySelector('html').style.setProperty('--r',parseInt(d.rad)+'px');
-  doc.querySelector('html').style.setProperty('--r-lg',(parseInt(d.rad)+6)+'px');
-  const html='<!DOCTYPE html>\n'+doc.outerHTML;
-  dl(new Blob([html],{type:'text/html'}),'tfcz-website.html');
-  if(wasOn)enterEdit();flash('HTML exportiert ⬇');
-}
+function enter(){editOn=true;document.body.classList.add('edit-on');makeEditable($('#site'));addReps();$('#site').addEventListener('click',onImg,true);document.addEventListener('focusin',onFocusIn);$('#cmsEdit').textContent='Bearbeiten beenden';$('#cmsEdit').classList.replace('b-gold','b-green');buildSecs();buildLinks();flash('Bearbeiten aktiv');}
+function exit(){editOn=false;document.body.classList.remove('edit-on');unmake($('#site'));rmReps();hideCt();$('#site').removeEventListener('click',onImg,true);document.removeEventListener('focusin',onFocusIn);$('#cmsEdit').textContent='Bearbeiten starten';$('#cmsEdit').classList.replace('b-green','b-gold');}
+
 function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);}
+function exportHTML(){save(true);const was=editOn;if(was)exit();const doc=document.documentElement.cloneNode(true);doc.querySelectorAll('#cmsPanel,#cmsFab,#ctbar,.cms-hint,.cms-tools,.cms-add').forEach(n=>n.remove());doc.querySelectorAll('[contenteditable]').forEach(n=>n.removeAttribute('contenteditable'));doc.querySelectorAll('.cms-rep').forEach(n=>n.classList.remove('cms-rep'));doc.querySelector('body').classList.remove('edit-on','cms-ready');const d=getDesign(),hs=doc.querySelector('html').style;hs.setProperty('--font-scale',d.font);hs.setProperty('--space-scale',d.space);hs.setProperty('--r',parseInt(d.rad)+'px');hs.setProperty('--r-lg',(parseInt(d.rad)+6)+'px');dl(new Blob(['<!DOCTYPE html>\n'+doc.outerHTML],{type:'text/html'}),'tfcz-website.html');if(was)enter();flash('HTML exportiert ⬇');}
 
-/* ---- 8. WIRE UP ---- */
 function boot(){
-  wrapSite();
-  document.body.classList.add('cms-ready');
-  load();
-  initBg();initAll();
-  // panel
+  wrapSite();document.body.classList.add('cms-ready');load();
   $('#cmsFab').addEventListener('click',()=>$('#cmsPanel').classList.add('on'));
   $('#cmsClose').addEventListener('click',()=>$('#cmsPanel').classList.remove('on'));
-  $('#cmsEdit').addEventListener('click',()=>editOn?exitEdit():enterEdit());
-  // design
+  $('#cmsEdit').addEventListener('click',()=>editOn?exit():enter());
+  $('#rFont').addEventListener('input',e=>{document.documentElement.style.setProperty('--font-scale',e.target.value);$('#vFont').textContent=Math.round(e.target.value*100)+'%';});
   $('#rSpace').addEventListener('input',e=>{document.documentElement.style.setProperty('--space-scale',e.target.value);$('#vSpace').textContent=(+e.target.value).toFixed(2);});
   $('#rRad').addEventListener('input',e=>{const v=e.target.value;document.documentElement.style.setProperty('--r',v+'px');document.documentElement.style.setProperty('--r-lg',(+v+6)+'px');$('#vRad').textContent=v+'px';});
-  $('#swBg').addEventListener('click',()=>{bgEnabled=!bgEnabled;$('#swBg').classList.toggle('on',bgEnabled);});
-  // link popover
-  $('#lpApply').addEventListener('click',()=>{if(lpTarget)lpTarget.setAttribute('href',$('#lpHref').value);$('#linkpop').classList.remove('on');flash('Link aktualisiert');});
-  $('#lpClose').addEventListener('click',()=>$('#linkpop').classList.remove('on'));
-  // save/export/backup/reset
+  $('#swBg').addEventListener('click',()=>{bgState=!bgState;$('#swBg').classList.toggle('on',bgState);try{window.__tfczBg&&window.__tfczBg(bgState)}catch(e){}});
   $('#cmsSave').addEventListener('click',()=>save());
   $('#cmsExport').addEventListener('click',exportHTML);
   $('#cmsBackup').addEventListener('click',()=>{save(true);dl(new Blob([localStorage.getItem(KEY)||'{}'],{type:'application/json'}),'tfcz-cms-backup.json');});
   $('#cmsRestore').addEventListener('click',()=>$('#restoreFile').click());
-  $('#restoreFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{JSON.parse(r.result);localStorage.setItem(KEY,r.result);location.reload();}catch(err){alert('Ungültige Backup-Datei');}};r.readAsText(f);});
-  $('#cmsReset').addEventListener('click',()=>{if(confirm('Alle Änderungen zurücksetzen? Die Originalseite wird wiederhergestellt.')){localStorage.removeItem(KEY);location.reload();}});
+  $('#restoreFile').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{JSON.parse(r.result);localStorage.setItem(KEY,r.result);location.reload();}catch(err){alert('Ungültige Datei');}};r.readAsText(f);});
+  $('#cmsReset').addEventListener('click',()=>{if(confirm('Alle Änderungen zurücksetzen?')){localStorage.removeItem(KEY);location.reload();}});
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
 </script>
+
 </body>
 </html>
