@@ -21,6 +21,7 @@ Projekt: Tischfussball Club Zürich | Marketing & Strategie | Stand: 2026-06-18
 | `marketing.md` | Kanäle (Insta, WA, YT), Tone, Flyer-Stile, Content-Typen | Posts, Ankündigungen, Kampagnen |
 | `clubentwicklung.md` | TFCZ 2.0 Strategie-Achsen, Nebenwirtschaft, Ideen | Strategische Diskussionen |
 | `flyer-guide.md` | Prompts + Briefs für Flyer-Erstellung, 2 Visual-Stile | Flyer & Grafiken erstellen |
+| `website.md` | Website-Neubau v2: Sektionen, CMS, offene Punkte | Website-Arbeit, Landingpages |
 
 ---
 

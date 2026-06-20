@@ -14,7 +14,8 @@
 | **E-Mail** | info@tfcz.ch |
 | **Website** | https://tfcz.ch |
 | **Lokalgrösse** | ca. 100 m² |
-| **Aussenbereich** | Ja (im Sommer) |
+| **Aussenbereich** | Ja, vorhanden (ganzjährig — Korrektur 19.06.2026, nicht nur im Sommer) |
+| **Mitglieder** | 100+ |
 | **Trägerschaft** | Verein, getragen durch Freiwilligenarbeit |
 | **Partner** | SC Devils Richterswil (Swiss Tablesoccer Series) |
 
@@ -36,17 +37,18 @@
 
 **Der TFCZ ist ein Leonhart-Verein.** Zehn Leonhart-Turniertische stehen permanent, dazu ein Ullrich. Alle weiteren Tische sind optional und werden je nach Turnier/Anlass aufgestellt.
 
-| Tisch | Anzahl | Status | Typ |
-|---|---|---|---|
-| Leonhart | 10 | **Permanent** | Turniertisch (Markenzeichen) |
-| Ullrich Tournament | 1 | **Permanent** | Turniertisch |
-| Garlando Deluxe | optional | aufstellbar | Fun/Casual |
-| Garlando World Champion | optional | aufstellbar | Classic |
-| Bonzini | optional | aufstellbar | Klassiker |
-| Roberto Sport | optional | aufstellbar | Classic |
-| Tornado | optional | aufstellbar | Classic |
+| Tisch | Anzahl | Status | Herkunft | Kurz-Wiki (für Website-Flip-Karten) |
+|---|---|---|---|---|
+| Leonhart | 10 | **Permanent** | Deutschland | Deutscher Turnierstandard: kontrollierte Stangen, harte Bälle, präzises Spiel. Haupttisch fürs Zürich Open. |
+| Ullrich Tournament | 1 | **Permanent** | Deutschland | Klassischer dt. Turniertisch, ruhiges/kontrolliertes Spielgefühl. |
+| Garlando Deluxe | 3 | optional | Italien | Italienischer Klassiker, schnelles Spiel, europaweit verbreitet. |
+| Garlando World Champion | 1 | optional | Italien | Wettkampf-Version des Garlando, weltweit auf Turnieren. |
+| Bonzini | 1 | optional | Frankreich | Französischer Kult-Tisch („Babyfoot"), Teleskop-Stangen. |
+| Roberto Sport | 1 | optional | Italien | Italienischer Tisch, robust, beliebt im Wettkampf. |
+| Tornado | 1 | optional | USA | US-Standard: harte, schnelle Bälle, griffige Stangen. |
 
-> Korrektur 18.06.2026 (Vasco): Nur noch **ein Ullrich, zehn Leonhart** — „wir sind ein Leonhart-Verein". Die 10 Leonhart stehen immer, der Rest ist optional. (Frühere Angabe „9 Ullrich" ist überholt.)
+> Korrektur 18.06.2026 (Vasco): Nur noch **ein Ullrich, zehn Leonhart** — „wir sind ein Leonhart-Verein". Die 10 Leonhart stehen immer, der Rest ist optional. (Frühere Angabe „9 Ullrich" überholt.)
+> Ergänzung 19.06.2026: Garlando Deluxe **3×**; Herkunfts-Angaben für die Tisch-Wiki auf der Website ergänzt. Auf der Website wird nur Leonhart als Leitmarke hervorgehoben (nicht Ullrich).
 
 ---
 
