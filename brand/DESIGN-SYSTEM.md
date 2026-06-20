@@ -99,7 +99,7 @@ Titel: `letter-spacing:-.02em`. Labels/Kicker: `letter-spacing:.1–.22em`, UPPE
 - **Buttons:** `padding:16px 30px`, `radius:12px`, weight 900. Varianten: `btn-gold` (primär), `btn-ghost` (sekundär, auf Dunkel), `btn-navy`, `btn-wa` (WhatsApp-Grün `#25D366`). Hover: `translateY(-3px)` + Schatten.
 - **Cards:** Hover `translateY(-7px)` + Schatten. Kategorie über `border-top:3px` in Akzentfarbe.
 - **Tags/Badges:** Pill, UPPERCASE 11.5px/900, Kategorie-Farbe.
-- **Section-Bands:** `band-light` (hell) · `band-navy` (transparent über Canvas) · `band-deep` (Navy-Verlauf).
+- **Section-Bands:** `band-light` (hell) · `band-navy` (transparent über Canvas) · `band-deep` (Navy-Verlauf) · **`band-img`** (Foto-Hintergrund mit Navy-Verlauf-Overlay, weisser Text — wie Hero; für Über-uns & Events).
 - **Reveal:** `opacity:0 → 1`, `translateY(34px) → 0`, `.7s`, via IntersectionObserver.
 
 ---
@@ -109,12 +109,27 @@ Titel: `letter-spacing:-.02em`. Labels/Kicker: `letter-spacing:.1–.22em`, UPPE
 - **Animierter Canvas:** 5 sanfte, sinusförmige Blau/Gold-Linien, maus-reaktiv (Parallax). Fixiert hinter dem Inhalt, `pointer-events:none`.
 - **Marquee:** goldenes Laufband, navy umrandet, eigener Block (nie von Bands überlappt).
 - **Foto-Karussell:** zwei gegenläufige Reihen (oben grösser ~260px, unten ~180px), Endlos-Loop, Pause bei Hover, Klick → Lightbox.
-- **Fakten-Karussell:** Auto-Rotation 3.8s, Icon + Label + Wert, Dots.
+- **Kartenstapel** („Auf einen Blick"): gestapelte Karten, hintere in **Blau-Abstufungen** (`#0d273d→#16395a→#1f4e78→…`) für Kontrast, Pattern-Watermark sichtbar (opacity .18). Sanftes Wegschieben (`translateX(-46px) rotate(-3deg) scale(.96)`, **nicht** komplett aus dem Bild), Auto-Rotation 4.2s, Swipe/Klick, Dots, kleine CTA-Links je Karte.
 
 ---
 
-## 7. Output-Konvention
+## 7. Komponenten v2 (Website-Neubau)
+
+- **Flip-Karten:** 3D-Flip bei Hover (`rotateY(180deg)`). Einsatz: Tische (Vorderseite Anzahl+Name, Rückseite Mini-Wiki mit Herkunft) und Mitspielen-Karten (Vorderseite Tag/Zeit, Rückseite ausführliche Erklärung). Nur die Leitkarte (Leonhart) wird hervorgehoben (blau), nicht mehrere.
+- **Kalender:** Umschalter **Liste ⇄ Kalender**. Liste = 2-spaltige, **scrollbare** Agenda (max-height, goldener Scrollbalken, Scroll-Hinweis). Kalender = **Monatsraster** (Mo–So, Tage + Time-Slots als farbcodierte Chips, Vor/Zurück). Wiederkehrende Events (Di Training, Mi DYP) + Specials werden in JS generiert. **Keine Fremdlinks** (alles auf der Seite).
+- **Filter-Chips:** Kategorie-Filter (`Alle / Für alle / Wettkampf / Spezial`) mit farbigem Punkt; filtert Cards bzw. Kalender.
+- **Hero-Stats:** Zahlen mit optionalem Mini-Präfix (`mind.`). Kein Logo/Pattern-Wasserzeichen im Hero — nur Foto + Navy-Verlauf.
+- **Marquee:** Navy umrandet (keine blaue Linie), gleichmässige Trennung über Rauten-Separatoren (`.sep`).
+
+## 8. CMS-Tokens & Inline-Editing
+
+- Zusätzliche Tokens: **`--font-scale`** (Schriftgrösse global, body `font-size:calc(16px*var(--font-scale))`) und **`--space-scale`** (Abstände). Beide vom CMS-Regler steuerbar; `--r`/`--r-lg` (Eckenradius) ebenso.
+- **Inline-CMS** (`index-cms.html`): Texte/Menüpunkte editierbar, Bilder per Klick ersetzbar, Link-/Schriftgrössen-Leiste pro Element, Repeater (＋/⧉/✕), Sektionen ein-/ausblenden & sortieren, Snapshot-Persistenz (localStorage), HTML-Export, JSON-Backup.
+
+---
+
+## 9. Output-Konvention
 
 - Primär **Single-File HTML/CSS** (alles inline), Assets relativ unter `assets/img/`.
-- Inhalte mit `data-edit` (Text) bzw. `data-img` (Bild) markieren → vom Inline-Editor bearbeitbar.
+- Auslieferung als `index.html`; editierbare Variante `index-cms.html` (gleiche Seite + CMS-Layer).
 - Neue Landingpages erben dieses `:root`-Token-Set 1:1.
