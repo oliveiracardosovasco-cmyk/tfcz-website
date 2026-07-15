@@ -1,0 +1,27 @@
+# ============================================================
+# NIE ins Repo (verbindlich, CLAUDE.md)
+#
+# ACHTUNG: .gitignore kennt KEINE Inline-Kommentare. "#" gilt nur
+# am Zeilenanfang. "_secret/   # Kommentar" wird komplett als
+# Pattern gelesen und matcht NICHTS -> das Geheimnis waere im Repo.
+# (Genau dieser Fehler ist am 15.07.2026 passiert und wurde nur
+#  durch einen Test mit `git add` in einer Kopie gefunden.)
+# ============================================================
+
+# Eier-Jagd im Klartext -- nie deployen, nie pushen
+_secret/
+
+# Rollback-Staende (lokal, ~167 MB)
+_snapshots/
+_backup-vor-reset/
+_snapshot-baseline/
+
+# geparkte Alt-Module, nicht aktiv
+_module/
+
+# ---- Systemkram ----
+.DS_Store
+Thumbs.db
+*.log
+.fuse_hidden*
+node_modules/

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · TFCZ — Tischfussball Club Zürich</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d273d">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/tokens.css">
+<style>
+/* ============================================================
+   TFCZ · DASHBOARD (intern, hinter Login)
+   Dunkel-Navy — laut CLAUDE.md ist der Dark-Modus den login-geschützten
+   Bereichen vorbehalten. Boxen dunkel & frosted, sticky Bar trägt die
+   Brand-Signatur (blau oben / gold unten).
+   Eigener Klassen-Präfix: .db-
+   ============================================================ */
+*{box-sizing:border-box; margin:0; padding:0}
+html{background:#081826}
+body{font-family:var(--font); color:var(--ink); min-height:100vh; overflow-x:hidden;
+  background:radial-gradient(900px 620px at 12% 0%, rgba(92,167,220,.16), transparent 55%),
+             radial-gradient(1000px 720px at 92% 100%, rgba(205,168,87,.10), transparent 60%),
+             var(--bg-navy); background-attachment:fixed}
+#bg{position:fixed; inset:0; z-index:0; pointer-events:none}
+.db-wrap{position:relative; z-index:1; max-width:1240px; margin:0 auto; padding:0 22px}
+
+/* ---------- Topbar (sticky -> trägt immer die Brand-Signatur) ---------- */
+.db-top{position:sticky; top:0; z-index:90; display:flex; align-items:center; gap:16px;
+  padding:12px max(22px, calc((100% - 1240px)/2 + 22px));
+  background:linear-gradient(155deg, rgba(13,39,61,.96), rgba(9,21,33,.94)); backdrop-filter:blur(14px);
+  border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-2)}
+.db-top .db-logo{flex:none; display:block; line-height:0}
+.db-top .db-logo img{height:34px; width:auto; display:block; transition:transform .18s var(--ease)}
+.db-top .db-logo:active img{transform:scale(.9)}
+
+.db-search{flex:1; max-width:420px; position:relative; margin-left:12px}
+.db-search input{width:100%; font-family:inherit; font-size:13.5px; font-weight:600; color:#fff;
+  background:rgba(255,255,255,.06); border:1px solid var(--card-brd); border-radius:var(--r-pill);
+  padding:9px 14px 9px 38px; outline:0; transition:box-shadow .18s var(--ease), border-color .18s}
+.db-search input::placeholder{color:var(--ink-mut); opacity:.75}
+.db-search input:focus{border-color:transparent; box-shadow:inset 0 0 0 2px var(--gold)}
+.db-search .db-ic{position:absolute; left:13px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--ink-mut)}
+
+.db-tools{margin-left:auto; display:flex; align-items:center; gap:10px}
+.db-icbtn{position:relative; width:36px; height:36px; display:grid; place-items:center; cursor:pointer;
+  background:rgba(255,255,255,.06); border:1px solid var(--card-brd); border-radius:50%; color:var(--ink);
+  transition:box-shadow .18s var(--ease), border-color .18s}
+.db-icbtn:hover{border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.db-icbtn .db-ic{width:17px; height:17px}
+.db-icbtn .db-dot{position:absolute; top:6px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--gold); border:2px solid #0d273d}
+
+.db-user{display:flex; align-items:center; gap:9px; padding:5px 12px 5px 5px; cursor:pointer;
+  background:rgba(255,255,255,.06); border:1px solid var(--card-brd); border-radius:var(--r-pill);
+  transition:box-shadow .18s var(--ease), border-color .18s}
+.db-user:hover{border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.db-ava{width:28px; height:28px; border-radius:50%; display:grid; place-items:center; flex:none;
+  font-size:11.5px; font-weight:900; color:#0d273d; background:linear-gradient(160deg, var(--gold-lt), var(--gold))}
+.db-utxt{display:block; text-align:left}
+.db-utxt b{font-size:12.5px; font-weight:800; color:#fff; display:block; line-height:1.2}
+.db-utxt i{font-size:10px; font-weight:800; color:var(--gold-lt); text-transform:uppercase; letter-spacing:.1em; font-style:normal; display:block}
+
+/* ---------- Kopf ---------- */
+.db-head{padding:38px 0 6px}
+.db-kicker{display:flex; align-items:center; gap:10px; font-size:12px; font-weight:800; color:var(--gold);
+  text-transform:uppercase; letter-spacing:.18em; margin-bottom:12px}
+.db-kicker::before{content:""; width:28px; height:2px; background:var(--gold); flex:none}
+.db-head h1{font-size:clamp(30px, 4vw, 44px); font-weight:900; color:#fff; line-height:1.05; letter-spacing:-.01em}
+.db-head h1 .g{color:var(--gold)}
+.db-head p{margin-top:10px; font-size:15px; color:var(--ink-mut); max-width:62ch; line-height:1.6}
+
+/* ---------- Kennzahlen ---------- */
+.db-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:26px}
+.db-stat{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:16px 18px;
+  backdrop-filter:blur(10px); box-shadow:var(--inset)}
+.db-stat .db-l{display:flex; align-items:center; gap:8px; font-size:11px; font-weight:800; color:var(--ink-mut);
+  text-transform:uppercase; letter-spacing:.1em}
+.db-stat .db-l .db-ic{width:14px; height:14px}
+.db-stat b{display:block; margin-top:8px; font-size:26px; font-weight:900; color:#fff; line-height:1}
+.db-stat small{display:block; margin-top:5px; font-size:11.5px; font-weight:700; color:var(--ink-mut)}
+.db-stat small.up{color:var(--green)}
+
+/* ---------- App-Grid ---------- */
+.db-sec{padding:34px 0 0}
+.db-sec h2{font-size:19px; font-weight:900; color:#fff; margin-bottom:2px}
+.db-sec .db-hint{font-size:13px; color:var(--ink-mut); margin-bottom:16px}
+.db-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+
+.db-app{position:relative; display:block; text-decoration:none; color:inherit; cursor:pointer; text-align:left;
+  font-family:inherit; background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg);
+  padding:18px; backdrop-filter:blur(10px); box-shadow:var(--inset);
+  transition:transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s}
+.db-app:hover{transform:translateY(-3px); border-color:transparent;
+  box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold), var(--e-1)}
+.db-app .db-tile{width:42px; height:42px; border-radius:var(--r-md); display:grid; place-items:center; margin-bottom:14px;
+  background:rgba(92,167,220,.14); border:1px solid rgba(92,167,220,.28); color:var(--blue)}
+.db-app .db-tile .db-ic{width:21px; height:21px}
+.db-app.gold .db-tile{background:rgba(205,168,87,.14); border-color:rgba(205,168,87,.3); color:var(--gold)}
+.db-app.deep .db-tile{background:rgba(0,90,148,.3); border-color:rgba(0,90,148,.55); color:#8ec7ee}
+.db-app b{display:block; font-size:15px; font-weight:900; color:#fff}
+.db-app p{margin-top:5px; font-size:12.5px; color:var(--ink-mut); line-height:1.5}
+.db-app .db-badge{position:absolute; top:14px; right:14px; font-size:9.5px; font-weight:900; letter-spacing:.1em;
+  text-transform:uppercase; padding:4px 8px; border-radius:var(--r-pill)}
+.db-app .db-badge.live{color:var(--green); background:rgba(103,181,125,.14); border:1px solid rgba(103,181,125,.35)}
+.db-app .db-badge.bald{color:var(--ink-mut); background:rgba(255,255,255,.06); border:1px solid var(--card-brd)}
+.db-app.soon{opacity:.72}
+.db-app.soon .db-tile{background:rgba(255,255,255,.05); border-color:var(--card-brd); color:var(--ink-mut)}
+
+/* ---------- Popup „kommt noch" (schliesst über den Portal-Baustein) ---------- */
+.db-scrim{position:fixed; inset:0; z-index:120; display:none; place-items:center; padding:24px;
+  background:rgba(5,12,20,.62); backdrop-filter:blur(4px)}
+.db-scrim.on{display:grid}
+.db-pop{position:relative; width:min(420px, 94vw); border-radius:var(--r-xl); padding:26px 24px; text-align:center;
+  background:linear-gradient(155deg, rgba(17,34,51,.96), rgba(9,21,33,.94)); border:1px solid var(--card-brd);
+  border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-3); backdrop-filter:blur(12px);
+  animation:dbPop .32s var(--bounce)}
+@keyframes dbPop{from{opacity:0; transform:scale(.94) translateY(8px)}to{opacity:1; transform:none}}
+.db-pop .db-tile{width:52px; height:52px; margin:0 auto 14px; border-radius:var(--r-md); display:grid; place-items:center;
+  background:rgba(92,167,220,.14); border:1px solid rgba(92,167,220,.28); color:var(--blue)}
+.db-pop .db-tile .db-ic{width:26px; height:26px}
+.db-pop h3{font-size:20px; font-weight:900; color:#fff}
+.db-pop p{margin-top:8px; font-size:13.5px; color:var(--ink-mut); line-height:1.6}
+.db-x{position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(255,255,255,.08); border:1px solid var(--card-brd); color:#fff; cursor:pointer;
+  transition:background .18s var(--ease), border-color .18s}
+.db-x svg{width:16px; height:16px; display:block; flex:none}
+.db-x:hover{background:var(--red); border-color:var(--red); animation:xsquish .42s var(--ease)}
+.db-x:active{transform:scale(.9)}
+@keyframes xsquish{0%{transform:scale(1,1)}40%{transform:scale(1.22,.78)}70%{transform:scale(.94,1.06)}100%{transform:scale(1,1)}}
+.db-btn{margin-top:18px; width:100%; font-family:inherit; font-size:14px; font-weight:900; color:#fff; cursor:pointer;
+  background:linear-gradient(155deg, var(--blue), var(--blue-mid)); border:0; padding:12px; border-radius:var(--r-md);
+  transition:transform .15s var(--ease), box-shadow .15s}
+.db-btn:hover{transform:translateY(-2px); box-shadow:0 12px 26px rgba(68,137,199,.4)}
+
+/* ---------- Demo-Hinweis + Footer-Zeile ---------- */
+.db-demo{display:flex; align-items:center; gap:10px; margin-top:24px; padding:11px 14px; border-radius:var(--r-md);
+  background:rgba(205,168,87,.10); border:1px solid rgba(205,168,87,.3); color:var(--gold-lt);
+  font-size:12.5px; font-weight:700}
+.db-demo .db-ic{width:16px; height:16px; flex:none}
+.db-foot{margin-top:44px; padding:22px 0 34px; border-top:1px solid var(--card-brd); display:flex; gap:14px;
+  align-items:center; font-size:12px; color:var(--ink-mut); font-weight:700}
+.db-foot a{color:var(--gold-lt); text-decoration:none; font-weight:800}
+.db-foot a:hover{text-decoration:underline}
+.db-foot .db-sp{margin-left:auto}
+
+/* ---------- Icons: kommen aus der echten Lucide-Bibliothek (Single Source) ---------- */
+.db-ic{display:inline-block; background:currentColor; flex:none;
+  -webkit-mask-position:center; mask-position:center; -webkit-mask-size:contain; mask-size:contain;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1024px){
+  .db-stats{grid-template-columns:repeat(2,1fr)}
+  .db-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .db-search{display:none}
+  .db-stats, .db-grid{grid-template-columns:1fr}
+  .db-utxt{display:none}
+  .db-user{padding:5px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important}}
+</style>
+<link rel="stylesheet" href="system/buttons.css">
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<!-- ============ Topbar ============ -->
+<header class="db-top">
+  <a class="db-logo" href="index.html" title="Zur Website"><img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"></a>
+
+  <div class="db-search">
+    <i class="db-ic" data-ic="search"></i>
+    <input type="search" id="dbSearch" placeholder="Suchen — Mitglied, Rechnung, Turnier …" aria-label="Suchen">
+  </div>
+
+  <div class="db-tools">
+    <button class="db-icbtn" id="dbBell" aria-label="Benachrichtigungen"><i class="db-ic" data-ic="bell"></i><span class="db-dot"></span></button>
+    <button class="db-icbtn" id="dbSet" aria-label="Einstellungen"><i class="db-ic" data-ic="settings"></i></button>
+    <button class="db-user" id="dbUser">
+      <span class="db-ava" id="dbIni">VO</span>
+      <span class="db-utxt"><b id="dbName">Vasco Oliveira</b><i id="dbRole">Vorstand</i></span>
+    </button>
+  </div>
+</header>
+
+<main class="db-wrap">
+
+  <!-- ============ Kopf ============ -->
+  <section class="db-head">
+    <div class="db-kicker" id="dbGreetKick">Clubverwaltung</div>
+    <h1>Guten Abend, <span class="g" id="dbFirst">Vasco</span>.</h1>
+    <p>Alles an einem Ort: Betrieb, Verein, Sport und Marke. Öffne ein Werkzeug — oder such oben direkt nach einem Mitglied, einer Rechnung oder einem Turnier.</p>
+
+    <div class="db-demo" id="dbDemo" hidden>
+      <i class="db-ic" data-ic="lock"></i>
+      <span>Demo-Ansicht — ohne Login. Alle Zahlen sind Platzhalter, es werden keine Daten geladen.</span>
+    </div>
+  </section>
+
+  <!-- ============ Kennzahlen (Platzhalter) ============ -->
+  <section class="db-stats" aria-label="Kennzahlen">
+    <div class="db-stat">
+      <div class="db-l"><i class="db-ic" data-ic="users"></i>Mitglieder</div>
+      <b>—</b><small class="up">kommt aus der API</small>
+    </div>
+    <div class="db-stat">
+      <div class="db-l"><i class="db-ic" data-ic="shopping-cart"></i>Kasse heute</div>
+      <b>CHF —</b><small>kommt aus der API</small>
+    </div>
+    <div class="db-stat">
+      <div class="db-l"><i class="db-ic" data-ic="receipt"></i>Offene Rechnungen</div>
+      <b>—</b><small>kommt aus der API</small>
+    </div>
+    <div class="db-stat">
+      <div class="db-l"><i class="db-ic" data-ic="calendar-days"></i>Nächster Event</div>
+      <b>—</b><small>kommt aus der API</small>
+    </div>
+  </section>
+
+  <!-- ============ Betrieb ============ -->
+  <section class="db-sec">
+    <h2>Betrieb</h2>
+    <div class="db-hint">Was an einem Clubabend läuft.</div>
+    <div class="db-grid">
+      <button class="db-app soon" data-app="Kassensystem" data-ic="shopping-cart">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="shopping-cart"></i></span>
+        <b>Kasse</b><p>Check-in und Getränke am iPad — Self-Service für den Clubabend.</p>
+      </button>
+      <button class="db-app soon" data-app="Bar-Display" data-ic="monitor">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="monitor"></i></span>
+        <b>Bar-Display</b><p>Die Preisanzeige auf dem grossen Screen an der Bar.</p>
+      </button>
+      <button class="db-app soon" data-app="Sortiment & Preise" data-ic="cup-soda">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="cup-soda"></i></span>
+        <b>Sortiment &amp; Preise</b><p>Getränke pflegen — die Website zieht die Preise automatisch nach.</p>
+      </button>
+      <button class="db-app soon" data-app="Lager" data-ic="store">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="store"></i></span>
+        <b>Lager</b><p>Bestand und Nachbestellungen im Blick.</p>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ Verein ============ -->
+  <section class="db-sec">
+    <h2>Verein</h2>
+    <div class="db-hint">Mitglieder, Geld, Papierkram.</div>
+    <div class="db-grid">
+      <button class="db-app soon" data-app="Mitglieder" data-ic="users">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="users"></i></span>
+        <b>Mitglieder</b><p>Wer ist dabei, welches Paket, seit wann — inklusive Schlüssel.</p>
+      </button>
+      <button class="db-app soon" data-app="Rechnungen" data-ic="receipt">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="receipt"></i></span>
+        <b>Rechnungen</b><p>Jahresbeiträge stellen, Mahnungen, Zahlungseingang.</p>
+      </button>
+      <button class="db-app soon" data-app="Buchhaltung" data-ic="calculator">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="calculator"></i></span>
+        <b>Buchhaltung</b><p>Einnahmen, Ausgaben, Jahresabschluss für die GV.</p>
+      </button>
+      <button class="db-app soon" data-app="Anfragen" data-ic="clipboard-list">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="clipboard-list"></i></span>
+        <b>Anfragen</b><p>Was über die Formulare der Website reinkommt — Mitglied, Training, Firmenevent, Medien.</p>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ Sport ============ -->
+  <section class="db-sec">
+    <h2>Sport</h2>
+    <div class="db-hint">Turniere, Rangliste, Stream.</div>
+    <div class="db-grid">
+      <button class="db-app deep soon" data-app="Turniere" data-ic="trophy">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="trophy"></i></span>
+        <b>Turniere</b><p>Anmeldung, Tableau, Resultate — vom Käsekick bis zur Elite.</p>
+      </button>
+      <button class="db-app deep soon" data-app="Rangliste" data-ic="list-ordered">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="list-ordered"></i></span>
+        <b>Rangliste</b><p>Clubwertung über die Saison — Punkte, Auf- und Abstieg.</p>
+      </button>
+      <button class="db-app deep soon" data-app="Livestudio" data-ic="video">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="video"></i></span>
+        <b>Livestudio</b><p>Das Steuerpult für den Stream: Spieluhr, Lower-Third, Szenen.</p>
+      </button>
+      <button class="db-app deep soon" data-app="Kalender" data-ic="calendar-days">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="calendar-days"></i></span>
+        <b>Kalender</b><p>Events pflegen — die Website übernimmt sie direkt.</p>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ Marke ============ -->
+  <section class="db-sec">
+    <h2>Marke</h2>
+    <div class="db-hint">Alles, was nach aussen geht.</div>
+    <div class="db-grid">
+      <a class="db-app gold" href="../picaso - tfcz_DesignStudio/tfcz-flyer-generator.html">
+        <span class="db-badge live">Live</span>
+        <span class="db-tile"><i class="db-ic" data-ic="palette"></i></span>
+        <b>Design Studio</b><p>Flyer, Social-Posts und YouTube-Thumbnails — unser eigenes Canva.</p>
+      </a>
+      <a class="db-app gold" href="component-library.html">
+        <span class="db-badge live">Live</span>
+        <span class="db-tile"><i class="db-ic" data-ic="book-open"></i></span>
+        <b>Brand Guide</b><p>Farben, Bausteine, Regeln — die Referenz für jedes Element.</p>
+      </a>
+      <a class="db-app gold" href="index.html">
+        <span class="db-badge live">Live</span>
+        <span class="db-tile"><i class="db-ic" data-ic="globe"></i></span>
+        <b>Website</b><p>Die öffentliche Seite — so sehen uns Gäste und neue Mitglieder.</p>
+      </a>
+      <button class="db-app soon" data-app="Auswertungen" data-ic="chart-column">
+        <span class="db-badge bald">Bald</span>
+        <span class="db-tile"><i class="db-ic" data-ic="chart-column"></i></span>
+        <b>Auswertungen</b><p>Besucher, Anmeldungen, Getränke — Zahlen für die GV.</p>
+      </button>
+    </div>
+  </section>
+
+  <div class="db-foot">
+    <span>Interner Bereich · nur für Vorstand und Key Player</span>
+    <span class="db-sp"><a href="index.html">Zur Website</a></span>
+    <a href="login.html" id="dbOut">Abmelden</a>
+  </div>
+</main>
+
+<!-- ============ Popup: Werkzeug kommt noch ============ -->
+<div class="db-scrim" id="dbScrim" role="dialog" aria-modal="true" aria-labelledby="dbPopT">
+  <div class="db-pop" id="dbPop">
+    <button class="db-x" id="dbClose" aria-label="Schliessen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="db-tile"><i class="db-ic" id="dbPopIc" data-ic="plug"></i></span>
+    <h3 id="dbPopT">Kommt noch</h3>
+    <p id="dbPopP">Dieses Werkzeug ist noch ein Platzhalter. Sobald das Backend steht, hängt es hier drin.</p>
+    <button class="db-btn" id="dbOk">Verstanden</button>
+  </div>
+</div>
+
+<script defer src="assets/js/bg-swirl.js"></script>
+<script defer src="system/content.js"></script>
+<script defer src="system/components/portal.js"></script>
+<script>
+(function () {
+  /* --- Icons aus der echten Lucide-Bibliothek (assets/icons/lucide/*.svg) --- */
+  function icons(root) {
+    [].forEach.call((root || document).querySelectorAll('.db-ic[data-ic]'), function (i) {
+      var url = 'url("assets/icons/lucide/' + i.getAttribute('data-ic') + '.svg")';
+      i.style.webkitMaskImage = url;
+      i.style.maskImage = url;
+    });
+  }
+  icons();
+
+  /* --- Begrüssung nach Tageszeit --- */
+  var h = new Date().getHours();
+  var gruss = h < 5 ? 'Gute Nacht' : h < 11 ? 'Guten Morgen' : h < 17 ? 'Hallo' : 'Guten Abend';
+  document.querySelector('.db-head h1').innerHTML =
+    gruss + ', <span class="g" id="dbFirst">' + (window.TFCZ_USER && TFCZ_USER.vorname || 'Vasco') + '</span>.';
+
+  /* --- Demo-Modus (über login.html „Ohne Login ansehen") --- */
+  var demo = false;
+  try { demo = sessionStorage.getItem('tfcz_demo') === '1'; } catch (e) {}
+  if (demo || !window.TFCZ_USER) {
+    document.getElementById('dbDemo').hidden = false;
+    document.getElementById('dbGreetKick').textContent = 'Clubverwaltung · Demo';
+  }
+
+  /* --- Popup: schliesst IMMER über den Portal-Baustein --- */
+  var scrim = document.getElementById('dbScrim'), pop = document.getElementById('dbPop');
+  var popT = document.getElementById('dbPopT'), popIc = document.getElementById('dbPopIc');
+
+  function auf(name, ic) {
+    popT.textContent = name;
+    popIc.setAttribute('data-ic', ic || 'plug');
+    icons(pop);
+    scrim.classList.add('on');
+    document.getElementById('dbOk').focus();
+  }
+  function zu() {
+    if (!scrim.classList.contains('on')) return;
+    var fertig = function () { scrim.classList.remove('on'); };
+    if (window.TFCZ && TFCZ.portal) TFCZ.portal.close(pop, fertig); else fertig();
+  }
+
+  [].forEach.call(document.querySelectorAll('.db-app[data-app]'), function (b) {
+    b.addEventListener('click', function () { auf(b.getAttribute('data-app'), b.getAttribute('data-ic')); });
+  });
+  document.getElementById('dbClose').addEventListener('click', zu);
+  document.getElementById('dbOk').addEventListener('click', zu);
+  scrim.addEventListener('click', function (e) { if (e.target === scrim) zu(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') zu(); });
+
+  document.getElementById('dbBell').addEventListener('click', function () { auf('Benachrichtigungen', 'bell'); });
+  document.getElementById('dbSet').addEventListener('click', function () { auf('Einstellungen', 'settings'); });
+  document.getElementById('dbUser').addEventListener('click', function () { auf('Mein Profil', 'users'); });
+
+  /* --- Suche: filtert die Kacheln --- */
+  var suche = document.getElementById('dbSearch');
+  if (suche) suche.addEventListener('input', function () {
+    var q = suche.value.trim().toLowerCase();
+    [].forEach.call(document.querySelectorAll('.db-app'), function (a) {
+      a.style.display = (!q || a.textContent.toLowerCase().indexOf(q) >= 0) ? '' : 'none';
+    });
+    [].forEach.call(document.querySelectorAll('.db-sec'), function (s) {
+      var sichtbar = [].some.call(s.querySelectorAll('.db-app'), function (a) { return a.style.display !== 'none'; });
+      s.style.display = sichtbar ? '' : 'none';
+    });
+  });
+
+  /* --- Abmelden: Demo-Flag weg --- */
+  document.getElementById('dbOut').addEventListener('click', function () {
+    try { sessionStorage.removeItem('tfcz_demo'); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>

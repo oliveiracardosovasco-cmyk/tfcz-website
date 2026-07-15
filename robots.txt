@@ -1,0 +1,17 @@
+# robots.txt — tfcz.ch
+# Öffentliche Landingpage: indexieren erlaubt.
+# App-/Login-Bereich (Cockpit, Design Studio, Buchhaltung etc.): NICHT indexieren.
+
+User-agent: *
+Allow: /
+
+# Interner Vereins-/App-Bereich hinter Login — von Google fernhalten
+Disallow: /app/
+Disallow: /login/
+Disallow: /cockpit/
+Disallow: /admin/
+Disallow: /buchhaltung/
+Disallow: /studio/
+Disallow: /intern/
+
+Sitemap: https://tfcz.ch/sitemap.xml

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mitglied werden · TFCZ — Tischfussball Club Zürich</title>
+<meta name="description" content="Werd Mitglied beim Tischfussball Club Zürich: Schnuppern, Aktivmitglied, Key Player, Gönner oder Sponsor. Formular ausfüllen — der Rest geht per Mail.">
+<meta name="theme-color" content="#0d273d">
+<link rel="canonical" href="https://tfcz.ch/mitglied">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/tokens.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{ overflow-x:clip; background:linear-gradient(165deg, #5ca7dc 0%, #4489c7 46%, #005a94 100%) #005a94}
+body{font-family:var(--font); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; overflow-x:clip;
+  background:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none; background:radial-gradient(900px 620px at 12% 4%, rgba(233,196,117,.18), transparent 55%), radial-gradient(1000px 720px at 90% 96%, rgba(205,168,87,.12), transparent 60%), linear-gradient(165deg,#5ca7dc,#4489c7 46%,#005a94)}
+#bg{position:fixed; inset:0; z-index:0; pointer-events:none}
+.wrap{position:relative; z-index:1; max-width:1160px; margin:0 auto; padding:0 22px}
+a{color:inherit}
+h1,h2,h3{line-height:1.12; letter-spacing:-.01em}
+
+.top{position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); background:linear-gradient(180deg,rgba(13,39,61,.94),rgba(10,31,49,.88)); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); }
+.top .wrap{display:flex; align-items:center; gap:12px; padding:12px 22px}
+.top .logo{display:inline-flex; align-items:center; gap:10px; font-weight:900; color:#fff; text-decoration:none; font-size:15px; flex:none}
+.top .logo img{height:38.8px; width:auto; object-fit:contain; display:block}
+@media(max-width:640px){ .top .logo img{height:35.2px} }
+.top .logo span{color:var(--gold-lt)}
+.top .navlinks{display:flex; align-items:center; gap:2px; margin-left:16px}
+.top .lnk{position:relative; color:var(--ink-mut); font-size:13.5px; font-weight:700; padding:8px 12px; border-radius:var(--r-sm); text-decoration:none; transition:color .18s var(--ease),transform .18s var(--ease)}
+ @media(max-width:860px){ .top .navlinks{display:none} }
+.top .back{margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:800; color:var(--ink-mut); text-decoration:none; padding:8px 13px; border:1px solid var(--card-brd); border-radius:var(--r-sm); transition:var(--t-fast)}
+.top .back:hover{color:#fff;box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold);}
+
+.hero{padding:clamp(30px,6vw,60px) 0 clamp(10px,2vw,18px)}
+.hero .kick{font-size:12px; font-weight:900; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-lt)}
+.hero h1{font-size:clamp(34px,6vw,60px); font-weight:900; color:#fff; text-transform:uppercase; margin:10px 0 12px}
+.hero p{font-size:clamp(15.5px,1.8vw,18px); color:#eef4fa; max-width:640px; font-weight:600}
+
+section{padding:clamp(18px,3vw,30px) 0}
+.lbl{font-size:11px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:14px}
+
+.pk-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px}
+.pk{position:relative; overflow:hidden; text-align:left; font-family:var(--font); cursor:pointer; background:var(--card); backdrop-filter:blur(10px); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:20px; display:flex; flex-direction:column; box-shadow:var(--e-1); transition:border-color var(--t-fast),box-shadow var(--t-fast)}
+.pk .rib{position:absolute; top:13px; right:-32px; transform:rotate(45deg); background:var(--gold); color:var(--navy); font-size:9.5px; font-weight:900; padding:4px 38px; letter-spacing:.1em}
+.pk .pkn{font-size:11.5px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-lt)}
+.pk .pkp{font-size:clamp(23px,2.8vw,30px); font-weight:900; color:#fff; margin:7px 0 2px; line-height:1}
+.pk .pkp small{font-size:12.5px; font-weight:700; color:var(--ink-mut)}
+.pk ul{list-style:none; margin:12px 0 2px}
+.pk li{font-size:12.5px; color:var(--ink-mut); padding:6px 0 6px 20px; position:relative; border-bottom:1px solid rgba(255,255,255,.07)}
+.pk li:last-child{border-bottom:none}
+.pk li::before{content:""; position:absolute; left:2px; top:11px; width:9px; height:4.5px; border-left:2px solid var(--gold); border-bottom:2px solid var(--gold); transform:rotate(-45deg)}
+.pk:not(.on):hover{box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold);}
+.pk.on{border-color:var(--gold); outline:1.5px solid var(--gold)}
+.pk.on:hover{outline:none;box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold);}
+
+.formbox{margin-top:20px; background:var(--card); backdrop-filter:blur(10px); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,32px); box-shadow:var(--e-2)}
+.formbox h2{font-size:clamp(20px,2.6vw,26px); font-weight:900; color:#fff; text-transform:uppercase}
+.formbox .fsub{font-size:13.5px; color:var(--ink-mut); margin:4px 0 18px}
+.fgrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.field{display:flex; flex-direction:column; gap:6px; min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px; font-weight:900; letter-spacing:.03em; color:var(--ink-mut)}
+.field label .req{color:var(--gold-lt)}
+.field input,.field select,.field textarea{font-family:var(--font); font-size:14.5px; font-weight:600; color:#fff; background:linear-gradient(155deg,rgba(17,34,51,.66),rgba(9,21,33,.5)); border:1px solid var(--card-brd); border-radius:var(--r-sm); padding:11px 13px; outline:none; transition:border-color var(--t-fast),box-shadow var(--t-fast); width:100%}
+.field textarea{min-height:96px; resize:vertical}
+.field select{appearance:none; -webkit-appearance:none; cursor:pointer; padding-right:42px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c3d2e0' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>"); background-repeat:no-repeat; background-position:right 14px center; background-size:15px}
+.field select:focus{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9c475' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>")}
+.field select option{background:#0d273d; color:#fff}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-mut); font-weight:500}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(205,168,87,.18)}
+.field.err input,.field.err select,.field.err textarea{border-color:var(--red); box-shadow:0 0 0 3px rgba(218,41,41,.2)}
+.field.err .csel-btn{border-color:var(--red); box-shadow:0 0 0 3px rgba(218,41,41,.2)}
+
+/* ===== Custom-Select ".csel" — verbindlich: JEDE Dropdown-Auswahl sieht so aus (keine native Browser-Liste) ===== */
+.csel{position:relative; width:100%}
+.csel select{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; margin:0; border:0; padding:0}
+.csel-btn{width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px; font-family:var(--font); font-size:14px; font-weight:600; color:#fff; text-align:left; background:rgba(9,21,33,.6); border:1px solid var(--card-brd); border-radius:var(--r-md,9px); padding:11px 13px; cursor:pointer; transition:border-color var(--t-fast,.15s)}
+.csel-btn.ph .csel-txt{color:rgba(195,210,224,.55)}
+.csel-btn:focus-visible,.csel.open .csel-btn{border-color:var(--gold); outline:none}
+.csel-txt{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0}
+.csel-ch{color:var(--ink-mut); font-size:11px; flex:none; transition:transform .25s ease}
+.csel.open .csel-ch{transform:rotate(180deg); color:var(--gold-lt)}
+.csel-menu{position:absolute; top:calc(100% + 8px); left:0; right:0; z-index:80; border-radius:12px; border:1px solid var(--card-brd); border-top:2px solid var(--blue); border-bottom:2px solid var(--gold); background:linear-gradient(160deg, rgba(13,39,61,.97), rgba(8,24,38,.96)); overflow:hidden; display:none; box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.csel.open .csel-menu{display:block}
+.csel-opt{display:flex; align-items:center; gap:9px; width:100%; padding:11px 14px; background:none; border:0; border-bottom:1px solid rgba(255,255,255,.06); color:var(--ink); font-family:var(--font); font-size:13.5px; font-weight:700; text-align:left; cursor:pointer; opacity:0; animation:cselDrop .4s cubic-bezier(.34,1.56,.64,1) both}
+.csel-opt:nth-child(1){animation-delay:.03s}.csel-opt:nth-child(2){animation-delay:.09s}.csel-opt:nth-child(3){animation-delay:.15s}.csel-opt:nth-child(4){animation-delay:.21s}.csel-opt:nth-child(5){animation-delay:.27s}.csel-opt:nth-child(6){animation-delay:.33s}
+.csel-opt:last-child{border-bottom:0}
+.csel-opt:hover{background:rgba(92,167,220,.14); color:#fff}
+.csel-opt .ck2{width:14px; flex:none; color:var(--gold); font-weight:900; opacity:0}
+.csel-opt.on{color:var(--gold-lt)} .csel-opt.on .ck2{opacity:1}
+@keyframes cselDrop{from{opacity:0; transform:translateY(-14px)}to{opacity:1; transform:none}}
+@media(prefers-reduced-motion:reduce){.csel-opt{animation:none; opacity:1}}
+
+.fnote{font-size:13px; color:var(--ink-mut); margin:16px 0 4px; display:flex; align-items:flex-start; gap:9px}
+.fnote svg{flex:none; margin-top:2px; color:var(--gold-lt)}
+.frow{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:14px}
+
+
+
+.btn-copy{display:inline-flex; align-items:center; gap:8px; font-family:var(--font); font-size:14px; font-weight:800; color:var(--ink); background:rgba(255,255,255,.08); border:1px solid var(--card-brd); padding:12px 18px; border-radius:var(--r-pill); cursor:pointer; transition:var(--t-fast)}
+.btn-copy:hover{color:#fff;box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold);}
+.btn-copy svg{width:16px;height:16px}
+.formerr{color:#f0a5a5; font-size:13px; font-weight:800; display:none}
+.formerr.on{display:block}
+#fDone{text-align:center; padding:8px 4px 4px; animation:donein .35s var(--ease)}
+@keyframes donein{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+.done-ic{width:56px; height:56px; margin:0 auto 14px; border-radius:50%; display:grid; place-items:center; color:var(--navy); background:linear-gradient(155deg,var(--gold),var(--gold-lt)); box-shadow:var(--e-1)}
+.done-ic svg{width:26px; height:26px}
+#fDone h2{margin:0 0 8px; font-size:20px; font-weight:900; color:#fff}
+.done-p{max-width:440px; margin:0 auto 18px; font-size:14.5px; color:var(--ink-mut)}
+.done-p a{color:var(--gold-lt); font-weight:800}
+#fDone .frow{justify-content:center}
+
+
+#toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px); z-index:300; background:var(--navy); border:1px solid var(--gold); color:var(--gold-lt); font-weight:800; font-size:13px; padding:10px 18px; border-radius:var(--r-pill); opacity:0; pointer-events:none; transition:.25s var(--ease)}
+#toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+
+.info-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
+.ibox{background:var(--card-soft); border:1px solid var(--card-brd); border-left:4px solid var(--acc,var(--gold)); border-radius:var(--r-lg); padding:clamp(18px,2.6vw,26px)}
+.ibox h3{font-size:18px; font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:8px}
+.ibox p{font-size:14px; color:var(--ink-mut); margin-bottom:12px}
+.ibox ul{list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:16px}
+.ibox li{position:relative; padding-left:20px; font-size:13.5px; color:var(--ink-mut); line-height:1.5}
+.ibox li::before{content:""; position:absolute; left:2px; top:7px; width:9px; height:9px; border-radius:2px; background:var(--acc,var(--gold))}
+
+
+
+.foot{margin-top:36px; padding:26px 0 40px; border-top:1px solid var(--card-brd); font-size:13px; color:var(--ink-mut); text-align:center}
+.foot a{color:var(--gold-lt); font-weight:800; text-decoration:none}
+@media(max-width:640px){ .fgrid,.info-grid{grid-template-columns:1fr} }
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.nav .logo:active,.top .logo:active{transform:scale(.9)}
+.nav .logo.pressed,.top .logo.pressed{animation:logoPress .42s var(--ease)}
+@keyframes logoPress{0%{transform:scale(1)}35%{transform:scale(.86)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.nav .logo.pressed,.top .logo.pressed{animation:none}}
+</style>
+<link rel="stylesheet" href="system/page.css">
+<link rel="stylesheet" href="system/buttons.css">
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"></a>
+    <nav class="navlinks">
+      <a class="lnk" href="#pakete">Pakete</a>
+      <a class="lnk" href="#formular">Anmelden</a>
+      <a class="lnk" href="#goenner">Gönner &amp; Sponsoring</a>
+    </nav>
+    <a class="back" href="index.html">← Zur Website</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kick">Mitglied werden</div>
+    <h1>Werd einer<br>von uns</h1>
+    <p>Wähle dein Paket, füll das kurze Formular aus — beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht. Du musst nur noch abschicken.</p>
+  </div>
+
+  <section id="pakete" aria-label="Paket wählen">
+    <div class="lbl">1 · Paket wählen</div>
+    <div class="pk-grid" id="pkGrid"></div>
+  </section>
+
+  <section id="formular" aria-label="Formular">
+    <div class="lbl">2 · Deine Angaben</div>
+    <div class="formbox">
+      <div id="fEdit">
+        <h2 id="fTitle"></h2>
+        <div class="fsub" id="fSub"></div>
+        <form id="memForm" data-tfcz="form" data-form="mitglied-aktiv" novalidate>
+          <div class="fgrid" id="fFields"></div>
+          <div class="fnote"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Beim Senden öffnet sich dein Mailprogramm mit Betreff, Empfänger und Text — alles schon ausgefüllt.</span></div>
+          <div class="frow">
+            <button class="btn btn-gold" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Als Mail senden</button>
+            <span class="formerr" id="fErr">Bitte fülle die markierten Pflichtfelder aus.</span>
+          </div>
+        </form>
+      </div>
+      <div id="fDone" hidden>
+        <div class="done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <h2>Dein Mailprogramm sollte sich öffnen …</h2>
+        <p class="done-p">Hat sich <strong>nichts geöffnet</strong>? Kein Problem — das passiert nicht auf jedem Gerät. Kopier den Text mit dem Button und sende ihn uns direkt per Mail an <a href="mailto:info@tfcz.ch">info@tfcz.ch</a>.</p>
+        <div class="frow">
+          <button class="btn btn-gold" type="button" id="doneCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Text kopieren</button>
+          <a class="btn-copy" id="doneOpen" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Mail erneut öffnen</a>
+        </div>
+        <button class="btn btn-text" type="button" id="fBack">← Angaben nochmal bearbeiten</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="goenner" aria-label="Gönner und Sponsoring">
+    <div class="lbl">Unterstützen ohne selber zu spielen</div>
+    <div class="info-grid">
+      <div class="ibox" style="--acc:var(--gold)">
+        <h3>Gönner / Fördermitglied</h3>
+        <p>Du magst den Club, spielst aber (noch) nicht selbst? Als Gönner trägst du mit einem Betrag deiner Wahl unser Lokal und die Nachwuchsförderung mit.</p>
+        <ul>
+          <li>Betrag frei wählbar — jährlich oder einmalig.</li>
+          <li>Du hältst den grössten Profi-Tischfussballverein der Schweiz am Laufen.</li>
+          <li>Auf Wunsch Erwähnung auf unseren Kanälen.</li>
+        </ul>
+        <button class="btn btn-ghost" type="button" data-pick="goenner">Als Gönner beitragen →</button>
+      </div>
+      <div class="ibox" style="--acc:var(--blue)">
+        <h3>Sponsoring</h3>
+        <p>Als Firma sichtbar werden — an unseren Tischen, Events, im Livestream und auf der Website. Wir finden das passende Paket.</p>
+        <ul>
+          <li>Tisch-Sponsoring, Event- oder Turnier-Sponsoring, Trikot / Kleidung.</li>
+          <li>Sichtbarkeit vor Ort, im YouTube-Stream und online.</li>
+          <li>Individuell — von klein bis Hauptsponsor.</li>
+        </ul>
+        <button class="btn btn-ghost" type="button" data-pick="sponsor">Sponsoring anfragen →</button>
+      </div>
+    </div>
+  </section>
+
+  <div data-tfcz="footer"></div>
+</div>
+
+<script>
+(function(){
+  var MAIL='info@tfcz.ch';
+  var F={
+    vorname:{k:'vorname',label:'Vorname',type:'text'},
+    nachname:{k:'nachname',label:'Nachname',type:'text'},
+    email:{k:'email',label:'E-Mail',type:'email',ph:'name@mail.ch'},
+    tel:{k:'tel',label:'Telefon',type:'tel',opt:true,ph:'optional'},
+    msg:{k:'msg',label:'Nachricht',type:'textarea',opt:true,full:true,ph:'Fragen oder Wünsche?'}
+  };
+  var PK=[
+    {key:'schnuppern', name:'Schnuppern', price:'Gratis', priceSub:'dann CHF 5 / Eintritt', feat:['Erster Abend kostenlos','Drop-in ohne Mitgliedschaft: CHF 5','Material &amp; Tipps vor Ort'],
+     title:'Schnuppern — erster Abend gratis', sub:'Sag uns kurz, wann du vorbeikommst. Kein Beitrag nötig.',
+     fields:[F.vorname,F.nachname,F.email,F.tel,{k:'wann',label:'Wann möchtest du kommen?',type:'text',ph:'z. B. Dienstag 15. Juli'},F.msg]},
+    {key:'aktiv', name:'Aktivmitglied', price:'CHF 200', priceSub:'/ Jahr', ribbon:'Beliebt', feat:['Volles Vereinsjahr, alle Clubabende','Training mit inklusive','Vergünstigte Event-Teilnahme','Du trägst den Verein mit'],
+     title:'Aktivmitgliedschaft', sub:'Volles Vereinsjahr · alle Clubabende · Training inklusive.',
+     fields:[F.vorname,F.nachname,F.email,F.tel,{k:'geburt',label:'Geburtsdatum',type:'date',opt:true},{k:'level',label:'Dein Level',type:'select',options:['Neu / Anfänger','Gelegentlich','Ambitioniert','Wettkampf']},F.msg]},
+    {key:'key', name:'Key Player', price:'CHF 250', priceSub:'/ Jahr', feat:['Alles vom Aktivmitglied','Eigener Schlüssel zum Lokal','Mehr Verantwortung &amp; Mitgestaltung'],
+     title:'Key-Player-Mitgliedschaft', sub:'Eigener Schlüssel zum Lokal, mehr Verantwortung & Mitgestaltung.',
+     fields:[F.vorname,F.nachname,F.email,F.tel,{k:'level',label:'Dein Level',type:'select',options:['Gelegentlich','Ambitioniert','Wettkampf']},{k:'motivation',label:'Warum Key Player?',type:'textarea',full:true,ph:'Was möchtest du mitgestalten / beitragen?'}]},
+    {key:'goenner', name:'Gönner', price:'Frei', priceSub:'Betrag deiner Wahl', desc:'Unterstützen, ohne selbst zu spielen.',
+     title:'Gönner / Fördermitglied', sub:'Danke, dass du den Club mitträgst. Betrag frei wählbar.',
+     fields:[F.vorname,F.nachname,{k:'firma',label:'Firma',type:'text',opt:true,ph:'optional'},F.email,F.tel,{k:'betrag',label:'Betrag (CHF)',type:'number',ph:'z. B. 100'},{k:'turnus',label:'Turnus',type:'select',options:['Jährlich','Einmalig']},F.msg]},
+    {key:'sponsor', name:'Sponsor', price:'Anfrage', priceSub:'individuell', desc:'Als Firma sichtbar werden.',
+     title:'Sponsoring-Anfrage', sub:'Wir melden uns mit einem passenden Vorschlag.',
+     fields:[{k:'firma',label:'Firma',type:'text'},{k:'person',label:'Ansprechperson',type:'text'},F.email,F.tel,{k:'art',label:'Art des Sponsorings',type:'select',options:['Tisch-Sponsoring','Event / Turnier','Trikot / Kleidung','Hauptsponsor','Sonstiges']},{k:'budget',label:'Budget (optional)',type:'text',opt:true,ph:'optional'},F.msg]}
+  ];
+  var byKey={}; PK.forEach(function(p){byKey[p.key]=p;});
+  var grid=document.getElementById('pkGrid'), fFields=document.getElementById('fFields'), fTitle=document.getElementById('fTitle'), fSub=document.getElementById('fSub');
+  var cur='aktiv';
+  grid.innerHTML=PK.slice(0,3).map(function(p){
+    return '<button class="pk'+(p.key===cur?' on':'')+'" type="button" data-key="'+p.key+'">'+(p.ribbon?'<span class="rib">'+p.ribbon+'</span>':'')
+      +'<div class="pkn">'+p.name+'</div><div class="pkp">'+p.price+' <small>'+p.priceSub+'</small></div>'
+      +'<ul>'+(p.feat||[]).map(function(f){return '<li>'+f+'</li>';}).join('')+'</ul></button>';
+  }).join('');
+  function renderForm(key){
+    var p=byKey[key]; if(!p)return; cur=key;
+    [].forEach.call(grid.children,function(c){c.classList.toggle('on',c.getAttribute('data-key')===key);});
+    fTitle.textContent=p.title; fSub.textContent=p.sub;
+    setzePaket(key);                                   /* Felder kommen vom Baustein */
+    document.getElementById('fErr').classList.remove('on');
+    var fd=document.getElementById('fDone'), fe=document.getElementById('fEdit');
+    if(fd&&fe){ fd.hidden=true; fe.hidden=false; }
+  }
+  grid.addEventListener('click',function(e){var b=e.target.closest('.pk'); if(b)renderForm(b.getAttribute('data-key'));});
+  [].forEach.call(document.querySelectorAll('[data-pick]'),function(b){b.addEventListener('click',function(){renderForm(b.getAttribute('data-pick')); document.getElementById('memForm').scrollIntoView({behavior:'smooth',block:'center'});});});
+
+  /* Formular = Baustein system/components/form.js (Felder + Mail-Texte: system/forms.js).
+     Seiten-eigen bleibt nur die PAKETWAHL: sie sagt dem Baustein, welches Formular gilt. */
+  var memForm=document.getElementById('memForm');
+  function setzePaket(key){
+    memForm.setAttribute('data-form','mitglied-'+key);
+    if(window.TFCZ && TFCZ.formUI) TFCZ.formUI.neu(memForm);   /* Felder neu rendern */
+    if(window.tfczEnhanceSelects) tfczEnhanceSelects(document.getElementById('fFields'));
+  }
+
+  var qp=(location.search.match(/[?&]paket=([a-z]+)/)||[])[1];
+  renderForm(byKey[qp]?qp:'aktiv');
+
+  /* Hintergrund-Wirbel: global in assets/js/bg-swirl.js */
+})();
+</script>
+<div id="toast">Kopiert</div>
+<script>(function(){var lg=document.querySelector(".nav .logo, .top .logo"); if(!lg)return; lg.addEventListener("click",function(e){ lg.classList.remove("pressed"); void lg.offsetWidth; lg.classList.add("pressed"); var href=lg.getAttribute("href"); if(href && href.charAt(0)!=="#"){ e.preventDefault(); setTimeout(function(){ location.href=href; },230); } setTimeout(function(){lg.classList.remove("pressed");},440); });})();</script>
+<script defer src="assets/js/bg-swirl.js"></script>
+<script defer src="assets/js/tfcz-fx.js"></script>
+<script>
+/* Custom-Select-Enhancer — ersetzt die native Aufklapp-Liste durch das Brand-Dropdown.
+   Der native <select> bleibt unsichtbar im DOM: Formular-Wert, IDs und Validierung funktionieren weiter. */
+function tfczEnhanceSelects(root){
+  [].forEach.call((root||document).querySelectorAll('select'),function(sel){
+    if(sel.getAttribute('data-csel'))return;
+    sel.setAttribute('data-csel','1');
+    var wrap=document.createElement('div'); wrap.className='csel';
+    sel.parentNode.insertBefore(wrap,sel); wrap.appendChild(sel);
+    var btn=document.createElement('button'); btn.type='button'; btn.className='csel-btn'; btn.setAttribute('aria-haspopup','listbox');
+    var menu=document.createElement('div'); menu.className='csel-menu';
+    wrap.appendChild(btn); wrap.appendChild(menu);
+    function label(){
+      var o=sel.options[sel.selectedIndex];
+      btn.classList.toggle('ph', !sel.value);
+      btn.innerHTML='<span class="csel-txt">'+((o&&o.text)||'Bitte w\u00e4hlen \u2026')+'</span><span class="csel-ch">\u25be</span>';
+    }
+    function close(){ wrap.classList.remove('open'); }
+    function open(){
+      menu.innerHTML='';
+      [].forEach.call(sel.options,function(o,i){
+        if(o.hidden)return;
+        var b=document.createElement('button'); b.type='button';
+        b.className='csel-opt'+(i===sel.selectedIndex&&sel.value?' on':'');
+        b.innerHTML='<span class="ck2">\u2713</span>'+o.text;
+        b.addEventListener('click',function(){ sel.selectedIndex=i;
+          sel.dispatchEvent(new Event('change',{bubbles:true})); close(); });
+        menu.appendChild(b);
+      });
+      wrap.classList.add('open');
+    }
+    btn.addEventListener('click',function(e){ e.stopPropagation(); wrap.classList.contains('open')?close():open(); });
+    document.addEventListener('click',function(e){ if(!wrap.contains(e.target)) close(); });
+    addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+    sel.addEventListener('change',label);
+    label();
+  });
+}
+tfczEnhanceSelects();
+</script>
+<script src="system/content.js"></script>
+<script src="system/forms.js"></script>
+<script defer src="system/components/portal.js"></script>
+<script defer src="system/components/nav.js"></script>
+<script defer src="system/components/scroll.js"></script>
+<script defer src="system/components/icons.js"></script>
+<script defer src="system/components/form.js"></script>
+<script defer src="system/components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+/* ============================================================
+   TFCZ · BAUSTEIN: Buttons / CTA-System — EINE Quelle für alle Seiten.
+
+   Referenz + Doku: Brand Guide „CTA-System" (component-library.html).
+   Größen/Radius kommen aus system/tokens.css:
+     --btn-radius (12px) · --btn-pad-y · --btn-pad-x · --btn-font
+   Ändert man --btn-radius im Token, ändern sich ALLE Buttons auf ALLEN
+   Seiten gleichzeitig — der Text bleibt im HTML. (Icon-Button bleibt rund.)
+
+   Einbinden im <head> NACH dem seiten-eigenen <style> (überschreibt alte
+   Inline-.btn-Regeln bei gleicher Spezifität):
+     <link rel="stylesheet" href="system/buttons.css">
+
+   Sechs Typen + zwei Modifier + Social:
+     .btn            Basis (jeder Button trägt sie)
+     .btn-gold       Conversion / Lead     (gold gefüllt)
+     .btn-blue       Primär-Aktion         (blau gefüllt)
+     .btn-ghost      Navigation / sekundär (outline)
+     .btn-text       leiser Text-Link      (kein Kasten)
+     .btn-danger     Gefahr / Löschen      (rot)
+     .btn-sm         Modifier: kompakter
+     .btn-icon       Modifier: rund, nur Icon  (IMMER rund)
+     .btn-social .s-wa|.s-ig|.s-yt|.s-li
+                     neutral, Markenfarbe erst beim Hover
+   ============================================================ */
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  font-family:var(--font); font-weight:900; font-size:var(--btn-font);
+  padding:var(--btn-pad-y) var(--btn-pad-x);
+  border-radius:var(--btn-radius);            /* <- die eine Stellschraube */
+  border:0; cursor:pointer; text-decoration:none; position:relative; overflow:hidden;
+  transition:transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s, background .18s;
+}
+.btn:active{ transform:scale(.97) }
+
+/* Radius folgt dem Token AUCH bei „nackten" Typklassen (ohne .btn) — damit
+   --btn-radius wirklich ALLE Buttons steuert, egal wie die Seite sie schreibt. */
+.btn, .btn-gold, .btn-blue, .btn-ghost, .btn-danger, .btn-success{ border-radius:var(--btn-radius) }
+.btn-text{ border-radius:0 }
+.btn-icon{ border-radius:50% }   /* Ausnahme: Icon-Button bleibt IMMER rund */
+
+
+/* JEDES Icon im Button hat eine Grösse. Ohne diese Regel quetscht/streckt Flex ein
+   SVG ohne width/height ins Riesenhafte (CLAUDE.md: „SVG braucht IMMER eine Grösse"). */
+.btn svg{ width:1.15em; height:1.15em; flex:none }
+
+/* Pfeil (Lucide arrow-right; von system/components/icons.js gesetzt oder inline) */
+.btn .arw, .btn .tfcz-arw{ width:1.05em; height:1.05em; flex:none; transition:transform .22s var(--ease) }
+.btn:hover .arw, .btn:hover .tfcz-arw{ transform:translateX(3px) }
+
+/* --- Typen --- */
+.btn-gold{ background:linear-gradient(155deg, var(--gold), var(--gold-lt)); color:var(--navy);
+  box-shadow:0 8px 24px rgba(205,168,87,.32) }
+.btn-gold:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(205,168,87,.45) }
+
+.btn-blue{ background:linear-gradient(155deg, var(--blue), var(--blue-mid)); color:#fff;
+  box-shadow:0 8px 22px rgba(68,137,199,.32) }
+.btn-blue:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(68,137,199,.44) }
+
+.btn-ghost{ background:rgba(255,255,255,.08); color:#fff; border:1px solid var(--card-brd) }
+.btn-ghost:hover{ border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold) }
+
+.btn-danger{ background:var(--red); color:#fff }
+.btn-danger:hover{ transform:translateY(-2px); background:var(--red-dk); box-shadow:0 12px 26px rgba(218,41,41,.4) }
+
+/* Grün = Bestätigen / Hinzufügen (nutzt das Brand-Grün --green) */
+.btn-success{ background:linear-gradient(155deg, var(--green), var(--green-dk)); color:#fff;
+  box-shadow:0 8px 22px rgba(103,181,125,.3) }
+.btn-success:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(103,181,125,.44) }
+
+/* Icon-Semantik (verbindlich): Schliessen/X = Rot · Hinzufügen/+ = Grün */
+.btn-icon.i-close{ background:var(--red); color:#fff; border:0 }
+.btn-icon.i-close:hover{ background:var(--red-dk); box-shadow:0 10px 24px rgba(218,41,41,.4) }
+.btn-icon.i-add{ background:linear-gradient(155deg, var(--green), var(--green-dk)); color:#fff; border:0 }
+.btn-icon.i-add:hover{ box-shadow:0 10px 24px rgba(103,181,125,.44) }
+
+/* Text-Link — kein Kasten, nur Wort + Pfeil, Gold-Unterstrich beim Hover */
+.btn-text{ background:none; border:0; padding:6px 2px; color:var(--gold-lt); font-weight:800;
+  border-radius:0; overflow:visible }
+.btn-text::after{ content:""; position:absolute; left:2px; right:24px; bottom:2px; height:2px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform .22s var(--ease) }
+.btn-text:hover{ transform:none }
+.btn-text:hover::after{ transform:scaleX(1) }
+
+/* --- Modifier --- */
+.btn-sm{ --btn-pad-y:9px; --btn-pad-x:16px; --btn-font:13px }
+.btn-icon{ --btn-pad-x:0; width:44px; height:44px; padding:0; border-radius:50% }  /* IMMER rund */
+.btn-icon.btn-sm{ width:36px; height:36px }
+.btn-icon svg{ width:18px; height:18px; display:block; flex:none }
+
+/* --- Social — Grundzustand neutral, Markenfarbe NUR beim Hover --- */
+.btn-social{ background:rgba(255,255,255,.08); color:#fff; border:1px solid var(--card-brd) }
+.btn-social::after{ display:none }
+.btn-social svg{ width:18px; height:18px; fill:currentColor }
+.btn-social:hover{ transform:translateY(-2px); border-color:transparent; color:#fff }
+.btn-social.s-wa:hover{ background:#25d366; color:#08351c; box-shadow:0 12px 28px rgba(37,211,102,.44) }
+.btn-social.s-ig:hover{ background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); box-shadow:0 12px 28px rgba(220,39,67,.44) }
+.btn-social.s-yt:hover{ background:#ff0000; box-shadow:0 12px 28px rgba(255,0,0,.4) }
+.btn-social.s-li:hover{ background:#0a66c2; box-shadow:0 12px 28px rgba(10,102,194,.44) }
+
+@media(prefers-reduced-motion:reduce){
+  .btn, .btn-text::after{ transition:none }
+}

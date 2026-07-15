@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TFCZ · Profil-Avatar in Emblem-Form — Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#5ca7dc;--blue-mid:#4489c7;--blue-dk:#005a94;--navy:#0d273d;--gold:#cda857;--gold-lt:#e9c475;--ink:#eef4fa;--ink-mut:#c3d2e0;--brd:rgba(255,255,255,.13);--font:'Nunito Sans',system-ui,sans-serif;
+  /* Echtes TFCZ-Emblem als Maske (Silhouette) */
+  --emb:url('assets/img/emblem-white.png')}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--ink);min-height:100vh;background:linear-gradient(180deg,#0d273d,#0a1f31 55%,#081826);background-attachment:fixed;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding:44px 22px 90px}
+.kick{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-lt)}
+.kick::before{content:"";width:26px;height:2px;background:var(--gold)}
+h1{font-size:clamp(26px,4vw,40px);font-weight:900;margin:8px 0 6px}
+.sub{color:var(--ink-mut);font-size:15px;max-width:720px;margin:0 0 26px}
+h2{font-size:15px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin:34px 0 14px;padding-top:18px;border-top:1px solid var(--brd)}
+.row{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end}
+.item{text-align:center}
+.item .cap{margin-top:10px;font-size:12.5px;color:var(--ink-mut);font-weight:800}
+pre{background:rgba(4,11,20,.7);border:1px solid var(--brd);border-radius:12px;padding:16px;overflow:auto;font-size:12.5px;line-height:1.5;color:#dbe6f0;max-width:100%}
+code{font-family:ui-monospace,Menlo,monospace}
+.note{margin-top:14px;font-size:13px;color:var(--ink-mut);background:rgba(92,167,220,.1);border:1px solid rgba(92,167,220,.35);border-radius:12px;padding:12px 15px}
+.note b{color:#7fc0ea}
+.card{background:linear-gradient(155deg,rgba(17,34,51,.72),rgba(9,21,33,.55));border:1px solid var(--brd);border-radius:16px;padding:22px}
+
+/* ===== Emblem-Avatar (echte Emblem-Silhouette via Maske, NICHT rund, KEIN Rahmen) ===== */
+.emb-ava{aspect-ratio:321/366; background-size:cover; background-position:center;
+  -webkit-mask:var(--emb) center/contain no-repeat; mask:var(--emb) center/contain no-repeat}
+.emb-ava.a-lg{width:150px} .emb-ava.a-md{width:96px} .emb-ava.a-sm{width:56px}
+/* Initialen-/Fallback-Variante: Emblem-Form gefüllt, Text mittig-oben */
+.emb-ava.ini{display:grid; place-items:center; padding-bottom:12%; font-weight:900; color:#fff;
+  background:radial-gradient(circle at 50% 40%,#005a94,#0d273d 80%)}
+.emb-ava.ini.gold{background:linear-gradient(160deg,var(--gold),#b8963f); color:var(--navy)}
+.emb-ava.a-lg.ini{font-size:44px} .emb-ava.a-md.ini{font-size:28px} .emb-ava.a-sm.ini{font-size:17px}
+/* Reines Emblem als Avatar (Bild, nichts drumherum) */
+.emb-plain{display:block}
+.emb-plain.a-lg{width:150px} .emb-plain.a-md{width:96px} .emb-plain.a-sm{width:56px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="kick">TFCZ · Guide</span>
+  <h1>Profil-Avatar in Emblem-Form</h1>
+  <p class="sub">Kein rundes Profilbild und kein Rahmen drumherum — das Foto (oder die Initialen) füllen die <b>echte TFCZ-Emblem-Silhouette</b>. Umgesetzt mit einer CSS-<code>mask</code> aus <code>emblem-white.png</code>: gestochen scharf, skalierbar, exakt die Vereins-Kontur.</p>
+
+  <div class="card">
+    <div class="row">
+      <div class="item"><div class="emb-ava a-lg" style="background-image:url(assets/fotos/action/action-26.jpg)"></div><div class="cap">Foto in Emblem-Form</div></div>
+      <div class="item"><div class="emb-ava a-md" style="background-image:url(assets/fotos/action/action-28.jpg)"></div><div class="cap">Mittel (Kommentar/Card)</div></div>
+      <div class="item"><div class="emb-ava a-sm" style="background-image:url(assets/fotos/action/action-27.jpg)"></div><div class="cap">Klein (Nav/Menü)</div></div>
+    </div>
+  </div>
+
+  <h2>So baust du einen (copy-ready)</h2>
+  <p class="sub" style="margin-bottom:12px">Ein <code>&lt;div&gt;</code> mit Foto als Hintergrund, maskiert mit dem echten Emblem. Verhältnis <b>321 × 366</b> — nur die Breite setzen, die Höhe folgt.</p>
+  <pre><code>&lt;div class="tfcz-ava" style="background-image:url(PFAD/foto.jpg)"&gt;&lt;/div&gt;
+
+.tfcz-ava{
+  width:96px; aspect-ratio:321/366;
+  background-size:cover; background-position:center;
+  -webkit-mask:url(assets/img/emblem-white.png) center/contain no-repeat;
+          mask:url(assets/img/emblem-white.png) center/contain no-repeat;
+}</code></pre>
+  <div class="note"><b>Regeln:</b> Nie rund, nie mit Ring/Rahmen drumherum — immer die <b>Emblem-Silhouette</b> (Maske aus <code>emblem-white.png</code>). Foto formfüllend (<code>background-size:cover</code>). Ohne Foto: Emblem-Fläche mit <code>#005a94→#0d273d</code>-Radial füllen und Initialen mittig setzen (Key Player = Gold).</div>
+
+  <h2>Fallback ohne Foto</h2>
+  <div class="row">
+    <div class="item"><div class="emb-ava ini a-md">VO</div><div class="cap">Initialen im Emblem</div></div>
+    <div class="item"><div class="emb-ava ini gold a-md">MS</div><div class="cap">Key Player (Gold)</div></div>
+    <div class="item"><img class="emb-plain a-md" src="assets/img/emblem-white.png" alt="TFCZ Emblem"><div class="cap">Reines Emblem</div></div>
+  </div>
+</div>
+</body>
+</html>

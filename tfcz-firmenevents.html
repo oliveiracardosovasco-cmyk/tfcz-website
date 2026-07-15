@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firmenevent & Teamanlass · TFCZ — Tischfussball Club Zürich</title>
+<meta name="description" content="Der Teamanlass, über den alle reden: Wir organisieren für euer Unternehmen ein Tischfussball-Turnier. Jede Runde neue Partner, alle spielen mit allen, maximal 2 Stunden. Zentral in Zürich. Verfügbarkeit direkt prüfen und anfragen.">
+<meta name="theme-color" content="#0d273d">
+<link rel="canonical" href="https://tfcz.ch/firmenevents">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta property="og:title" content="Firmenevent & Teamanlass — Tischfussball Club Zürich">
+<meta property="og:description" content="Ein Turnier für euer Team: alle spielen mit allen, maximal 2 Stunden, zentral in Zürich. Verfügbarkeit prüfen und anfragen.">
+<meta property="og:image" content="https://tfcz.ch/assets/fotos/action/firmenevent-7012.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="system/tokens.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{ overflow-x:clip; background:linear-gradient(165deg, #5ca7dc 0%, #4489c7 46%, #005a94 100%) #005a94}
+body{font-family:var(--font); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; overflow-x:clip; background:transparent}
+body::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:radial-gradient(900px 620px at 12% 4%, rgba(233,196,117,.20), transparent 55%), radial-gradient(1000px 720px at 90% 96%, rgba(205,168,87,.13), transparent 60%), linear-gradient(165deg, #5ca7dc 0%, #4489c7 46%, #005a94 100%)}
+#bg{position:fixed; inset:0; width:100vw; height:100vh; z-index:0; pointer-events:none}
+main{position:relative; z-index:1}
+.wrap{position:relative; z-index:1; max-width:1160px; margin:0 auto; padding:0 22px}
+a{color:inherit}
+h1,h2,h3{line-height:1.1; letter-spacing:-.015em}
+img{display:block; max-width:100%}
+
+/* ===== Sticky Nav ===== */
+.top{position:sticky; top:0; z-index:60; backdrop-filter:blur(12px); background:linear-gradient(180deg,rgba(13,39,61,.94),rgba(10,31,49,.88)); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); }
+.top .wrap{display:flex; align-items:center; gap:12px; padding:12px 22px}
+.top .logo{display:inline-flex; align-items:center; gap:10px; font-weight:900; color:#fff; text-decoration:none; font-size:15px; flex:none}
+.top .logo img{height:38.8px; width:auto; object-fit:contain; display:block}
+@media(max-width:640px){ .top .logo img{height:35.2px} }
+.top .navlinks{display:flex; align-items:center; gap:2px; margin-left:18px}
+.top .lnk{position:relative; color:var(--ink-mut); font-size:13.5px; font-weight:700; padding:8px 12px; border-radius:var(--r-sm); text-decoration:none; transition:color .18s var(--ease),transform .18s var(--ease)}
+ @media(max-width:980px){ .top .navlinks{display:none} }
+.top .back{margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:800; color:var(--ink-mut); text-decoration:none; padding:8px 13px; border:1px solid var(--card-brd); border-radius:var(--r-sm); transition:var(--t-fast)}
+.top .back:hover{color:#fff; border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+
+section{padding:clamp(30px,4.5vw,60px) 0}
+.lbl{font-size:11px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:16px; display:flex; align-items:center; gap:10px}
+.lbl::before{content:""; width:26px; height:2px; background:var(--gold)}
+.h2{font-size:clamp(28px,3.8vw,46px); font-weight:900; color:#fff; text-transform:uppercase; line-height:1.02}
+.h2 .g{color:var(--gold-lt)}
+.intro{font-size:clamp(15px,1.6vw,17px); color:var(--ink-mut); max-width:680px; margin-top:14px} .intro b{color:#fff}
+
+/* Buttons */
+.btn-gold{display:inline-flex; align-items:center; gap:9px; font-family:var(--font); font-size:15px; font-weight:900; color:var(--navy); background:linear-gradient(155deg,var(--gold),var(--gold-lt)); border:0; padding:14px 24px; border-radius:var(--r-pill); cursor:pointer; text-decoration:none; transition:transform .18s var(--ease), box-shadow .18s var(--ease)}
+.btn-gold:hover{transform:translateY(-2px); box-shadow:0 12px 26px rgba(205,168,87,.4)}
+.btn-gold svg{width:17px;height:17px;flex:none}
+.btn-ghost{display:inline-flex; align-items:center; gap:8px; font-family:var(--font); font-size:14.5px; font-weight:800; color:#fff; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.28); padding:13px 20px; border-radius:var(--r-pill); cursor:pointer; text-decoration:none; transition:var(--t-fast)}
+.btn-ghost:hover{border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.btn-ghost svg{width:17px;height:17px;flex:none}
+
+/* ===== HERO (Parallax, Vollbild-Bild) ===== */
+.hero{position:relative; min-height:clamp(560px,92vh,860px); display:grid; align-items:center; overflow:hidden}
+.hero-bg{position:absolute; inset:-12% 0 -12% 0; z-index:0; will-change:transform}
+.hero-bg img{width:100%; height:100%; object-fit:cover}
+.hero-ov{position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(6,15,24,.62) 0%, rgba(7,20,33,.55) 40%, rgba(5,12,20,.9) 100%), radial-gradient(1200px 700px at 78% 12%, rgba(0,90,148,.42), transparent 60%)}
+.hero-ov::after{content:""; position:absolute; left:0; right:0; bottom:0; height:5px; background:linear-gradient(90deg,var(--blue),var(--gold))}
+.hero .wrap{position:relative; z-index:2; width:100%; padding-top:60px; padding-bottom:70px}
+.hero .kick{display:inline-flex; align-items:center; gap:9px; font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.4); padding:7px 15px; border-radius:var(--r-pill); margin-bottom:20px; backdrop-filter:blur(6px)}
+.hero h1{font-size:clamp(40px,7.6vw,88px); font-weight:900; color:#fff; text-transform:uppercase; line-height:.95; text-shadow:0 6px 40px rgba(0,0,0,.5); max-width:12ch}
+.hero h1 .g{color:var(--gold-lt)}   /* Kontrast: Akzent auf dunklem Foto = Gold, nie Blau */
+.hero .sub{font-size:clamp(16px,2vw,21px); color:#eef4fa; max-width:600px; font-weight:600; margin:22px 0 26px; text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.hero .sub b{color:var(--gold-lt)}
+.hero .ctas{display:flex; gap:12px; flex-wrap:wrap}
+.hero .cue{position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:2; color:rgba(255,255,255,.7); font-size:11px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:8px}
+.hero .cue .arw{width:22px; height:22px; border-right:2px solid rgba(255,255,255,.7); border-bottom:2px solid rgba(255,255,255,.7); transform:rotate(45deg); animation:bob 1.8s var(--ease) infinite}
+@keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(4px,4px)}}
+@media(max-width:640px){ .hero{min-height:88vh} .hero .cue{display:none} }
+
+/* ===== Parallax-Bänder (Vollbild-Foto + Zitat) ===== */
+.pband{position:relative; overflow:hidden; min-height:clamp(320px,44vw,520px); display:grid; place-items:center; margin:clamp(10px,2vw,26px) 0}
+.pband-bg{position:absolute; inset:-16% 0 -16% 0; z-index:0; will-change:transform}
+.pband-bg img{width:100%; height:100%; object-fit:cover}
+.pband-ov{position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(6,15,24,.55), rgba(6,15,24,.78)), radial-gradient(900px 500px at 20% 30%, rgba(0,90,148,.4), transparent 60%)}
+.pband-ov::before{content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--blue)}
+.pband-ov::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--gold)}
+.pband .wrap{position:relative; z-index:2; text-align:center}
+.pquote{font-size:clamp(24px,4.2vw,48px); font-weight:900; color:#fff; text-transform:uppercase; line-height:1.05; text-shadow:0 4px 30px rgba(0,0,0,.55); max-width:16ch; margin:0 auto}
+.pquote .g{color:var(--gold-lt)}
+.psub{margin-top:14px; font-size:clamp(14px,1.6vw,17px); color:rgba(255,255,255,.85); font-weight:600}
+
+/* ===== Quick-Explainer (Schritte) ===== */
+.expl{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+@media(max-width:820px){ .expl{grid-template-columns:repeat(2,1fr)} }
+.estep{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:24px 20px; box-shadow:var(--e-1); position:relative; overflow:hidden}
+.estep .no{font-size:44px; font-weight:900; line-height:1; color:transparent; -webkit-text-stroke:1.5px rgba(92,167,220,.55); margin-bottom:10px}
+.estep h3{font-size:15.5px; font-weight:900; color:#fff; margin-bottom:5px}
+.estep p{font-size:13.5px; color:var(--ink-mut); line-height:1.55}
+
+/* ===== FLIP-Karten (Warum) ===== */
+.flipgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media(max-width:860px){ .flipgrid{grid-template-columns:1fr 1fr} } @media(max-width:560px){ .flipgrid{grid-template-columns:1fr} }
+.flip{perspective:1400px; height:230px; cursor:pointer}
+.flip-in{position:relative; width:100%; height:100%; transition:transform .7s var(--ease); transform-style:preserve-3d}
+.flip:hover .flip-in, .flip.on .flip-in{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:var(--r-lg); border:1px solid var(--card-brd); padding:24px 20px; display:flex; flex-direction:column; box-shadow:var(--e-1); overflow:hidden}
+.flip-f{background:var(--card)}
+.flip-b{background:linear-gradient(155deg, rgba(0,90,148,.5), rgba(7,18,30,.92)); transform:rotateY(180deg); justify-content:center}
+.flip-f .vic{width:48px; height:48px; border-radius:13px; display:grid; place-items:center; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk)); box-shadow:0 6px 16px rgba(0,90,148,.4); margin-bottom:14px}
+.flip-f .vic svg{width:24px;height:24px}
+.flip-f h3{font-size:17px; font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:auto}
+.flip-f .more{font-size:11.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-lt); display:inline-flex; align-items:center; gap:6px; margin-top:12px}
+.flip-b p{font-size:14.5px; color:#eaf2fa; line-height:1.6} .flip-b p b{color:var(--gold-lt)}
+.flip-b .bt{font-size:12px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:8px}
+
+/* ===== Counter-Band ===== */
+.facts{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+@media(max-width:720px){ .facts{grid-template-columns:repeat(2,1fr)} }
+.fact{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:22px 16px; text-align:center; box-shadow:var(--e-1)}
+.fact b{display:block; font-size:clamp(28px,3.6vw,42px); font-weight:900; color:#fff; line-height:1}
+.fact b .u{color:var(--blue); font-size:.6em}
+.fact span{display:block; margin-top:7px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-mut)}
+
+/* ===== Fakten (interne Präsentation) ===== */
+.factbox{background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(22px,3vw,34px); box-shadow:var(--e-2)}
+.factgrid{display:grid; grid-template-columns:1fr 1fr; gap:2px 30px}
+@media(max-width:680px){ .factgrid{grid-template-columns:1fr} }
+.frow{display:flex; gap:14px; align-items:flex-start; padding:13px 0; border-bottom:1px solid rgba(255,255,255,.08)}
+.frow .fk{flex:0 0 132px; font-size:12px; font-weight:900; letter-spacing:.04em; text-transform:uppercase; color:var(--gold-lt); padding-top:2px}
+.frow .fv{font-size:14.5px; color:#fff; font-weight:600} .frow .fv small{color:var(--ink-mut); font-weight:600}
+.sendhint{margin-top:18px; font-size:13px; color:var(--ink-mut); display:flex; align-items:flex-start; gap:9px} .sendhint svg{flex:none;margin-top:2px;color:var(--gold-lt)} .sendhint b{color:#fff}
+
+/* ===== Ablauf Timeline ===== */
+.tl{position:relative; margin-top:6px; padding-left:26px}
+.tl::before{content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px; background:linear-gradient(180deg,var(--blue),var(--gold))}
+.tlrow{position:relative; padding:0 0 22px 6px}
+.tlrow::before{content:""; position:absolute; left:-26px; top:3px; width:16px; height:16px; border-radius:50%; background:var(--navy); border:2px solid var(--blue)}
+.tlrow:last-child::before{border-color:var(--gold)}
+.tlrow .tt{font-size:12px; font-weight:900; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-lt)}
+.tlrow h4{font-size:16px; font-weight:900; color:#fff; margin:3px 0 4px}
+.tlrow p{font-size:13.5px; color:var(--ink-mut); line-height:1.55; max-width:560px}
+
+/* ===== Foto-Marquee ===== */
+.marquee{position:relative; overflow:hidden; padding:6px 0; -webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mtrack{display:flex; gap:14px; width:max-content; animation:marq 46s linear infinite}
+.marquee:hover .mtrack{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
+.mtrack .mimg{position:relative; cursor:pointer; flex:0 0 auto; width:clamp(210px,26vw,300px); aspect-ratio:4/3; border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--card-brd); box-shadow:var(--e-1)}
+.mtrack .mimg img{width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease)}
+.mtrack .mimg:hover img{transform:scale(1.08)}
+
+/* ===== Verfügbarkeits-Kalender ===== */
+.calbox{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-xl); padding:clamp(18px,2.6vw,28px); box-shadow:var(--e-2)}
+.calhead{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+.calnav{display:flex; align-items:center; gap:10px}
+.calnav button{width:36px; height:36px; border-radius:50%; background:rgba(92,167,220,.16); border:1px solid rgba(92,167,220,.35); color:#fff; cursor:pointer; transition:var(--t-fast); display:grid; place-items:center}
+.calnav button:hover{background:var(--blue-mid); transform:translateY(-1px)} .calnav button svg{width:16px;height:16px}
+.calnav b{font-size:13.5px; font-weight:900; color:#fff; min-width:170px; text-align:center; text-transform:uppercase; letter-spacing:.08em}
+.callegend{margin-left:auto; display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; font-weight:700; color:var(--ink-mut)}
+.callegend span{display:inline-flex; align-items:center; gap:6px} .callegend i{width:11px; height:11px; border-radius:3px; display:inline-block}
+.li-free{background:rgba(92,167,220,.5); border:1px solid var(--blue)} .li-book{background:rgba(218,41,41,.35); border:1px solid rgba(218,41,41,.7)} .li-sel{background:var(--gold)}
+.mgrid{display:grid; grid-template-columns:repeat(7,1fr); gap:clamp(4px,0.7vw,8px)}
+.mh{font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-mut); text-align:center; padding:4px 0}
+.mcell{position:relative; min-height:clamp(56px,8vw,74px); background:rgba(8,18,29,.42); border:1px solid rgba(255,255,255,.07); border-radius:10px; padding:8px; display:flex; flex-direction:column; gap:3px; cursor:pointer; transition:transform .2s var(--ease)}
+.mcell.out{visibility:hidden; pointer-events:none}
+.mcell .md{font-weight:900; color:#fff; font-size:13px}
+.mcell .mt{margin-top:auto; font-size:9.5px; font-weight:900; letter-spacing:.04em; text-transform:uppercase}
+.mcell.free .mt{color:var(--blue)} .mcell.free::after{content:""; position:absolute; left:8px; bottom:8px; width:7px; height:7px; border-radius:50%; background:var(--blue)}
+.mcell.today .md{color:var(--gold-lt)}
+.mcell.free:not(.msel):hover{box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.mcell.msel{border-color:var(--gold); outline:1.5px solid var(--gold); background:linear-gradient(155deg,#12283c,#0b1c2e)}
+.mcell.msel .md{color:var(--gold-lt)}
+.mcell.booked{cursor:not-allowed; background:rgba(40,14,18,.5); border-color:rgba(218,41,41,.28)}
+.mcell.booked .md{color:rgba(240,165,165,.8)} .mcell.booked .mt{color:rgba(240,165,165,.7)}
+.mcell.past{cursor:not-allowed; opacity:.32} .mcell.past .mt, .mcell.past::after{display:none}
+.slotpanel{margin-top:16px; border-top:1px solid var(--card-brd); padding-top:16px}
+.slotpanel .sp-empty{font-size:13.5px; color:var(--ink-mut)}
+.sp-date{font-size:15px; font-weight:900; color:#fff; margin-bottom:4px}
+.sp-sub{font-size:12.5px; color:var(--ink-mut); margin-bottom:12px}
+.sp-booked{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:800; color:#f0a5a5; background:rgba(218,41,41,.14); border:1px solid rgba(218,41,41,.4); padding:9px 14px; border-radius:var(--r-pill)}
+.slots{display:flex; gap:10px; flex-wrap:wrap}
+.slot{font-family:var(--font); font-size:13.5px; font-weight:800; color:#fff; background:rgba(17,34,51,.66); border:1px solid var(--card-brd); border-radius:var(--r-md); padding:11px 16px; cursor:pointer; transition:var(--t-fast)}
+.slot:not(.on):hover{box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.slot.on{border-color:var(--gold); outline:1.5px solid var(--gold); color:var(--gold-lt)}
+.sp-go{margin-top:16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+.sp-go .pick{font-size:13px; color:var(--ink-mut)} .sp-go .pick b{color:#fff}
+
+/* ===== Getränke ===== */
+.menu{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+@media(max-width:820px){ .menu{grid-template-columns:1fr 1fr} } @media(max-width:520px){ .menu{grid-template-columns:1fr} }
+.mcat{background:var(--card-soft); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:20px}
+.mcat h3{font-size:15px; font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:12px}
+.mrow{display:flex; align-items:baseline; gap:8px; padding:7px 0; font-size:13.5px}
+.mrow .mn{color:var(--ink); font-weight:700} .mrow .dotfill{flex:1; border-bottom:1px dotted rgba(255,255,255,.22); transform:translateY(-3px)} .mrow .mp{color:var(--ink-mut); font-weight:700; font-size:12.5px}
+.menu-note{margin-top:14px; font-size:13px; color:var(--ink-mut)} .menu-note b{color:#fff}
+
+/* ===== Location ===== */
+.loc{display:grid; grid-template-columns:1.1fr .9fr; gap:16px; align-items:stretch}
+@media(max-width:820px){ .loc{grid-template-columns:1fr} }
+.loc .lbox{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:24px; box-shadow:var(--e-1)}
+.loc h3{font-size:18px; font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:8px}
+.loc p{font-size:14px; color:var(--ink-mut); line-height:1.6} .loc p b{color:#fff}
+.loc .map{border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--card-brd); min-height:240px}
+.loc .map iframe{width:100%; height:100%; min-height:240px; border:0; display:block; filter:saturate(.9)}
+.loc .map [data-tfcz="map"], .loc .map .tfcz-map{width:100%; height:100%; min-height:240px}
+
+/* ===== Testimonials ===== */
+.tgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.tcard{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:22px 20px; box-shadow:var(--e-1); display:flex; flex-direction:column; transform-style:preserve-3d}
+.tcard .stars{display:flex; gap:3px; color:var(--gold-lt); margin-bottom:10px}
+.tcard .stars .st{width:15px; height:15px; display:block}
+.tcard .quote{font-size:14.5px; color:var(--ink); line-height:1.6; flex:1} .tcard .quote b{color:#fff}
+.tcard .who{margin-top:16px; display:flex; align-items:center; gap:11px}
+.tcard .av{width:38px; height:38px; border-radius:11px; flex:none; display:grid; place-items:center; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk))} .tcard .av svg{width:19px;height:19px}
+.tcard .nm{font-size:13px; font-weight:900; color:#fff} .tcard .rl{font-size:11.5px; color:var(--ink-mut); font-weight:700}
+.tnote{margin-top:16px; font-size:12.5px; color:var(--ink-mut); font-style:italic}
+
+/* ===== CTA-Band (Share/Anfrage) ===== */
+.ctaband{position:relative; overflow:hidden; border-radius:var(--r-xl); padding:clamp(30px,5vw,60px) clamp(22px,4vw,50px); text-align:center; box-shadow:var(--e-2); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); background:linear-gradient(155deg, rgba(0,90,148,.6), rgba(7,18,30,.92))}
+.ctaband h2{font-size:clamp(24px,3.4vw,40px); font-weight:900; color:#fff; text-transform:uppercase; line-height:1.05}
+.ctaband p{margin:14px auto 22px; max-width:560px; color:#dbe8f4; font-size:15.5px}
+.ctaband .row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+
+/* ===== Anfrage-Formular ===== */
+.formbox{background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,32px); box-shadow:var(--e-2)}
+.formbox h2{font-size:clamp(20px,2.6vw,26px); font-weight:900; color:#fff; text-transform:uppercase}
+.formbox .fsub{font-size:13.5px; color:var(--ink-mut); margin:4px 0 18px; max-width:620px}
+.fgrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.field{display:flex; flex-direction:column; gap:6px; min-width:0} .field.full{grid-column:1/-1}
+.field label{font-size:12px; font-weight:900; letter-spacing:.03em; color:var(--ink-mut)} .field label .req{color:var(--gold-lt)}
+.field input,.field select,.field textarea{font-family:var(--font); font-size:14.5px; font-weight:600; color:#fff; background:linear-gradient(155deg,rgba(17,34,51,.66),rgba(9,21,33,.5)); border:1px solid var(--card-brd); border-radius:var(--r-sm); padding:11px 13px; outline:none; transition:border-color var(--t-fast),box-shadow var(--t-fast); width:100%}
+.field textarea{min-height:90px; resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-mut); font-weight:500}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(205,168,87,.18)}
+.field.err input,.field.err select,.field.err textarea{border-color:var(--red); box-shadow:0 0 0 3px rgba(218,41,41,.2)}
+.fnote{font-size:13px; color:var(--ink-mut); margin:16px 0 4px; display:flex; align-items:flex-start; gap:9px} .fnote svg{flex:none;margin-top:2px;color:var(--gold-lt)}
+.btnrow{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:16px}
+
+ 
+.formerr{color:#f0a5a5; font-size:13px; font-weight:800; display:none} .formerr.on{display:block}
+#fDone{text-align:center; padding:8px 4px 4px}
+.done-ic{width:56px;height:56px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;color:var(--navy);background:linear-gradient(155deg,var(--gold),var(--gold-lt));box-shadow:var(--e-1)} .done-ic svg{width:26px;height:26px}
+#fDone h2{margin:0 0 8px;font-size:20px;font-weight:900;color:#fff}
+.done-p{max-width:460px;margin:0 auto 18px;font-size:14.5px;color:var(--ink-mut)} .done-p a{color:var(--gold-lt);font-weight:800}
+ 
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);z-index:300;background:var(--navy);border:1px solid var(--gold);color:var(--gold-lt);font-weight:800;font-size:13px;padding:10px 18px;border-radius:var(--r-pill);opacity:0;pointer-events:none;transition:.25s var(--ease)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.foot{margin-top:20px; padding:26px 0 40px; border-top:1px solid var(--card-brd); font-size:13px; color:var(--ink-mut); text-align:center}
+.foot a{color:var(--gold-lt); font-weight:800; text-decoration:none}
+@media(max-width:640px){ .fgrid,.expl{grid-template-columns:1fr} .callegend{margin-left:0; width:100%} .calnav b{min-width:0; flex:1} }
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important} .mtrack{animation:none} .hero-bg,.pband-bg{transform:none!important}}
+.top .logo:active{transform:scale(.9)}
+.top .logo.pressed{animation:logoPress .42s var(--ease)}
+@keyframes logoPress{0%{transform:scale(1)}35%{transform:scale(.86)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
+</style>
+<link rel="stylesheet" href="system/page.css">
+<link rel="stylesheet" href="system/buttons.css">
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"></a>
+    <nav class="navlinks">
+      <a class="lnk" href="#idee">Die Idee</a>
+      <a class="lnk" href="#warum">Warum</a>
+      <a class="lnk" href="#fakten">Fakten</a>
+      <a class="lnk" href="#verfuegbar">Verfügbarkeit</a>
+      <a class="lnk" href="#stimmen">Feedback</a>
+    </nav>
+    <a class="back" href="index.html">← Zur Website</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO (Parallax-Vollbild) -->
+  <section class="hero">
+    <div class="hero-bg" data-par="0.18"><img src="assets/fotos/action/firmenevent-7012.jpg" alt="Firmenteam beim Tischfussball-Turnier im TFCZ"></div>
+    <div class="hero-ov"></div>
+    <div class="wrap">
+      <div class="kick" data-aos="fade-up">Firmenevent · Teamanlass in Zürich</div>
+      <h1 data-aos="fade-up" data-aos-delay="80">Der Teamanlass, über den alle <span class="g">reden</span></h1>
+      <p class="sub" data-aos="fade-up" data-aos-delay="160">Wir organisieren für euer Team ein <b>Tischfussball-Turnier</b>: Zwei gegen zwei, in jeder Runde neue Partner — alle spielen mit allen. In <b>maximal 2 Stunden</b>, ohne Vorwissen.</p>
+      <div class="ctas" data-aos="fade-up" data-aos-delay="240">
+        <a class="btn-gold" data-cta="firmenevent-verfuegbarkeit" href="#verfuegbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2.2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>Verfügbarkeit prüfen</a>
+        <a class="btn-ghost" href="#idee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>So funktioniert's</a>
+      </div>
+    </div>
+    <div class="cue">Scroll<span class="arw"></span></div>
+  </section>
+
+  <div class="wrap">
+
+  <!-- IDEE -->
+  <section id="idee">
+    <div class="lbl" data-aos="fade-up">In 30 Sekunden erklärt</div>
+    <h2 class="h2" data-aos="fade-up">Ein Turnier, das euer Team <span class="g">durchmischt</span></h2>
+    <p class="intro" data-aos="fade-up">Kein kompliziertes Regelwerk, kein Vorwissen nötig. Ihr kommt, wir übernehmen den Rest — und am Ende hat jeder mit jedem gespielt.</p>
+    <div class="expl" style="margin-top:24px">
+      <div class="estep" data-aos="fade-up" data-aos-delay="0"><div class="no">1</div><h3>Ihr kommt an</h3><p>Wir begrüssen euch, erklären in zwei Minuten alles Wichtige. Getränke gibt es vor Ort.</p></div>
+      <div class="estep" data-aos="fade-up" data-aos-delay="80"><div class="no">2</div><h3>Zwei gegen zwei</h3><p>Gespielt wird immer zu viert an einem Tisch — zwei Teams pro Runde. Einfacher geht es nicht.</p></div>
+      <div class="estep" data-aos="fade-up" data-aos-delay="160"><div class="no">3</div><h3>Neu gemischt</h3><p>Nach jeder Runde neue Partner. So spielt am Ende jeder mit und gegen alle.</p></div>
+      <div class="estep" data-aos="fade-up" data-aos-delay="240"><div class="no">4</div><h3>Finale & Sieger</h3><p>Zum Schluss die Entscheidung und eine kleine Siegerehrung — alles in maximal 2 Stunden.</p></div>
+    </div>
+  </section>
+  </div>
+
+  <!-- PARALLAX-BAND 1 -->
+  <section class="pband">
+    <div class="pband-bg" data-par="0.22"><img src="assets/fotos/atmosphaere/atmosphaere-06.jpg" alt="Nah am Tisch"></div>
+    <div class="pband-ov"></div>
+    <div class="wrap">
+      <p class="pquote" data-aos="zoom-out">Alle spielen <span class="g">mit allen</span></p>
+      <p class="psub" data-aos="fade-up" data-aos-delay="120">Die Geschäftsleitung neben dem neuen Gesicht — am selben Tisch, auf Augenhöhe.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+  <!-- WARUM (Flip-Karten) -->
+  <section id="warum">
+    <div class="lbl" data-aos="fade-up">Warum es für euer Team funktioniert</div>
+    <h2 class="h2" data-aos="fade-up">Mehr als nur spielen <span class="g">— dreh die Karte</span></h2>
+    <p class="intro" data-aos="fade-up">Weil jeder ständig die Partner wechselt, passiert genau das, was einen guten Teamanlass ausmacht — von selbst.</p>
+    <div class="flipgrid" style="margin-top:24px">
+      <div class="flip" data-aos="fade-up"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div><h3>Hierarchien lösen sich</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Auf Augenhöhe</div><p>Weil alle mit allen spielen, steht die <b>Geschäftsleitung neben dem neuen Team-Mitglied</b> am selben Tisch. Titel spielen keine Rolle mehr.</p></div>
+      </div></div>
+      <div class="flip" data-aos="fade-up" data-aos-delay="80"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Man kommt sich näher</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Echte Nähe</div><p>Am Tisch steht man dicht beieinander, jubelt, lacht, feuert an. In kurzer Zeit entsteht <b>echte Nähe im Team</b>.</p></div>
+      </div></div>
+      <div class="flip" data-aos="fade-up" data-aos-delay="160"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 4H4v2a3 3 0 0 0 3 3M17 4h3v2a3 3 0 0 1-3 3"/></svg></div><h3>Erfolg zum Teilen</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Gemeinsam</div><p>Gemeinsam gewinnen, gemeinsam fluchen, gemeinsam feiern. <b>Ehrgeiz und Erfolgserlebnisse, die verbinden</b> — ganz ohne Druck.</p></div>
+      </div></div>
+      <div class="flip" data-aos="fade-up"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div><h3>Einfach Spass</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Sofort drin</div><p>Schnell, laut, emotional — und ohne Leistungsdruck. <b>Nach fünf Minuten ist jeder mittendrin.</b></p></div>
+      </div></div>
+      <div class="flip" data-aos="fade-up" data-aos-delay="80"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Kompakt & planbar</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Max. 2 Stunden</div><p><b>Perfekt vor dem Abendessen</b>, nach der Arbeit oder als Auftakt in den Feierabend. Klar planbar.</p></div>
+      </div></div>
+      <div class="flip" data-aos="fade-up" data-aos-delay="160"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Kein Vorwissen</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Für alle</div><p>Ob Profi oder zum ersten Mal am Tisch — <b>die Durchmischung sorgt dafür, dass alle Freude haben.</b></p></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- COUNTER -->
+  <section id="fakten-zahlen" style="padding-top:6px">
+    <div class="facts">
+      <div class="fact" data-aos="zoom-out"><b data-count="2"><span class="u">h</span></b><span>maximal</span></div>
+      <div class="fact" data-aos="zoom-out" data-aos-delay="80"><b data-count="4">0</b><span>an jedem Tisch</span></div>
+      <div class="fact" data-aos="zoom-out" data-aos-delay="160"><b data-count="100"><span class="u">%</span></b><span>durchmischt</span></div>
+      <div class="fact" data-aos="zoom-out" data-aos-delay="240"><b data-count="0"><span class="u">×</span></b><span>Vorwissen nötig</span></div>
+    </div>
+  </section>
+
+  <!-- FAKTEN / INTERNE PRÄSENTATION -->
+  <section id="fakten">
+    <div class="lbl" data-aos="fade-up">Alles für die interne Runde</div>
+    <h2 class="h2" data-aos="fade-up">Fakten auf einen Blick</h2>
+    <p class="intro" data-aos="fade-up">Damit ihr den Anlass intern schnell vorstellen und freigeben lassen könnt — hier alles Wichtige auf einen Blick.</p>
+    <div class="factbox" data-aos="fade-up" style="margin-top:20px">
+      <div class="factgrid">
+        <div class="frow"><div class="fk">Was</div><div class="fv">Betreutes Tischfussball-Turnier, komplett von uns organisiert und geleitet</div></div>
+        <div class="frow"><div class="fk">Format</div><div class="fv">Zwei gegen zwei, jede Runde neue Partner — am Ende hat jeder mit allen gespielt</div></div>
+        <div class="frow"><div class="fk">Dauer</div><div class="fv">Maximal 2 Stunden <small>inkl. Begrüssung, Turnier und Siegerehrung</small></div></div>
+        <div class="frow"><div class="fk">Teilnehmer</div><div class="fv">Von kleinen Teams bis zu grösseren Gruppen <small>Zahl bei der Anfrage angeben</small></div></div>
+        <div class="frow"><div class="fk">Vorwissen</div><div class="fv">Keines nötig — für alle Levels geeignet</div></div>
+        <div class="frow"><div class="fk">Inklusive</div><div class="fv">Organisation, Turnierleitung, Tische & Material vor Ort</div></div>
+        <div class="frow"><div class="fk">Verpflegung</div><div class="fv">Getränke vor Ort erhältlich <small>kein Essen / keine Apéro-Platten</small></div></div>
+        <div class="frow"><div class="fk">Ort</div><div class="fv">Landenbergstrasse 10, 8037 Zürich — zentral & top angebunden</div></div>
+        <div class="frow"><div class="fk">Preis</div><div class="fv">Auf Anfrage — je nach Gruppengrösse und Termin</div></div>
+        <div class="frow"><div class="fk">Nächster Schritt</div><div class="fv">Termin auf Verfügbarkeit prüfen und unverbindlich anfragen</div></div>
+      </div>
+      <div class="sendhint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg><span><b>Tipp:</b> Diese Seite lässt sich direkt intern weiterleiten — sie erklärt den Anlass für alle verständlich.</span></div>
+    </div>
+  </section>
+  </div>
+
+  <!-- PARALLAX-BAND 2 -->
+  <section class="pband">
+    <div class="pband-bg" data-par="0.22"><img src="assets/fotos/action/action-21.jpg" alt="Turnierstimmung"></div>
+    <div class="pband-ov"></div>
+    <div class="wrap">
+      <p class="pquote" data-aos="zoom-out">Sogar die Skeptiker <span class="g">bleiben länger</span></p>
+      <p class="psub" data-aos="fade-up" data-aos-delay="120">Wer zuerst zögert, ist nach der ersten Runde mittendrin.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+  <!-- ABLAUF -->
+  <section id="ablauf">
+    <div class="lbl" data-aos="fade-up">So läuft ein Abend ab</div>
+    <h2 class="h2" data-aos="fade-up">Von der Ankunft bis zum Sieger</h2>
+    <div class="tl" style="margin-top:22px">
+      <div class="tlrow" data-aos="fade-up"><div class="tt">Minute 0</div><h4>Ankommen & Begrüssung</h4><p>Ihr trefft ein, holt euch ein Getränk, wir erklären in wenigen Minuten das Wichtigste. Kein Regelstudium nötig.</p></div>
+      <div class="tlrow" data-aos="fade-up"><div class="tt">Los geht's</div><h4>Runde für Runde, neu gemischt</h4><p>Zwei gegen zwei an jedem Tisch. Nach jeder Runde neue Partner — so kommt das ganze Team in Bewegung und ins Gespräch.</p></div>
+      <div class="tlrow" data-aos="fade-up"><div class="tt">Spannung steigt</div><h4>Zwischenstand & Anfeuern</h4><p>Punkte werden gesammelt, die Stimmung steigt. Man fiebert mit, feuert an, feiert kleine Erfolge zusammen.</p></div>
+      <div class="tlrow" data-aos="fade-up"><div class="tt">Bis Minute 120</div><h4>Finale & Siegerehrung</h4><p>Der Abschluss mit Entscheidung und kleiner Siegerehrung. Danach seid ihr zentral gelegen, um gemeinsam weiterzuziehen.</p></div>
+    </div>
+  </section>
+  </div>
+
+  <!-- FOTO-MARQUEE -->
+  <div class="wrap"><div class="lbl" data-aos="fade-up" style="margin-bottom:12px">Impressionen</div></div>
+  <!-- Bilder-Gruppe: Klick öffnet den Bild-Player (system/components/lightbox.js).
+       Gleiche Bild-IDs wie Home/Training -> gleiche Like-Zähler. -->
+  <div class="marquee" data-lightbox>
+    <div class="mtrack">
+      <div class="mimg"><img src="assets/fotos/atmosphaere/atmosphaere-05.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="atmosphaere-05"></span></div>
+      <div class="mimg"><img src="assets/fotos/action/action-06.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="action-06"></span></div>
+      <div class="mimg"><img src="assets/fotos/atmosphaere/atmosphaere-08.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="atmosphaere-08"></span></div>
+      <div class="mimg"><img src="assets/fotos/action/action-04.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="action-04"></span></div>
+      <div class="mimg"><img src="assets/fotos/atmosphaere/atmosphaere-09.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="atmosphaere-09"></span></div>
+      <div class="mimg"><img src="assets/fotos/action/action-12.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="action-12"></span></div>
+      <!-- Duplikat für nahtlosen Loop -->
+      <div class="mimg"><img src="assets/fotos/atmosphaere/atmosphaere-05.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="atmosphaere-05"></span></div>
+      <div class="mimg"><img src="assets/fotos/action/action-06.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="action-06"></span></div>
+      <div class="mimg"><img src="assets/fotos/atmosphaere/atmosphaere-08.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="atmosphaere-08"></span></div>
+      <div class="mimg"><img src="assets/fotos/action/action-04.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="action-04"></span></div>
+      <div class="mimg"><img src="assets/fotos/atmosphaere/atmosphaere-09.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="atmosphaere-09"></span></div>
+      <div class="mimg"><img src="assets/fotos/action/action-12.jpg" alt="" loading="lazy"><span class="tfcz-like-badge" data-h="action-12"></span></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+  <!-- VERFÜGBARKEIT / KALENDER -->
+  <section id="verfuegbar">
+    <div class="lbl" data-aos="fade-up">Verfügbarkeit prüfen</div>
+    <h2 class="h2" data-aos="fade-up">Wann soll es sein?</h2>
+    <p class="intro" data-aos="fade-up">Wähl einen Tag im Kalender. <b>Rot markierte Tage sind bereits vergeben.</b> An freien Tagen wählst du eine Zeit und schickst uns direkt eine unverbindliche Anfrage.</p>
+    <div class="calbox" data-aos="fade-up" style="margin-top:20px">
+      <div class="calhead">
+        <div class="calnav">
+          <button id="cPrev" type="button" aria-label="Vorheriger Monat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <b id="cLabel">—</b>
+          <button id="cNext" type="button" aria-label="Nächster Monat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="callegend">
+          <span><i class="li-free"></i>frei</span><span><i class="li-book"></i>vergeben</span><span><i class="li-sel"></i>gewählt</span>
+        </div>
+      </div>
+      <div class="mgrid" id="cHead"></div>
+      <div class="mgrid" id="cGrid" style="margin-top:4px"></div>
+      <div class="slotpanel" id="cSlot"><div class="sp-empty">Wähl oben einen freien Tag, um die verfügbaren Zeiten zu sehen.</div></div>
+    </div>
+  </section>
+
+  <!-- GETRÄNKE -->
+  <section id="getraenke">
+    <div class="lbl" data-aos="fade-up">Getränke vor Ort</div>
+    <h2 class="h2" data-aos="fade-up">Für den Durst ist gesorgt</h2>
+    <p class="intro" data-aos="fade-up">An unserer Bar gibt es eine Auswahl an kalten und warmen Getränken — direkt vor Ort erhältlich.</p>
+    <!-- Getränkeliste = Baustein system/components/drinks.js (Daten: system/drinks.js) -->
+    <div style="margin-top:20px" data-aos="fade-up" data-tfcz="drinks" data-snacks="0" data-preis="vor Ort"></div>
+    <p class="menu-note" data-aos="fade-up"><b>Hinweis:</b> Es gibt Getränke, aber kein Essen und keine Apéro-Platten. Zum gemeinsamen Essen zieht ihr im Anschluss weiter — dank zentraler Lage in wenigen Minuten.</p>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="location">
+    <div class="lbl" data-aos="fade-up">Lage & Anbindung</div>
+    <h2 class="h2" data-aos="fade-up">Zentral — und danach weiterziehen</h2>
+    <div class="loc" style="margin-top:20px">
+      <div class="lbox" data-aos="fade-up">
+        <h3>Mitten in Zürich</h3>
+        <p>Unser Clublokal liegt an der <b>Landenbergstrasse 10, 8037 Zürich</b> (Wipkingen) — zentral und mit dem öffentlichen Verkehr bestens erreichbar. Nach dem Turnier seid ihr in wenigen Minuten in der Stadt, um <b>gemeinsam essen zu gehen oder den Abend ausklingen zu lassen</b>.</p>
+      </div>
+      <div class="map" data-aos="fade-up" data-aos-delay="80">
+        <div data-tfcz="map"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section id="stimmen">
+    <div class="lbl" data-aos="fade-up">Das Feedback der Unternehmen</div>
+    <h2 class="h2" data-aos="fade-up">Grossartige Rückmeldungen</h2>
+    <p class="intro" data-aos="fade-up">Immer wieder das gleiche Bild: Wer zuerst zögert, ist nach der ersten Runde mittendrin — und will nicht mehr aufhören.</p>
+    <div class="tgrid" style="margin-top:20px">
+      <div class="tcard" data-aos="fade-up" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+        <div class="quote">„Ehrlich, ich hatte <b>null Lust</b> — und dann den ganzen Abend gelacht. Am Ende wollte niemand gehen. Bestes Teamevent seit Langem."</div>
+        <div class="who"><div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21V7l9-4 9 4v14M9 21v-6h6v6"/></svg></div><div><div class="nm">Anonym</div><div class="rl">Teamanlass · Bank</div></div></div>
+      </div>
+      <div class="tcard" data-aos="fade-up" data-aos-delay="80" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+        <div class="quote">„Was mich überrascht hat: Plötzlich reden Leute miteinander, die im Büro <b>kaum Kontakt</b> haben. Genau das wollten wir."</div>
+        <div class="who"><div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21V7l9-4 9 4v14M9 21v-6h6v6"/></svg></div><div><div class="nm">Anonym</div><div class="rl">Teamevent · Versicherung</div></div></div>
+      </div>
+      <div class="tcard" data-aos="fade-up" data-aos-delay="160" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+        <div class="quote">„Unkompliziert organisiert, alles hat gepasst, <b>maximal 2 Stunden</b> — perfekt vor dem gemeinsamen Nachtessen. Sehr zu empfehlen."</div>
+        <div class="who"><div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21V7l9-4 9 4v14M9 21v-6h6v6"/></svg></div><div><div class="nm">Anonym</div><div class="rl">Offsite · Beratung</div></div></div>
+      </div>
+      <div class="tcard" data-aos="fade-up" data-aos-delay="240" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+        <div class="quote">„Der <b>Ehrgeiz</b> kommt von ganz allein, aber ohne Druck. Wir reden heute noch über die Finalrunde. Kommen sicher wieder."</div>
+        <div class="who"><div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21V7l9-4 9 4v14M9 21v-6h6v6"/></svg></div><div><div class="nm">Anonym</div><div class="rl">Team-Event · KMU</div></div></div>
+      </div>
+    </div>
+    <p class="tnote" data-aos="fade-up">Rückmeldungen von durchgeführten Firmenanlässen — Firmennamen folgen nach Freigabe.</p>
+  </section>
+
+  <!-- CTA-BAND -->
+  <section id="anfrage">
+    <div class="ctaband" data-aos="zoom-out">
+      <h2>Bringt euer Team an den Tisch</h2>
+      <p>Prüft eine Verfügbarkeit oder fragt direkt und unverbindlich an — <b>Preise auf Anfrage</b>, wir melden uns schnell mit einem passenden Vorschlag.</p>
+      <div class="row">
+        <a class="btn-gold" data-cta="firmenevent-verfuegbarkeit" href="#verfuegbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2.2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>Verfügbarkeit prüfen</a>
+        <button class="btn-ghost" type="button" id="shareBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Seite teilen</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANFRAGE-FORMULAR -->
+  <section id="anfrage-formular" style="padding-top:8px">
+    <div class="formbox" data-aos="fade-up">
+      <div id="fEdit">
+        <h2>Termin anfragen</h2>
+        <div class="fsub">Sag uns kurz, wer ihr seid und wann es sein soll — wir melden uns mit Verfügbarkeit und einem passenden Angebot. Beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an info@tfcz.ch.</div>
+        <form id="evForm" data-tfcz="form" data-form="firmenevent" novalidate>
+          <div class="fgrid" id="fFields"></div>
+          <div class="fnote"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Wunschdatum und Zeit werden aus dem Kalender oben übernommen — du kannst sie im Feld auch anpassen.</span></div>
+          <div class="btnrow">
+            <button class="btn btn-gold" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Anfrage als Mail senden</button>
+            <span class="formerr" id="fErr">Bitte fülle die markierten Pflichtfelder aus.</span>
+          </div>
+        </form>
+      </div>
+      <div id="fDone" hidden>
+        <div class="done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <h2>Dein Mailprogramm sollte sich öffnen …</h2>
+        <p class="done-p">Hat sich <strong>nichts geöffnet</strong>? Kopier den Text mit dem Button und sende ihn an <a href="mailto:info@tfcz.ch">info@tfcz.ch</a>.</p>
+        <div class="btnrow" style="justify-content:center">
+          <button class="btn btn-ghost" type="button" id="doneCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Text kopieren</button>
+          <a class="btn-ghost" id="doneOpen" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Mail erneut öffnen</a>
+        </div>
+        <button class="btn btn-text" type="button" id="fBack">← Angaben nochmal bearbeiten</button>
+      </div>
+    </div>
+  </section>
+
+  <div data-tfcz="footer"></div>
+  </div>
+</main>
+
+<div id="toast">Kopiert</div>
+
+<script defer src="assets/js/bg-swirl.js"></script>
+<script defer src="assets/js/tfcz-fx.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(window.AOS) AOS.init({duration:650, easing:'ease-out-cubic', once:true, offset:60, disable:reduce});
+
+  /* Touch: Flip-Karten per Tap */
+  document.addEventListener('click',function(e){ var f=e.target.closest && e.target.closest('.flip'); if(f && matchMedia('(hover:none)').matches){ f.classList.toggle('on'); } });
+
+  /* Parallax (Hero + Bänder) */
+  var pars=[].slice.call(document.querySelectorAll('[data-par]'));
+  var ticking=false;
+  function par(){ ticking=false; var vh=window.innerHeight;
+    for(var i=0;i<pars.length;i++){ var el=pars[i], r=el.getBoundingClientRect(), spd=parseFloat(el.getAttribute('data-par'))||0.2;
+      var mid=r.top+r.height/2, off=(mid-vh/2)*spd; el.style.transform='translate3d(0,'+(-off).toFixed(1)+'px,0)'; }
+  }
+  if(!reduce){ addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(par); } },{passive:true}); addEventListener('resize',par); par(); }
+
+  /* Counter */
+  var cio=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting)return; var el=en.target; cio.unobserve(el); var end=+el.getAttribute('data-count'), suffix=el.querySelector('.u'), suf=suffix?suffix.outerHTML:''; if(reduce){el.innerHTML=end+suf;return;} var t0=null,dur=1100; function step(ts){t0=t0||ts; var p=Math.min(1,(ts-t0)/dur); var v=Math.round(end*(1-Math.pow(1-p,3))); el.innerHTML=v+suf; if(p<1)requestAnimationFrame(step);} requestAnimationFrame(step); }); },{threshold:.5});
+  [].forEach.call(document.querySelectorAll('[data-count]'),function(el){ cio.observe(el); });
+
+  /* Share */
+  var sb=document.getElementById('shareBtn');
+  if(sb) sb.addEventListener('click',function(){
+    var data={title:'Firmenevent beim TFCZ', text:'Teamanlass-Idee: ein Tischfussball-Turnier, bei dem alle mit allen spielen.', url:location.href};
+    if(navigator.share){ navigator.share(data).catch(function(){}); }
+    else if(navigator.clipboard){ navigator.clipboard.writeText(location.href).then(function(){ if(window.TFCZ&&TFCZ.toast)TFCZ.toast('Link kopiert — jetzt teilen'); }); }
+  });
+
+  /* ===== BELEGTE TAGE — hier pflegen: 'YYYY-MM-DD' ===== */
+  var BOOKED = ['2026-07-16','2026-07-23','2026-08-13','2026-08-28','2026-09-10','2026-09-25','2026-10-08','2026-11-14','2026-12-04','2026-12-18'];
+  var SLOTS = ['16:00–18:00','17:00–19:00','18:00–20:00','19:00–21:00'];
+  var MON=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  var DOW=['Mo','Di','Mi','Do','Fr','Sa','So'];
+  function iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function fmtLong(d){ return DOW[(d.getDay()+6)%7]+', '+d.getDate()+'. '+MON[d.getMonth()]+' '+d.getFullYear(); }
+  var today=new Date(); today.setHours(0,0,0,0);
+  var view=new Date(today.getFullYear(), today.getMonth(), 1);
+  var selDate=null, selSlot=null;
+  var head=document.getElementById('cHead'), grid=document.getElementById('cGrid'), label=document.getElementById('cLabel'), slotWrap=document.getElementById('cSlot');
+  head.innerHTML=DOW.map(function(d){return '<div class="mh">'+d+'</div>';}).join('');
+  function render(){
+    label.textContent=MON[view.getMonth()]+' '+view.getFullYear();
+    var first=new Date(view.getFullYear(),view.getMonth(),1), startPad=(first.getDay()+6)%7, daysIn=new Date(view.getFullYear(),view.getMonth()+1,0).getDate(), cells=[];
+    for(var i=0;i<startPad;i++) cells.push('<div class="mcell out"></div>');
+    for(var day=1;day<=daysIn;day++){
+      var d=new Date(view.getFullYear(),view.getMonth(),day); d.setHours(0,0,0,0); var key=iso(d);
+      var isPast=d<today, isBooked=BOOKED.indexOf(key)>-1, isToday=key===iso(today), cls='mcell', tag='';
+      if(isPast) cls+=' past'; else if(isBooked){ cls+=' booked'; tag='<span class="mt">Vergeben</span>'; } else { cls+=' free'; tag='<span class="mt">Frei</span>'; }
+      if(isToday) cls+=' today'; if(selDate && key===selDate) cls+=' msel';
+      cells.push('<div class="'+cls+'" data-d="'+key+'"><span class="md">'+day+'</span>'+tag+'</div>');
+    }
+    grid.innerHTML=cells.join('');
+  }
+  function renderSlots(){
+    if(!selDate){ slotWrap.innerHTML='<div class="sp-empty">Wähl oben einen freien Tag, um die verfügbaren Zeiten zu sehen.</div>'; return; }
+    var d=new Date(selDate+'T00:00:00');
+    if(BOOKED.indexOf(selDate)>-1){ slotWrap.innerHTML='<div class="sp-date">'+fmtLong(d)+'</div><div class="sp-booked"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>Dieser Tag ist bereits vergeben — bitte einen anderen wählen.</div>'; return; }
+    var chips=SLOTS.map(function(s){ return '<button class="slot'+(s===selSlot?' on':'')+'" type="button" data-s="'+s+'">'+s+'</button>'; }).join('');
+    var go = selSlot ? '<div class="sp-go"><span class="pick">Gewählt: <b>'+fmtLong(d)+'</b><b>'+selSlot+'</b></span><a class="btn-gold" id="cGo" data-cta="firmenevent-termin" href="#anfrage-formular"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Diesen Termin anfragen</a></div>' : '<div class="sp-go"><span class="pick">Wähl eine Zeit, um den Termin anzufragen.</span></div>';
+    slotWrap.innerHTML='<div class="sp-date">'+fmtLong(d)+'</div><div class="sp-sub">Verfügbare Zeitfenster (ca. 2 Stunden):</div><div class="slots">'+chips+'</div>'+go;
+  }
+  grid.addEventListener('click',function(e){ var c=e.target.closest('.mcell'); if(!c||!c.classList.contains('free'))return; selDate=c.getAttribute('data-d'); selSlot=null; render(); renderSlots(); slotWrap.scrollIntoView({behavior:'smooth',block:'nearest'}); });
+  slotWrap.addEventListener('click',function(e){ var s=e.target.closest('.slot'); if(s){ selSlot=s.getAttribute('data-s'); renderSlots(); syncForm(); return; } if(e.target.closest('#cGo')){ syncForm(true); } });
+  document.getElementById('cPrev').addEventListener('click',function(){ view.setMonth(view.getMonth()-1); render(); });
+  document.getElementById('cNext').addEventListener('click',function(){ view.setMonth(view.getMonth()+1); render(); });
+  render(); renderSlots();
+
+  /* Formular */
+  /* Formular = Baustein system/components/form.js (Felder + Mail-Texte: system/forms.js).
+     Seiten-eigen bleibt nur die Kalender-Übernahme: gewähltes Datum/Zeit ins Formular. */
+  function syncForm(scroll){
+    if(selDate){ var d=new Date(selDate+'T00:00:00'); var fd=document.getElementById('f_datum'); if(fd)fd.value=fmtLong(d); }
+    if(selSlot){ var fz=document.getElementById('f_zeit'); if(fz)fz.value=selSlot; }
+    if(scroll){ document.getElementById('anfrage-formular').scrollIntoView({behavior:'smooth',block:'start'}); }
+  }
+  /* Sicherheitsnetz: was im Kalender gewählt wurde, MUSS in der Mail landen — auch wenn
+     der Nutzer das Feld nie gesehen hat. Nur füllen, nie eine eigene Eingabe überschreiben. */
+  document.getElementById('evForm').addEventListener('submit',function(){
+    var fd=document.getElementById('f_datum'), fz=document.getElementById('f_zeit');
+    if(fd && !fd.value.trim() && selDate){ fd.value=fmtLong(new Date(selDate+'T00:00:00')); }
+    if(fz && !fz.value.trim() && selSlot){ fz.value=selSlot; }
+  },true);   /* capture: läuft VOR dem Baustein-Handler */
+
+  /* Hintergrund-Wirbel: globales Standardmodul (bg-swirl.js) übernimmt den Effekt */
+
+  /* Logo-Press */
+  var lg=document.querySelector(".top .logo"); if(lg) lg.addEventListener("click",function(e){ lg.classList.remove("pressed"); void lg.offsetWidth; lg.classList.add("pressed"); var href=lg.getAttribute("href"); if(href&&href.charAt(0)!=="#"){ e.preventDefault(); setTimeout(function(){ location.href=href; },230); } setTimeout(function(){lg.classList.remove("pressed");},440); });
+})();
+</script>
+<script src="system/content.js"></script>
+<script src="system/forms.js"></script>
+<script src="system/cta.js"></script>
+<script src="system/drinks.js"></script>
+<script src="system/likes.js"></script>
+<script defer src="system/components/portal.js"></script>
+<script defer src="system/components/nav.js"></script>
+<script defer src="system/components/scroll.js"></script>
+<script defer src="system/components/icons.js"></script>
+<script defer src="system/components/form.js"></script>
+<script defer src="system/components/footer.js"></script>
+<script defer src="system/components/cta.js"></script>
+<script defer src="system/components/map.js"></script>
+<script defer src="system/components/drinks.js"></script>
+<script defer src="system/components/lightbox.js"></script>
+</body>
+</html>

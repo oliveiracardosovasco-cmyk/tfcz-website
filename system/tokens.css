@@ -1,0 +1,88 @@
+/* ============================================================
+   TFCZ · DESIGN-TOKENS — die EINE Quelle für Farben, Radien,
+   Schatten, Zeiten und Easing.
+
+   Vorher hatte JEDE Seite ihr eigenes :root — 45 Tokens, davon liefen
+   11 auseinander (4 verschiedene --r-xl, 3 verschiedene --r-lg, 3 Schatten-
+   Varianten, 2 Easings …). Darum sahen dieselben Karten auf zwei Seiten
+   unterschiedlich aus.
+
+   Referenz = die Home (index.html), wie in CLAUDE.md festgelegt.
+
+   Einbinden — IMMER als Erstes im <head>, VOR dem seiten-eigenen <style>:
+       <link rel="stylesheet" href="system/tokens.css">
+
+   Eine bewusste Ausnahme pro Seite bleibt möglich (die Seite lädt zuletzt),
+   sie muss dort aber explizit stehen — und ist damit sichtbar.
+   ============================================================ */
+:root{
+  --blue: #5ca7dc;
+  --blue-mid: #4489c7;
+  --blue-dk: #005a94;
+  --navy: #0d273d;
+  --navy-2: #0a1f31;
+  --navy-3: #081826;
+  --gold: #cda857;
+  --gold-lt: #e9c475;
+  --red: #da2929;
+  --pink: #e0559b;
+  --ink: #eef4fa;
+  --ink-mut: #c3d2e0;
+  --card: linear-gradient(155deg, rgba(17,34,51,.74), rgba(9,21,33,.60));
+  --card-soft: linear-gradient(155deg, rgba(17,34,51,.52), rgba(9,21,33,.40));
+  --card-brd: rgba(255,255,255,.13);
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+  /* ---- Buttons (Single Source; siehe system/buttons.css + Brand Guide „CTA-System") ---- */
+  --btn-radius: 12px;   /* Radius ALLER Buttons. Hier ändern = überall (Icon bleibt rund). */
+  --btn-pad-y: 14px;
+  --btn-pad-x: 24px;
+  --btn-font: 14.5px;
+  --e-1: 0 8px 22px rgba(0,0,0,.32);
+  --e-2: 0 16px 40px rgba(0,0,0,.42);
+  --e-3: 0 22px 54px rgba(0,0,0,.5);
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --t-fast: .15s;
+  --t-base: .3s;
+  --t-slow: .6s;
+  --font: 'Nunito Sans',system-ui,-apple-system,sans-serif;
+  --sand: #e6e3da;
+  --cat-fun: #5ca7dc;
+  --cat-comp: #005a94;
+  --cat-elite: #cda857;
+  --green: #67b57d;
+  --green-dk: #3b7657;
+  --orange: #e49b2c;
+  --orange-dk: #db7f27;
+  --red-dk: #bb2025;
+  --cat-pro: #005a94;
+  --cat-event: #3b7657;
+  --r-xs: 4px;
+  --inset: inset 0 1px 0 rgba(255,255,255,.12);
+  --bounce: cubic-bezier(.34,1.56,.64,1);
+  --bg-navy: linear-gradient(180deg,#0d273d,#0a1f31 55%,#081826);
+  --bg-blue: linear-gradient(165deg,#5ca7dc,#4489c7,#005a94);
+  --page-bg: var(--bg-navy);
+
+  /* ---- Seitengerüst: Grössen & Abstände (system/page.css) ----
+     Vorher hatte jede Seite eigene Werte: sechs H1-Grössen, sechs Abstände
+     zur Menüleiste, fünf Sektions-Paddings. Ab jetzt stehen sie hier. */
+  --h1:        clamp(44px, 7.4vw, 76px);   /* Home (Foto-Hero) */
+  --h1-sub:    clamp(38px, 5.2vw, 62px);   /* alle Unterseiten (Text-Hero) */
+  --h2:        clamp(26px, 3.2vw, 40px);
+  --lead:      18px;
+
+  --hero-pad-y: clamp(48px, 7vw, 92px);    /* Abstand Menüleiste -> Titel */
+  --hero-pad-b: clamp(24px, 4vw, 44px);    /* Titelblock -> erste Sektion */
+  --sec-pad:    clamp(48px, 6vw, 84px);    /* Sektions-Rhythmus */
+  --sec-pad-first: clamp(24px, 3vw, 40px); /* erste Sektion nach dem Hero */
+
+  --sp-2: 12px;
+  --sp-3: 16px;
+
+  --wrap:     1160px;
+  --wrap-pad: 22px;
+}

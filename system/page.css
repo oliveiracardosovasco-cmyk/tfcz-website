@@ -1,0 +1,145 @@
+/* ============================================================
+   TFCZ · SEITENGERÜST — Kopf, Schriftgrössen und Abstände.
+   EINE Quelle für alle Seiten.
+
+   Befund vor der Umstellung (im Browser gemessen, 14.07.2026):
+     H1 in SECHS Grössen (60/72/80/82/86/88px), der Abstand vom Titel zur
+     Menüleiste in sechs Werten (89–230px), das Sektions-Padding in fünf
+     (32/52/60/84/94px). Und die Home hatte gar kein <h1>.
+     Darum fühlte sich jede Unterseite anders an.
+
+   REGEL (Vasco 14.07.2026):
+     · NUR die Home hat einen Hero mit Vollbild.
+     · ALLE Unterseiten haben denselben Text-Hero: gleicher Abstand zur
+       Menüleiste, gleiche H1-Grösse, gleicher Lead, gleiches Spacing.
+
+   Einbinden — NACH dem seiten-eigenen <style>, damit dieser Layer die alten
+   Einzelwerte überschreibt:
+       <link rel="stylesheet" href="system/page.css">
+
+   Die Werte stehen als Tokens in system/tokens.css und gelten überall.
+   ============================================================ */
+
+/* ---------- 1 · Seitenkopf ---------- */
+
+/* Unterseiten: Text-Hero — kein Bild, immer derselbe Abstand zur Menüleiste */
+body:not(.home) .hero {
+  position: relative;
+  min-height: 0 !important;            /* die Foto-Hero-Höhen sind damit weg */
+  height: auto !important;
+  display: block !important;
+  padding: var(--hero-pad-y) 0 var(--hero-pad-b) !important;
+  overflow: visible;
+}
+
+/* Vollbild nur auf der Home: auf Unterseiten fliegt das Hero-Bild raus */
+body:not(.home) .hero-bg,
+body:not(.home) .hero-ov,
+body:not(.home) .hero-img {
+  display: none !important;
+}
+
+/* H1: eine Grösse für alle Unterseiten, eine für die Home */
+body:not(.home) .hero h1,
+body:not(.home) .hero .hl {
+  font-size: var(--h1-sub) !important;
+  line-height: 1.04;
+  margin: 0 0 var(--sp-3) !important;
+}
+body.home .hero h1,
+body.home .hc-hl {
+  font-size: var(--h1) !important;
+  line-height: 1.02;
+}
+
+/* Der Inhalts-Container IM Hero bringt kein eigenes Padding mit
+   (Training/Firmenevents hatten dort 60px extra — daher der grössere Abstand) */
+.hero > .wrap {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Kicker über dem Titel — EINE Signature.
+   Vorher gab es drei Varianten (.kick = nackter Text, .est = Pill-Badge,
+   .kicker = Goldstrich). Weil sie unterschiedlich hoch sind, startete die
+   Headline auf jeder Seite woanders. Ab jetzt sehen alle drei gleich aus:
+   goldener Strich 28x2px + Gold-Uppercase, gleiche Höhe, gleicher Abstand. */
+/* Gilt im Seitenkopf UND über jeder Sektions-Überschrift (Regel: eine Kicker-Signature) */
+/* .lbl ist NICHT dabei: der Barometer-Baustein nutzt .lbl fuer seine Balken-Beschriftung */
+.hero .kicker, .hero .kick, .hero .est,
+section .kicker, section .kick, section .est,
+.sec .kicker, .sec .kick, .sec .est {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  line-height: 20px !important;
+  letter-spacing: .18em !important;
+  text-transform: uppercase !important;
+  color: var(--gold) !important;
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 0 var(--sp-2) !important;
+}
+.hero .kicker::before, .hero .kick::before, .hero .est::before,
+section .kicker::before, section .kick::before, section .est::before,
+.sec .kicker::before, .sec .kick::before, .sec .est::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  flex: none;
+  background: var(--gold);
+}
+
+/* Lead-Text unter dem Titel — die Seiten nennen ihn .lead, .sub oder .intro */
+.hero .lead,
+.hero .sub,
+.hero .intro,
+.hero > .wrap > p {
+  font-size: var(--lead) !important;
+  line-height: 1.6;
+  max-width: 68ch;
+}
+
+/* ---------- 2 · Sektions-Abstände ---------- */
+
+/* Ein Rhythmus für alle Seiten (vorher 32–94px, je nach Seite) */
+main > section,
+main > .sec,
+main > div > section,
+body > section,
+body > div > section,
+body > div > div > section,
+section.sec,
+.sec {
+  padding-top: var(--sec-pad) !important;
+  padding-bottom: var(--sec-pad) !important;
+}
+
+/* Die erste Sektion nach dem Hero rückt nicht doppelt ab */
+.hero + section,
+.hero + .sec,
+.hero + div > section:first-child {
+  padding-top: var(--sec-pad-first) !important;
+}
+
+/* Sektions-Überschriften: eine Grösse */
+main h2,
+.sec h2,
+h2.big,
+.h2,
+.hrow h2 {
+  font-size: var(--h2) !important;
+  line-height: 1.1;
+}
+
+/* ---------- 3 · Inhaltsbreite ---------- */
+.wrap {
+  max-width: var(--wrap) !important;
+  padding-left: var(--wrap-pad) !important;
+  padding-right: var(--wrap-pad) !important;
+}
