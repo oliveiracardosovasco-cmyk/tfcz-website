@@ -14,18 +14,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moveable/0.53.0/moveable.min.js"></script>
 <!-- Brand-Komponenten: DIE Quelle. Studio und Brand Guide lesen dieselbe Datei. -->
 <script src="system/brand-components.js"></script>
-<!-- Brand Guide = Single Source of Truth (CLAUDE.md §9: Tokens → base → seiten-eigenes CSS) -->
-<link rel="stylesheet" href="assets/css/tfcz-tokens.css">
-<link rel="stylesheet" href="assets/css/tfcz-base.css">
+<!-- Tokens = Single Source (CLAUDE.md §9). tfcz-base.css ist geparkt in _module/ (Ebene 2 offen) -> nicht einbinden. -->
+<link rel="stylesheet" href="system/tokens.css">
 <style>
 /* ===== Studio-Shell =====
    Das Studio ist eine INTERNE, login-geschützte Fläche → Dunkel-Navy (CLAUDE.md §1).
    Die Website-Globals (hellblauer Grund, Zeilenhöhe, img-Regel) werden hier bewusst neutralisiert.
 
-   WICHTIG — Ausfallsicherheit: die Tokens kommen aus assets/css/tfcz-tokens.css (Single Source).
+   WICHTIG — Ausfallsicherheit: die Tokens kommen aus system/tokens.css (Single Source).
    Falls diese Datei NICHT lädt (Vorschau, Datei ausserhalb des Web-Ordners, Offline-Kopie),
    greifen die identischen Fallback-Werte unten. Das Studio darf nie ohne Schrift/Farben dastehen.
-   Die Fallbacks sind 1:1 die kanonischen Werte — ändert man einen Token, hier nachziehen. */
+   Die Fallbacks sind 1:1 die kanonischen Werte — ändert man einen Token, hier nachziehen.
+
+   ACHTUNG (16.07.2026): Dieser Block steht NACH dem <link> und gewinnt daher IMMER — die Tokens
+   kommen faktisch von hier, nicht aus tokens.css. Solange die Werte identisch sind (heute geprüft:
+   blue/blue-mid/blue-dk/navy/gold/gold-lt/sand stimmen 1:1), ist das unsichtbar. Ändert jemand
+   system/tokens.css und vergisst diesen Block, driftet das Studio still ab. Sauber wäre: Fallback
+   nur laden, wenn tokens.css fehlt — oder ganz weg. Siehe AUFRAEUM-ANALYSE.md. */
 @supports not (color: var(--tfcz-tokens-loaded)){}
 :root{
   --font:'Nunito Sans',system-ui,-apple-system,sans-serif;
@@ -1108,7 +1113,7 @@ const DEF={
   {id:"rule",name:"Goldene Linie",type:"image",slot:"logo",size:26},
   {id:"tag",name:"Claim-Zeile",type:"text",text:"Willkommen im Club",color:"gold2",weight:700,ls:0.45,size:39},
   {id:"follow",name:"Folg uns",type:"text",text:"Folg uns",color:"gold2",weight:700,ls:0.3,size:24},
-  {id:"ig",name:"Instagram",type:"text",text:"@tischfussballclub_zuerich",color:"white",weight:700,size:30},
+  {id:"ig",name:"Instagram",type:"text",text:"@tischfussballclubzuerich",color:"white",weight:700,size:30},
   {id:"ytl",name:"YouTube",type:"text",text:"@tischfussballclubzuerich",color:"white",weight:700,size:30},
  ]},
  profi:{layout:"profi",els:[
@@ -3356,7 +3361,7 @@ function openPicker(opts,cb){ opts=opts||{}; const kind=opts.kind||'image'; cons
 var _lb=document.getElementById('logoBtn'); if(_lb)_lb.onclick=()=>openPicker({title:'Vereinslogo wählen',kind:'logo'},src=>{ state.logoSrc=src||null; save(); switchAll(); });
 
 /* ---------- Post-Text / Caption (pro Flyer-Typ × Format kopierbar) ---------- */
-const CAP_IG='@tischfussballclub_zuerich', CAP_YT='@tischfussballclubzuerich', CAP_WEB='tfcz.ch';
+const CAP_IG='@tischfussballclubzuerich', CAP_YT='@tischfussballclubzuerich', CAP_WEB='tfcz.ch';
 /* Wer wir sind — eine Quelle, gilt für jede Beschreibung. Tone of Voice: Du-Form, kurz, konkret,
    einladend, nie gendern, keine Corporate-Floskeln. Zahlen/Adresse nur aus dem Steckbrief. */
 const CAP_ABOUT='Der Tischfussball Club Zürich ist der grösste Tischfussballverein der Schweiz — seit 1990 in derselben Halle in Wipkingen. Bei uns trainieren Weltmeister, und am Tisch daneben spielt jemand seine erste Partie. Alle sind willkommen.';

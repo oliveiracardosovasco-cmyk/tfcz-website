@@ -71,7 +71,7 @@
     'regeln': { href: 'tfcz-regeln.html', text: 'Alle Regeln', stil: 'ghost' },
     'ueber-uns': { href: 'tfcz-ueber-uns.html', text: 'Über uns', stil: 'ghost' },
     'website': { href: 'https://tfcz.ch', text: 'tfcz.ch', stil: 'ghost' },
-    'instagram': { href: 'https://instagram.com/tischfussballclub_zuerich', text: '@tischfussballclub_zuerich', stil: 'ghost' },
+    'instagram': { href: 'https://instagram.com/tischfussballclubzuerich', text: '@tischfussballclubzuerich', stil: 'ghost' },
     'youtube': { href: 'https://youtube.com/@tischfussballclubzuerich', text: 'Auf YouTube ansehen', stil: 'ghost' },
     'medien': { href: 'tfcz-medien.html', text: 'Medien & Presse', stil: 'ghost' },
     'geschichte': { href: 'tfcz-geschichte.html', text: 'Unsere Geschichte', stil: 'ghost' },

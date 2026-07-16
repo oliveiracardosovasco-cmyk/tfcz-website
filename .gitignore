@@ -24,4 +24,11 @@ _module/
 Thumbs.db
 *.log
 .fuse_hidden*
-node_modules/
+
+# node_modules OHNE Schraegstrich (16.07.2026):
+# "node_modules/" matcht nur ein VERZEICHNIS. Hier lag ein SYMLINK dieses Namens
+# -> Pattern griff nicht -> der Symlink wurde mitcommittet, und er zeigte auf eine
+# tote Session (/sessions/<alt>/...). Dadurch fand "node_modules/playwright-core"
+# nichts mehr und _tools/pruefen.mjs startete gar nicht erst.
+# Ohne Schraegstrich matcht das Pattern Ordner UND Symlink.
+node_modules

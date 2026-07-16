@@ -23,10 +23,32 @@
    Exit-Code 1, wenn irgendein Punkt fehlschlägt.
    ============================================================ */
 import { chromium } from 'playwright-core';
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync, readdirSync, existsSync } from 'fs';
+import { homedir } from 'os';
+import { join } from 'path';
 
-const BIN = process.env.CHROME_BIN
-  || '/sessions/nice-fervent-shannon/.cache/ms-playwright/chromium-1228/chrome-linux/chrome';
+/* Chromium finden — NIE einen Session-Pfad hartkodieren.
+   Bis 16.07.2026 stand hier ein fixer /sessions/<name>/…-Pfad. Der gilt nur in genau
+   der Session, in der er entstanden ist; in jeder anderen scheitert der Prüfer beim
+   Browser-Start — und ein Prüfer, der nicht startet, prüft nichts.
+   Reihenfolge: CHROME_BIN → ms-playwright-Cache (neuster Build) → Playwrights eigene Suche. */
+function findeChromium() {
+  if (process.env.CHROME_BIN) return process.env.CHROME_BIN;
+  const cache = process.env.PLAYWRIGHT_BROWSERS_PATH || join(homedir(), '.cache', 'ms-playwright');
+  if (existsSync(cache)) {
+    const build = readdirSync(cache)
+      .filter(d => /^chromium-\d+$/.test(d))
+      .sort((a, b) => Number(b.split('-')[1]) - Number(a.split('-')[1]))[0];
+    if (build) {
+      for (const p of [
+        join(cache, build, 'chrome-linux', 'chrome'),
+        join(cache, build, 'chrome-mac', 'Chromium.app', 'Contents', 'MacOS', 'Chromium'),
+      ]) if (existsSync(p)) return p;
+    }
+  }
+  return undefined;   // Playwright sucht dann selbst
+}
+const BIN = findeChromium();
 const BASE = 'file://' + process.cwd() + '/';
 
 const SEITEN = readdirSync('.').filter(f => f.endsWith('.html') && !f.startsWith('_'));
@@ -60,7 +82,7 @@ for (const f of SEITEN) {
 }
 
 /* ---------- 3–6 + 8: im echten Browser ---------- */
-const b = await chromium.launch({ executablePath: BIN, args: ['--no-sandbox', '--disable-gpu'] });
+const b = await chromium.launch({ ...(BIN ? { executablePath: BIN } : {}), args: ['--no-sandbox', '--disable-gpu'] });
 
 for (const [breite, label] of [[1280, 'Desktop'], [390, 'Mobile']]) {
   console.log(`\n── Browser ${label} (${breite}px) ──`);

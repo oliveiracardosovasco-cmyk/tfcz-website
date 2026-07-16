@@ -24,7 +24,7 @@ TFCZ.content = {
 
   /* ---- Social ---- */
   social: {
-    instagram: 'https://www.instagram.com/tischfussballclub_zuerich/',
+    instagram: 'https://www.instagram.com/tischfussballclubzuerich/',
     youtube:   'https://www.youtube.com/@tischfussballclubzuerich',
     whatsapp:  'https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX'
   },
