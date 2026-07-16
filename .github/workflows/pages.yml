@@ -1,0 +1,69 @@
+# TFCZ Website -> GitHub Pages
+#
+# Uebernommen vom Stand 10.07.2026 im Repo tfcz-website, angepasst an die V3:
+#
+#  1. path war ./site — die V3 hat keinen site/-Ordner mehr, index.html liegt
+#     im Root. Ohne diese Anpassung waere die Seite nach dem Umstieg offline.
+#
+#  2. NEU: Schritt "Interne Dateien aus dem Artefakt entfernen".
+#     Der alte Workflow lud nur ./site hoch — CLAUDE.md und docs/ lagen daneben
+#     und wurden nie ausgeliefert. Mit path:'.' waere das anders: CLAUDE.md
+#     stuende oeffentlich unter .../CLAUDE.md — und §3b beschreibt dort die
+#     Eier-Jagd im Klartext (dass es sie gibt, dass sie in assets/js/tfcz-fx.js
+#     steckt, wie der Blob gebaut wird, Praefix fx-). Das ist genau die
+#     Anleitung, gegen die die Verschleierung gebaut wurde.
+#     Darum: interne Doku und Werkzeug fliegen VOR dem Upload raus.
+#
+# Das Geheimnis selbst (_secret/) ist zusaetzlich per .gitignore draussen —
+# was nicht im Repo ist, kann Pages nicht ausliefern. Dieser Schritt ist die
+# zweite Linie, nicht die erste.
+name: Deploy site to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Interne Dateien aus dem Artefakt entfernen
+        run: |
+          rm -rf _secret _snapshots _snapshot-baseline _module _tools tools node_modules .github
+          rm -f CLAUDE.md API.md ARCHITEKTUR.md TODO.md CTA-ANALYSE.md README.md
+          rm -f package.json package-lock.json okapi-event-mapping.md
+          # .gitignore muss AUCH weg: sie nennt "_secret/" samt Kommentar
+          # "Eier-Jagd im Klartext" — das verraet die Existenz der Jagd und wo
+          # ihre Quelle liegt. Genau das, was §3b verhindern will.
+          rm -f .gitignore
+          echo "--- was ausgeliefert wird:"
+          ls -a
+          # Gegenproben. Exit 1 stoppt den Deploy, bevor etwas live geht.
+          for f in _secret CLAUDE.md .gitignore _tools tools; do
+            if [ -e "$f" ]; then echo "STOPP: '$f' im Artefakt"; exit 1; fi
+          done
+          if grep -rl "eggs.source\|_secret" . 2>/dev/null | grep -q .; then
+            echo "STOPP: Verweis auf die Klartext-Quelle im Deploy gefunden"; exit 1
+          fi
+          # Positiv-Probe: die Seite muss auch wirklich noch da sein
+          for f in index.html system/tokens.css assets/js/tfcz-fx.js; do
+            if [ ! -f "$f" ]; then echo "STOPP: '$f' fehlt — Seite waere kaputt"; exit 1; fi
+          done
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
