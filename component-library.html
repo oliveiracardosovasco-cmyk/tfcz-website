@@ -11872,6 +11872,39 @@ input[type=range].rng:focus-visible::-webkit-slider-thumb{border-color:var(--gol
       </div>
     </div>
   </div>
+
+  <!-- Possession-Timer -->
+  <div style="margin-top:36px;border-top:1px solid var(--card-brd);padding-top:28px">
+    <div style="font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:6px">Live-Timer</div>
+    <h3 style="margin:0 0 8px;font-size:21px;font-weight:900;color:#fff;letter-spacing:-.01em">Possession-Timer · Ballbesitz</h3>
+    <p class="sec-sub" style="margin:0 0 16px">Zeigt oben rechts, <b>wie lange ein Stab den Ball hält</b> (3er / 5er / Torwart) — zählt live hoch, friert beim Limit ein und wird <b style="color:#ff7063">rot über dem Limit</b> (3er/Torwart 15s, 5er 10s). Fenster-Signatur (blau oben / gold unten) auf frosted Navy, Nunito Sans, goldenes Eyebrow. Gold nur Akzent, nie für Teams.</p>
+    <div class="demo col" style="align-items:stretch">
+      <div style="width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#1c2a20,#0e140f)">
+        <iframe src="possession-widget.html" title="TFCZ Possession-Timer" loading="lazy" style="width:100%;height:100%;border:0;display:block"></iframe>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap">
+        <a class="btn btn-ghost" href="possession-widget.html" target="_blank" rel="noopener">Vollbild öffnen</a>
+        <span style="color:#9fb2c4;font-size:13px;font-weight:700">Live-Widget: <code>sop/public/widgets/possession.html</code> · Position per <code>?position=top-right</code> · Trigger <code>POSSESSION_TIMER</code></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kamera-Rahmen -->
+  <div style="margin-top:36px;border-top:1px solid var(--card-brd);padding-top:28px">
+    <div style="font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:6px">Kamera</div>
+    <h3 style="margin:0 0 8px;font-size:21px;font-weight:900;color:#fff;letter-spacing:-.01em">Kamera-Rahmen · Einzel &amp; Split</h3>
+    <p class="sec-sub" style="margin:0 0 16px">Transparentes Overlay für die Kamera-Einblendungen (<b>Player L/R, Rally, Defensive</b>) — statt Vollfarbe hinter der Kamera: <b>Fenster-Signatur</b> blau oben / gold unten, Navy-Rahmen, runde Ecken, Mitte durchsichtig für die Kamera. <b>Split</b> = zwei gerahmte Fenster mit Navy-Trenner (neue OBS-Szene). In OBS als Browser-Quelle über die Kamera legen, Grösse = Kamera-Bereich.</p>
+    <div class="demo col" style="align-items:stretch">
+      <div style="width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#000">
+        <iframe src="camera-frame-widget.html?mode=split" title="TFCZ Kamera-Rahmen" loading="lazy" style="width:100%;height:100%;border:0;display:block"></iframe>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap">
+        <a class="btn btn-ghost" href="camera-frame-widget.html?mode=single" target="_blank" rel="noopener">Einzel öffnen</a>
+        <a class="btn btn-ghost" href="camera-frame-widget.html?mode=split" target="_blank" rel="noopener">Split öffnen</a>
+        <span style="color:#9fb2c4;font-size:13px;font-weight:700">Overlay: <code>sop/public/widgets/camera-frame.html</code> · <code>?mode=single|split</code> · Feintuning <code>?lw=</code> <code>?r=</code> <code>?m=</code></span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- KALENDER -->
