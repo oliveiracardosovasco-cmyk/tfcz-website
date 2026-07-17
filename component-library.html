@@ -175,29 +175,6 @@ section.cl{padding:32px 0 6px; scroll-margin-top:84px}
 .kv .bar{height:8px; border-radius:var(--r-pill); background:rgba(255,255,255,.08); overflow:hidden}
 .kv .bar i{display:block; height:100%; border-radius:var(--r-pill); background:linear-gradient(90deg,var(--blue-dk),var(--lc,var(--blue)))}
 
-/* ===== Streaming-Overlay ===== */
-.stage{position:relative; width:100%; aspect-ratio:16/9; border-radius:var(--r-lg); overflow:hidden; background:linear-gradient(135deg,#123 0%,#0a1826 100%); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-3)}
-.stage .logobug{position:absolute; top:14px; left:16px; font-weight:900; font-size:13px; color:#fff; letter-spacing:.04em; background:rgba(9,21,33,.5); backdrop-filter:blur(6px); padding:6px 11px; border-radius:var(--r-sm)}
-.stage .logobug span{color:var(--gold-lt)}
-.stage .tname{position:absolute; top:14px; left:50%; transform:translateX(-50%); font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-mut); background:rgba(9,21,33,.4); padding:6px 14px; border-radius:var(--r-pill)}
-.lt{position:absolute; left:16px; bottom:16px; min-width:280px; background:rgba(13,39,61,.62); backdrop-filter:blur(9px); border-radius:var(--r-md); box-shadow:var(--e-3); overflow:hidden; border-top:2px solid var(--blue); border-bottom:2px solid var(--gold)}
-.lt .lt-t{font-size:10.5px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); background:var(--gold); padding:4px 12px}
-.lt .prow{display:grid; grid-template-columns:1fr auto auto auto; gap:2px; align-items:center; padding:7px 12px; font-size:13.5px; font-weight:800; color:#fff}
-.lt .prow.dim{color:rgba(255,255,255,.5)}
-.lt .prow b{width:26px; text-align:center; font-variant-numeric:tabular-nums}
-.lt .prow b.set{color:var(--gold-lt)}
-.lt .prow b.live{color:#fff; background:color-mix(in srgb,var(--blue) 40%,transparent); border-radius:4px}
-.rescar{position:absolute; top:52px; right:16px; width:190px; background:rgba(13,39,61,.55); backdrop-filter:blur(8px); border:1px solid var(--card-brd); border-radius:var(--r-md); overflow:hidden}
-.rescar .rc-h{font-size:10px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-mut); padding:6px 11px; display:flex; justify-content:space-between; align-items:center}
-.rescar .rc-h .liv{color:#ff6a6a}
-.rescar .rc-r{display:flex; justify-content:space-between; padding:5px 11px; font-size:11.5px; color:#fff; border-top:1px solid rgba(255,255,255,.07)}
-.igbug{position:absolute; right:16px; bottom:16px; font-size:11px; font-weight:800; color:var(--ink-mut); background:rgba(9,21,33,.45); padding:5px 10px; border-radius:var(--r-pill)}
-.ticker{position:absolute; left:0; right:0; bottom:0; display:none}
-.sponsor{position:absolute; left:50%; bottom:16px; transform:translateX(-50%); display:none}
-.stage.tk .ticker{display:block; background:rgba(9,21,33,.7); backdrop-filter:blur(6px); padding:7px 16px; font-size:12px; font-weight:800; color:#fff; border-top:2px solid var(--gold)}
-.stage.tk .ticker b{color:var(--gold-lt); letter-spacing:.08em; text-transform:uppercase; margin-right:8px}
-.stage.sp .sponsor{display:block; background:var(--sand); color:var(--navy); font-weight:900; font-size:12px; padding:7px 16px; border-radius:var(--r-sm)}
-.ov-ctrl{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; width:100%}
 
 /* ===== Kalender-Zellen ===== */
 .wkstrip{display:flex; gap:6px; width:100%; justify-content:center; padding:14px 0}
@@ -11846,30 +11823,15 @@ input[type=range].rng:focus-visible::-webkit-slider-thumb{border-color:var(--gol
 
 <!-- OVERLAY -->
 <section class="cl" id="overlay">
-  <div class="sec-h"><span class="num">12</span><h2>Stream-Overlay-Bausteine</h2></div>
-  <p class="sec-sub">1920×1080-Look: Marken-Rahmen, Logo-Bug, Turniername, Lower-Third im Tennis-Stil (Sätze als Spalten, Sieger gold), Resultate-Karussell, Instagram-Bug, „Als Nächstes"-Ticker, Sponsor-Bug.</p>
-  <div class="demo col">
-    <div class="stage" id="stage">
-      <div class="logobug">TFCZ<span></span> LIVE</div>
-      <div class="tname">Zürich Open · Tour Pro</div>
-      <div class="rescar">
-        <div class="rc-h"><span>Gespielte Spiele</span><span class="liv">● LIVE</span></div>
-        <div class="rc-r"><span>Grieder / Sorice</span><span>5–3</span></div>
-        <div class="rc-r"><span>Schöb / Lingen</span><span>4–5</span></div>
-        <div class="rc-r"><span>Weber / Kern</span><span>2–1</span></div>
-      </div>
-      <div class="lt">
-        <div class="lt-t">Halbfinale · Best of 5</div>
-        <div class="prow"><span>Oliver Grieder</span><b class="set">5</b><b class="set">3</b><b class="live">2</b></div>
-        <div class="prow dim"><span>Stefan Schöb</span><b>3</b><b class="set">5</b><b>1</b></div>
-      </div>
-      <div class="igbug">@tischfussballclubzuerich</div>
-      <div class="ticker"><b>Als Nächstes</b>Final · Grieder vs. Sauter — in 15 Min</div>
-      <div class="sponsor">Präsentiert von · APPENZELLER BIER</div>
+  <div class="sec-h"><span class="num">12</span><h2>Stream · Spielstatistik-Widget</h2></div>
+  <p class="sec-sub">Vollbild-Grafik (1920×1080), die im Livestream <b>zwischen den Spielen</b> erscheint: eine Statistik pro Screen, Auto-Wechsel alle 5 Sek. Nur die Zahlen tragen Team-Farbe (Grün vs. Schwarz). Die Tisch-Grafik mit Pfeilen zeigt, <i>wo</i> auf dem Tisch die Aktion passiert — auch für Neulinge verständlich.</p>
+  <div class="demo col" style="align-items:stretch">
+    <div style="width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#000">
+      <iframe src="spielstatistik-widget.html" title="TFCZ Spielstatistik-Widget" loading="lazy" style="width:100%;height:100%;border:0;display:block"></iframe>
     </div>
-    <div class="ov-ctrl">
-      <button class="btn btn-ghost" data-ov="tk">Ticker ein/aus</button>
-      <button class="btn btn-ghost" data-ov="sp">Sponsor-Bug ein/aus</button>
+    <div style="display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap">
+      <a class="btn btn-ghost" href="spielstatistik-widget.html" target="_blank" rel="noopener">Vollbild öffnen</a>
+      <span style="color:#9fb2c4;font-size:13px;font-weight:700">6 Screens · rotiert alle 5 Sek. · volle Design-Regeln in <code>DESIGN-SYSTEM.md §10</code></span>
     </div>
   </div>
 </section>
@@ -12746,11 +12708,6 @@ function copy(txt){
 /* Fun-Barometer */
 /* Fun-Barometer: kommt jetzt aus system/components/baro.js (Single Source) */
 
-/* Overlay toggles */
-(function(){
-  var stage=document.getElementById('stage');
-  document.querySelectorAll('[data-ov]').forEach(function(b){b.addEventListener('click',function(){stage.classList.toggle(b.getAttribute('data-ov'));});});
-})();
 
 /* Unlock- & Feedback-Animationen (Level-Up, Sterne-Rating) */
 (function(){
