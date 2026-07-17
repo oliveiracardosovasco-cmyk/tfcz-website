@@ -916,6 +916,7 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
       <div id="roleBar"><span id="roleBadge"></span><button class="rl-switch" id="roleSwitch" title="Rolle wechseln">wechseln</button></div>
       <div id="adminBox"><button class="nf-btn2" id="saveTpl"><span data-ic="star" data-icsz="15"></span> Als Vorlage speichern</button>
         <button class="nf-btn3" id="exportFile" title="HTML-Datei mit aktuellen Vorlagen + Pflichtfeldern zum Deployen exportieren"><span data-ic="save" data-icsz="15"></span> Datei mit Vorlagen exportieren</button>
+        <button class="nf-btn3" id="putzBtn" title="Bild-Bibliothek leeren und Speicherbelegung anzeigen"><span data-ic="trash-2" data-icsz="15"></span> Speicher aufräumen</button>
         <button class="nf-btn3" id="resetOrig" title="Verwirft die gespeicherte Vorlage und stellt das eingebaute Original-Design wieder her"><span data-ic="rotate-ccw" data-icsz="15"></span> Auf Original zurücksetzen</button>
         <div id="reqBox" class="reqbox" style="display:none"><label class="reqchk"><input type="checkbox" id="reqEl"> <span>Pflichtelement</span></label><div class="reqhint">Gäste werden beim Erstellen nach diesem Text gefragt.</div></div>
       </div>
@@ -1371,7 +1372,14 @@ function wireRole(){ var st=document.getElementById('saveTpl'); if(st)st.onclick
   var re=document.getElementById('reqEl'); if(re)re.onchange=function(){ if(!sel)return; var e=getEl(sel); if(e){ if(this.checked)e.req=true; else delete e.req; save(); buildList&&buildList(); } };
   var rs=document.getElementById('roleSwitch'); if(rs)rs.onclick=function(){ showLogin(function(){}); };
   var ex=document.getElementById('exportFile'); if(ex)ex.onclick=exportFileWithTpl;
-  var ro=document.getElementById('resetOrig'); if(ro)ro.onclick=resetToOriginal; }
+  var ro=document.getElementById('resetOrig'); if(ro)ro.onclick=resetToOriginal;
+  var pb=document.getElementById('putzBtn'); if(pb)pb.onclick=function(){
+    var vorher=speicherKB(), frei=putzen(2); saveLocal();
+    sagInfo({ titel:'Speicher aufgeräumt',
+      text:'Vorher: '+vorher+' KB\nJetzt: '+speicherKB()+' KB\n\n'
+          +'Geleert wurden die Bild-Bibliothek und der Rückgängig-Verlauf. '
+          +'Deine Flyer und Vorlagen sind unverändert.' });
+  }; }
 /* Auf das eingebaute Original zurück: verwirft die gespeicherte Vorlage für DIESEN Flyer-Typ
    und stellt das Werks-Design (DEF) wieder her. Für den Fall, dass „Als Vorlage speichern" mal
    nicht mehr passt und man den Ausgangszustand zurück will. */
@@ -1632,15 +1640,51 @@ function rebuildPages(s2){
   });
   return s2;
 }
+/* ===== Speicher-Aufräumen =====
+   Der lokale Speicher fasst nur ~5 MB. Fett wird er durch Base64-Bilder: die Bild-Bibliothek
+   (bis 16 Stück) und Fotos, die vor dem Umbau als Base64 statt als Pfad gespeichert wurden.
+   putzen() räumt in der Reihenfolge auf, die am wenigsten weh tut:
+     1. Bild-Bibliothek leeren  — nur ein Verlauf, jederzeit neu befüllbar
+     2. Undo-Verlauf leeren     — nur die Rücknahme-Schritte
+   Die FLYER und VORLAGEN werden nie angetastet. */
+function speicherKB(){ try{ return Math.round((localStorage.getItem(LSKEY)||'').length/1024); }catch(e){ return 0; } }
+function putzen(stufe){
+  var frei=0;
+  if(stufe>=1 && state.library && state.library.length){ frei+=JSON.stringify(state.library).length; state.library=[]; }
+  if(stufe>=2){ UH.length=0; RH.length=0; }
+  return Math.round(frei/1024);
+}
 function saveLocal(){
   try{ localStorage.setItem(LSKEY, JSON.stringify(stateToStore())); return true; }catch(e){}
-  try{ var slim=clone(stateToStore()); slim.library=[];      /* Bibliothek raus */
-       localStorage.setItem(LSKEY, JSON.stringify(slim));
-       if(!window._lsWarn){ window._lsWarn=1; toast('Speicher fast voll — die Bild-Bibliothek wurde nicht mitgesichert. Flyer und Vorlagen sind gesichert.'); }
+  /* Voll: Bibliothek opfern (wiederherstellbar), Flyer behalten */
+  var frei=putzen(1);
+  try{ localStorage.setItem(LSKEY, JSON.stringify(stateToStore()));
+       if(!window._lsWarn){ window._lsWarn=1;
+         toast('Speicher war voll — Bild-Bibliothek geleert ('+frei+' KB frei). Deine Flyer sind gesichert.'); }
        return true;
   }catch(e2){}
-  toast('Speichern fehlgeschlagen — lokaler Speicher voll. Bilder verkleinern oder Bibliothek leeren.');
+  /* Immer noch voll: auch den Undo-Verlauf opfern */
+  putzen(2);
+  try{ localStorage.setItem(LSKEY, JSON.stringify(stateToStore()));
+       toast('Speicher war voll — Bibliothek und Rückgängig-Verlauf geleert. Deine Flyer sind gesichert.');
+       return true;
+  }catch(e3){}
+  sagInfo({ titel:'Lokaler Speicher voll',
+    text:'Der Browser gibt dieser Seite nur ~5 MB. Belegt: '+speicherKB()+' KB.\n\n'
+        +'Häufigste Ursache: Fotos, die als Bilddaten statt als Pfad im Flyer stecken '
+        +'(alte Stände vor dem Umbau) oder sehr grosse eigene Uploads.\n\n'
+        +'Das hilft: „Auf Original zurücksetzen" (links unten) setzt den aktuellen Flyer-Typ '
+        +'zurück und gibt den Platz frei. Neue Galerie-Fotos brauchen fast keinen Speicher mehr.' });
   return false;
+}
+/* Beim Start automatisch entlasten, wenn der Speicher schon dick ist — sonst rennt man beim
+   ersten Bild sofort wieder in die Wand. Nur die Bibliothek, nie die Flyer. */
+function autoPutzen(){
+  var kb=speicherKB();
+  if(kb>3000 && state.library && state.library.length){
+    var frei=putzen(1); saveLocal();
+    toast('Speicher entlastet: Bild-Bibliothek geleert ('+frei+' KB frei).');
+  }
 }
 function save(){ saveLocal();
   if(_saveT)clearTimeout(_saveT); _saveT=setTimeout(function(){ _saveT=null;
@@ -1770,9 +1814,42 @@ const FOTO_BASE={action:'assets/fotos/action/', atmo:'assets/fotos/atmosphaere/'
 }catch(e){} })();
 /* Repo-Foto in eine Data-URL wandeln — sonst „taintet" es beim PNG-Export das Canvas.
    Klappt nur über Server; bei file:// wird der Pfad direkt genommen (Vorschau ok, Export ggf. nicht). */
+/* ===== Galerie-Fotos: NUR bei file:// in eine Data-URL wandeln =====
+   Über http(s) (localhost oder GitHub Pages) bleibt schlicht der PFAD stehen: ~40 Zeichen
+   statt ~480 KB Base64-Text. Das ist der Unterschied zwischen „passt locker" und „lokaler
+   Speicher voll" — ein Foto als Base64 kostet ein Drittel MEHR als die Datei selbst, und mit
+   mehreren Seiten liegt es mehrfach im Speicher.
+   Die Data-URL war nur die Notlösung gegen die file://-Sperre (tainted canvas). Auf dem Server
+   gibt es die Sperre nicht, also brauchen wir sie dort auch nicht. */
 async function fotoSrc(url){
+  if(location.protocol!=='file:') return url;          /* Server: Pfad genügt */
   try{ const r=await fetch(url,{cache:'no-store'}); if(!r.ok)throw 0; return await toDataUrl(await r.blob()); }
-  catch(e){ toast('Foto eingesetzt. Für den PNG-Export das Studio über „Design Studio starten.command" öffnen.'); return url; }
+  catch(e){ toast('Foto eingesetzt. Für den PNG-Export das Studio über einen Server öffnen (siehe „Design Studio starten.command").'); return url; }
+}
+
+/* ===== Eigene Uploads verkleinern =====
+   Ein Foto vom Handy hat schnell 4000px und 5 MB — als Base64 sprengt das den Speicher sofort.
+   Für unsere grössten Formate (1920px) reicht 1920px Kantenlänge völlig. JPEG statt PNG spart
+   nochmal ein Vielfaches. Aus 5 MB werden so ~300 KB, ohne sichtbaren Verlust im Flyer. */
+function fileToSrc(file, cb){
+  if(!file)return;
+  var rd=new FileReader();
+  rd.onload=function(){
+    var img=new Image();
+    img.onload=function(){
+      var w=img.width, h=img.height, MAX=1920;
+      var f=Math.min(1, MAX/Math.max(w,h));
+      if(f>=1 && rd.result.length<600000){ cb(rd.result); return; }   /* klein genug: unverändert */
+      w=Math.round(w*f); h=Math.round(h*f);
+      var c=document.createElement('canvas'); c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      var out; try{ out=c.toDataURL('image/jpeg',0.86); }catch(e){ out=rd.result; }
+      cb(out.length<rd.result.length ? out : rd.result);
+    };
+    img.onerror=function(){ cb(rd.result); };
+    img.src=rd.result;
+  };
+  rd.readAsDataURL(file);
 }
 const ASSETS={ img:[], logo:[] };
 const CHEESE_SVG='<svg style="width:100%;height:100%;display:block" viewBox="0 0 1000 210" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="chg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6e7b6"/><stop offset="0.5" stop-color="#efd487"/><stop offset="1" stop-color="#e6c169"/></linearGradient></defs><path d="M0,0 L1000,0 L1000,96 C991.7,108.0 970.0,169.0 950.0,168.0 C930.0,167.0 905.0,92.7 880.0,90.0 C855.0,87.3 828.3,149.7 800.0,152.0 C771.7,154.3 740.8,98.0 710.0,104.0 C679.2,110.0 646.7,190.7 615.0,188.0 C583.3,185.3 550.8,95.2 520.0,88.0 C489.2,80.8 461.7,143.3 430.0,145.0 C398.3,146.7 361.7,92.5 330.0,98.0 C298.3,103.5 270.0,179.3 240.0,178.0 C210.0,176.7 178.3,94.7 150.0,90.0 C121.7,85.3 95.0,149.0 70.0,150.0 C45.0,151.0 11.7,105.0 0.0,96.0 L0,0 Z" fill="url(#chg)"/><ellipse cx="210" cy="44" rx="16" ry="11" fill="rgba(180,140,40,.30)"/><ellipse cx="470" cy="38" rx="13" ry="9" fill="rgba(180,140,40,.30)"/><ellipse cx="690" cy="50" rx="17" ry="12" fill="rgba(180,140,40,.30)"/><ellipse cx="860" cy="40" rx="12" ry="9" fill="rgba(180,140,40,.30)"/></svg>';
@@ -1875,7 +1952,7 @@ function buildProfi(){ const P=document.getElementById('profi'),C=COLORS; const 
   P.querySelectorAll('.pph').forEach(n=>{ const el=getEl(n.dataset.id);
     n.addEventListener('dragover',ev=>{ev.preventDefault();n.classList.add('dragover');});
     n.addEventListener('dragleave',()=>n.classList.remove('dragover'));
-    n.addEventListener('drop',ev=>{ ev.preventDefault(); n.classList.remove('dragover'); const f=ev.dataTransfer&&ev.dataTransfer.files&&ev.dataTransfer.files[0]; if(!f)return; const rd=new FileReader(); rd.onload=()=>{beginEdit();el.src=rd.result;save();rebuild();}; rd.readAsDataURL(f); }); });
+    n.addEventListener('drop',ev=>{ ev.preventDefault(); n.classList.remove('dragover'); const f=ev.dataTransfer&&ev.dataTransfer.files&&ev.dataTransfer.files[0]; if(!f)return; fileToSrc(f,function(src){ beginEdit(); el.src=src; save(); rebuild(); }); }); });
   markSel(); }
 /* ===== cq-Einheiten -> Pixel (Export-Fix) =====
    Das YT-Layout war in cqw/cqh geschrieben (Prozent der Container-Grösse). Im Editor sieht das
@@ -2473,7 +2550,7 @@ function buildSwatch(host,curc,cb,pal,withGrad){ pal=pal||SWATCH; const h=docume
   document.getElementById('i-'+k+'r').addEventListener('input',e=>ap(parseFloat(e.target.value)||0)); });
 document.getElementById('i-text').addEventListener('input',e=>{if(!sel)return;beginEdit();getEl(sel).text=e.target.value;save();rebuild();});
 document.getElementById('i-text2').addEventListener('input',e=>{if(!sel)return;beginEdit();getEl(sel).text2=e.target.value;save();rebuild();});
-document.getElementById('i-img').addEventListener('change',e=>{ if(!sel)return; const f=e.target.files[0]; if(!f)return; const rd=new FileReader(); rd.onload=()=>{beginEdit();getEl(sel).src=rd.result;save();rebuild();}; rd.readAsDataURL(f); });
+document.getElementById('i-img').addEventListener('change',e=>{ if(!sel)return; const f=e.target.files[0]; if(!f)return; const rd=new 0; fileToSrc(f,function(src){ beginEdit(); getEl(sel).src=src; save(); rebuild(); }); });
 (function(){
   function cc(key,v){ if(!sel)return; var el=getEl(sel); if(!el)return; beginEdit(); el.crop=el.crop||{}; el.crop[key]=v; save(); rebuild(); }
   [['i-cx','x'],['i-cy','y'],['i-cz','z']].forEach(function(p){ var n=document.getElementById(p[0]); if(n)n.addEventListener('input',function(){ cc(p[1],parseFloat(this.value)); }); });
@@ -2604,8 +2681,7 @@ function buildList(){ const h=document.getElementById('ellist'); h.innerHTML='';
 function move(idx,dir){ beginEdit(); const a=cur().els; const j=idx+dir; if(j<0||j>=a.length)return; const t=a[idx];a[idx]=a[j];a[j]=t; save(); buildList(); rebuild(); }
 
 document.getElementById('bgs').addEventListener('click',e=>{const o=e.target.closest('.bgo');if(!o)return;beginEdit();cur().bg=o.dataset.bg;renderBg();save();rebuild();});
-document.getElementById('upl').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();
-  rd.onload=()=>{beginEdit();customBg[state.active]=rd.result;cur().bg="custom";renderBg();save();rebuild();};rd.readAsDataURL(f);});
+document.getElementById('upl').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;fileToSrc(f,function(src){ beginEdit(); customBg[state.active]=src; cur().bg="custom"; renderBg(); save(); rebuild(); });});
 document.getElementById('dark').addEventListener('input',e=>{beginEdit();cur().dark=parseFloat(e.target.value);applyDark();save();rebuild();});
 
 /* ---------- Geführter Flow (Wizard) ---------- */
@@ -3297,7 +3373,7 @@ function buildRank(){ const P=document.getElementById('profi'),C=COLORS; const W
   wireItems(P);
   P.querySelectorAll('.rdrop').forEach(n=>{
     const im=n.querySelector('.rimg'); if(im)im.onerror=()=>{ im.style.display='none'; const pl=n.querySelector('.rphoto-pl'); if(pl)pl.style.display='flex'; };
-    const doFile=f=>{const rd=new FileReader();rd.onload=()=>{addToLibrary(rd.result);setRankImg(+n.dataset.rk,n.dataset.slot,rd.result);save();rebuild();};rd.readAsDataURL(f);};
+    const doFile=f=>fileToSrc(f,function(src){ addToLibrary(src); setRankImg(+n.dataset.rk,n.dataset.slot,src); save(); rebuild(); });
     n.addEventListener('click',ev=>{ev.stopPropagation();openPicker({title:n.dataset.slot==='crest'?'Vereinssymbol wählen':'Portrait-Foto wählen'},src=>{ if(src){setRankImg(+n.dataset.rk,n.dataset.slot,src);save();rebuild();} });});
     n.addEventListener('dragover',ev=>{ev.preventDefault();n.classList.add('dragover');});
     n.addEventListener('dragleave',()=>n.classList.remove('dragover'));
@@ -3309,7 +3385,7 @@ function buildRankPanel(){ const p=document.getElementById('rankPanel'); if(!p)r
     const inp=document.createElement(ta?'textarea':'input');inp.value=get()||'';inp.addEventListener('input',()=>{set(inp.value);save();rebuild();});w.appendChild(inp);p.appendChild(w);};
   const mkFile=(lab,cb)=>{ const w=document.createElement('div');w.className='af';const l=document.createElement('label');l.textContent=lab;w.appendChild(l);
     const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.style.fontSize='11px';
-    inp.onchange=()=>{const f=inp.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{addToLibrary(rd.result);cb(rd.result);save();rebuild();};rd.readAsDataURL(f);};w.appendChild(inp);
+    inp.onchange=()=>{const f=inp.files[0];if(!f)return;const rd=ne0;fileToSrc(f,function(src){addToLibrary(src);cb(src);save();rebuild();});};w.appendChild(inp);
     const nt=document.createElement('div');nt.className='fnote';nt.textContent='… oder Bild aufs Feld im Flyer ziehen / anklicken (Galerie).';w.appendChild(nt);p.appendChild(w);};
   const h=t=>{const x=document.createElement('h3');x.textContent=t;p.appendChild(x);};
   const hint=t=>{const x=document.createElement('div');x.className='ahint';x.textContent=t;p.appendChild(x);};
@@ -3378,7 +3454,7 @@ function buildEvent(){ const P=document.getElementById('profi'),C=COLORS; const 
   /* Foto per Drag&Drop / Klick — die Auswahl läuft über dieselbe Galerie wie überall. */
   P.querySelectorAll('.edrop').forEach(n=>{
     const setSrc=src=>{ beginEdit(); const el=getEl('photo'); if(el)el.src=src||null; save(); rebuild(); };
-    const doFile=fl=>{const rd=new FileReader();rd.onload=()=>{addToLibrary(rd.result);setSrc(rd.result);};rd.readAsDataURL(fl);};
+    const doFile=fl=>fileToSrc(fl,function(src){ addToLibrary(src); setSrc(src); });
     n.addEventListener('dblclick',ev=>{ev.stopPropagation();openPicker({title:'Foto wählen · Action / Atmosphäre'},setSrc);});
     n.addEventListener('dragover',ev=>{ev.preventDefault();n.classList.add('dragover');});
     n.addEventListener('dragleave',()=>n.classList.remove('dragover'));
@@ -3443,7 +3519,7 @@ function openPicker(opts,cb){ opts=opts||{}; const kind=opts.kind||'image'; cons
     P.querySelectorAll('.pk-thumb').forEach(t=>t.onclick=async ()=>{
       if(t.dataset.repo){ const d=await fotoSrc(t.dataset.repo); addToLibrary(d); pick(d); }
       else pick(t.dataset.src); });
-    const fi=document.getElementById('pkFile'); if(fi)fi.onchange=()=>{const f=fi.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{addToLibrary(rd.result);pick(rd.result);};rd.readAsDataURL(f);};
+    const fi=document.getElementById('pkFile'); if(fi)fi.onchange=()=>{const f=fi.files[0];if(!f)return;fileToSrc(f,function(src){ addToLibrary(src); pick(src); });};
     const ug=document.getElementById('pkUrlGo'); if(ug)ug.onclick=()=>{const v=document.getElementById('pkUrl').value.trim();if(v)pick(v);};
   }
   P.style.display='flex'; P.onclick=e=>{ if(e.target===P)close(); }; render();
@@ -4511,7 +4587,7 @@ function buildCompInspector(el){
 /* Statische [data-ic]-Platzhalter mit dem Lucide-SVG füllen (keine Emojis im UI) */
 function hydrateIcons(root){ (root||document).querySelectorAll('[data-ic]').forEach(function(n){
   if(n.firstChild)return; n.innerHTML=IC(n.getAttribute('data-ic'), parseInt(n.getAttribute('data-icsz')||'16',10)); }); }
-function init(){ hydrateIcons(); initEditorUpgrade(); var _ttl=document.getElementById('homeBtn'); if(_ttl)_ttl.addEventListener('click',function(){ this.classList.remove('pressed'); void this.offsetWidth; this.classList.add('pressed'); }); loadBrandAssets(); if(window.innerWidth<1024)document.body.classList.add('layers-hidden'); buildTabs(); applyCanvasSize(); renderBg(); applyDark(); buildList(); rebuild(); sanitizeImgs&&sanitizeImgs(); fitStage(); layoutFit(); sel=null; insp.style.display='none'; refreshSidebar(); applyView(); initSplitters(); setTimeout(positionTabInd,120); buildStack(); buildPagebar(); wireRole(); applyRole(); if(typeof sanitizeImgs==='function')sanitizeImgs(); setMobile(); applyMode(); (function(){ var b=document.getElementById('fmtBtn'), p=document.getElementById('fmtPop'); if(!b||!p)return;
+function init(){ hydrateIcons(); initEditorUpgrade(); autoPutzen(); var _ttl=document.getElementById('homeBtn'); if(_ttl)_ttl.addEventListener('click',function(){ this.classList.remove('pressed'); void this.offsetWidth; this.classList.add('pressed'); }); loadBrandAssets(); if(window.innerWidth<1024)document.body.classList.add('layers-hidden'); buildTabs(); applyCanvasSize(); renderBg(); applyDark(); buildList(); rebuild(); sanitizeImgs&&sanitizeImgs(); fitStage(); layoutFit(); sel=null; insp.style.display='none'; refreshSidebar(); applyView(); initSplitters(); setTimeout(positionTabInd,120); buildStack(); buildPagebar(); wireRole(); applyRole(); if(typeof sanitizeImgs==='function')sanitizeImgs(); setMobile(); applyMode(); (function(){ var b=document.getElementById('fmtBtn'), p=document.getElementById('fmtPop'); if(!b||!p)return;
   function place(){ var r=b.getBoundingClientRect(); p.style.top=(r.bottom+6)+'px'; p.style.right=Math.max(8,window.innerWidth-r.right)+'px'; p.style.left='auto'; }
   b.onclick=function(e){ e.stopPropagation(); if(p.classList.contains('on')){ p.classList.remove('on'); return; } buildFmtHost(); place(); p.classList.add('on'); };
   p.addEventListener('click',function(e){ if(e.target.closest('.fmt-item'))p.classList.remove('on'); });
