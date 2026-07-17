@@ -1072,9 +1072,10 @@ const FORMATS={
   aus:{name:"STF Ausschreibung (HTML)",grp:"Dokument",w:794,h:1123,doc:true,proOnly:true},
   reel:{name:"Reel Animiert (HTML 9:16)",grp:"Animiert",w:1080,h:1920,doc:true},
   bg_16_9:{name:"Bildschirm-Hintergrund (16:9)",grp:"Screen",w:1920,h:1080,bgOnly:true},
+  stream_1080:{name:"Livestream-Overlay (16:9)",grp:"Stream",w:1920,h:1080,streamOnly:true},
 };
-const TPLNAME={dyp:"Dyp",kase:"KäseKick",profi:"PRO",rank:"Rangliste",events:"Events",yt:"Youtube",bg:"Hintergründe"};
-const ORDER=["dyp","kase","profi","rank","events","yt","bg"];
+const TPLNAME={dyp:"Dyp",kase:"KäseKick",profi:"PRO",rank:"Rangliste",events:"Events",yt:"Youtube",bg:"Hintergründe",stream:"Stream-Overlay"};
+const ORDER=["dyp","kase","profi","rank","events","yt","bg","stream"];
 const DEF={
  dyp:{layout:"dyp",bg:"a",dark:0,els:[
   {id:"logo",name:"Logo",type:"image",size:120},
@@ -1115,6 +1116,10 @@ const DEF={
   {id:"follow",name:"Folg uns",type:"text",text:"Folg uns",color:"gold2",weight:700,ls:0.3,size:24},
   {id:"ig",name:"Instagram",type:"text",text:"@tischfussballclubzuerich",color:"white",weight:700,size:30},
   {id:"ytl",name:"YouTube",type:"text",text:"@tischfussballclubzuerich",color:"white",weight:700,size:30},
+ ]},
+ stream:{layout:"stream",v:2,variant:"A",lw:6,rad:30,els:[
+  {id:"logo",name:"Logo",type:"image",size:16.5},
+  {id:"addr",name:"Adresse",type:"text",text:"LANDENBERGSTRASSE 10  ·  8037 ZÜRICH",color:"white",weight:800,ls:0.02,size:18},
  ]},
  profi:{layout:"profi",els:[
   {id:"logo",name:"Logo",type:"image",slot:"logo",size:120},
@@ -1268,7 +1273,7 @@ window.addEventListener('beforeunload',function(e){
   e.preventDefault(); e.returnValue='';
   return '';
 });
-var READY={dyp:1,kase:1,profi:1,yt:1,bg:1};
+var READY={dyp:1,kase:1,profi:1,yt:1,bg:1,stream:1};
 var _role=localStorage.getItem('tfcz_role')||null;
 function isAdmin(){ return _role==='admin'; } function isGuest(){ return _role==='guest'; }
 /* ===== Vorlagen können aus MEHREREN Seiten bestehen =====
@@ -1286,7 +1291,7 @@ function tplPages(k){
 }
 function tplBase(k){ var p=tplPages(k); return p?clone(p[0]):clone(DEF[k]); }
 function tplPageCount(k){ var p=tplPages(k); return p?p.length:0; }
-var MHARDEL={kase:['nextdate'],profi:['t1','t2','date'],dyp:['badge'],events:[],bg:[]};
+var MHARDEL={kase:['nextdate'],profi:['t1','t2','date'],dyp:['badge'],events:[],bg:[],stream:[]};
 function mandFields(k){ var base=(MFIELDS[k]||[]).slice(); var skip=MHARDEL[k]||[]; var d=state.data[k]; ((d&&d.els)||[]).forEach(function(e){ if(e.req&&skip.indexOf(e.id)<0)base.push({key:'el:'+e.id,label:(e.name||e.id),type:'text',ph:e.text||''}); }); return base; }
 function toast(msg){ var t=document.getElementById('toast'); if(!t){t=document.createElement('div');t.id='toast';document.body.appendChild(t);} t.textContent=msg; t.classList.add('on'); clearTimeout(window._toastT); window._toastT=setTimeout(function(){t.classList.remove('on');},2600); }
 function showComingSoon(){ toast('Kommt bald — dieser Flyer-Typ ist noch in Arbeit.'); }
@@ -1586,7 +1591,7 @@ function confirmLeaveEdit(next){ var ov=document.getElementById('cleOv'); if(!ov
   ov.onclick=function(e){ if(e.target===ov)ov.style.display='none'; }; }
 function load(){ if(typeof BAKED!=='undefined'&&BAKED){ try{ var _bk=JSON.parse(BAKED); if(_bk&&_bk.tpl){ Object.keys(_bk.tpl).forEach(function(k){ if(DEF[k])DEF[k]=_bk.tpl[k]; }); } }catch(e){} }
   try{const s=rebuildPages(JSON.parse(localStorage.getItem(LSKEY))); if(s&&s.data&&s.data.dyp&&s.data.kase){ if(!s.data.profi||!s.data.profi.els||!s.data.profi.els.some(e=>e.id==='ghost'))s.data.profi=clone(DEF.profi); if(!s.data.profi.aus)s.data.profi.aus=clone(DEF.profi.aus); if(!s.data.yt||!s.data.yt.els||!s.data.yt.els.some(e=>e.id==='eyebrow'))s.data.yt=clone(DEF.yt); if(!s.data.rank)s.data.rank=clone(DEF.rank); (s.data.rank.ranks||[]).forEach((r,ri)=>['p1','p2'].forEach((k,pi)=>{const p=r[k];if(!p)return; if(p.name!==undefined&&p.vorname===undefined){const t=(p.name||'').trim().split(/\s+/);p.vorname=t.shift()||'';p.nachname=t.join(' ');delete p.name;} if(!p.src||/^assets\/players\//.test(p.src))p.src='bg:'+['a','b','c'][(ri*2+pi)%3];})); if(!s.data.events)s.data.events=clone(DEF.events); if(!s.data.kase||s.data.kase.layout!=='kase')s.data.kase=clone(DEF.kase); if(s.data.kase&&s.data.kase.layout==='kase'&&s.data.kase.bg==='a')s.data.kase.bg='navy'; if(s.data.kase&&s.data.kase.els&&!s.data.kase.els.some(function(e){return e.id==='cheese';}))s.data.kase.els.unshift({id:'cheese',name:'K\u00e4se oben',type:'image'}); if(s.data.kase&&s.data.kase.els){var _st=s.data.kase.els.find(function(e){return e.id==='subttl';}); if(_st&&_st.text==='T\u00f6ggele \u00b7 Walliser Raclette \u00b7 gute Leute'){_st.text='Plausch-T\u00f6ggeliturnier f\u00fcr alle'; _st.size=30;}} if(!s.library)s.library=[]; return s;}}catch(e){}
-  return {active:"kase",fmt:"ig_feed",library:[],templates:{},captions:{},data:{dyp:clone(DEF.dyp),kase:clone(DEF.kase),profi:clone(DEF.profi),rank:clone(DEF.rank),events:clone(DEF.events),yt:clone(DEF.yt),bg:clone(DEF.bg)}}; }
+  return {active:"kase",fmt:"ig_feed",library:[],templates:{},captions:{},data:{dyp:clone(DEF.dyp),kase:clone(DEF.kase),profi:clone(DEF.profi),rank:clone(DEF.rank),events:clone(DEF.events),yt:clone(DEF.yt),bg:clone(DEF.bg),stream:clone(DEF.stream)}}; }
 function isProfi(){return cur().layout==='profi';}
 function isYt(){return cur().layout==='yt';}
 function isAus(){return state.fmt==='aus';}
@@ -1595,6 +1600,7 @@ function isEvent(){return cur().layout==='event';}
 function isKase(){return cur().layout==='kase';}
 function isBg(){return cur().layout==='bg';}
 function isDyp(){return cur().layout==='dyp';}
+function isStream(){return cur().layout==='stream';}
 function isReel(){return state.fmt==='reel';}
 function isDoc(){const f=FORMATS[state.fmt];return !!(f&&f.doc);}
 var _saveT=null;
@@ -2135,6 +2141,68 @@ function buildBg(){ const P=document.getElementById('profi'),C=COLORS; const W=C
   wireItems(P);
 }
 
+/* ===== Livestream-Overlay (1920×1080, transparent) =====
+   Rahmen als SVG-Bild (html2canvas rastert <img> zuverlässig — clip-path direkt im DOM nicht).
+   Variante A: nur oben/unten, Ecken deckend gefüllt, Seiten offen.
+   Variante B: umlaufender Rahmen, aussen rechtwinklig, innen abgerundet. */
+function streamOverlaySVG(o){
+  const blue='#5ca7dc', gold='#cda857', W=1920, H=1080;
+  const lw=Math.max(2, +o.lw||6), r=Math.max(0, (o.rad!=null?+o.rad:30));
+  let inner;
+  if(o.variant==='B'){
+    const m=lw, ir=Math.max(1,r);
+    inner='M0 0 H'+W+' V'+H+' H0 Z'
+      +' M '+m+' '+(m+ir)+' a '+ir+' '+ir+' 0 0 1 '+ir+' -'+ir
+      +' H '+(W-m-ir)+' a '+ir+' '+ir+' 0 0 1 '+ir+' '+ir
+      +' V '+(H-m-ir)+' a '+ir+' '+ir+' 0 0 1 -'+ir+' '+ir
+      +' H '+(m+ir)+' a '+ir+' '+ir+' 0 0 1 -'+ir+' -'+ir+' Z';
+  } else {
+    const ir=Math.max(1,r);
+    inner='M0 0 H'+W+' V'+H+' H0 Z'
+      +' M 0 '+ir+' a '+ir+' '+ir+' 0 0 1 '+ir+' -'+ir
+      +' H '+(W-ir)+' a '+ir+' '+ir+' 0 0 1 '+ir+' '+ir
+      +' V '+(H-ir)+' a '+ir+' '+ir+' 0 0 1 -'+ir+' '+ir
+      +' H '+ir+' a '+ir+' '+ir+' 0 0 1 -'+ir+' -'+ir+' Z';
+  }
+  let s='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'
+    +'<defs><clipPath id="fr" clip-rule="evenodd"><path clip-rule="evenodd" d="'+inner+'"/></clipPath></defs>'
+    +'<g clip-path="url(#fr)"><rect x="0" y="0" width="'+W+'" height="'+(H/2)+'" fill="'+blue+'"/>'
+    +'<rect x="0" y="'+(H/2)+'" width="'+W+'" height="'+(H/2)+'" fill="'+gold+'"/></g>';
+  if(o.variant!=='B'){
+    s+='<rect x="0" y="0" width="'+W+'" height="'+lw+'" fill="'+blue+'"/>'
+      +'<rect x="0" y="'+(H-lw)+'" width="'+W+'" height="'+lw+'" fill="'+gold+'"/>';
+  }
+  s+='</svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);
+}
+function buildStream(){ const P=document.getElementById('profi'); const W=CW(),H=CH(),k=W/1920;
+  col.style.display='none'; bgimg.style.display='none'; const sc=document.getElementById('scrim'); if(sc)sc.style.display='none'; darklayer.style.display='none';
+  /* Transparenz: Canvas + Fläche durchsichtig, feste Marken-Streifen ausblenden */
+  canvas.style.background='transparent';
+  const _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot'); if(_lt)_lt.style.display='none'; if(_lb)_lb.style.display='none';
+  P.style.display='block'; P.classList.add('streamlay'); P.style.background='transparent';
+  const o=cur();
+  /* Sanftes Upgrade alter Overlay-Seiten (v1): Adresse als editierbares Element nachrüsten */
+  if(o.els && !o.els.some(function(x){return x.id==='addr';})){
+    o.els.push({id:"addr",name:"Adresse",type:"text",text:(o.addr||"LANDENBERGSTRASSE 10  ·  8037 ZÜRICH"),color:"white",weight:800,ls:0.02,size:(o.addrSize||18),vis:(o.addrOn!==false)});
+  }
+  const g=id=>evEl(getEl(id)), e=esc, vis=el=>el&&el.vis!==false;
+  let h='';
+  h+='<img src="'+streamOverlaySVG(o)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none">';
+  /* Adresse: editierbares, verschiebbares Text-Element (vertikal am linken Rand) */
+  if(vis(g('addr'))){
+    const A=g('addr'), afs=Math.round((A.size||18)*k), colw=Math.round(64*k);
+    h+='<div style="position:absolute;left:0;top:0;bottom:0;width:'+colw+'px;display:flex;align-items:center;justify-content:center;pointer-events:none">'
+      +'<div class="item" data-id="addr" style="pointer-events:auto;transform:rotate(-90deg);white-space:nowrap;font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+(A.weight||800)+';letter-spacing:'+(A.ls!=null?A.ls:0.02)+'em;font-size:'+afs+'px;text-shadow:0 1px 3px rgba(0,0,0,.55);'+txtStyle(A.color)+'">'+e(A.text)+'</div></div>';
+  }
+  /* Logo oben links (editierbares Item) */
+  if(vis(g('logo'))) h+='<img class="item" data-id="logo" src="'+(g('logo').src||brandLogo())+'" style="position:absolute;left:'+Math.round(44*k)+'px;top:'+Math.round(45*k)+'px;width:'+(g('logo').size||16.5)+'%">';
+  P.innerHTML=h;
+  wireItems(P);
+  /* Adresse einzeilig halten (wireItems setzt Text-Items auf pre-line) */
+  var _an=P.querySelector('.item[data-id="addr"]'); if(_an)_an.style.whiteSpace='nowrap';
+}
+
 /* ===== EIN Baustein für ALLE Flyer: Ebenen verdrahten (Single Source) =====
    Auswahl, Verschieben, Drehen, Skalieren, Füllung / Rahmen / Radius, Doppelklick = Text.
    Diese Logik war FÜNF MAL kopiert — und zwei der Kopien (Crazy DYP, Hintergründe) hatten
@@ -2219,7 +2287,10 @@ function wireItems(P){
   markSel();
   if(typeof refreshThumbs==='function')refreshThumbs();
 }
-function rebuild(){ const _pf=document.getElementById('profi'); if(_pf){_pf.classList.remove('kaselay');_pf.classList.remove('ytlay');_pf.classList.remove('bglay');} if(isBg()){buildBg();return;}
+function rebuild(){ const _pf=document.getElementById('profi'); if(_pf){_pf.classList.remove('kaselay');_pf.classList.remove('ytlay');_pf.classList.remove('bglay');_pf.classList.remove('streamlay');}
+  canvas.style.background=''; { var _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot'); if(_lt)_lt.style.display=''; if(_lb)_lb.style.display=''; }
+  if(isStream()){buildStream();return;}
+  if(isBg()){buildBg();return;}
   if(isKase()){buildKase();return;}
   if(isDyp()){buildDyp();return;}
   if(isRank()){buildRank();return;}
@@ -2640,8 +2711,8 @@ function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
         const W=document.getElementById('wizard'); if(W)W.style.display='none';
         stashEdit(state.active);                 /* Zustand des bisherigen Typs sichern */
         state.active=k; sel=null; selMulti=[];
-        if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9';
-        else if(state.fmt==='yt_thumb'||state.fmt==='bg_16_9')state.fmt='ig_feed';
+        if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080';
+        else if(state.fmt==='yt_thumb'||state.fmt==='bg_16_9'||state.fmt==='stream_1080')state.fmt='ig_feed';
         if(state.fmt==='aus'&&k!=='profi')state.fmt='ig_feed';
         popEdit(k);                              /* Zustand des neuen Typs holen */
         save(); switchAll();
@@ -2655,12 +2726,30 @@ function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
 function positionTabInd(){ const t=document.getElementById('tabs'); if(!t)return; const b=t.querySelector('.tab.on'), ind=document.getElementById('tabInd'); if(!b||!ind)return;
   ind.style.width=b.offsetWidth+'px'; ind.style.transform='translateX('+b.offsetLeft+'px)';
   try{ b.scrollIntoView({inline:'nearest',block:'nearest'}); }catch(e){} }
-const FMTUSE={ig_story:'Instagram/Facebook Story & Reels-Cover · vollflächig 9:16.',ig_feed:'Instagram-Feed Hochformat · bester Platz im Feed.',ig_square:'Feed quadratisch · Instagram & Facebook.',wa_msg:'WhatsApp-Nachricht / Broadcast.',wa_story:'WhatsApp-Status · 9:16.',yt_thumb:'YouTube-Thumbnail · 16:9.',bg_16_9:'Bildschirm-/Desktop-Hintergrund · 1920×1080, randlos & deckend.',aus:'STF-Ausschreibung als Webseite (A4-artig) zum Teilen & Drucken.',reel:'Animiertes Reel (9:16) · HTML fürs Screen-Recording.'};
+const FMTUSE={ig_story:'Instagram/Facebook Story & Reels-Cover · vollflächig 9:16.',ig_feed:'Instagram-Feed Hochformat · bester Platz im Feed.',ig_square:'Feed quadratisch · Instagram & Facebook.',wa_msg:'WhatsApp-Nachricht / Broadcast.',wa_story:'WhatsApp-Status · 9:16.',yt_thumb:'YouTube-Thumbnail · 16:9.',bg_16_9:'Bildschirm-/Desktop-Hintergrund · 1920×1080, randlos & deckend.',stream_1080:'Livestream-Overlay · 1920×1080, transparent (Video scheint durch). Für OBS/YouTube.',aus:'STF-Ausschreibung als Webseite (A4-artig) zum Teilen & Drucken.',reel:'Animiertes Reel (9:16) · HTML fürs Screen-Recording.'};
 function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)return; h.innerHTML='';
+  if(state.active==='stream'){ const o=cur();
+    const th=document.createElement('h3'); th.textContent='Rahmen-Variante'; h.appendChild(th);
+    const sl=document.createElement('div'); sl.className='fmt-list';
+    sl.innerHTML='<div class="fmt-item'+(o.variant!=='B'?' on':'')+'" data-v="A"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">A · nur oben/unten</span></div>'
+      +'<div class="fmt-item'+(o.variant==='B'?' on':'')+'" data-v="B"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">B · umlaufend</span></div>';
+    sl.querySelectorAll('.fmt-item').forEach(function(it){ it.onclick=function(){ cur().variant=it.dataset.v; save(); rebuild(); buildFmtHost(); }; });
+    h.appendChild(sl);
+    function _sctrl(label,val,mn,mx,st,cb){ var b=document.createElement('div'); b.style.margin='12px 0 2px'; b.innerHTML='<label style="display:block;font-size:12px;font-weight:800;color:#9fb2c4;margin-bottom:5px">'+label+': <span class="v">'+val+'</span> px</label>'; var r=document.createElement('input'); r.type='range'; r.min=mn; r.max=mx; r.step=st; r.value=val; r.style.width='100%'; r.oninput=function(){ b.querySelector('.v').textContent=r.value; cb(+r.value); }; b.appendChild(r); h.appendChild(b); }
+    _sctrl('Linienstärke', o.lw||6, 2, 30, 1, function(v){ cur().lw=v; save(); rebuild(); });
+    _sctrl('Ecken-Radius', (o.rad!=null?o.rad:30), 0, 90, 1, function(v){ cur().rad=v; save(); rebuild(); });
+    var _addrEl=function(){ return getEl('addr'); };
+    var ab=document.createElement('div'); ab.style.margin='14px 0 2px';
+    ab.innerHTML='<label style="display:block;font-size:12px;font-weight:800;color:#9fb2c4;margin-bottom:5px">Adresse (links, vertikal)</label>';
+    var arow=document.createElement('label'); arow.style.cssText='display:flex;align-items:center;gap:7px;font-size:12px;color:#9fb2c4;margin-bottom:6px;cursor:pointer';
+    var acb=document.createElement('input'); acb.type='checkbox'; acb.checked=!(_addrEl()&&_addrEl().vis===false); acb.onchange=function(){ var a=_addrEl(); if(a){ a.vis=acb.checked; save(); rebuild(); buildList(); } }; arow.appendChild(acb); arow.appendChild(document.createTextNode('Adresse anzeigen')); ab.appendChild(arow);
+    var ai=document.createElement('input'); ai.type='text'; ai.value=(_addrEl()&&_addrEl().text)||''; ai.style.cssText='width:100%;padding:8px 9px;border-radius:7px;border:1px solid #24435c;background:#0f1c28;color:#eef4fa;font:inherit;font-size:13px'; ai.oninput=function(){ var a=_addrEl(); if(a){ a.text=ai.value; save(); rebuild(); } }; ab.appendChild(ai);
+    h.appendChild(ab);
+    var inf=document.createElement('div'); inf.className='fmt-info'; inf.innerHTML='<b>Livestream-Overlay</b><br>1920×1080 · transparent. Logo &amp; Adresse sind frei verschiebbar (anklicken, Doppelklick = Text ändern). Formen, Brand-Linien &amp; mehr über die Bibliothek links. Export über „PNG herunterladen".'; h.appendChild(inf); return; }
   if(state.active==='yt'){ const th=document.createElement('h3'); th.textContent='Event-Serie'; h.appendChild(th); const sl=document.createElement('div'); sl.className='fmt-list'; [['dyp','Crazy DYP'],['kase','KäseKick'],['profi','PRO'],['rank','Rangliste'],['events','Events']].forEach(function(o){ const it=document.createElement('div'); it.className='fmt-item'+(((state.data.yt.series)||'dyp')===o[0]?' on':''); it.innerHTML='<span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">'+esc(o[1])+'</span>'; it.onclick=function(){ applyYtSeries(o[0]); }; sl.appendChild(it); }); h.appendChild(sl); const inf=document.createElement('div'); inf.className='fmt-info'; inf.innerHTML='<b>YouTube-Thumbnail</b><br>1280×720 px · wähle die Event-Serie, dann Texte/Foto anpassen.'; h.appendChild(inf); return; }
   const t=document.createElement('h3'); t.textContent='Format'; h.appendChild(t);
   const list=document.createElement('div'); list.className='fmt-list';
-  Object.entries(FORMATS).forEach(([k,f])=>{ if(f.proOnly&&state.active!=='profi')return; if(f.ytOnly&&state.active!=='yt')return; if(f.bgOnly&&state.active!=='bg')return; if(state.active==='bg'&&!f.bgOnly)return;
+  Object.entries(FORMATS).forEach(([k,f])=>{ if(f.proOnly&&state.active!=='profi')return; if(f.ytOnly&&state.active!=='yt')return; if(f.bgOnly&&state.active!=='bg')return; if(state.active==='bg'&&!f.bgOnly)return; if(f.streamOnly&&state.active!=='stream')return; if(state.active==='stream'&&!f.streamOnly)return;
     const it=document.createElement('div'); it.className='fmt-item'+(k===state.fmt?' on':'')+(editing&&k===editFmt?' editing':''); it.dataset.k=k;
     var _tw,_th; if(f.doc){_tw=16;_th=20;} else { var _r=f.w/f.h; if(_r>=1){_tw=22;_th=Math.max(9,Math.round(22/_r));} else {_th=22;_tw=Math.max(9,Math.round(22*_r));} }
     var _thumb='<span class="fmt-thumb'+(f.doc?' doc':'')+'" style="width:'+_tw+'px;height:'+_th+'px"></span>';
@@ -2840,7 +2929,8 @@ async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
   if(_pin)_pin.style.transform='none';
   flattenGradientText(true);            /* Verlaufs-Text -> Vollfarbe (html2canvas-Fix) */
   document.body.classList.add('capturing'); let url=null;
-  try{ const c=await html2canvas(canvas,{width:CW(),height:CH(),scale:2,backgroundColor:null,useCORS:true,logging:false}); url=c.toDataURL('image/png'); }
+  const _scl=(state.active==='stream')?1:2;
+  try{ const c=await html2canvas(canvas,{width:CW(),height:CH(),scale:_scl,backgroundColor:null,useCORS:true,logging:false}); url=c.toDataURL('image/png'); }
   catch(err){
     var m=(err&&err.message)||String(err);
     if(/tainted|SecurityError|insecure/i.test(m)){
@@ -2879,7 +2969,7 @@ async function exportPages(){
 }
 async function doExport(mode){ if(!exportMoeglich())return;
   const b=document.getElementById('download'), o=b.textContent; b.disabled=true; const prevFmt=state.fmt;
-  const keys = mode==='all' ? Object.keys(FORMATS).filter(k=>!FORMATS[k].doc&&!(FORMATS[k].ytOnly&&state.active!=='yt')&&!(FORMATS[k].bgOnly&&state.active!=='bg')&&!(state.active==='bg'&&!FORMATS[k].bgOnly)) : [state.fmt];
+  const keys = mode==='all' ? Object.keys(FORMATS).filter(k=>!FORMATS[k].doc&&!(FORMATS[k].ytOnly&&state.active!=='yt')&&!(FORMATS[k].bgOnly&&state.active!=='bg')&&!(state.active==='bg'&&!FORMATS[k].bgOnly)&&!(FORMATS[k].streamOnly&&state.active!=='stream')&&!(state.active==='stream'&&!FORMATS[k].streamOnly)) : [state.fmt];
   try{ for(let i=0;i<keys.length;i++){ const key=keys[i]; b.textContent = keys.length>1 ? ('Rendering '+(i+1)+'/'+keys.length+'…') : 'Rendering…';
       state.fmt=key; applyCanvasSize(); rebuild(); layoutFit(); await new Promise(r=>setTimeout(r,90));
       const url=await renderCapture(); if(url){ const a=document.createElement('a'); a.download='TFCZ_'+state.active+'_'+key+'_'+CW()+'x'+CH()+'.png'; a.href=url; a.click(); }
@@ -3452,7 +3542,7 @@ function capDefault(cat,fmt){
   }
   return `${d.emoji} ${d.ttl.toUpperCase()} – TFCZ\n${d.hook}\n\n${d.facts.join('\n')}\n\nAlle Infos: ${CAP_IG} · ${CAP_WEB}\nAlle sind willkommen!\n\n${tags}`;
 }
-function capApplicableFormats(){ return Object.keys(FORMATS).filter(k=>{const f=FORMATS[k]; return !f.doc && !(f.ytOnly&&state.active!=='yt') && !(f.proOnly&&state.active!=='profi');}); }
+function capApplicableFormats(){ return Object.keys(FORMATS).filter(k=>{const f=FORMATS[k]; return !f.doc && !(f.ytOnly&&state.active!=='yt') && !(f.proOnly&&state.active!=='profi') && !(f.streamOnly&&state.active!=='stream') && !(state.active==='stream'&&!f.streamOnly);}); }
 function capKey(cat,fmt){ return cat+'|'+fmt; }
 function capLabel(k){ const f=FORMATS[k]; let n=(f.name||'').replace(f.grp,'').replace(/^[\s\/·-]+/,'').trim(); return esc(f.grp)+(n?' · '+esc(n):''); }
 function openCaption(){
@@ -3738,9 +3828,9 @@ function applyView(){ const av=document.getElementById('ausview'), c=document.ge
   if(pv){ pv.style.display=posterOnly?'none':''; pv.textContent=reel?'⧉ Reel öffnen':(aus?'⧉ Ausschreibung-Vorschau':'⧉ Landing-Vorschau'); }
   if(doc) refreshDoc(); }
 
-const STARTOPTS=[['dyp','dices','Crazy DYP','Draw-Your-Partner Event'],['kase','utensils','KäseKick','Monats-Highlight'],['profi','trophy','PRO-Turnier','STRT · Züri Tour + Ausschreibung'],['rank','medal','Rangliste','Podium 1–3 (Einzel/Doubles)'],['events','party-popper','Event','Firmenevent · Geburtstag'],['yt','play','Youtube','Thumbnail'],['bg','monitor','Hintergründe','Bildschirm-Hintergrund 16:9']];
+const STARTOPTS=[['dyp','dices','Crazy DYP','Draw-Your-Partner Event'],['kase','utensils','KäseKick','Monats-Highlight'],['profi','trophy','PRO-Turnier','STRT · Züri Tour + Ausschreibung'],['rank','medal','Rangliste','Podium 1–3 (Einzel/Doubles)'],['events','party-popper','Event','Firmenevent · Geburtstag'],['yt','play','Youtube','Thumbnail'],['bg','monitor','Hintergründe','Bildschirm-Hintergrund 16:9'],['stream','radio','Livestream-Overlay','Transparentes 16:9 Overlay']];
 function fmtDateShort(iso){ if(!iso)return''; var d=new Date(iso+'T00:00'); if(isNaN(d))return iso; var W=['So','Mo','Di','Mi','Do','Fr','Sa'],M=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember']; return W[d.getDay()]+', '+d.getDate()+'. '+M[d.getMonth()]+' '+d.getFullYear(); }
-var MFIELDS={ kase:[{key:'date',label:'Datum der nächsten Durchführung',type:'date'}], profi:[{key:'tname',label:'Turniername',type:'text'},{key:'date',label:'Datum',type:'date'}], dyp:[{key:'date',label:'Wann / Datum',type:'text',ph:'z.B. Jeden Mittwoch'}], events:[{key:'date',label:'Datum',type:'date'}], rank:[], yt:[], bg:[] };
+var MFIELDS={ kase:[{key:'date',label:'Datum der nächsten Durchführung',type:'date'}], profi:[{key:'tname',label:'Turniername',type:'text'},{key:'date',label:'Datum',type:'date'}], dyp:[{key:'date',label:'Wann / Datum',type:'text',ph:'z.B. Jeden Mittwoch'}], events:[{key:'date',label:'Datum',type:'date'}], rank:[], yt:[], bg:[], stream:[] };
 function applyMandatory(tpl,v){ if(tpl==='kase'){ var e=getEl('nextdate'); if(e&&v.date)e.text='Nächste Durchführung'+fmtDateShort(v.date); } else if(tpl==='profi'){ if(v.tname){var a=getEl('t1'),b=getEl('t2'); if(a)a.text=v.tname; if(b)b.text='';} var d=getEl('date'); if(d&&v.date)d.text=fmtDate(v.date); } else if(tpl==='dyp'){ var g=getEl('badge'); if(g&&v.date)g.text=v.date; } else if(tpl==='events'){ if(v.date){ var _de=getEl('date'); if(_de)_de.text=fmtDate(v.date); } } Object.keys(v||{}).forEach(function(key){ if(key.indexOf('el:')===0){ var e=getEl(key.slice(3)); if(e&&v[key]!=null)e.text=v[key]; } }); save(); }
 function maybeStartPopup(){ showStart(false); }
 function showStart(force,startK){ var P=document.getElementById('startPopup'); if(!P)return; if(editing){confirmLeaveEdit(function(){showStart(force,startK);});return;}
@@ -3754,7 +3844,7 @@ function showStart(force,startK){ var P=document.getElementById('startPopup'); i
   h+='<div class="sp-step"><button class="sp-back" id="spBack">← zurück</button><div class="sp-kick" id="spKick2">TFCZ</div><h2>Noch kurz: Pflichtangaben</h2><div class="sp-sub">Nur das Nötigste — der Rest im Editor.</div><div id="spFields"></div><div class="sp-foot2">'+(isAdmin()?'<button class="sp-skip" id="spSkip2">Überspringen</button>':'')+'<button class="btn primary" id="spGo">Flyer erstellen →</button></div></div>';
   h+='</div></div></div>';
   P.innerHTML=h; P.style.display='flex'; var track=document.getElementById('spTrack'); var chosen=null;
-  function toStep2(k){ chosen=k; state.active=k; if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(state.fmt==='yt_thumb'||state.fmt==='aus'||state.fmt==='bg_16_9')state.fmt='ig_feed';
+  function toStep2(k){ chosen=k; state.active=k; if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080'; else if(state.fmt==='yt_thumb'||state.fmt==='aus'||state.fmt==='bg_16_9'||state.fmt==='stream_1080')state.fmt='ig_feed';
     if(!READY[k]&&!isAdmin()){ showComingSoon(); return; } var fl=mandFields(k); if(!fl.length){ finish(k,{}); return; }
     document.getElementById('spKick2').textContent=(TPLNAME[k]||'').toUpperCase();
     var fh=''; fl.forEach(function(f){ fh+='<div class="sp-f"><label>'+esc(f.label)+' <span class="req">*</span></label><input type="'+(f.type==='date'?'date':'text')+'" data-k="'+f.key+'"'+(f.ph?' placeholder="'+esc(f.ph)+'"':'')+'></div>'; });
@@ -3765,7 +3855,7 @@ function showStart(force,startK){ var P=document.getElementById('startPopup'); i
       state.pages=state.pages||{}; state.pageIx=state.pageIx||{};
       state.pages[k]= _tp ? _tp.map(function(p){ return clone(p); }) : [clone(DEF[k])];
       state.pageIx[k]=0; state.data[k]=state.pages[k][0];
-    } if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(state.fmt==='yt_thumb'||state.fmt==='aus'||state.fmt==='bg_16_9')state.fmt='ig_feed'; if(v&&Object.keys(v).length)applyMandatory(k,v); localStorage.setItem('tfcz_start_done','1'); save(); TFCZ_PORTAL.close(P.querySelector('.sp-card'),function(){P.style.display='none';}); switchAll(); if(document.body.classList.contains('mobile'))showMobileResult(); }
+    } if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080'; else if(state.fmt==='yt_thumb'||state.fmt==='aus'||state.fmt==='bg_16_9'||state.fmt==='stream_1080')state.fmt='ig_feed'; if(v&&Object.keys(v).length)applyMandatory(k,v); localStorage.setItem('tfcz_start_done','1'); save(); TFCZ_PORTAL.close(P.querySelector('.sp-card'),function(){P.style.display='none';}); switchAll(); if(document.body.classList.contains('mobile'))showMobileResult(); }
   var _fbBar=document.getElementById('fbBar'), _fbLast=0;
   function fbSet(v){ if(_fbBar)_fbBar.style.setProperty('--level',v+'%'); }
   function fbConfetti(){ var now=Date.now(); if(now-_fbLast<1400)return; _fbLast=now; var host=P.querySelector('.fb-gauge'); if(!host)return; var cols=['#5ca7dc','#7fc0ea','#cda857','#e9c475','#4489c7','#ffffff','#67b57d']; for(var i=0;i<52;i++){ var p=document.createElement('span'); p.className='fb-cf'; p.style.background=cols[i%cols.length]; p.style.left=(50+(Math.random()*120-60))+'%'; p.style.top=(Math.random()*100)+'%'; p.style.width=(6+Math.random()*6)+'px'; p.style.height=(9+Math.random()*9)+'px'; host.appendChild(p); var ang=Math.random()*Math.PI*2, spd=45+Math.random()*130; var dx=Math.cos(ang)*spd*(0.7+Math.random()); var dy=Math.sin(ang)*spd*0.55+210+Math.random()*280; var rot=(Math.random()*1000-500); var an=p.animate([{transform:'translate(0,0) rotate(0deg)',opacity:1,offset:0},{opacity:1,offset:.72},{transform:'translate('+dx+'px,'+dy+'px) rotate('+rot+'deg)',opacity:0,offset:1}],{duration:2800+Math.random()*2000,easing:'cubic-bezier(.15,.6,.3,1)'}); an.onfinish=function(){ this.effect.target.remove(); }; } }

@@ -564,6 +564,47 @@
         return '<span style="display:inline-flex;color:' + (FARBEN[p.farbe] || '#e9c475') + '">' +
           icon(p.richtung === 'links' ? 'arrow-left' : 'arrow-right', Math.round((p.size || 48) * k)) + '</span>';
       }
+    },
+
+    /* ---------------- Dreieck ---------------- */
+    dreieck: {
+      name: 'Dreieck',
+      kategorie: 'Formen',
+      hint: 'Dreieck-Fläche. Richtung & Farbe frei wählbar.',
+      felder: [
+        { k: 'fuellung', label: 'Füllung', typ: 'select', opts: ['gold', 'blau', 'navy', 'weiss'] },
+        { k: 'richtung', label: 'Richtung', typ: 'select', opts: ['oben', 'unten', 'links', 'rechts'] },
+        { k: 'w', label: 'Breite (px)', typ: 'zahl' },
+        { k: 'h', label: 'Höhe (px)', typ: 'zahl' }
+      ],
+      defaults: function () { return { fuellung: 'gold', richtung: 'oben', w: 200, h: 170 }; },
+      render: function (p, k) {
+        k = k || 1; var w = Math.round((p.w || 200) * k), h = Math.round((p.h || 170) * k);
+        var C = { gold: '#cda857', blau: '#5ca7dc', navy: '#0d273d', weiss: '#ffffff' }[p.fuellung] || '#cda857';
+        var pts = { oben: '50,0 100,100 0,100', unten: '0,0 100,0 50,100', links: '100,0 100,100 0,50', rechts: '0,0 0,100 100,50' }[p.richtung] || '50,0 100,100 0,100';
+        var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="' + pts + '" fill="' + C + '"/></svg>';
+        return '<img src="data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg) + '" style="width:' + w + 'px;height:' + h + 'px;display:block">';
+      }
+    },
+
+    /* ---------------- Brand-Rahmen (oben blau / unten gold) ---------------- */
+    brandframe: {
+      name: 'Brand-Rahmen (o/u)',
+      kategorie: 'Flächen',
+      hint: 'Blaue Linie oben, goldene unten — nur die Linien, Fläche transparent. Auf Formatbreite ziehen.',
+      felder: [
+        { k: 'w', label: 'Breite (px)', typ: 'zahl' },
+        { k: 'h', label: 'Höhe (px)', typ: 'zahl' },
+        { k: 'dicke', label: 'Linienstärke (px)', typ: 'zahl' }
+      ],
+      defaults: function () { return { w: 1000, h: 560, dicke: 5 }; },
+      render: function (p, k) {
+        k = k || 1; var w = Math.round((p.w || 1000) * k), h = Math.round((p.h || 560) * k), d = Math.max(2, Math.round((p.dicke || 5) * k));
+        return '<div style="position:relative;width:' + w + 'px;height:' + h + 'px;pointer-events:none">' +
+          '<div style="position:absolute;top:0;left:0;right:0;height:' + d + 'px;background:#5ca7dc"></div>' +
+          '<div style="position:absolute;bottom:0;left:0;right:0;height:' + d + 'px;background:#cda857"></div>' +
+          '</div>';
+      }
     }
   };
 
