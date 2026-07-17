@@ -11856,6 +11856,22 @@ input[type=range].rng:focus-visible::-webkit-slider-thumb{border-color:var(--gol
       <p style="color:var(--ink-mut);font-size:12.5px;line-height:1.5;margin:0">Mehrere Stats auf einen Screen · viel Text · Gold für Teams · schwarze Zahl ohne Rand · Pfeil/Highlight in Gold statt Team-Farbe · Assets extern verlinken.</p>
     </div>
   </div>
+
+  <!-- Scoreboard (Ecken-Overlay) -->
+  <div style="margin-top:36px;border-top:1px solid var(--card-brd);padding-top:28px">
+    <div style="font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:6px">Live-Scoreboard</div>
+    <h3 style="margin:0 0 8px;font-size:21px;font-weight:900;color:#fff;letter-spacing:-.01em">Scoreboard · Ecken-Overlay</h3>
+    <p class="sec-sub" style="margin:0 0 16px">Kompaktes Live-Board (Sätze · Tore · Timeouts · Set-/Match-Ball · Turnier-Runde) — im Stream unten links. <b>Fenster-Signatur</b> (blau oben / gold unten) auf frosted Navy, Nunito Sans. Team-Identität wie beim Stat-Widget: <b style="color:#57A639">Grün #57A639</b> vs. <b style="color:#e9edf2;-webkit-text-stroke:.4px rgba(232,238,246,.9)">Schwarz #0c0f14 + heller Rand</b> — nur <b>Name &amp; Tore</b> tragen Team-Farbe. Sätze bleiben neutral, Gold nur als Akzent (Turnier-Zeile), Blau für Sätze &amp; Set-Ball. Leader = dezenter Glow, nie Gold.</p>
+    <div class="demo col" style="align-items:stretch">
+      <div style="width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#1c2a20,#0e140f)">
+        <iframe src="scoreboard-widget.html" title="TFCZ Scoreboard" loading="lazy" style="width:100%;height:100%;border:0;display:block"></iframe>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap">
+        <a class="btn btn-ghost" href="scoreboard-widget.html" target="_blank" rel="noopener">Vollbild öffnen</a>
+        <span style="color:#9fb2c4;font-size:13px;font-weight:700">Live-Widget: <code>sop/public/widgets/scoreboard.html</code> · Position per <code>?position=bottom-left</code> · Daten via WebSocket/<code>/state</code></span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- KALENDER -->
