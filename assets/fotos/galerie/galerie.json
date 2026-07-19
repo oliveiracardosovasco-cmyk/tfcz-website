@@ -1,0 +1,2824 @@
+{
+ "generated": "2026-07-19",
+ "count": 195,
+ "categories": [
+  {
+   "key": "turnier",
+   "label": "Turnier & Match",
+   "color": "#5ca7dc"
+  },
+  {
+   "key": "team",
+   "label": "Team & Emotionen",
+   "color": "#cda857"
+  },
+  {
+   "key": "mannschaft",
+   "label": "Mannschaftsfotos",
+   "color": "#005a94"
+  },
+  {
+   "key": "portrait",
+   "label": "Portraits & Spieler",
+   "color": "#e0559b"
+  },
+  {
+   "key": "location",
+   "label": "Location & Bar",
+   "color": "#e49b2c"
+  },
+  {
+   "key": "atmo",
+   "label": "Atmosphäre & Publikum",
+   "color": "#67b57d"
+  },
+  {
+   "key": "detail",
+   "label": "Detail & Equipment",
+   "color": "#93a7bd"
+  }
+ ],
+ "photos": [
+  {
+   "id": "473",
+   "category": "atmo",
+   "tags": [
+    "studio",
+    "dunkel",
+    "tisch"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "474",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1130,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "475",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "476",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "477",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "478",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1210,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "479",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "480",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "481",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "482",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "483",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1024,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "484",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "equipment",
+    "dunkel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 890,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "485",
+   "category": "location",
+   "tags": [
+    "wall-of-fame",
+    "polaroids",
+    "mitglieder",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "486",
+   "category": "location",
+   "tags": [
+    "wall-of-fame",
+    "polaroids",
+    "mitglieder",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "487",
+   "category": "location",
+   "tags": [
+    "wall-of-fame",
+    "polaroids",
+    "mitglieder",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "488",
+   "category": "location",
+   "tags": [
+    "wall-of-fame",
+    "polaroids",
+    "mitglieder",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "598",
+   "category": "detail",
+   "tags": [
+    "hand",
+    "dunkel",
+    "detail",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "676",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "677",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "678",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "679",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "680",
+   "category": "team",
+   "tags": [
+    "handshake",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "696",
+   "category": "portrait",
+   "tags": [
+    "portrait",
+    "zwei",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "697",
+   "category": "portrait",
+   "tags": [
+    "portrait",
+    "paar",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "698",
+   "category": "turnier",
+   "tags": [
+    "ruecken",
+    "logo",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "699",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "frauen",
+    "lachen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "700",
+   "category": "team",
+   "tags": [
+    "jubel",
+    "umarmung",
+    "frauen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "701",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "702",
+   "category": "team",
+   "tags": [
+    "high-five",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "703",
+   "category": "portrait",
+   "tags": [
+    "frau",
+    "portrait",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "turnier-halle",
+   "orient": "hoch",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "704",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "705",
+   "category": "portrait",
+   "tags": [
+    "zwei",
+    "maenner",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "706",
+   "category": "turnier",
+   "tags": [
+    "fokus",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "707",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "708",
+   "category": "team",
+   "tags": [
+    "high-five",
+    "jubel",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "709",
+   "category": "location",
+   "tags": [
+    "uebersicht",
+    "halle",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "710",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "711",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "712",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "huddle",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "713",
+   "category": "portrait",
+   "tags": [
+    "frau",
+    "portrait",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "714",
+   "category": "portrait",
+   "tags": [
+    "frau",
+    "lachen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "715",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "716",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "717",
+   "category": "turnier",
+   "tags": [
+    "unscharf",
+    "schwach",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "718",
+   "category": "turnier",
+   "tags": [
+    "frauen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "719",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "720",
+   "category": "turnier",
+   "tags": [
+    "frauen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "721",
+   "category": "turnier",
+   "tags": [
+    "frauen",
+    "lachen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "722",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "723",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "724",
+   "category": "turnier",
+   "tags": [
+    "frau",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "725",
+   "category": "detail",
+   "tags": [
+    "hand",
+    "stange",
+    "detail",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "726",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "727",
+   "category": "location",
+   "tags": [
+    "uebersicht",
+    "halle",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "turnier-halle",
+   "orient": "hoch",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "728",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "729",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "730",
+   "category": "turnier",
+   "tags": [
+    "portrait",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "turnier-halle",
+   "orient": "hoch",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "731",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "732",
+   "category": "team",
+   "tags": [
+    "frau",
+    "lachen",
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "733",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "734",
+   "category": "portrait",
+   "tags": [
+    "mann",
+    "portrait",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "738",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "739",
+   "category": "turnier",
+   "tags": [
+    "zwei",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "740",
+   "category": "turnier",
+   "tags": [
+    "zwei",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "741",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "742",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "743",
+   "category": "team",
+   "tags": [
+    "fist-bump",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "744",
+   "category": "location",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "745",
+   "category": "portrait",
+   "tags": [
+    "frau",
+    "essen",
+    "verpflegung",
+    "lachen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "746",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "747",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "748",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "turnier-halle",
+   "orient": "hoch",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "749",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "750",
+   "category": "portrait",
+   "tags": [
+    "mann",
+    "lachen",
+    "portrait",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "751",
+   "category": "portrait",
+   "tags": [
+    "mann",
+    "pause",
+    "sitzen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "752",
+   "category": "turnier",
+   "tags": [
+    "frau",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "753",
+   "category": "portrait",
+   "tags": [
+    "frau",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "754",
+   "category": "portrait",
+   "tags": [
+    "mann",
+    "pause",
+    "sitzen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "755",
+   "category": "portrait",
+   "tags": [
+    "maenner",
+    "pause",
+    "sitzen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "turnier-halle",
+   "orient": "hoch",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "756",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "757",
+   "category": "team",
+   "tags": [
+    "huddle",
+    "jubel",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "758",
+   "category": "team",
+   "tags": [
+    "huddle",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "760",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "762",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "boden",
+    "pause",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "763",
+   "category": "portrait",
+   "tags": [
+    "pause",
+    "boden",
+    "lachen",
+    "zwei",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "766",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "768",
+   "category": "location",
+   "tags": [
+    "uebersicht",
+    "halle",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "770",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "772",
+   "category": "turnier",
+   "tags": [
+    "handschuh",
+    "spiel",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "773",
+   "category": "turnier",
+   "tags": [
+    "handschuh",
+    "spiel",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "774",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "fokus",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "775",
+   "category": "detail",
+   "tags": [
+    "trikot",
+    "logo",
+    "ruecken",
+    "branding",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "776",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "777",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "778",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "779",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "780",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "781",
+   "category": "team",
+   "tags": [
+    "high-five",
+    "jubel",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "782",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "lachen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "783",
+   "category": "mannschaft",
+   "tags": [
+    "mannschaftsfoto",
+    "pose",
+    "tisch",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "784",
+   "category": "team",
+   "tags": [
+    "pokal",
+    "siegerehrung",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "785",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "huddle",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "786",
+   "category": "mannschaft",
+   "tags": [
+    "mannschaftsfoto",
+    "gruppe",
+    "outdoor",
+    "vereinsfoto",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "787",
+   "category": "mannschaft",
+   "tags": [
+    "mannschaftsfoto",
+    "gruppe",
+    "outdoor",
+    "vereinsfoto",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "788",
+   "category": "mannschaft",
+   "tags": [
+    "mannschaftsfoto",
+    "gruppe",
+    "outdoor",
+    "vereinsfoto",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "789",
+   "category": "mannschaft",
+   "tags": [
+    "mannschaftsfoto",
+    "gruppe",
+    "jubel",
+    "outdoor",
+    "vereinsfoto",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "792",
+   "category": "portrait",
+   "tags": [
+    "sitzen",
+    "kind",
+    "nachwuchs",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "793",
+   "category": "portrait",
+   "tags": [
+    "mann",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "794",
+   "category": "turnier",
+   "tags": [
+    "ruecken",
+    "logo",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "795",
+   "category": "turnier",
+   "tags": [
+    "ruecken",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "796",
+   "category": "turnier",
+   "tags": [
+    "ruecken",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "797",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "crowd",
+    "featured-match",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "798",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "799",
+   "category": "portrait",
+   "tags": [
+    "mann",
+    "lachen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "800",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "801",
+   "category": "turnier",
+   "tags": [
+    "nachwuchs",
+    "kind",
+    "jugend",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "turnier-halle",
+   "orient": "hoch",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "802",
+   "category": "portrait",
+   "tags": [
+    "mann",
+    "emotion",
+    "sitzen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "803",
+   "category": "turnier",
+   "tags": [
+    "ruecken",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "804",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "805",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "806",
+   "category": "team",
+   "tags": [
+    "fist-bump",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "807",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "808",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "turnier-halle",
+   "orient": "hoch",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "809",
+   "category": "turnier",
+   "tags": [
+    "zwei",
+    "fokus",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "810",
+   "category": "portrait",
+   "tags": [
+    "frau",
+    "filmen",
+    "behind-the-scenes",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "811",
+   "category": "turnier",
+   "tags": [
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "812",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "813",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "814",
+   "category": "turnier",
+   "tags": [
+    "gruppe",
+    "stehen",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "815",
+   "category": "team",
+   "tags": [
+    "handshake",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "816",
+   "category": "mannschaft",
+   "tags": [
+    "gruppe",
+    "umarmung",
+    "jubel",
+    "mannschaftsfoto",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "817",
+   "category": "mannschaft",
+   "tags": [
+    "gruppe",
+    "lachen",
+    "mannschaftsfoto",
+    "turnier-halle",
+    "schlumpf"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "turnier-halle",
+   "orient": "quer",
+   "turnier": "Club Liga 2026"
+  },
+  {
+   "id": "dsc_1993",
+   "category": "detail",
+   "tags": [
+    "studio",
+    "dunkel",
+    "spiel"
+   ],
+   "w": 1160,
+   "h": 1600,
+   "event": "studio",
+   "orient": "hoch",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2002",
+   "category": "detail",
+   "tags": [
+    "studio",
+    "dunkel",
+    "tisch"
+   ],
+   "w": 1600,
+   "h": 880,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2003",
+   "category": "detail",
+   "tags": [
+    "studio",
+    "dunkel",
+    "tisch"
+   ],
+   "w": 1600,
+   "h": 894,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2019",
+   "category": "detail",
+   "tags": [
+    "studio",
+    "dunkel",
+    "hand"
+   ],
+   "w": 1600,
+   "h": 1019,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2023",
+   "category": "detail",
+   "tags": [
+    "studio",
+    "dunkel",
+    "tisch"
+   ],
+   "w": 1600,
+   "h": 1151,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2026",
+   "category": "detail",
+   "tags": [
+    "studio",
+    "dunkel",
+    "hand"
+   ],
+   "w": 1600,
+   "h": 1567,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2103",
+   "category": "atmo",
+   "tags": [
+    "studio",
+    "dunkel",
+    "spiel"
+   ],
+   "w": 1600,
+   "h": 968,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2122",
+   "category": "atmo",
+   "tags": [
+    "studio",
+    "dunkel",
+    "spiel"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2147",
+   "category": "atmo",
+   "tags": [
+    "studio",
+    "dunkel",
+    "spiel"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2150",
+   "category": "detail",
+   "tags": [
+    "studio",
+    "dunkel",
+    "tisch"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2219",
+   "category": "atmo",
+   "tags": [
+    "dunkel",
+    "party",
+    "spiel",
+    "studio"
+   ],
+   "w": 1344,
+   "h": 1600,
+   "event": "studio",
+   "orient": "hoch",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2221",
+   "category": "detail",
+   "tags": [
+    "dunkel",
+    "hand",
+    "ball",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 810,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_2288",
+   "category": "atmo",
+   "tags": [
+    "dunkel",
+    "spiel",
+    "studio"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "studio",
+   "orient": "quer",
+   "turnier": ""
+  },
+  {
+   "id": "dsc_6715",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6724",
+   "category": "location",
+   "tags": [
+    "moderation",
+    "mikrofon",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6729",
+   "category": "location",
+   "tags": [
+    "bar",
+    "getraenke",
+    "kuehlschrank",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6733",
+   "category": "location",
+   "tags": [
+    "bar",
+    "getraenke",
+    "kuehlschrank",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6776",
+   "category": "turnier",
+   "tags": [
+    "frau",
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6792",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6811",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6815",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "featured-match",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6816",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "featured-match",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6822",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6830",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6831",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "publikum",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6833",
+   "category": "atmo",
+   "tags": [
+    "gruppe",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6848",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6857",
+   "category": "location",
+   "tags": [
+    "uebersicht",
+    "venue",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6863",
+   "category": "atmo",
+   "tags": [
+    "dunkel",
+    "schwach",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6867",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6872",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6878",
+   "category": "portrait",
+   "tags": [
+    "zwei",
+    "sitzen",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6890",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "fokus",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6916",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6917",
+   "category": "location",
+   "tags": [
+    "kommentar",
+    "headset",
+    "stream",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6922",
+   "category": "turnier",
+   "tags": [
+    "frau",
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6943",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6948",
+   "category": "turnier",
+   "tags": [
+    "frau",
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6972",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6978",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_6999",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7012",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "uebersicht",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7017",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7026",
+   "category": "atmo",
+   "tags": [
+    "gruppe",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7060",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "uebersicht",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7073",
+   "category": "portrait",
+   "tags": [
+    "frau",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7162",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7169",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7180",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7184",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "zwei",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7200",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7203",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7237",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7250",
+   "category": "team",
+   "tags": [
+    "high-five",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7265",
+   "category": "team",
+   "tags": [
+    "lachen",
+    "jubel",
+    "frau",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7270",
+   "category": "location",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7295",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7302",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7326",
+   "category": "team",
+   "tags": [
+    "handshake",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7335",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7342",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "gruppe",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7432",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "spiel",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  },
+  {
+   "id": "dsc_7463",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "publikum",
+    "club-abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "club-abend",
+   "orient": "quer",
+   "turnier": "Zürich Open 1"
+  }
+ ]
+}

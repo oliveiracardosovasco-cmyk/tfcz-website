@@ -30,7 +30,7 @@ h1,h2,h3{line-height:1.1; letter-spacing:-.015em}
 img{display:block; max-width:100%}
 
 /* ===== Sticky Nav ===== */
-.top{position:sticky; top:0; z-index:60; backdrop-filter:blur(12px); background:linear-gradient(180deg,rgba(13,39,61,.94),rgba(10,31,49,.88)); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); }
+.top{position:sticky; top:0; z-index:60; background:linear-gradient(180deg,rgba(13,39,61,.94),rgba(10,31,49,.88)); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); }
 .top .wrap{display:flex; align-items:center; gap:12px; padding:12px 22px}
 .top .logo{display:inline-flex; align-items:center; gap:10px; font-weight:900; color:#fff; text-decoration:none; font-size:15px; flex:none}
 .top .logo img{height:38.8px; width:auto; object-fit:contain; display:block}
@@ -63,11 +63,11 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .hero-ov{position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(6,15,24,.6) 0%, rgba(7,20,33,.52) 40%, rgba(5,12,20,.9) 100%), radial-gradient(1200px 700px at 78% 12%, rgba(0,90,148,.42), transparent 60%)}
 .hero-ov::after{content:""; position:absolute; left:0; right:0; bottom:0; height:5px; background:linear-gradient(90deg,var(--blue),var(--gold))}
 .hero .wrap{position:relative; z-index:2; width:100%; padding-top:60px; padding-bottom:70px}
-.hero .kick{display:inline-flex; align-items:center; gap:9px; font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.4); padding:7px 15px; border-radius:var(--r-pill); margin-bottom:20px; backdrop-filter:blur(6px)}
+.hero .kick{display:inline-flex; align-items:center; gap:9px; font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.4); padding:7px 15px; border-radius:var(--r-pill); margin-bottom:20px}
 .hero h1{font-size:clamp(40px,7.4vw,86px); font-weight:900; color:#fff; text-transform:uppercase; line-height:.95; text-shadow:0 6px 40px rgba(0,0,0,.5); max-width:12ch}
 .hero h1 .g{color:var(--gold-lt)}   /* Kontrast: Akzent auf dunklem Foto = Gold, nie Blau */
 /* Dringlichkeits-Pille */
-.urg{display:inline-flex; align-items:center; gap:10px; background:rgba(8,18,29,.5); backdrop-filter:blur(6px); border:1px solid rgba(233,196,117,.5); color:#fff; font-size:13px; font-weight:800; padding:9px 16px; border-radius:var(--r-pill); margin:22px 0 0}
+.urg{display:inline-flex; align-items:center; gap:10px; background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.5); color:#fff; font-size:13px; font-weight:800; padding:9px 16px; border-radius:var(--r-pill); margin:22px 0 0}
 .urg .dot{width:9px; height:9px; border-radius:50%; background:var(--gold-lt); box-shadow:0 0 0 0 rgba(233,196,117,.6); animation:pulse 1.8s var(--ease) infinite; flex:none}
 .urg b{color:var(--gold-lt)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,196,117,.5)}70%{box-shadow:0 0 0 11px rgba(233,196,117,0)}100%{box-shadow:0 0 0 0 rgba(233,196,117,0)}}
@@ -102,7 +102,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 /* ===== Warum / Kernidee ===== */
 .why{display:grid; grid-template-columns:.95fr 1.05fr; gap:clamp(22px,4vw,46px); align-items:center}
 @media(max-width:880px){ .why{grid-template-columns:1fr} }
-.why-ph{border-radius:var(--r-xl); overflow:hidden; border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-2); aspect-ratio:5/4}
+.why-ph{border-radius:var(--r-xl); overflow:hidden; border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-1); aspect-ratio:5/4}
 .why-ph img{width:100%; height:100%; object-fit:cover}
 .why h2{font-size:clamp(26px,3.6vw,40px); font-weight:900; color:#fff; text-transform:uppercase; line-height:1.02}
 .why h2 .g{color:var(--gold-lt)}
@@ -143,7 +143,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .pr.hl{border-color:var(--gold); outline:1.5px solid rgba(205,168,87,.5)}
 
 /* ===== Status-Banner (Termine provisorisch) ===== */
-.status{position:relative; overflow:hidden; background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,30px); box-shadow:var(--e-2); display:flex; gap:20px; align-items:center; flex-wrap:wrap}
+.status{position:relative; overflow:hidden; background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,30px); box-shadow:var(--e-1); display:flex; gap:20px; align-items:center; flex-wrap:wrap}
 .status .stx{flex:1 1 320px; min-width:0}
 .status .pulse{display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:9px}
 .status .pulse::before{content:""; width:9px; height:9px; border-radius:50%; background:var(--gold-lt); animation:pulse 1.9s var(--ease) infinite}
@@ -174,7 +174,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .tnote{margin-top:16px; font-size:12.5px; color:var(--ink-mut); font-style:italic}
 
 /* ===== Voranmeldung-Formular ===== */
-.formbox{background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,32px); box-shadow:var(--e-2)}
+.formbox{background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,32px); box-shadow:var(--e-1)}
 .formbox h2{font-size:clamp(20px,2.6vw,26px); font-weight:900; color:#fff; text-transform:uppercase}
 .formbox .fsub{font-size:13.5px; color:var(--ink-mut); margin:4px 0 18px; max-width:600px}
 .fgrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}

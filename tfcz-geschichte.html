@@ -54,7 +54,7 @@ p.body b{color:#fff; font-weight:800}
 
 /* ===== Sticky Nav — Brand-Signatur (blau oben / gold unten) ===== */
 .nav{position:sticky; top:0; z-index:90; width:100%; display:flex; align-items:center; gap:10px;
-  padding:12px max(22px, calc((100% - 1160px)/2 + 22px)); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  padding:12px max(22px, calc((100% - 1160px)/2 + 22px));
   background:linear-gradient(155deg, rgba(10,24,38,.92), rgba(6,15,24,.90));
   border-top:3px solid var(--blue); border-bottom:3px solid var(--gold);   /* Balken GERADE (kein border-radius) */ box-shadow:var(--e-2)}
 .nav .logo{display:flex; align-items:center; gap:10px; min-width:0; flex:none}
@@ -77,11 +77,11 @@ h1 .g{color:var(--gold-lt)}
 .hero .sub{margin-top:22px; font-size:clamp(16px,1.9vw,20px); color:var(--ink-mut); max-width:640px}
 .hero .sub b{color:#fff}
 .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px}
-.chip{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:800; color:var(--ink); background:var(--card-soft); border:1px solid var(--card-brd); border-radius:var(--r-pill); padding:8px 15px; backdrop-filter:blur(8px)}
+.chip{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:800; color:var(--ink); background:var(--card-soft); border:1px solid var(--card-brd); border-radius:var(--r-pill); padding:8px 15px}
 .chip i{width:9px; height:9px; border-radius:50%; flex:none}
 
 /* ===== Card / Panel ===== */
-.card{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); box-shadow:var(--e-1); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px)}
+.card{background:var(--frost); border:1px solid var(--card-brd); border-radius:var(--r-lg); box-shadow:var(--e-1)}
 
 /* ===== Timeline ===== */
 .tl{position:relative; margin-top:8px; padding-left:0}
@@ -115,7 +115,7 @@ h1 .g{color:var(--gold-lt)}
 /* ===== Pyramid (Schweiz) ===== */
 .pyr{display:flex; flex-direction:column; gap:10px; margin-top:8px}
 .pyr .step{padding:15px 18px; border-radius:var(--r-md); border:1px solid var(--card-brd);
-  background:var(--card-soft); backdrop-filter:blur(8px); position:relative; overflow:hidden}
+  background:var(--card-soft); position:relative; overflow:hidden}
 .pyr .step::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px}
 .pyr .step.s1::before{background:var(--cat-fun)} .pyr .step.s2::before{background:var(--blue-mid)}
 .pyr .step.s3::before{background:var(--cat-comp)} .pyr .step.s4::before{background:var(--gold)}
@@ -169,7 +169,7 @@ h1 .g{color:var(--gold-lt)}
 .dcard p{margin-top:10px; font-size:13.5px; color:var(--ink-mut)}
 .dcard p b{color:#fff; font-weight:800}
 .cats{display:flex; flex-wrap:wrap; gap:10px}
-.cats .c{flex:1 1 150px; min-width:0; padding:14px 16px; border-radius:var(--r-md); border:1px solid var(--card-brd); background:var(--card-soft); backdrop-filter:blur(8px); position:relative; overflow:hidden}
+.cats .c{flex:1 1 150px; min-width:0; padding:14px 16px; border-radius:var(--r-md); border:1px solid var(--card-brd); background:var(--card-soft); position:relative; overflow:hidden}
 .cats .c::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--blue)}
 .cats .c.para::before{background:linear-gradient(180deg,var(--blue),var(--gold))}
 .cats .c b{display:block; color:#fff; font-weight:900; font-size:14.5px}

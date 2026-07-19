@@ -21,7 +21,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; ba
 
 /* ===== Sticky Unterseiten-Menü (Logo links · Nav links eingerückt · Zurück rechts · unten abgerundet) ===== */
 .nav{position:sticky; top:0; z-index:90; display:flex; align-items:center; gap:10px;
-  padding:12px max(22px, calc((100% - 1160px)/2 + 22px)); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  padding:12px max(22px, calc((100% - 1160px)/2 + 22px));
   background:linear-gradient(155deg, rgba(10,24,38,.93), rgba(6,15,24,.90));
   border-top:3px solid var(--blue); border-bottom:3px solid var(--gold);   /* Balken GERADE (kein border-radius) */ box-shadow:var(--e-2)}
 .nav .logo{display:flex; align-items:center; min-width:0; flex:none}
@@ -44,6 +44,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; ba
 .seg{display:inline-flex; gap:4px; padding:4px; background:rgba(9,21,33,.6); border:1px solid var(--card-brd); border-radius:var(--r-pill)}
 .seg button{font-family:var(--font); font-weight:800; font-size:12.5px; padding:8px 14px; border:0; border-radius:var(--r-pill); cursor:pointer; color:var(--ink-mut); background:none; transition:var(--t-fast)}
 .seg button.on{background:var(--gold); color:var(--navy)}
+/* Reiter / Ansichts-Tabs (Ordner-Optik) — aktiv = Frost + 3px blaue Oberkante, sitzt auf goldener Grundlinie */
+.rtabs{display:flex; gap:6px}
+.rtab{cursor:pointer; font-family:var(--font); font-weight:800; font-size:14px; color:var(--ink-mut); background:var(--navy-2); border:1px solid var(--card-brd); border-bottom:none; border-radius:10px 10px 0 0; padding:10px 18px; transition:var(--t-fast)}
+.rtab:hover{color:#fff}
+.rtab.on{background:var(--frost); color:var(--ink); box-shadow:inset 0 3px 0 var(--blue)}
 
 /* ===== Section ===== */
 section.cl{padding:32px 0 6px; scroll-margin-top:84px}
@@ -51,7 +56,7 @@ section.cl{padding:32px 0 6px; scroll-margin-top:84px}
 .sec-h h2{font-size:22px; font-weight:900; margin:0}
 .sec-h .num{font-size:12px; font-weight:900; color:var(--navy); background:var(--gold); border-radius:6px; padding:3px 8px}
 .sec-sub{color:var(--ink-mut); font-size:14px; margin:0 0 16px; max-width:720px}
-.demo{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-xl); box-shadow:var(--inset); backdrop-filter:blur(10px); padding:clamp(18px,3vw,28px); display:flex; flex-wrap:wrap; gap:16px; align-items:center}
+.demo{background:var(--frost); border:1px solid var(--card-brd); border-radius:var(--r-xl); box-shadow:var(--inset); padding:clamp(18px,3vw,28px); display:flex; flex-wrap:wrap; gap:16px; align-items:center}
 .demo.col{flex-direction:column; align-items:stretch}
 .tag{font-size:11px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-mut); width:100%; margin:2px 0 -6px}
 
@@ -12351,6 +12356,18 @@ TFCZ.portal.close(fensterEl, function () {
     </div>
 
     <div class="ccard">
+      <h4>Tabs / Reiter (Ansichten)</h4>
+      <p style="margin-bottom:14px">Für den Wechsel ganzer Ansichten/Inhalte. Aktiver Reiter = Frost + 3px blaue Oberkante, sitzt auf der goldenen Grundlinie (Blau oben / Gold unten). Für 2–3 inline-Optionen stattdessen den Segmented-Baustein oben.</p>
+      <div style="border-bottom:3px solid var(--gold)">
+        <div class="rtabs">
+          <button class="rtab on">Übersicht</button>
+          <button class="rtab">Details</button>
+          <button class="rtab">Verlauf</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ccard">
       <h4>Profil-Avatar · Emblem-Form</h4>
       <p style="margin-bottom:12px">Profilbilder tragen die TFCZ-Wappenform (Foto im Schild) statt eines Kreises. Rahmen blau oben / gold unten.</p>
       <svg class="ava" viewBox="0 0 100 118" width="70" height="83" xmlns="http://www.w3.org/2000/svg">
@@ -12633,7 +12650,7 @@ img{display:block; max-width:100%}
 
 /* ===== Sticky-Menü: Logo links · Links eingerückt · Zurück rechts (Sektion 17) ===== */
 .nav{position:sticky; top:0; z-index:90; display:flex; align-items:center; gap:10px;
-  padding:12px max(22px, calc((100% - 1160px)/2 + 22px)); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  padding:12px max(22px, calc((100% - 1160px)/2 + 22px));
   background:linear-gradient(155deg, rgba(10,24,38,.93), rgba(6,15,24,.90));
   border-top:3px solid var(--blue); border-bottom:3px solid var(--gold);   /* Balken GERADE (kein border-radius) */ box-shadow:var(--e-2)}
 .nav .logo{display:flex; align-items:center; flex:none}
@@ -12658,7 +12675,7 @@ h1,h2{font-weight:900; letter-spacing:-.01em; margin:10px 0 8px}
 h1{font-size:clamp(30px,5vw,46px)} h2{font-size:clamp(22px,3.4vw,30px)}
 .lead{color:var(--ink-mut); font-size:15.5px; max-width:660px}
 /* Boxen: dunkel & frosted, KEINE schweren Drop-Shadows (ruhende Container) */
-.card{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-xl); box-shadow:var(--inset); backdrop-filter:blur(10px); padding:24px}
+.card{background:var(--frost); border:1px solid var(--card-brd); border-radius:var(--r-xl); box-shadow:var(--inset); padding:24px}
 
  
 /* Gold NUR für echte Conversion („Mitglied werden") ODER Lead-Anfrage („Verfügbarkeit prüfen") — nie Navigation */

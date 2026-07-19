@@ -1016,6 +1016,14 @@ der Baustein fasst sie nicht an.)
   TFCZ-Höhepunkt). Im Brand Guide dokumentiert (Sektion 22); Referenz: `tfcz-geschichte.html`.
 - **Toggles / Sprach-Switcher**: Standard im Brand Guide (Sektion 7b) — Pill-Track, Gold-Knopf = aktiv,
   aktives Label gold, Hover = Brand-Rahmen nur via `inset box-shadow`.
+- **Tabs / Reiter (Ansichts-Umschalter, verbindlich, freigegeben Vasco 19.07.2026)**: Für den Wechsel
+  zwischen ganzen **Ansichten/Inhalten** (nicht 2–3 inline-Optionen — dafür `.seg`) gilt die **Ordner-Reiter**-
+  Optik: Reiter mit oben abgerundeten Ecken (`10px 10px 0 0`), **ohne Unterkante**; inaktiv = `--navy-2`-Fläche
+  + `--ink-mut`-Text; **aktiver Reiter** = frost-Fläche (`--frost`), heller Text und eine **3px blaue Oberkante**
+  (`box-shadow:inset 0 3px 0 var(--blue)`). Die Reiter-Zeile sitzt auf der **goldenen Grundlinie** der Bar/Kopf
+  (`border-bottom:3px solid var(--gold)`) — so trägt der Baustein die Brand-Line „Blau oben / Gold unten".
+  Klassen `.rtabs`/`.rtab`/`.rtab.on` (Component-Library, Sektion Bausteine). Referenz: Foto-Manager
+  (`assets/fotos/galerie/foto-manager.html`).
 
 ### Footer (verbindlich, freigegeben Vasco 10.07.2026 · Baustein 14.07.2026)
 - **Ein globaler Footer** = Baustein `ocsav - tfcz_Web/system/components/footer.js` (Single Source).

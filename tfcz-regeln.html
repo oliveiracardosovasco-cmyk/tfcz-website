@@ -32,7 +32,7 @@ body.lang-en .de{display:none}
 
 /* Unterseiten-Menü (Logo + Nav + Zurück), Brand-Signatur, unten abgerundet */
 .nav{position:sticky; top:0; z-index:95; display:flex; align-items:center; gap:10px;
-  padding:12px max(22px, calc((100% - 1160px)/2 + 22px)); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  padding:12px max(22px, calc((100% - 1160px)/2 + 22px));
   background:linear-gradient(155deg, rgba(10,24,38,.92), rgba(6,15,24,.90));
   border-top:3px solid var(--blue); border-bottom:3px solid var(--gold);   /* Balken GERADE (kein border-radius) */ box-shadow:var(--e-2)}
 .nav .logo{display:flex; align-items:center; gap:10px; min-width:0; flex:none}
@@ -62,7 +62,7 @@ h1 .g{color:var(--gold-lt)}
 .langsw button small{font-weight:800; font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; opacity:.75}
 .langsw button.on{background:var(--gold); color:var(--navy)}
 
-.tools{position:sticky; top:64px; z-index:80; margin-top:20px; padding:12px 0; background:linear-gradient(180deg, rgba(0,90,148,.9), rgba(0,90,148,.55) 72%, transparent); backdrop-filter:blur(6px)}
+.tools{position:sticky; top:64px; z-index:80; margin-top:20px; padding:12px 0; background:linear-gradient(180deg, rgba(0,90,148,.9), rgba(0,90,148,.55) 72%, transparent)}
 .toprow{margin-bottom:10px}
 .searchrow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 .search{flex:1 1 240px; min-width:0; display:flex; align-items:center; gap:10px; padding:12px 16px; background:linear-gradient(155deg, rgba(17,34,51,.9), rgba(9,21,33,.82)); border:1px solid var(--card-brd); border-radius:var(--r-pill); box-shadow:var(--e-1)}
@@ -79,7 +79,7 @@ h1 .g{color:var(--gold-lt)}
 .chip:hover{color:#fff; border-top-color:var(--blue); border-bottom-color:var(--gold); text-decoration:none}
 
 .rules{padding:8px 0 10px}
-.acc{margin:8px 0; border-radius:var(--r-md); border:1px solid var(--card-brd); background:var(--card); backdrop-filter:blur(10px); overflow:hidden}
+.acc{margin:8px 0; border-radius:var(--r-md); border:1px solid var(--card-brd); background:var(--frost); overflow:hidden}
 .acc.d1{margin-left:clamp(0px,2.5vw,26px)} .acc.d2{margin-left:clamp(0px,5vw,52px)} .acc.d3{margin-left:clamp(0px,7vw,74px)}
 .acc.d1,.acc.d2,.acc.d3{background:var(--card-soft)}
 .acc-head{width:100%; display:flex; align-items:center; gap:12px; padding:15px 16px; background:none; border:0; cursor:pointer; text-align:left; font-family:var(--font); color:inherit}
@@ -113,7 +113,7 @@ mark{background:var(--gold); color:var(--navy); border-radius:3px; padding:0 2px
 .kicker::before{content:""; width:28px; height:2px; background:var(--gold)}
 h2.big{font-size:clamp(28px,5vw,48px); font-weight:900; color:#fff; line-height:1.08; letter-spacing:-.02em; text-transform:uppercase}
 .lead{font-size:clamp(15px,1.7vw,18px); color:var(--ink-mut); max-width:680px; margin-top:14px}
-.card{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); box-shadow:var(--e-1); backdrop-filter:blur(10px)}
+.card{background:var(--frost); border:1px solid var(--card-brd); border-radius:var(--r-lg); box-shadow:var(--e-1)}
 .steps{margin-top:22px; display:flex; flex-direction:column; gap:10px}
 .step{display:flex; gap:14px; padding:15px 18px}
 .stepn{flex:none; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--blue-dk); color:#fff; font-weight:900; font-size:14px; border:2px solid var(--gold)}
@@ -137,10 +137,10 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
 .fl{display:flex; align-items:center; gap:12px; min-width:0} .fl img{height:40px} .fl div{font-weight:900; color:#fff; font-size:14px}
 .fl small{display:block; font-weight:600; color:var(--ink-mut); font-size:12px; margin-top:2px}
 .copy{flex-basis:100%; border-top:1px solid var(--card-brd); padding-top:14px; font-size:12px; color:var(--ink-mut)}
-.backtop{position:fixed; right:16px; bottom:16px; z-index:70; width:46px; height:46px; border-radius:50%; border:1px solid var(--card-brd); background:linear-gradient(155deg, rgba(17,34,51,.94), rgba(9,21,33,.9)); color:var(--gold-lt); font-size:18px; cursor:pointer; box-shadow:var(--e-2); opacity:0; pointer-events:none; transition:opacity .3s}
+.backtop{position:fixed; right:16px; bottom:16px; z-index:70; width:46px; height:46px; border-radius:50%; border:1px solid var(--card-brd); background:linear-gradient(155deg, rgba(17,34,51,.94), rgba(9,21,33,.9)); color:var(--gold-lt); font-size:18px; cursor:pointer; box-shadow:var(--e-1); opacity:0; pointer-events:none; transition:opacity .3s}
 .backtop.on{opacity:1; pointer-events:auto}
 /* ===== REGELN — Cheat-Sheet (durchsuchbar, Synonyme, Treffer-Markierung, 5 + Mehr) ===== */
-.rcs{background:var(--card); backdrop-filter:blur(10px); border:1px solid var(--card-brd); border-radius:var(--r-xl); box-shadow:var(--e-1); padding:clamp(16px,2.6vw,26px)}
+.rcs{background:var(--frost); border:1px solid var(--card-brd); border-radius:var(--r-xl); box-shadow:var(--e-1); padding:clamp(16px,2.6vw,26px)}
 .rcs-search{position:relative; display:flex; align-items:center}
 .rcs-search .ico{position:absolute; left:15px; color:var(--ink-mut); pointer-events:none}
 #rcsQ{flex:1; min-width:0; font-family:var(--font); font-size:15.5px; font-weight:600; color:#fff; background:linear-gradient(155deg,rgba(17,34,51,.66),rgba(9,21,33,.5)); border:1px solid var(--card-brd); border-radius:var(--r-pill); padding:13px 44px; outline:none; transition:border-color var(--t-fast),box-shadow var(--t-fast)}

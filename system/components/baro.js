@@ -64,7 +64,7 @@
   /* ---------- CSS (eigener Präfix `tb-`) ---------- */
   if (!document.getElementById('tfcz-baro-css')) {
     var css = [
-      '.tb-box{background:var(--card,rgba(17,34,51,.6)); backdrop-filter:blur(10px); border:1px solid var(--card-brd,rgba(255,255,255,.14));',
+      '.tb-box{background:var(--frost,rgba(18,36,54,.9)); border:1px solid var(--card-brd,rgba(255,255,255,.14));',
         'border-radius:var(--r-xl,22px); box-shadow:var(--e-2,0 12px 34px rgba(0,0,0,.35)); padding:clamp(18px,3vw,32px)}',
       '.tb-wrap{display:grid; grid-template-columns:auto 300px 1fr; gap:clamp(18px,3vw,34px); align-items:stretch}',
 

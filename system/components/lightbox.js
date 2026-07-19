@@ -85,7 +85,7 @@
       '.tfcz-lb-thumb .tfcz-mini:empty{display:none}',
       '.tfcz-lb-thumb .tfcz-mini svg{fill:#fff; stroke:#fff}',
       /* Badge für Seiten ohne eigenes Badge-CSS (z. B. Training-Marquee) */
-      '.tfcz-like-badge{position:absolute; right:8px; bottom:8px; z-index:2; font-size:12px; font-weight:900; color:#fff; background:rgba(9,21,33,.7); backdrop-filter:blur(4px); border-radius:999px; padding:3px 9px; line-height:1.2; box-shadow:0 2px 6px rgba(0,0,0,.5); pointer-events:none}',
+      '.tfcz-like-badge{position:absolute; right:8px; bottom:8px; z-index:2; font-size:12px; font-weight:900; color:#fff; background:rgba(9,21,33,.86); border-radius:999px; padding:3px 9px; line-height:1.2; box-shadow:0 2px 6px rgba(0,0,0,.5); pointer-events:none}',
       '.tfcz-like-badge:empty{display:none}',
 
       '@media(max-width:640px){',

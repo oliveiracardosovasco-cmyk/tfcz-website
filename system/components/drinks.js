@@ -44,7 +44,7 @@
       '.tfcz-menu{display:grid; grid-template-columns:repeat(var(--tfcz-menu-cols,3),1fr); gap:14px}',
       '@media(max-width:820px){.tfcz-menu{grid-template-columns:1fr 1fr}}',
       '@media(max-width:520px){.tfcz-menu{grid-template-columns:1fr}}',
-      '.tfcz-menu-cat{background:linear-gradient(155deg, rgba(17,34,51,.74), rgba(9,21,33,.60)); backdrop-filter:blur(8px);',
+      '.tfcz-menu-cat{background:var(--frost, linear-gradient(155deg, rgba(18,36,54,.92), rgba(10,23,36,.88)));',
         'border:1px solid var(--card-brd,rgba(255,255,255,.14)); border-radius:var(--r-lg,16px); padding:20px}',
       '.tfcz-menu-cat h3{display:flex; align-items:center; gap:8px; font-size:15px; font-weight:900; color:var(--gold-lt,#e9c475);',
         'text-transform:uppercase; letter-spacing:.06em; margin:0 0 12px}',
