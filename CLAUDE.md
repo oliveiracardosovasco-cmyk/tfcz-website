@@ -711,12 +711,58 @@ Login/Auth. Was hier steht, ist **Zielbild, noch keine geltende Umsetzung**.
   Die alten Module `_module/js/tfcz-gallery.js` + `tfcz-likes.js` sind damit abgelöst.
   Die **Marquee-/Reihen-Optik** (`.gal`/`.grow`/`.gitem` auf der Home, `.marquee` auf Training) bleibt
   Seiten-Layout — geteilt ist der Player, nicht das Layout.
-- **Karte** — Baustein `system/components/map.js` (Leaflet + CARTO **Dark-Tiles**, kein API-Key),
-  Brand-Pin (Gold auf Navy, blauer Ring), „Karte öffnen"-Fallback. Die Seite schreibt nur
-  `<div data-tfcz="map"></div>` + `<script defer src="system/components/map.js">`. Die **Koordinate
-  kommt aus `system/content.js` (`TFCZ.content.ort`)** — eine Zeile, überall gültig. Optional pro
-  Platzhalter: `data-zoom` / `data-lat` / `data-lng`. Home und Firmenevents nutzen denselben Baustein;
-  die alten Google-/OSM-Embeds (zwei verschiedene, beide hell) sind abgelöst.
+
+### Foto-CMS: Slots & Karussells (Bau-Logik, verbindlich, 20.07.2026)
+
+**Single Source = `assets/fotos/galerie/mapping.json`** (slotKey → Wert). Nur diese Datei bestimmt, welches
+Bild wo erscheint. Der Foto-Manager (`assets/fotos/galerie/foto-manager.html`, Reiter „Slot-Belegung")
+liest sie beim Öffnen und schreibt sie beim Speichern; die Slot-Liste steht in `slots.json`.
+
+**Zwei Slot-Arten (Feld `type` in `slots.json`):**
+- **Einzelbild** (`type:"img"` oder `"bg"`): Wert in mapping.json = **ein Bildpfad**. Auf der Seite trägt das
+  Element `data-slot="<key>"`; der Loader **`system/tfcz-images.js`** setzt `img.src` bzw.
+  `background-image`. `data-slot` sitzt genau am richtigen Element (Match per `slots.current` in
+  Dokument-Reihenfolge).
+- **Karussell / Feed** (`type:"feed"`): Wert = **Liste von thumb-Pfaden** (feste Reihenfolge, im Manager
+  beim Speichern **einmal** gemischt) **ODER** ein Spiegel-Objekt `{"same_as":"<anderer feedKey>"}`.
+
+**„Home"-Karussell = `index.galerie-feed`** ist die Referenz für den Spiegel. Jedes andere Karussell kann
+im Manager per Toggle **„Gleich wie Home"** (schreibt `{same_as:"index.galerie-feed"}`) oder **„Eigene
+Auswahl"** (eigene Liste) sein. Nicht-Home-Feeds sind **standardmässig Spiegel**. Default-Auswahl eines
+Feeds = **alle `schlumpf`-Fotos** (blaue Trikots).
+
+**Loader/Resolver (alle Karussell-Skripte):** immer `resolveFeed(map,key)` — gibt bei Liste die Liste, bei
+`{same_as}` rekursiv die Liste des Ziel-Feeds (Tiefe ≤ 4). Kein Wert / kein Ziel → `null` → **Fallback auf
+die im HTML hinterlegten Bilder** (nie leer). Marquees verdoppeln die Liste (nahtlose Schleife); nach dem
+Neuaufbau `TFCZ.lightbox.paintBadges()` rufen. Lightbox/Likes funktionieren mit dynamischen Bildern, weil
+der Player die Bilder erst beim Klick einliest (Delegation).
+
+**Bau-Logik für JEDES neue Karussell (immer diese Struktur):**
+1. **`slots.json`**: einen Slot `type:"feed"` mit `key`, `page`, `label`, `page_file`, `anchor` anlegen.
+2. **Seite**: den Container markieren und einen Loader einbinden —
+   - **Marquee-Strip**: `.mtrack` bekommt `data-feed="<key>"`; am `</body>`
+     `<script defer src="system/tfcz-carousel.js"></script>`. Der Loader füllt es automatisch.
+   - **Andere Rotations-/Grid-Optik** (z. B. Insta-Diashow): eigene IIFE nach dem Muster
+     **fetch(mapping) → `resolveFeed` → Slides/Items neu bauen → Rotation/Setup starten**, mit
+     **Fallback** auf die HTML-Bilder, wenn keine Liste da ist (siehe `tfcz-ueber-uns.html`, `#igShow`).
+     Die Home-Galerie (`index.html`, `#growA/#growB`) macht es genauso (2 Reihen).
+3. **Manager**: nichts extra bauen. Feed-Slots aus `slots.json` erscheinen **automatisch** als Feed-Karte mit
+   **Mehrfachauswahl** (im Fotos-Tab an/abklicken), **„Alle Schlumpf" / „Leeren"** und dem **„Gleich wie
+   Home / Eigene Auswahl"-Toggle**. Diese Struktur ist Pflicht und gilt für jedes Karussell gleich.
+4. Nach dem Zuweisen: **speichern** (mapping.json) und **„Website veröffentlichen"** — sonst greift der
+   Fallback und es ändert sich nichts (statische Seite, kein Backend).
+
+- **Karte** — Baustein `system/components/map.js`: **Google Maps** (keyless `output=embed`, kein
+  API-Key, keine Kosten), **hell**, mit Pin **direkt an der Vereinsadresse**. Der Pin kommt über die
+  **Adresse als Suchbegriff** (`q=`), die Google selbst geocodiert — NICHT über eine Koordinate (die
+  alten Registry-Koordinaten `47.3969, 8.5312` waren der generische Zürich-Default und sassen daneben).
+  Adresse aus `system/content.js` (`TFCZ.content.ort.label`) — eine Zeile, überall gültig.
+  `loading="lazy"` (lädt erst beim Hinscrollen), „Karte öffnen"-Fallback wenn der Embed blockiert ist.
+  Die Seite schreibt nur `<div data-tfcz="map"></div>` + `<script defer src="system/components/map.js">`.
+  Optional pro Platzhalter: `data-q` (Adresse überschreiben) / `data-zoom` (Default 16). Home und
+  Firmenevents nutzen denselben Baustein — **eine Korrektur wirkt auf beiden**. **Dark Mode bewusst
+  nicht** (Vasco, 20.07.2026): echtes dunkles Google Maps braucht die JS-API + API-Key/Billing; hell +
+  keyless gewollt. Live im Brand Guide, Sektion »Karte«.
 - **Hintergrund-Effekt** — ausschliesslich `assets/js/bg-swirl.js` (globales Modul), 1× pro Seite,
   gleiche Parameter; nie inline dupliziert. Muss auf JEDER Seite gleich sein.
 - **Navigation** — **aktiv**: Baustein `system/components/nav.js`. Die Seite behält ihren Kopf

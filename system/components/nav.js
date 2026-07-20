@@ -59,8 +59,8 @@
       '.tn-burger:hover .bl.c,.tn-burger.anim .bl.c{animation:tnBurger .6s cubic-bezier(.34,1.56,.64,1) .2s both}',
 
       /* Scrim */
-      '.tn-scrim{position:fixed; inset:0; z-index:104; background:rgba(4,10,17,.6); backdrop-filter:blur(2px);',
-        'opacity:0; pointer-events:none; transition:opacity .3s cubic-bezier(.4,0,.2,1)}',
+      '.tn-scrim{position:fixed; inset:0; z-index:104; background:rgba(4,10,17,.6);',
+        'opacity:0; pointer-events:none}',
       '.tn-scrim.on{opacity:1; pointer-events:auto}',
 
       /* Drawer — Akkordeon nach unten, unter der Goldlinie, volle Resthöhe.
@@ -74,7 +74,7 @@
         'border-left:1px solid var(--card-brd,rgba(255,255,255,.14));',
         'border-bottom:3px solid var(--gold,#cda857);',
         'box-shadow:-24px 0 60px rgba(0,0,0,.5);',
-        'transition:max-height .42s cubic-bezier(.4,0,.2,1)}',
+        'transition:none}',
       /* Zugeklappt darf NICHTS sichtbar sein: max-height:0 blendet den Inhalt aus,
          aber Rand und Schatten bleiben sonst stehen — das war der goldene Balken
          unter der Menüleiste (Vasco 14.07.2026). */
@@ -128,8 +128,8 @@
 
       /* Drop-Cascade */
       '@keyframes tnDrop{from{opacity:0; transform:translateY(-16px)}to{opacity:1; transform:none}}',
-      '.tn-inner > *{opacity:0}',
-      '.tn-drawer.open .tn-inner > *{animation:tnDrop .5s cubic-bezier(.34,1.56,.64,1) both}',
+      '.tn-inner > *{opacity:1}',
+      '.tn-drawer.open .tn-inner > *{animation:none}',
       '.tn-drawer.open .tn-inner > *:nth-child(1){animation-delay:.03s}',
       '.tn-drawer.open .tn-inner > *:nth-child(2){animation-delay:.07s}',
       '.tn-drawer.open .tn-inner > *:nth-child(3){animation-delay:.11s}',
@@ -291,15 +291,11 @@
     }
     function zu() {
       if (!drawer.classList.contains('open')) return;
-      var weg = function () {
-        drawer.classList.remove('open');
-        scrim.classList.remove('on');
-        burger.setAttribute('aria-expanded', 'false');
-        drawer.setAttribute('aria-hidden', 'true');
-      };
-      /* Schliessen IMMER über den Portal-Baustein */
-      if (window.TFCZ && TFCZ.portal) TFCZ.portal.close(drawer, weg);
-      else weg();
+      /* Ganz normal schliessen — ohne Effekt (Performance) */
+      drawer.classList.remove('open');
+      scrim.classList.remove('on');
+      burger.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
     }
 
     burger.addEventListener('click', function () {

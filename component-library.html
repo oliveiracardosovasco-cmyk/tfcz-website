@@ -546,6 +546,7 @@ input[type=range].rng:focus-visible::-webkit-slider-thumb{border-color:var(--gol
 <script defer src="system/components/drinks.js"></script>
 <script defer src="system/components/baro.js"></script>
 <script defer src="system/components/dock-magnify.js"></script>
+<script defer src="system/components/map.js"></script>
 <script defer src="assets/js/bg-swirl.js"></script>
 <script defer src="assets/js/tfcz-fx.js"></script>
 <script defer src="assets/js/bg-toc.js"></script>
@@ -12365,6 +12366,36 @@ TFCZ.portal.close(fensterEl, function () {
 </section>
 
 <!-- EASTER-EGG · EMBLEM-POP -->
+<!-- KARTE -->
+<section class="cl" id="kartebaustein">
+  <div class="sec-h"><span class="num">15h</span><h2>Karte · Google Maps</h2></div>
+  <p class="sec-sub"><b>Ein Baustein, beide Seiten.</b> Home und Firmenevents zeigen dieselbe Karte über
+    <code>system/components/map.js</code>. Es ist <b>Google Maps</b>, keyless (klassischer
+    <code>output=embed</code>, kein API-Key, keine Kosten), <b>hell</b>, mit Pin <b>direkt an der
+    Vereinsadresse</b>. Der Pin kommt über die <b>Adresse als Suchbegriff</b> (<code>q=</code>), die
+    Google selbst geocodiert &mdash; nicht über eine Koordinate (die alten Registry-Koordinaten waren der
+    generische Zürich-Default und sassen daneben). Adresse aus <code>system/content.js</code>
+    (<code>TFCZ.content.ort.label</code>): eine Zeile, überall gültig. <code>loading="lazy"</code> lädt
+    die Karte erst beim Hinscrollen (Performance). <b>Dark Mode bewusst nicht</b> &mdash; echtes dunkles
+    Google Maps bräuchte die JavaScript-API + API-Key; hell &amp; keyless ist gewollt.</p>
+  <div class="demo col">
+    <div class="ccard">
+      <h4>So baut man sie ein</h4>
+      <pre class="codeblock"><code>&lt;div data-tfcz="map"&gt;&lt;/div&gt;
+&lt;script src="system/content.js"&gt;&lt;/script&gt;
+&lt;script defer src="system/components/map.js"&gt;&lt;/script&gt;</code></pre>
+      <p class="sec-sub" style="margin:10px 0 0">Optional pro Platzhalter:
+        <code>data-q="Strasse 1, 8000 Ort"</code> (Adresse überschreiben) · <code>data-zoom="16"</code>.
+        Zieht der Verein um, ändert man <b>eine</b> Zeile in <code>system/content.js</code> &mdash; beide
+        Karten folgen.</p>
+    </div>
+    <div class="ccard">
+      <h4>Live &mdash; der echte Baustein</h4>
+      <div data-tfcz="map" style="width:100%; height:340px; border-radius:14px; overflow:hidden; border:1px solid var(--card-brd)"></div>
+    </div>
+  </div>
+</section>
+
 <section class="cl" id="easteregg">
   <div class="sec-h"><span class="num">16</span><h2>Easter-Egg · Emblem-Pop</h2></div>
   <p class="sec-sub">Belohnungs-Popup der Eiersuche. Klasse <code>.eegg</code>: Ei fällt rein, <b>wackelt zunehmend (Spannung)</b>, knackt dann auf — das <b>blaue TFCZ-Emblem</b> springt mit Bounce heraus, Konfetti rundherum. Wiederverwendbar für jeden Egg-Fund.</p>

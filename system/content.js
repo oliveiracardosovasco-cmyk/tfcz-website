@@ -43,6 +43,7 @@ TFCZ.content = {
     medien:      { href: 'tfcz-medien.html',       text: 'Medien' },
     brandguide:  { href: 'component-library.html', text: 'Brand Guide' },
     designstudio:{ href: 'design-studio.html',     text: 'Design Studio' },
+    fotomanager: { href: 'assets/fotos/galerie/foto-manager.html', text: 'Foto-Manager' },
     login:       { href: 'login.html',             text: 'Login' }
   },
 
@@ -71,5 +72,5 @@ TFCZ.content = {
   ],
 
   /* ---- Welche Links stehen im Footer (Reihenfolge) ---- */
-  footerLinks: ['mitglied','training','firmenevents','ueberuns','geschichte','regeln','medien','brandguide','designstudio']
+  footerLinks: ['mitglied','training','firmenevents','ueberuns','geschichte','regeln','medien','brandguide','designstudio','fotomanager']
 };
