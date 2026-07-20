@@ -469,7 +469,7 @@ var $$=function(s,c){return [].slice.call((c||document).querySelectorAll(s));};
   function rslv(m,k,d){d=d||0;var v=m&&m[k];if(!v||d>4)return null;if(Array.isArray(v))return v;if(v.same_as)return rslv(m,v.same_as,d+1);return null;}
   function rebuild(srcs){
     $$('.slide',box).forEach(function(el){ el.parentNode.removeChild(el); });
-    var html=srcs.map(function(p){ return '<div class="slide"><img src="'+p+'" alt="TFCZ Instagram"><div class="cap">#tfcz</div></div>'; }).join('');
+    var html=srcs.map(function(p){ var f=p.replace('/galerie/thumb/','/galerie/full/'); return '<div class="slide"><img src="'+f+'" alt="TFCZ Instagram"><div class="cap">#tfcz</div></div>'; }).join('');
     dotsWrap.insertAdjacentHTML('beforebegin', html);
     var first=box.querySelector('.slide'); if(first) first.classList.add('on');
   }

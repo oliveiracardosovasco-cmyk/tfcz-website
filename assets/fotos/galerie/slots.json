@@ -1,5 +1,5 @@
 {
- "count": 20,
+ "count": 18,
  "slots": [
   {
    "key": "index.hero",
@@ -137,15 +137,6 @@
    "anchor": "warum"
   },
   {
-   "key": "training.strip",
-   "page": "Training",
-   "label": "Foto-Karussell (mehrere Bilder)",
-   "current": null,
-   "type": "feed",
-   "page_file": "tfcz-training.html",
-   "anchor": null
-  },
-  {
    "key": "firmenevents.hero",
    "page": "Firmenevents",
    "label": "Hero – Firmenteam",
@@ -171,15 +162,6 @@
    "type": "img",
    "page_file": "tfcz-firmenevents.html",
    "anchor": "fakten"
-  },
-  {
-   "key": "firmenevents.strip",
-   "page": "Firmenevents",
-   "label": "Foto-Karussell (mehrere Bilder)",
-   "current": null,
-   "type": "feed",
-   "page_file": "tfcz-firmenevents.html",
-   "anchor": null
   }
  ]
 }
