@@ -128,7 +128,7 @@
       /* Info-Sheet */
       '.tb-sheet{position:fixed; inset:0; z-index:210; display:none}',
       '.tb-sheet.on{display:block}',
-      '.tb-sheet .bd{position:absolute; inset:0; background:rgba(4,10,17,.72); backdrop-filter:blur(4px)}',
+      '.tb-sheet .bd{position:absolute; inset:0; background:rgba(4,10,17,.86)}',
       '.tb-sheet .card{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(620px,92vw); max-height:82vh; overflow-y:auto; overflow-x:hidden;',
         'background:linear-gradient(155deg, rgba(10,26,40,.97), rgba(7,18,30,.96)); border:1px solid var(--card-brd,rgba(255,255,255,.14));',
         'border-top:3px solid var(--blue,#5ca7dc); border-bottom:3px solid var(--gold,#cda857); border-radius:var(--r-lg,16px);',

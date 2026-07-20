@@ -45,7 +45,7 @@ p.body{font-size:clamp(15px,1.55vw,16.5px); color:var(--ink-mut); margin-top:14p
 
 /* Unterseiten-Nav */
 .nav{position:sticky; top:0; z-index:95; display:flex; align-items:center; gap:10px;
-  padding:12px max(22px, calc((100% - 1160px)/2 + 22px)); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  padding:12px max(22px, calc((100% - 1160px)/2 + 22px));
   background:linear-gradient(155deg, rgba(10,24,38,.92), rgba(6,15,24,.90));
   border-top:3px solid var(--blue); border-bottom:3px solid var(--gold);   /* Balken GERADE (kein border-radius) */ box-shadow:var(--e-2)}
 .nav .logo{display:flex; align-items:center; gap:10px; min-width:0; flex:none}
@@ -69,7 +69,7 @@ h1 .g{color:var(--gold-lt)}
 .stat>span{display:block; margin-top:6px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-mut)}
 .stat .l-wa{display:none} body.wallis .stat .l-de{display:none} body.wallis .stat .l-wa{display:inline}
 
-.card{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); box-shadow:var(--e-1); backdrop-filter:blur(10px)}
+.card{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); box-shadow:var(--e-1);}
 .split{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(20px,3.5vw,44px); align-items:center}
 @media(max-width:820px){ .split{grid-template-columns:1fr} }
 .ph{border-radius:var(--r-xl); overflow:hidden; border:1px solid var(--card-brd); box-shadow:var(--e-1)}

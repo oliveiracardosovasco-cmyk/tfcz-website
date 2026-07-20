@@ -160,19 +160,27 @@ Empfänger für den Mail-Weg: `info@tfcz.ch` (aus `system/content.js`).
 Diese ruft das Frontend **noch nicht** auf — hier ist der Vertrag noch verhandelbar. Bevor sie gebaut
 werden, tragen wir sie hier ein.
 
-### 3.1 Login / Auth
+### 3.1 Login / Auth — **GEBAUT** (`backend/`, Stand siehe Commit)
 
-`login.html` existiert heute nur als Hülle: es gibt kein Anmelden dahinter.
-
-Erwartung des Frontends:
+Der Server existiert jetzt: **`backend/`** (Node · Express · MySQL). `login.html` ist angebunden,
+das Design Studio liest die Rolle. Einrichten: `backend/README.md`.
 
 ```jsonc
+POST /api/register   { "name": "…", "email": "…", "passwort": "…" }   // ≥ 8 Zeichen
+  -> 201 { "token": "…", "user": { "id": 42, "name": "Vasco", "email":"…", "rolle": "mitglied" } }
+  -> 409 wenn die E-Mail schon existiert · 400 bei ungültiger Eingabe
+
 POST /api/login      { "email": "…", "passwort": "…" }
-  -> { "token": "…", "user": { "id": 42, "name": "Vasco", "rolle": "mitglied" } }
+  -> 200 { "token": "…", "user": { "id": 42, "name": "Vasco", "email":"…", "rolle": "mitglied" } }
+  -> 401 falsche Zugangsdaten · 429 zu viele Versuche (8 / 10 min je IP+E-Mail)
 
 POST /api/logout     (geschützt) -> 204
-GET  /api/me         (geschützt) -> { "id": 42, "name": "Vasco", "rolle": "mitglied" }
+GET  /api/me         (geschützt) -> { "id": 42, "name": "Vasco", "email":"…", "rolle": "mitglied" }
+GET  /api/health                 -> { "ok": true }
 ```
+
+**Umgesetzt:** bcrypt-Passwort-Hash, JWT (`Authorization: Bearer`), Rate-Limit, parametrisierte
+SQL. Beim ersten `npm run init-db` wird aus `.env` ein Admin-Konto angelegt.
 
 Nach dem Login setzt die Seite `window.TFCZ_USER` und `window.TFCZ_TOKEN` — ab dann folgen Likes und
 Profil dem Nutzer.

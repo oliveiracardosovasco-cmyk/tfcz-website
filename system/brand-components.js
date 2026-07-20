@@ -77,7 +77,7 @@
     'geschichte': { href: 'tfcz-geschichte.html', text: 'Unsere Geschichte', stil: 'ghost' },
     'anmelden-turnier': { href: 'https://app.tablesoccer.org', text: 'Zum Turnier anmelden', stil: 'gold' },
     'mail': { href: 'mailto:info@tfcz.ch', text: 'info@tfcz.ch', stil: 'ghost' },
-    'route': { href: 'https://maps.apple.com/?q=Landenbergstrasse+10,+8037+Z%C3%BCrich', text: 'Route öffnen', stil: 'ghost' },
+    'route': { href: 'https://www.google.com/maps/dir/?api=1&destination=Landenbergstrasse+10%2C+8037+Z%C3%BCrich', text: 'Route öffnen', stil: 'ghost' },
     'schnuppern': { href: 'mitglied.html#pakete', text: 'Erster Abend gratis', stil: 'gold' }
   };
 
@@ -502,7 +502,7 @@
         var brd = p.rahmen && !p.signatur ? 'border:1px solid rgba(255,255,255,.13);' : '';
         return '<div style="width:' + Math.round((p.w || 460) * k) + 'px;height:' + Math.round((p.h || 260) * k) + 'px;' +
           'background:' + FILL + ';border-radius:' + Math.round((p.radius || 16) * k) + 'px;' + brd + sig +
-          (p.fuellung === 'frosted' ? 'backdrop-filter:blur(10px);' : '') + '"></div>';
+          (p.fuellung === 'frosted' ? '' : '') + '"></div>';
       }
     },
 

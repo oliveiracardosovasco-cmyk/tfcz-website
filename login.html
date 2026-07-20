@@ -174,17 +174,77 @@ body{font-family:var(--font);color:var(--ink);min-height:100vh;display:grid;plac
 
   function val(id){ return document.getElementById(id).value.trim(); }
   function mail(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
-  vLogin.addEventListener('submit',function(e){ e.preventDefault(); var ok=mail(val('loginEmail'))&&val('loginPw').length>0;
-    document.getElementById('loginErr').style.display=ok?'none':'block';
-    if(ok){ /* TODO: POST /api/login — bis dahin direkt ins Dashboard */ location.href='dashboard.html'; } });
+
+  /* ===== Anbindung an die Website-API (backend/) =====
+     window.TFCZ_API muss gesetzt sein (z. B. in einem config.js im <head> oder vom Server
+     ins HTML gerendert). Ist es NICHT gesetzt, läuft alles wie bisher weiter: „Weiter ohne
+     Konto" führt ins Dashboard, echtes Anmelden meldet freundlich, dass der Server fehlt.
+     Nach erfolgreichem Login/Registrieren werden Profil + Token gemerkt — der Rest der Seite
+     (und das Design Studio) liest sie aus. */
+  var API = (window.TFCZ_API || '').replace(/\/+$/,'');
+  function speichereSession(data, merken){
+    try{
+      var store = merken ? localStorage : sessionStorage;
+      store.setItem('tfcz_token', data.token);
+      store.setItem('tfcz_user', JSON.stringify(data.user));
+    }catch(e){}
+    window.TFCZ_TOKEN = data.token;
+    window.TFCZ_USER  = data.user;
+  }
+  function zeigeFehler(id, text){ var el=document.getElementById(id); if(el){ if(text)el.textContent=text; el.style.display='block'; } }
+  function versteckeFehler(id){ var el=document.getElementById(id); if(el)el.style.display='none'; }
+
+  async function apiPost(pfad, body){
+    var r = await fetch(API + pfad, {
+      method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(body)
+    });
+    var data = {}; try{ data = await r.json(); }catch(e){}
+    if(!r.ok) throw new Error(data.error || 'Es hat nicht geklappt. Bitte später erneut versuchen.');
+    return data;
+  }
+
+  // --- Anmelden ---
+  vLogin.addEventListener('submit', async function(e){ e.preventDefault();
+    if(!(mail(val('loginEmail')) && val('loginPw').length>0)){ zeigeFehler('loginErr','Bitte E-Mail und Passwort ausfüllen.'); return; }
+    versteckeFehler('loginErr');
+    if(!API){ zeigeFehler('loginErr','Der Login-Server ist noch nicht verbunden. „Weiter ohne Konto" nutzen.'); return; }
+    var btn=e.submitter||vLogin.querySelector('button[type=submit]'); var t=btn?btn.textContent:''; if(btn){btn.disabled=true;btn.textContent='Anmelden…';}
+    try{
+      var data = await apiPost('/api/login', { email: val('loginEmail'), passwort: val('loginPw') });
+      speichereSession(data, document.getElementById('remember') && document.getElementById('remember').checked);
+      location.href = (new URLSearchParams(location.search).get('next')) || 'dashboard.html';
+    }catch(err){ zeigeFehler('loginErr', err.message); }
+    finally{ if(btn){btn.disabled=false;btn.textContent=t;} }
+  });
+
+  // --- Weiter ohne Konto (Gast) ---
   document.getElementById('skipLogin').addEventListener('click',function(){
     try{ sessionStorage.setItem('tfcz_demo','1'); }catch(e){}
-    location.href='dashboard.html';
+    location.href = (new URLSearchParams(location.search).get('next')) || 'dashboard.html';
   });
-  vReg.addEventListener('submit',function(e){ e.preventDefault(); var ok=val('regName')&&mail(val('regEmail'))&&val('regPw').length>=6&&val('regPw')===val('regPw2');
-    document.getElementById('regErr').style.display=ok?'none':'block'; if(ok){ /* TODO: POST /api/register */ } });
-  vForgot.addEventListener('submit',function(e){ e.preventDefault(); var ok=mail(val('forgotEmail'));
-    document.getElementById('forgotErr').style.display=ok?'none':'block'; if(ok){ /* TODO: POST /api/forgot */ } });
+
+  // --- Registrieren ---
+  vReg.addEventListener('submit', async function(e){ e.preventDefault();
+    if(!(val('regName') && mail(val('regEmail')) && val('regPw').length>=8 && val('regPw')===val('regPw2'))){
+      zeigeFehler('regErr','Bitte alle Felder ausfüllen — Passwort mind. 8 Zeichen, beide gleich.'); return;
+    }
+    versteckeFehler('regErr');
+    if(!API){ zeigeFehler('regErr','Der Server ist noch nicht verbunden. „Weiter ohne Konto" nutzen.'); return; }
+    var btn=e.submitter||vReg.querySelector('button[type=submit]'); var t=btn?btn.textContent:''; if(btn){btn.disabled=true;btn.textContent='Konto erstellen…';}
+    try{
+      var data = await apiPost('/api/register', { name: val('regName'), email: val('regEmail'), passwort: val('regPw') });
+      speichereSession(data, true);
+      location.href = (new URLSearchParams(location.search).get('next')) || 'dashboard.html';
+    }catch(err){ zeigeFehler('regErr', err.message); }
+    finally{ if(btn){btn.disabled=false;btn.textContent=t;} }
+  });
+
+  // --- Passwort vergessen (Endpunkt folgt) ---
+  vForgot.addEventListener('submit',function(e){ e.preventDefault();
+    if(!mail(val('forgotEmail'))){ zeigeFehler('forgotErr','Bitte eine gültige E-Mail eingeben.'); return; }
+    versteckeFehler('forgotErr');
+    zeigeFehler('forgotErr','Passwort-Zurücksetzen kommt bald. Bitte melde dich beim TFCZ-Team.');
+  });
 })();
 </script>
 <script defer src="system/components/scroll.js"></script>

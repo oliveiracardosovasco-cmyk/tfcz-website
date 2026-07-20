@@ -35,7 +35,7 @@
   /* ---------- CSS (eigener Präfix `tfcz-lb`) ---------- */
   if (!document.getElementById('tfcz-lb-css')) {
     var css = [
-      '.tfcz-lb{position:fixed; inset:0; z-index:200; background:rgba(4,10,17,.92); backdrop-filter:blur(6px); display:none; flex-direction:column; align-items:center; justify-content:center; padding:clamp(14px,3vw,34px) clamp(14px,4vw,72px) clamp(12px,2vw,22px)}',
+      '.tfcz-lb{position:fixed; inset:0; z-index:200; background:rgba(4,10,17,.92); display:none; flex-direction:column; align-items:center; justify-content:center; padding:clamp(14px,3vw,34px) clamp(14px,4vw,72px) clamp(12px,2vw,22px)}',
       '.tfcz-lb.on{display:flex}',
       '.tfcz-lb-stage{position:relative; display:flex; align-items:center; justify-content:center; flex:1; min-height:0; width:100%}',
       '.tfcz-lb-imgwrap{position:relative; display:inline-block; line-height:0; max-width:100%; animation:tfczLbPop .3s cubic-bezier(.4,0,.2,1)}',
@@ -43,20 +43,20 @@
       '@keyframes tfczLbPop{from{opacity:0; transform:scale(.97)}to{opacity:1; transform:none}}',
 
       /* X — runder Standard-Schliessen-Button */
-      '.tfcz-lb-x{position:absolute; top:10px; right:10px; width:38px; height:38px; border-radius:50%; background:rgba(9,21,33,.62); backdrop-filter:blur(6px); border:1px solid var(--card-brd,rgba(255,255,255,.14)); color:#fff; cursor:pointer; display:grid; place-items:center; z-index:4; transition:.16s ease}',
+      '.tfcz-lb-x{position:absolute; top:10px; right:10px; width:38px; height:38px; border-radius:50%; background:rgba(9,21,33,.82); border:1px solid var(--card-brd,rgba(255,255,255,.14)); color:#fff; cursor:pointer; display:grid; place-items:center; z-index:4; transition:.16s ease}',
       '.tfcz-lb-x svg{width:17px; height:17px}',
       '.tfcz-lb-x:hover{background:var(--red,#da2929); border-color:var(--red,#da2929); animation:tfczXsquish .42s}',
       '.tfcz-lb-x:active{transform:scale(.9)}',
       '@keyframes tfczXsquish{0%{transform:scale(1,1)}35%{transform:scale(1.22,.78)}70%{transform:scale(.92,1.08)}100%{transform:scale(1,1)}}',
 
       /* Pfeile */
-      '.tfcz-lb-nav{position:absolute; top:50%; transform:translateY(-50%); width:clamp(40px,5vw,52px); height:clamp(40px,5vw,52px); border-radius:50%; background:rgba(13,39,61,.55); backdrop-filter:blur(8px); border:1px solid var(--card-brd,rgba(255,255,255,.14)); color:#fff; font-size:26px; line-height:1; cursor:pointer; display:grid; place-items:center; z-index:3; transition:.16s cubic-bezier(.4,0,.2,1)}',
+      '.tfcz-lb-nav{position:absolute; top:50%; transform:translateY(-50%); width:clamp(40px,5vw,52px); height:clamp(40px,5vw,52px); border-radius:50%; background:rgba(13,39,61,.82); border:1px solid var(--card-brd,rgba(255,255,255,.14)); color:#fff; font-size:26px; line-height:1; cursor:pointer; display:grid; place-items:center; z-index:3; transition:.16s cubic-bezier(.4,0,.2,1)}',
       '.tfcz-lb-nav:hover{transform:translateY(-50%) scale(1.08); box-shadow:inset 0 2px 0 var(--blue,#5ca7dc), inset 0 -2px 0 var(--gold,#cda857)}',
       '.tfcz-lb-prev{left:clamp(6px,2vw,20px)} .tfcz-lb-next{right:clamp(6px,2vw,20px)}',
       '.tfcz-lb-nav svg{width:22px; height:22px; display:block}',
 
       /* Herz */
-      '.tfcz-lb-like{position:absolute; right:14px; bottom:14px; width:48px; height:48px; border-radius:50%; background:rgba(13,39,61,.6); backdrop-filter:blur(8px); border:1px solid var(--card-brd,rgba(255,255,255,.14)); cursor:pointer; display:grid; place-items:center; z-index:3; transition:transform .16s cubic-bezier(.4,0,.2,1), border-color .16s}',
+      '.tfcz-lb-like{position:absolute; right:14px; bottom:14px; width:48px; height:48px; border-radius:50%; background:rgba(13,39,61,.85); border:1px solid var(--card-brd,rgba(255,255,255,.14)); cursor:pointer; display:grid; place-items:center; z-index:3; transition:transform .16s cubic-bezier(.4,0,.2,1), border-color .16s}',
       '.tfcz-lb-like svg{display:block; width:24px; height:24px; fill:none; stroke:#fff; stroke-width:2; stroke-linejoin:round; transition:.2s cubic-bezier(.4,0,.2,1)}',
       '.tfcz-lb-like:hover{box-shadow:inset 0 2px 0 var(--blue,#5ca7dc), inset 0 -2px 0 var(--gold,#cda857)}',
       '.tfcz-lb-like:active{transform:scale(.85)}',

@@ -20,7 +20,7 @@ TFCZ.content = {
   logoShield: 'assets/img/logo-shield.png',             // Schild — für den Footer
 
   /* ---- Der EINE Standort (Karte, Kontakt, Anfahrt) ---- */
-  ort: { lat: 47.3969, lng: 8.5312, label: 'Landenbergstrasse 10, 8037 Zürich' },
+  ort: { label: 'Landenbergstrasse 10, 8037 Zürich' },   /* Koordinaten entfernt: Karte pinnt über die Adresse (20.07.2026) */
 
   /* ---- Social ---- */
   social: {
