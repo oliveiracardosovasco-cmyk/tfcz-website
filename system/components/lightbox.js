@@ -53,6 +53,7 @@
       '.tfcz-lb-nav{position:absolute; top:50%; transform:translateY(-50%); width:clamp(40px,5vw,52px); height:clamp(40px,5vw,52px); border-radius:50%; background:rgba(13,39,61,.55); backdrop-filter:blur(8px); border:1px solid var(--card-brd,rgba(255,255,255,.14)); color:#fff; font-size:26px; line-height:1; cursor:pointer; display:grid; place-items:center; z-index:3; transition:.16s cubic-bezier(.4,0,.2,1)}',
       '.tfcz-lb-nav:hover{transform:translateY(-50%) scale(1.08); box-shadow:inset 0 2px 0 var(--blue,#5ca7dc), inset 0 -2px 0 var(--gold,#cda857)}',
       '.tfcz-lb-prev{left:clamp(6px,2vw,20px)} .tfcz-lb-next{right:clamp(6px,2vw,20px)}',
+      '.tfcz-lb-nav svg{width:22px; height:22px; display:block}',
 
       /* Herz */
       '.tfcz-lb-like{position:absolute; right:14px; bottom:14px; width:48px; height:48px; border-radius:50%; background:rgba(13,39,61,.6); backdrop-filter:blur(8px); border:1px solid var(--card-brd,rgba(255,255,255,.14)); cursor:pointer; display:grid; place-items:center; z-index:3; transition:transform .16s cubic-bezier(.4,0,.2,1), border-color .16s}',
@@ -110,10 +111,12 @@
   var lb = document.createElement('div');
   lb.className = 'tfcz-lb';
   lb.setAttribute('aria-hidden', 'true');
+  var ARR_L='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>';
+  var ARR_R='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
   lb.innerHTML =
-    '<button class="tfcz-lb-nav tfcz-lb-prev" aria-label="Vorheriges Bild">‹</button>' +
-    '<button class="tfcz-lb-nav tfcz-lb-next" aria-label="Nächstes Bild">›</button>' +
     '<div class="tfcz-lb-stage">' +
+      '<button class="tfcz-lb-nav tfcz-lb-prev" aria-label="Vorheriges Bild">'+ARR_L+'</button>' +
+      '<button class="tfcz-lb-nav tfcz-lb-next" aria-label="Nächstes Bild">'+ARR_R+'</button>' +
       '<div class="tfcz-lb-imgwrap">' +
         '<img alt="Foto gross" draggable="false">' +
         '<button class="tfcz-lb-x" aria-label="Schliessen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
@@ -153,6 +156,9 @@
       else if (e.key === 'ArrowRight') show(cur + 1);
       else if (e.key === ' ') { e.preventDefault(); toggle(); }
     });
+    var _tx = null;
+    stage.addEventListener('touchstart', function (e) { if (e.touches && e.touches.length === 1) _tx = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', function (e) { if (_tx == null) return; var dx = e.changedTouches[0].clientX - _tx; _tx = null; if (Math.abs(dx) > 40) show(dx < 0 ? cur + 1 : cur - 1); }, { passive: true });
   }
 
   /* ---------- Likes ---------- */
@@ -218,7 +224,7 @@
   function show(i) {
     if (!LISTE.length) return;
     cur = (i % LISTE.length + LISTE.length) % LISTE.length;
-    img.src = LISTE[cur].src;
+    img.src = LISTE[cur].full || LISTE[cur].src;
     img.alt = LISTE[cur].alt || 'Foto gross';
     thumbs.forEach(function (t, j) { t.classList.toggle('cur', j === cur); });
     var ct = thumbs[cur];
@@ -251,6 +257,7 @@
     var f = String(src).split('?')[0].split('#')[0].split('/').pop();
     return f.replace(/\.(jpg|jpeg|png|webp|avif)$/i, '');
   }
+  function fullOf(src){ return String(src).indexOf('/galerie/thumb/') >= 0 ? src.replace('/galerie/thumb/','/galerie/full/') : src; }
   function listeVon(container) {
     var seen = {}, out = [];
     [].forEach.call(container.querySelectorAll('img'), function (im) {
@@ -259,7 +266,7 @@
       var id = idOf(src);
       if (seen[id]) return;          // die Marquee zeigt jedes Bild doppelt
       seen[id] = true;
-      out.push({ id: id, src: src, alt: im.getAttribute('alt') || '' });
+      out.push({ id: id, src: src, full: fullOf(src), alt: im.getAttribute('alt') || '' });
     });
     return out;
   }
