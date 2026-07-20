@@ -1,6 +1,6 @@
 {
  "generated": "2026-07-19",
- "count": 195,
+ "count": 242,
  "categories": [
   {
    "key": "turnier",
@@ -51,7 +51,10 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": [
+    "person-28"
+   ]
   },
   {
    "id": "474",
@@ -66,7 +69,8 @@
    "h": 1130,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "475",
@@ -81,7 +85,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "476",
@@ -96,7 +101,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "477",
@@ -111,7 +117,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "478",
@@ -126,7 +133,8 @@
    "h": 1210,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "479",
@@ -141,7 +149,10 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": [
+    "person-4"
+   ]
   },
   {
    "id": "480",
@@ -156,7 +167,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "481",
@@ -171,7 +183,10 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": [
+    "person-4"
+   ]
   },
   {
    "id": "482",
@@ -186,7 +201,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "483",
@@ -201,7 +217,8 @@
    "h": 1024,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "484",
@@ -216,7 +233,8 @@
    "h": 890,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "485",
@@ -231,7 +249,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "486",
@@ -246,7 +265,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "487",
@@ -261,7 +281,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "488",
@@ -276,7 +297,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "598",
@@ -291,7 +313,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "676",
@@ -305,7 +328,16 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-4",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "677",
@@ -318,7 +350,15 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "678",
@@ -332,7 +372,16 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-4",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "679",
@@ -345,7 +394,15 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "680",
@@ -359,7 +416,16 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-4",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "696",
@@ -374,7 +440,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-28",
+    "person-31"
+   ]
   },
   {
    "id": "697",
@@ -389,7 +459,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-21"
+   ]
   },
   {
    "id": "698",
@@ -404,7 +478,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-4",
+    "person-7",
+    "person-12"
+   ]
   },
   {
    "id": "699",
@@ -420,7 +499,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-32",
+    "person-35",
+    "person-37",
+    "person-38"
+   ]
   },
   {
    "id": "700",
@@ -436,7 +521,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-13",
+    "person-29",
+    "person-32",
+    "person-35"
+   ]
   },
   {
    "id": "701",
@@ -450,7 +541,14 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-12",
+    "person-15",
+    "person-17",
+    "person-22"
+   ]
   },
   {
    "id": "702",
@@ -464,7 +562,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-12"
+   ]
   },
   {
    "id": "703",
@@ -479,7 +581,10 @@
    "h": 1600,
    "event": "turnier-halle",
    "orient": "hoch",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-13"
+   ]
   },
   {
    "id": "704",
@@ -492,7 +597,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-2",
+    "person-6",
+    "person-29",
+    "person-32"
+   ]
   },
   {
    "id": "705",
@@ -507,7 +618,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-5",
+    "person-10"
+   ]
   },
   {
    "id": "706",
@@ -521,7 +636,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-2",
+    "person-5",
+    "person-10"
+   ]
   },
   {
    "id": "707",
@@ -535,7 +655,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-3",
+    "person-5"
+   ]
   },
   {
    "id": "708",
@@ -550,7 +674,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-18",
+    "person-30"
+   ]
   },
   {
    "id": "709",
@@ -565,7 +693,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "710",
@@ -578,7 +707,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-18",
+    "person-23"
+   ]
   },
   {
    "id": "711",
@@ -592,7 +725,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-4",
+    "person-24"
+   ]
   },
   {
    "id": "712",
@@ -607,7 +744,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-4",
+    "person-13",
+    "person-29"
+   ]
   },
   {
    "id": "713",
@@ -622,7 +764,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-13"
+   ]
   },
   {
    "id": "714",
@@ -637,7 +782,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-13"
+   ]
   },
   {
    "id": "715",
@@ -650,7 +798,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-2",
+    "person-5",
+    "person-7",
+    "person-15"
+   ]
   },
   {
    "id": "716",
@@ -663,7 +817,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-15"
+   ]
   },
   {
    "id": "717",
@@ -678,7 +836,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-5"
+   ]
   },
   {
    "id": "718",
@@ -692,7 +853,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-29",
+    "person-32",
+    "person-38"
+   ]
   },
   {
    "id": "719",
@@ -705,7 +871,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-17",
+    "person-22"
+   ]
   },
   {
    "id": "720",
@@ -719,7 +889,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-4",
+    "person-29",
+    "person-38"
+   ]
   },
   {
    "id": "721",
@@ -734,7 +909,14 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-4",
+    "person-13",
+    "person-35",
+    "person-37",
+    "person-38"
+   ]
   },
   {
    "id": "722",
@@ -747,7 +929,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-4"
+   ]
   },
   {
    "id": "723",
@@ -761,7 +946,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-19",
+    "person-43",
+    "person-44"
+   ]
   },
   {
    "id": "724",
@@ -775,7 +965,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-32"
+   ]
   },
   {
    "id": "725",
@@ -791,7 +984,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "726",
@@ -804,7 +998,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-28"
+   ]
   },
   {
    "id": "727",
@@ -819,7 +1016,10 @@
    "h": 1600,
    "event": "turnier-halle",
    "orient": "hoch",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-29"
+   ]
   },
   {
    "id": "728",
@@ -832,7 +1032,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-12"
+   ]
   },
   {
    "id": "729",
@@ -845,7 +1048,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2"
+   ]
   },
   {
    "id": "730",
@@ -859,7 +1066,10 @@
    "h": 1600,
    "event": "turnier-halle",
    "orient": "hoch",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1"
+   ]
   },
   {
    "id": "731",
@@ -873,7 +1083,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-2",
+    "person-3"
+   ]
   },
   {
    "id": "732",
@@ -889,7 +1103,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-12",
+    "person-17"
+   ]
   },
   {
    "id": "733",
@@ -902,7 +1121,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-17"
+   ]
   },
   {
    "id": "734",
@@ -917,7 +1139,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-14"
+   ]
   },
   {
    "id": "738",
@@ -930,7 +1155,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-14"
+   ]
   },
   {
    "id": "739",
@@ -944,7 +1172,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-18",
+    "person-30"
+   ]
   },
   {
    "id": "740",
@@ -958,7 +1190,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-19",
+    "person-25"
+   ]
   },
   {
    "id": "741",
@@ -971,7 +1207,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-35"
+   ]
   },
   {
    "id": "742",
@@ -984,7 +1223,15 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-18",
+    "person-19",
+    "person-23",
+    "person-24",
+    "person-25",
+    "person-30"
+   ]
   },
   {
    "id": "743",
@@ -998,7 +1245,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-19",
+    "person-23",
+    "person-25"
+   ]
   },
   {
    "id": "744",
@@ -1013,7 +1265,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-13",
+    "person-19",
+    "person-35"
+   ]
   },
   {
    "id": "745",
@@ -1030,7 +1287,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-13"
+   ]
   },
   {
    "id": "746",
@@ -1044,7 +1304,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-3",
+    "person-10",
+    "person-11"
+   ]
   },
   {
    "id": "747",
@@ -1057,7 +1323,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-20"
+   ]
   },
   {
    "id": "748",
@@ -1070,7 +1339,10 @@
    "h": 1600,
    "event": "turnier-halle",
    "orient": "hoch",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-20"
+   ]
   },
   {
    "id": "749",
@@ -1083,7 +1355,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-37"
+   ]
   },
   {
    "id": "750",
@@ -1099,7 +1374,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-10",
+    "person-14"
+   ]
   },
   {
    "id": "751",
@@ -1115,7 +1394,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-2"
+   ]
   },
   {
    "id": "752",
@@ -1129,7 +1411,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-15",
+    "person-24"
+   ]
   },
   {
    "id": "753",
@@ -1143,7 +1429,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-12"
+   ]
   },
   {
    "id": "754",
@@ -1159,7 +1449,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1"
+   ]
   },
   {
    "id": "755",
@@ -1175,7 +1468,12 @@
    "h": 1600,
    "event": "turnier-halle",
    "orient": "hoch",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-10"
+   ]
   },
   {
    "id": "756",
@@ -1188,7 +1486,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-13",
+    "person-32",
+    "person-37"
+   ]
   },
   {
    "id": "757",
@@ -1203,7 +1506,14 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-6",
+    "person-8",
+    "person-10"
+   ]
   },
   {
    "id": "758",
@@ -1217,7 +1527,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-2",
+    "person-4"
+   ]
   },
   {
    "id": "760",
@@ -1230,7 +1544,14 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-4",
+    "person-8",
+    "person-10"
+   ]
   },
   {
    "id": "762",
@@ -1246,7 +1567,14 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-15",
+    "person-16",
+    "person-17",
+    "person-22"
+   ]
   },
   {
    "id": "763",
@@ -1263,7 +1591,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-13",
+    "person-29"
+   ]
   },
   {
    "id": "766",
@@ -1277,7 +1609,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-14",
+    "person-16"
+   ]
   },
   {
    "id": "768",
@@ -1292,7 +1628,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "770",
@@ -1306,7 +1643,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-19",
+    "person-23",
+    "person-25"
+   ]
   },
   {
    "id": "772",
@@ -1321,7 +1663,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "773",
@@ -1336,7 +1679,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "774",
@@ -1351,7 +1695,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-2"
+   ]
   },
   {
    "id": "775",
@@ -1368,7 +1715,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "776",
@@ -1382,7 +1730,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-2",
+    "person-5"
+   ]
   },
   {
    "id": "777",
@@ -1395,7 +1747,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-12",
+    "person-16"
+   ]
   },
   {
    "id": "778",
@@ -1408,7 +1765,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-3"
+   ]
   },
   {
    "id": "779",
@@ -1421,7 +1782,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2"
+   ]
   },
   {
    "id": "780",
@@ -1434,7 +1799,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-5",
+    "person-6",
+    "person-10",
+    "person-44"
+   ]
   },
   {
    "id": "781",
@@ -1449,7 +1820,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-10",
+    "person-44"
+   ]
   },
   {
    "id": "782",
@@ -1464,7 +1840,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-3",
+    "person-5",
+    "person-8"
+   ]
   },
   {
    "id": "783",
@@ -1480,7 +1862,16 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-8",
+    "person-10"
+   ]
   },
   {
    "id": "784",
@@ -1495,7 +1886,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-3"
+   ]
   },
   {
    "id": "785",
@@ -1510,7 +1904,14 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-6",
+    "person-8",
+    "person-18",
+    "person-20",
+    "person-30"
+   ]
   },
   {
    "id": "786",
@@ -1527,7 +1928,30 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-7",
+    "person-8",
+    "person-10",
+    "person-14",
+    "person-15",
+    "person-16",
+    "person-17",
+    "person-18",
+    "person-19",
+    "person-20",
+    "person-21",
+    "person-23",
+    "person-25",
+    "person-30",
+    "person-31",
+    "person-39"
+   ]
   },
   {
    "id": "787",
@@ -1544,7 +1968,32 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-7",
+    "person-8",
+    "person-10",
+    "person-12",
+    "person-14",
+    "person-15",
+    "person-18",
+    "person-19",
+    "person-20",
+    "person-21",
+    "person-22",
+    "person-23",
+    "person-25",
+    "person-28",
+    "person-30",
+    "person-31",
+    "person-39",
+    "person-45"
+   ]
   },
   {
    "id": "788",
@@ -1561,7 +2010,34 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-7",
+    "person-8",
+    "person-10",
+    "person-12",
+    "person-14",
+    "person-15",
+    "person-18",
+    "person-19",
+    "person-20",
+    "person-21",
+    "person-22",
+    "person-23",
+    "person-25",
+    "person-28",
+    "person-30",
+    "person-31",
+    "person-39",
+    "person-45",
+    "person-46",
+    "person-47"
+   ]
   },
   {
    "id": "789",
@@ -1579,7 +2055,30 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-7",
+    "person-8",
+    "person-10",
+    "person-14",
+    "person-16",
+    "person-18",
+    "person-20",
+    "person-22",
+    "person-23",
+    "person-25",
+    "person-28",
+    "person-31",
+    "person-39",
+    "person-45",
+    "person-46",
+    "person-47"
+   ]
   },
   {
    "id": "792",
@@ -1595,7 +2094,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-3",
+    "person-5",
+    "person-8",
+    "person-46"
+   ]
   },
   {
    "id": "793",
@@ -1609,7 +2114,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-16"
+   ]
   },
   {
    "id": "794",
@@ -1624,7 +2132,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-14",
+    "person-16",
+    "person-17"
+   ]
   },
   {
    "id": "795",
@@ -1638,7 +2152,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "796",
@@ -1652,7 +2167,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "797",
@@ -1668,7 +2184,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-16"
+   ]
   },
   {
    "id": "798",
@@ -1682,7 +2202,8 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "799",
@@ -1697,7 +2218,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-3",
+    "person-20"
+   ]
   },
   {
    "id": "800",
@@ -1710,7 +2235,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-3",
+    "person-8"
+   ]
   },
   {
    "id": "801",
@@ -1726,7 +2255,8 @@
    "h": 1600,
    "event": "turnier-halle",
    "orient": "hoch",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": []
   },
   {
    "id": "802",
@@ -1742,7 +2272,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-3"
+   ]
   },
   {
    "id": "803",
@@ -1756,7 +2289,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-9",
+    "person-48"
+   ]
   },
   {
    "id": "804",
@@ -1769,7 +2306,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-5",
+    "person-9",
+    "person-48"
+   ]
   },
   {
    "id": "805",
@@ -1783,7 +2326,14 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-3",
+    "person-4",
+    "person-6",
+    "person-8"
+   ]
   },
   {
    "id": "806",
@@ -1797,7 +2347,11 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-48"
+   ]
   },
   {
    "id": "807",
@@ -1811,7 +2365,13 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-3",
+    "person-6",
+    "person-8"
+   ]
   },
   {
    "id": "808",
@@ -1824,7 +2384,10 @@
    "h": 1600,
    "event": "turnier-halle",
    "orient": "hoch",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-28"
+   ]
   },
   {
    "id": "809",
@@ -1839,7 +2402,12 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-12",
+    "person-21",
+    "person-31"
+   ]
   },
   {
    "id": "810",
@@ -1855,7 +2423,10 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-21"
+   ]
   },
   {
    "id": "811",
@@ -1868,7 +2439,16 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-4",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "812",
@@ -1882,7 +2462,15 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "813",
@@ -1896,7 +2484,16 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-4",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "814",
@@ -1911,7 +2508,15 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "815",
@@ -1925,7 +2530,16 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-1",
+    "person-2",
+    "person-3",
+    "person-4",
+    "person-5",
+    "person-6",
+    "person-9"
+   ]
   },
   {
    "id": "816",
@@ -1942,7 +2556,16 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-7",
+    "person-12",
+    "person-14",
+    "person-15",
+    "person-16",
+    "person-17",
+    "person-22"
+   ]
   },
   {
    "id": "817",
@@ -1958,7 +2581,17 @@
    "h": 1067,
    "event": "turnier-halle",
    "orient": "quer",
-   "turnier": "Club Liga 2026"
+   "turnier": "Club Liga 2026",
+   "persons": [
+    "person-3",
+    "person-7",
+    "person-12",
+    "person-14",
+    "person-15",
+    "person-16",
+    "person-17",
+    "person-22"
+   ]
   },
   {
    "id": "dsc_1993",
@@ -1972,7 +2605,8 @@
    "h": 1600,
    "event": "studio",
    "orient": "hoch",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2002",
@@ -1986,7 +2620,8 @@
    "h": 880,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2003",
@@ -2000,7 +2635,8 @@
    "h": 894,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2019",
@@ -2014,7 +2650,8 @@
    "h": 1019,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2023",
@@ -2028,7 +2665,8 @@
    "h": 1151,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2026",
@@ -2042,7 +2680,8 @@
    "h": 1567,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2103",
@@ -2056,7 +2695,8 @@
    "h": 968,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2122",
@@ -2070,7 +2710,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2147",
@@ -2084,7 +2725,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2150",
@@ -2098,7 +2740,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2219",
@@ -2113,7 +2756,8 @@
    "h": 1600,
    "event": "studio",
    "orient": "hoch",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2221",
@@ -2128,7 +2772,8 @@
    "h": 810,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_2288",
@@ -2142,7 +2787,8 @@
    "h": 1067,
    "event": "studio",
    "orient": "quer",
-   "turnier": ""
+   "turnier": "",
+   "persons": []
   },
   {
    "id": "dsc_6715",
@@ -2155,7 +2801,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-24"
+   ]
   },
   {
    "id": "dsc_6724",
@@ -2169,7 +2818,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-3",
+    "person-43"
+   ]
   },
   {
    "id": "dsc_6729",
@@ -2184,7 +2837,8 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": []
   },
   {
    "id": "dsc_6733",
@@ -2199,7 +2853,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-4"
+   ]
   },
   {
    "id": "dsc_6776",
@@ -2213,7 +2870,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-24"
+   ]
   },
   {
    "id": "dsc_6792",
@@ -2226,7 +2886,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-40",
+    "person-41"
+   ]
   },
   {
    "id": "dsc_6811",
@@ -2239,7 +2903,8 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": []
   },
   {
    "id": "dsc_6815",
@@ -2253,7 +2918,13 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-3",
+    "person-11",
+    "person-36",
+    "person-40"
+   ]
   },
   {
    "id": "dsc_6816",
@@ -2267,7 +2938,14 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-3",
+    "person-11",
+    "person-36",
+    "person-40",
+    "person-41"
+   ]
   },
   {
    "id": "dsc_6822",
@@ -2280,7 +2958,13 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-2",
+    "person-33",
+    "person-49",
+    "person-50"
+   ]
   },
   {
    "id": "dsc_6830",
@@ -2293,7 +2977,13 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-1",
+    "person-3",
+    "person-26",
+    "person-51"
+   ]
   },
   {
    "id": "dsc_6831",
@@ -2307,7 +2997,14 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-1",
+    "person-3",
+    "person-26",
+    "person-40",
+    "person-41"
+   ]
   },
   {
    "id": "dsc_6833",
@@ -2320,7 +3017,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-34"
+   ]
   },
   {
    "id": "dsc_6848",
@@ -2333,7 +3033,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-6"
+   ]
   },
   {
    "id": "dsc_6857",
@@ -2347,7 +3050,12 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-1",
+    "person-3",
+    "person-4"
+   ]
   },
   {
    "id": "dsc_6863",
@@ -2361,7 +3069,8 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": []
   },
   {
    "id": "dsc_6867",
@@ -2374,7 +3083,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-4",
+    "person-52"
+   ]
   },
   {
    "id": "dsc_6872",
@@ -2387,7 +3100,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-2"
+   ]
   },
   {
    "id": "dsc_6878",
@@ -2401,7 +3117,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-2",
+    "person-33"
+   ]
   },
   {
    "id": "dsc_6890",
@@ -2415,7 +3135,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-52"
+   ]
   },
   {
    "id": "dsc_6916",
@@ -2428,7 +3151,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-4"
+   ]
   },
   {
    "id": "dsc_6917",
@@ -2443,7 +3169,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-43",
+    "person-47"
+   ]
   },
   {
    "id": "dsc_6922",
@@ -2457,7 +3187,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-13",
+    "person-24"
+   ]
   },
   {
    "id": "dsc_6943",
@@ -2470,7 +3204,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-21",
+    "person-52"
+   ]
   },
   {
    "id": "dsc_6948",
@@ -2484,7 +3222,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-11",
+    "person-21"
+   ]
   },
   {
    "id": "dsc_6972",
@@ -2497,7 +3239,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-49",
+    "person-50"
+   ]
   },
   {
    "id": "dsc_6978",
@@ -2510,7 +3256,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-49",
+    "person-50"
+   ]
   },
   {
    "id": "dsc_6999",
@@ -2523,7 +3273,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-2",
+    "person-33"
+   ]
   },
   {
    "id": "dsc_7012",
@@ -2537,7 +3291,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-4"
+   ]
   },
   {
    "id": "dsc_7017",
@@ -2550,7 +3307,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-8"
+   ]
   },
   {
    "id": "dsc_7026",
@@ -2563,7 +3323,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-8",
+    "person-9"
+   ]
   },
   {
    "id": "dsc_7060",
@@ -2577,7 +3341,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-11",
+    "person-27"
+   ]
   },
   {
    "id": "dsc_7073",
@@ -2590,7 +3358,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-24"
+   ]
   },
   {
    "id": "dsc_7162",
@@ -2603,7 +3374,12 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-4",
+    "person-11",
+    "person-42"
+   ]
   },
   {
    "id": "dsc_7169",
@@ -2616,7 +3392,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-11",
+    "person-42"
+   ]
   },
   {
    "id": "dsc_7180",
@@ -2629,7 +3409,12 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-11",
+    "person-27",
+    "person-42"
+   ]
   },
   {
    "id": "dsc_7184",
@@ -2643,7 +3428,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-11",
+    "person-27"
+   ]
   },
   {
    "id": "dsc_7200",
@@ -2656,7 +3445,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-9",
+    "person-20"
+   ]
   },
   {
    "id": "dsc_7203",
@@ -2669,7 +3462,13 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-4",
+    "person-11",
+    "person-27",
+    "person-42"
+   ]
   },
   {
    "id": "dsc_7237",
@@ -2682,7 +3481,10 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-27"
+   ]
   },
   {
    "id": "dsc_7250",
@@ -2695,7 +3497,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-11",
+    "person-27"
+   ]
   },
   {
    "id": "dsc_7265",
@@ -2710,7 +3516,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-11",
+    "person-27"
+   ]
   },
   {
    "id": "dsc_7270",
@@ -2724,7 +3534,11 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-24",
+    "person-41"
+   ]
   },
   {
    "id": "dsc_7295",
@@ -2737,7 +3551,13 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-1",
+    "person-26",
+    "person-33",
+    "person-34"
+   ]
   },
   {
    "id": "dsc_7302",
@@ -2750,7 +3570,12 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-2",
+    "person-26",
+    "person-33"
+   ]
   },
   {
    "id": "dsc_7326",
@@ -2763,7 +3588,12 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-2",
+    "person-26",
+    "person-33"
+   ]
   },
   {
    "id": "dsc_7335",
@@ -2776,7 +3606,13 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-11",
+    "person-26",
+    "person-27",
+    "person-34"
+   ]
   },
   {
    "id": "dsc_7342",
@@ -2790,7 +3626,13 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-4",
+    "person-34",
+    "person-36",
+    "person-51"
+   ]
   },
   {
    "id": "dsc_7432",
@@ -2804,7 +3646,15 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-2",
+    "person-11",
+    "person-26",
+    "person-34",
+    "person-36",
+    "person-51"
+   ]
   },
   {
    "id": "dsc_7463",
@@ -2818,7 +3668,814 @@
    "h": 1067,
    "event": "club-abend",
    "orient": "quer",
-   "turnier": "Zürich Open 1"
+   "turnier": "Zürich Open 1",
+   "persons": [
+    "person-26",
+    "person-34",
+    "person-36"
+   ]
+  },
+  {
+   "id": "1050",
+   "category": "portrait",
+   "tags": [
+    "portrait",
+    "zwei",
+    "maenner",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-1"
+   ]
+  },
+  {
+   "id": "1051",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "tisch",
+    "frau",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1052",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "tisch",
+    "publikum",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1053",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "publikum",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-4"
+   ]
+  },
+  {
+   "id": "1054",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "tisch",
+    "hand",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1055",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "tisch",
+    "hand",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1056",
+   "category": "atmo",
+   "tags": [
+    "uebersicht",
+    "publikum",
+    "halle",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1057",
+   "category": "atmo",
+   "tags": [
+    "uebersicht",
+    "dunkel",
+    "halle",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1058",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "gruppe",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-28"
+   ]
+  },
+  {
+   "id": "1059",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "tisch",
+    "hand",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1060",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "trikot",
+    "schlumpf",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-30",
+    "person-50"
+   ]
+  },
+  {
+   "id": "1061",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "dunkel",
+    "equipment",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1062",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "zwei",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1063",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "tisch",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1064",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "gruppe",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1065",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "gruppe",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1066",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "frau",
+    "trikot",
+    "schlumpf",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-16"
+   ]
+  },
+  {
+   "id": "1067",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "frau",
+    "zwei",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-12",
+    "person-39"
+   ]
+  },
+  {
+   "id": "1068",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "trikot",
+    "schlumpf",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-50"
+   ]
+  },
+  {
+   "id": "1069",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "frau",
+    "trikot",
+    "schlumpf",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-50"
+   ]
+  },
+  {
+   "id": "1070",
+   "category": "atmo",
+   "tags": [
+    "uebersicht",
+    "dunkel",
+    "halle",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1071",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "pause",
+    "sitzen",
+    "getraenke",
+    "schlumpf",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-6"
+   ]
+  },
+  {
+   "id": "1072",
+   "category": "portrait",
+   "tags": [
+    "portrait",
+    "zwei",
+    "frau",
+    "trikot",
+    "schlumpf",
+    "zurich-open-2"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "zurich-open-2",
+   "orient": "hoch",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-16"
+   ]
+  },
+  {
+   "id": "1073",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "dunkel",
+    "zurich-open-2"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "zurich-open-2",
+   "orient": "hoch",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-10"
+   ]
+  },
+  {
+   "id": "1074",
+   "category": "detail",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "brownie",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1075",
+   "category": "location",
+   "tags": [
+    "bar",
+    "getraenke",
+    "kuehlschrank",
+    "menu",
+    "zurich-open-2"
+   ],
+   "w": 1067,
+   "h": 1600,
+   "event": "zurich-open-2",
+   "orient": "hoch",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1076",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "frau",
+    "gruppe",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-21",
+    "person-50"
+   ]
+  },
+  {
+   "id": "1077",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "gruppe",
+    "uebersicht",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-2"
+   ]
+  },
+  {
+   "id": "1078",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "gruppe",
+    "uebersicht",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-2"
+   ]
+  },
+  {
+   "id": "1079",
+   "category": "atmo",
+   "tags": [
+    "uebersicht",
+    "dunkel",
+    "halle",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1080",
+   "category": "atmo",
+   "tags": [
+    "getraenke",
+    "bar",
+    "pause",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1081",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "gruppe",
+    "trikot",
+    "schlumpf",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-1",
+    "person-2"
+   ]
+  },
+  {
+   "id": "1082",
+   "category": "turnier",
+   "tags": [
+    "spiel",
+    "gruppe",
+    "dunkel",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1083",
+   "category": "team",
+   "tags": [
+    "handshake",
+    "fist-bump",
+    "spiel",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-1",
+    "person-4"
+   ]
+  },
+  {
+   "id": "1084",
+   "category": "detail",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "raclette",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1085",
+   "category": "detail",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "raclette",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1086",
+   "category": "detail",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "raclette",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1087",
+   "category": "detail",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "raclette",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1088",
+   "category": "detail",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "raclette",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1089",
+   "category": "detail",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "raclette",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1090",
+   "category": "detail",
+   "tags": [
+    "verpflegung",
+    "essen",
+    "raclette",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "1091",
+   "category": "atmo",
+   "tags": [
+    "hund",
+    "outdoor",
+    "pause",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1092",
+   "category": "atmo",
+   "tags": [
+    "hund",
+    "outdoor",
+    "pause",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1093",
+   "category": "atmo",
+   "tags": [
+    "hund",
+    "outdoor",
+    "pause",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": []
+  },
+  {
+   "id": "1094",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "lachen",
+    "pause",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-1",
+    "person-10",
+    "person-2"
+   ]
+  },
+  {
+   "id": "1095",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "pause",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-1",
+    "person-26",
+    "person-34"
+   ]
+  },
+  {
+   "id": "1096",
+   "category": "team",
+   "tags": [
+    "gruppe",
+    "pause",
+    "zurich-open-2"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "zurich-open-2",
+   "orient": "quer",
+   "turnier": "Zürich Open 2",
+   "persons": [
+    "person-1",
+    "person-10",
+    "person-2",
+    "person-26",
+    "person-34"
+   ]
   }
  ]
 }

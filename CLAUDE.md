@@ -378,7 +378,7 @@ Dämpfung `0.91`).
 `ocsav - tfcz_Web/index.html` (Sektion Kalender, Umschalter Woche/Monat).
 - **Woche = Tage-Strip + scrollende Tagesliste.** Der Strip nutzt die **macOS-Dock-Lupe**: der
   gehoverte Tag wird am grössten, die Nachbarn skalieren graduell runter **und werden auseinander-
-  geschoben** (symmetrische horizontale Margins, **nie Überlappung**). Die Tages-Karten bleiben klein
+  geschoben** (symmetrische horizontale Margins, **nie Überlappung**). **Als wiederverwendbarer Baustein niedergeschrieben:** `system/components/dock-magnify.js` — rein GPU (`transform: translateX scale`), animiert **nie** `margin`, misst **nicht** pro Frame das Layout, und rundet den Fokuspunkt **nie** auf die nächste ganze Zelle (stufenlos interpolierter Pivot, sonst springt es sichtbar). Nutzbar für **jede** horizontale Reihe mit gleich breiten Kindern (nicht nur Tage); live im Brand Guide, Sektion 13b »Dock-Lupe«. Die Tages-Karten bleiben klein
   genug, dass die vergrösserte Karte **ohne Clipping** in die fixe Section-Höhe passt (Strip-Höhe/
   Section-Höhe wird dafür **nicht** vergrössert — nur die Karten verkleinern + Kopf-Padding als
   Vergrösserungs-Spielraum). Darunter scrollt die Tagesliste; sticky Tages-Header ohne den
@@ -656,6 +656,7 @@ wieder eingebaut — additiv, mit eigenem Klassen-Präfix, ohne bestehendes Seit
 - `system/components/nav.js` — **Navigation** (Burger · Drawer · Hover · Scroll-Spy), siehe unten.
 - `system/components/scroll.js` — **Scroll zu Anker** (Easing + Stopp unter dem Menü).
 - `system/components/icons.js` — **Pfeile & externe Links** (Lucide statt Text-Glyphen).
+- `system/components/dock-magnify.js` — **Dock-Lupe** (macOS-Dock-Vergrösserung für horizontale Reihen mit gleich breiten Kindern), siehe unten.
 - `system/tokens.css` — **Design-Tokens** (Farben, Radien, Schatten, Zeiten, Easing), siehe unten.
 - `system/components/lightbox.js` — **Bild-Player** (X · Pfeile · Thumbnail-Dock · Herz), siehe unten.
 - `assets/js/bg-swirl.js` — Hintergrund-Wirbel (war nie Teil der Batches, bleibt).
