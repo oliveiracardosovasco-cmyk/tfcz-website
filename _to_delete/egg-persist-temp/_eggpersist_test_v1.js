@@ -162,7 +162,7 @@
         RAYS=[-150,-128,-106,-74,-52,-30].map(function(d){return d*Math.PI/180;});
     function emc(){var e=emb.getBoundingClientRect();return {x:e.left+e.width/2,y:e.top+e.height*0.42};}
     function spawn(){var o=emc(),a=RAYS[(Math.random()*RAYS.length)|0]+(Math.random()-.5)*0.2,sp=7.5+Math.random()*4.5,s=18+Math.random()*10;
-      ps.push({x:o.x,y:o.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,rot:Math.random()*6.28,vr:0,s:s,r:s*0.42,out:false});}
+      ps.push({x:o.x,y:o.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,rot:Math.random()*6.28,vr:(Math.random()-.5)*.35,s:s,r:s*0.42,out:false});}
     function onMove(e){mouse.x=e.clientX;mouse.y=e.clientY;}
     function onOut(){mouse.x=-9999;mouse.y=-9999;}
     function onDown(e){var mx=e.clientX,my=e.clientY;
@@ -185,9 +185,9 @@
         p.vx*=0.992;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
         if(!p.out){ if(p.x+p.r<bx.left||p.x-p.r>bx.right||p.y+p.r<bx.top||p.y-p.r>bx.bottom) p.out=true; }
         else{
-          /* Kaese fallen und bleiben liegen: kein Aufspringen, kein Eigendreh. Anklicken schleudert sie hoch (onDown). (Vasco) */
-          if(p.x<p.r){p.x=p.r;p.vx=0;} if(p.x>W-p.r){p.x=W-p.r;p.vx=0;}
-          if(p.y>FL-p.r){p.y=FL-p.r;p.vy=0;p.vx*=0.8;p.vr*=0.6;if(Math.abs(p.vr)<0.02)p.vr=0;}
+          /* Kaese duerfen den Rahmen ueberdecken und stapeln sich vom unteren Bildschirmrand (Vasco, Mobile-Fix) */
+          if(p.x<p.r){p.x=p.r;p.vx*=-0.5;} if(p.x>W-p.r){p.x=W-p.r;p.vx*=-0.5;}
+          if(p.y>FL-p.r){p.y=FL-p.r;p.vy*=-0.4;p.vx*=0.8;p.vr*=0.7;if(Math.abs(p.vy)<1)p.vy=0;}
         }
         if(p.out){ fx.save();fx.translate(p.x,p.y);fx.rotate(p.rot);fx.drawImage(SPR,-p.s/2,-p.s/2,p.s,p.s);fx.restore(); }
         else { ex.save();ex.translate(p.x-bx.left,p.y-bx.top);ex.rotate(p.rot);ex.drawImage(SPR,-p.s/2,-p.s/2,p.s,p.s);ex.restore(); }
