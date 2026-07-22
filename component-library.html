@@ -12421,6 +12421,11 @@ TFCZ.portal.close(fensterEl, function () {
       <h4>Fund-Logik &amp; Belohnung</h4>
       <p>Nach dem <b>ersten Fund</b> erscheint der Hinweis, dass ein Login nötig ist, um den Fortschritt zu speichern — der Hinweis bleibt, bis man angemeldet ist. Ohne Login wird ein Ei beim Refresh wieder aktiv. Ab Login wird der Fortschritt im Profil gespeichert und jeder neue Fund zeigt, wie viele noch offen sind. <b>Motivation (immer sichtbar): 5 gefundene Eier = 1 Gratis-Raclette an einem KäseKick der Wahl.</b></p>
     </div>
+    <div class="ccard">
+      <h4>Käse-Feier &amp; Performance</h4>
+      <p>Die Feier lässt <b>Käse-Emoji</b> (thematisch zum Käsekick) über den Bildschirm regnen. Physik: die Käse <b>fallen und bleiben liegen</b> — kein Aufspringen, kein Eigendreh; <b>Anklicken/Wischen schleudert sie hoch</b> (zum Wegspicken/Lesen). Quelle: <code>assets/js/tfcz-fx.js → startCheese()</code>.</p>
+      <p><b>Performance-Knöpfe</b> (Pflicht bei geräteschwachen Nutzern): Partikel gedeckelt (Mobile&nbsp;≤600px <b>120</b>, sonst <b>200</b>) hält die O(n²)-Kollision günstig · Fallflächen-Canvas <b>dpr&nbsp;1.5</b> statt 2 (~1.8× weniger Füllrate) · <code>prefers-reduced-motion</code> überspringt die Feier komplett · Selbst-Stopp: Canvas werden beim Schliessen entfernt (kein Leck, Heap ~1–2&nbsp;MB). Gemessen 22.07.2026 (Chromium/CDP): Mobile 4×&nbsp;CPU 28→34&nbsp;fps, 6× 23→30&nbsp;fps.</p>
+    </div>
   </div>
 </section>
 

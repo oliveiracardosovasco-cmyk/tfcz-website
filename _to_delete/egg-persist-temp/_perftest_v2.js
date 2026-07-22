@@ -9,16 +9,6 @@
    Einbinden: <script defer src="assets/js/tfcz-fx.js"></script>
    Optional:  window.TFCZ_USER (Login) · window.TFCZ_FX_API {load,save}
               window.TFCZ_FX_NOTIFY(payload) · window.TFCZ_FX_LOGIN()
-   ------------------------------------------------------------
-   Performance & Physik der Feier (startCheese) — dokumentiert, Vasco 22.07.2026:
-   * Partikel gedeckelt: Mobile (innerWidth<=600) 120, sonst 200 — haelt die
-     O(n^2)-Kollisionspruefung guenstig (Haupt-CPU-Posten).
-   * Fallflaechen-Canvas dpr auf 1.5 gekappt (statt 2) -> ~1.8x weniger Fuellrate/Grafikspeicher.
-   * prefers-reduced-motion -> Feier wird KOMPLETT uebersprungen (keine Partikel, kein Canvas).
-   * Kaese fallen & bleiben liegen: kein Aufspringen, kein Eigendreh; Klick/Wischen schleudert sie hoch.
-   * Selbst-Stopp: beide Canvas werden beim Schliessen aus dem DOM entfernt (kein Leck; Heap ~1-2 MB).
-   * Gemessen (Chromium/CDP, 390x844): Mobile 4x CPU 28->34 fps, 6x CPU 23->30 fps.
-   * Doku/Referenz: component-library.html -> Sektion 16.
    ============================================================ */
 (function(){
   var FX_X='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
@@ -49,14 +39,14 @@
 
   /* ---- Zustand ---- */
   var SESSION={}, SAVED={}, NOTIFIED=false, REWARD_SHOWN=false, MUTES={};
-  try{ if(loggedIn()) NOTIFIED=localStorage.getItem('tfcz_fx_n')==='1'; }catch(e){}
-  try{ if(loggedIn()) REWARD_SHOWN=localStorage.getItem('tfcz_fx_r')==='1'; }catch(e){}
+  try{ NOTIFIED=localStorage.getItem('tfcz_fx_n')==='1'; }catch(e){}
+  try{ REWARD_SHOWN=localStorage.getItem('tfcz_fx_r')==='1'; }catch(e){}
   /* Stumm ist IMMER pro Eintrag (nie global) — der Toggle im Popup betrifft nur genau dieses Ei. */
-  try{ if(loggedIn()) (JSON.parse(localStorage.getItem('tfcz_fx_m')||'[]')||[]).forEach(function(k){MUTES[k]=1;}); }catch(e){}
+  try{ (JSON.parse(localStorage.getItem('tfcz_fx_m')||'[]')||[]).forEach(function(k){MUTES[k]=1;}); }catch(e){}
   function isMuted(id){ return !!MUTES[id]; }
   function setMute(id,on){ if(on) MUTES[id]=1; else delete MUTES[id];
     var a=[],k; for(k in MUTES) if(MUTES[k]) a.push(k);
-    try{ if(loggedIn()) localStorage.setItem('tfcz_fx_m',JSON.stringify(a)); }catch(e){} }
+    try{ localStorage.setItem('tfcz_fx_m',JSON.stringify(a)); }catch(e){} }
   function loggedIn(){ return !!window.TFCZ_USER; }
   function apiLoad(cb){ if(window.TFCZ_FX_API&&window.TFCZ_FX_API.load){ try{var r=window.TFCZ_FX_API.load(); if(r&&r.then)r.then(function(a){cb(a||[]);},function(){cb([]);}); else cb(r||[]);}catch(e){cb([]);} }
     else { try{ cb(JSON.parse(localStorage.getItem('tfcz_fx_f')||'[]')||[]); }catch(e){ cb([]); } } }
@@ -65,7 +55,7 @@
   function savedIds(){var a=[],k;for(k in SAVED)if(SAVED[k])a.push(k);return a;}
   function count(){var s={},n=0,k;for(k in SAVED)if(SAVED[k])s[k]=1;for(k in SESSION)if(SESSION[k])s[k]=1;for(k in s)n++;return n;}
   function isFound(id){return !!(SAVED[id]||SESSION[id]);}
-  if(loggedIn()) apiLoad(function(a){ a.forEach(function(id){SAVED[id]=1;}); syncDot(); });
+  apiLoad(function(a){ a.forEach(function(id){SAVED[id]=1;}); syncDot(); });
 
   /* ---- CSS ---- */
   var css=[
@@ -276,13 +266,13 @@
     opts=opts||{}; var item=byId(id); if(!item) return;
     if(ov.classList.contains('on')){ if(opts.then) opts.then(); return; }
     if(isFound(id) && !opts.force){ if(opts.then) opts.then(); return; }
-    if(loggedIn()){ SAVED[id]=1; apiSave(savedIds()); } else { SESSION[id]=1; }
+    SAVED[id]=1; apiSave(savedIds());
     if(item.t==='dot') syncDot();
     if(item.hint) syncHint();
     maybeReward();
     pending = opts.then || null;
     var reward=false;
-    if(count()>=GOAL && !REWARD_SHOWN){ REWARD_SHOWN=true; if(loggedIn()){try{localStorage.setItem('tfcz_fx_r','1');}catch(e){}} reward=true; }
+    if(count()>=GOAL && !REWARD_SHOWN){ REWARD_SHOWN=true; try{localStorage.setItem('tfcz_fx_r','1');}catch(e){} reward=true; }
     /* Nur DIESER Eintrag ist stumm → Fund zählt, kein Fenster. Die Belohnung wird trotzdem gezeigt. */
     if(isMuted(id) && !reward){ var p=pending; pending=null; if(p)p(); return; }
     render(item, reward);
