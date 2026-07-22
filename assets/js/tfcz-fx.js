@@ -146,10 +146,10 @@
   /* ---- Partikel-Kanone (Sprite, unendlich) ---- */
   function startCheese(emb, box){
     var SPR=document.createElement('canvas'); SPR.width=SPR.height=72;
-    var sc=SPR.getContext('2d'); sc.fillStyle='#e9c475'; sc.beginPath(); sc.arc(36,36,22,0,Math.PI*2); sc.fill();
-    sc.fillStyle='#cda857'; sc.beginPath(); sc.arc(29,30,4,0,Math.PI*2); sc.arc(43,40,5,0,Math.PI*2); sc.arc(34,45,3,0,Math.PI*2); sc.fill();
+    var sc=SPR.getContext('2d'); sc.font='58px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif';
+    sc.textAlign='center'; sc.textBaseline='middle'; sc.fillText('\uD83E\uDDC0',36,40);
     var field=document.createElement('canvas');
-    field.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;z-index:1;pointer-events:none;transition:opacity .45s ease';
+    field.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;z-index:6;pointer-events:none;transition:opacity .45s ease';
     ov.insertBefore(field, ov.firstChild);
     var erupt=document.createElement('canvas');
     erupt.style.cssText='position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none';
@@ -184,10 +184,8 @@
         if(md<R){var f=1-md/R;p.vx+=(mdx/(md||1))*f*3.4;p.vy+=(mdy/(md||1))*f*3.4;}
         p.vx*=0.992;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
         if(!p.out){ if(p.x+p.r<bx.left||p.x-p.r>bx.right||p.y+p.r<bx.top||p.y-p.r>bx.bottom) p.out=true; }
-        else{ var L=bx.left-p.r,Rr=bx.right+p.r,Tp=bx.top-p.r,B=bx.bottom+p.r;
-          if(p.x>L&&p.x<Rr&&p.y>Tp&&p.y<B){var pL=p.x-L,pR=Rr-p.x,pT=p.y-Tp,pB=B-p.y,m=Math.min(pL,pR,pT,pB);
-            if(m===pL){p.x=L;p.vx=-Math.abs(p.vx)*0.5;} else if(m===pR){p.x=Rr;p.vx=Math.abs(p.vx)*0.5;}
-            else if(m===pT){p.y=Tp;p.vy=-Math.abs(p.vy)*0.45;p.vx*=0.85;} else {p.y=B;p.vy=Math.abs(p.vy)*0.5;}}
+        else{
+          /* Kaese duerfen den Rahmen ueberdecken und stapeln sich vom unteren Bildschirmrand (Vasco, Mobile-Fix) */
           if(p.x<p.r){p.x=p.r;p.vx*=-0.5;} if(p.x>W-p.r){p.x=W-p.r;p.vx*=-0.5;}
           if(p.y>FL-p.r){p.y=FL-p.r;p.vy*=-0.4;p.vx*=0.8;p.vr*=0.7;if(Math.abs(p.vy)<1)p.vy=0;}
         }
@@ -348,8 +346,14 @@
       var m=IT[i];
       if(m.t==='scrollx' && m.sel){
         var node=document.querySelector(m.sel);
-        if(node){ (function(nd,id){ ['wheel','pointerdown','touchstart'].forEach(function(ev){
-          nd.addEventListener(ev,function(){ find(id); },{passive:true}); }); })(node,m.i); }
+        if(node){ (function(nd,id){
+          var acc=0, fired=false, sx=null, tx=null;
+          function bump(d){ if(fired)return; acc+=Math.abs(d||0); if(acc>=40){ fired=true; find(id); } }
+          nd.addEventListener('wheel',function(e){ bump(e.deltaX); },{passive:true});
+          nd.addEventListener('scroll',function(){ if(sx!==null) bump(nd.scrollLeft-sx); sx=nd.scrollLeft; },{passive:true});
+          nd.addEventListener('touchstart',function(e){ tx=(e.touches&&e.touches[0])?e.touches[0].clientX:null; },{passive:true});
+          nd.addEventListener('touchmove',function(e){ var x=(e.touches&&e.touches[0])?e.touches[0].clientX:null; if(tx!==null&&x!==null){ bump(x-tx); tx=x; } },{passive:true});
+        })(node,m.i); }
       }
       if(m.t==='scrollend'){
         var re=new RegExp(m.page,'i');
