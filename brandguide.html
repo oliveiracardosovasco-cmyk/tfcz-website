@@ -12057,10 +12057,10 @@ addEventListener('DOMContentLoaded', function(){
   <div class="demo col">
     <div class="ccard">
       <h4>Wie Bilder auf die Seite kommen (Slots)</h4>
-      <pre class="codeblock"><code>&lt;!-- src ist nur Platzhalter/Fallback — das echte Bild kommt aus mapping.json --&gt;
-&lt;img data-slot="index.hero" class="hc-img" src="…platzhalter.jpg" alt="…"&gt;
+      <pre class="codeblock"><code>&lt;!-- src wird beim Veröffentlichen aus mapping.json ins HTML gebacken (echtes Bild, kein Platzhalter) --&gt;
+&lt;img data-slot="index.hero" class="hc-img" src="assets/fotos/galerie/full/795.webp" alt="…"&gt;
 &lt;div data-slot="index.bg-bar"&gt;&lt;/div&gt;   &lt;!-- Hintergrund-Slot --&gt;</code></pre>
-      <p class="sec-sub" style="margin:10px 0 0"><code>system/tfcz-images.js</code> setzt zur Laufzeit Bild bzw. Background aus <code>assets/fotos/galerie/mapping.json</code>; <code>system/tfcz-carousel.js</code> macht dasselbe für Karussells. <b><code>mapping.json</code> ist die Laufzeit-Quelle der Wahrheit</b> (Slot → Bild), <code>slots.json</code> hält die Slot-Definitionen, <code>galerie.json</code> den Foto-Katalog.</p>
+      <p class="sec-sub" style="margin:10px 0 0"><code>system/tfcz-images.js</code> setzt zur Laufzeit Bild bzw. Background aus <code>assets/fotos/galerie/mapping.json</code>; <code>system/tfcz-carousel.js</code> macht dasselbe für Karussells. <b><code>mapping.json</code> ist die Laufzeit-Quelle der Wahrheit</b> (Slot → Bild), <code>slots.json</code> hält die Slot-Definitionen, <code>galerie.json</code> den Foto-Katalog. <b>Beim Veröffentlichen</b> bäckt <code>_tools/bake-slots.mjs</code> das gemappte Bild direkt ins <code>src</code> jeder Slot-<code>&lt;img&gt;</code> — so lädt sofort das richtige Bild ohne Flash und ohne Doppel-Laden; <code>tfcz-images.js</code> ist dann nur noch Fallback.</p>
     </div>
 
     <div class="ccard">
@@ -12069,6 +12069,7 @@ addEventListener('DOMContentLoaded', function(){
         <li><b>Foto-Manager öffnen</b>: <code>assets/fotos/galerie/foto-manager.html</code>.</li>
         <li>Pro Slot ein <b>Galerie-Foto</b> wählen — Auflösung <b>full</b> oder <b>thumb</b>.</li>
         <li><b>Speichern</b> → schreibt <code>mapping.json</code> (oder „mapping.json exportieren“ und in <code>assets/fotos/galerie/</code> ersetzen).</li>
+        <li><b><code>node _tools/bake-slots.mjs</code></b> laufen lassen — bäckt die Bilder ins <code>src</code>.</li>
         <li><b>Veröffentlichen</b>, damit es live erscheint.</li>
       </ol>
       <p class="sec-sub" style="margin:10px 0 0"><b>Neue Fotos</b> kommen ausschliesslich über den <code>tfcz-fotos</code>-Skill in die Galerie: er erzeugt full+thumb-WebP, katalogisiert in <code>galerie.json</code> und fragt vorher nach Event/Kategorie. Nicht von Hand katalogisieren.</p>

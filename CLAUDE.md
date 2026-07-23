@@ -1113,7 +1113,7 @@ Prüfung: der `tfcz-audit`-Skill meldet Titel > 60 und Description > 160 Zeichen
 Roh-JPG/PNG-Fotos gehören NICHT direkt in Seiten. (Logos/Embleme/Muster sind keine Galerie-Fotos → geteilte Assets in `assets/img/`.)
 
 **Wie es funktioniert (Slots):**
-- Bild-/Hintergrund-Stellen tragen im HTML ein `data-slot="…"` (z. B. `index.hero`). Das `src` daneben ist nur **Platzhalter/Fallback**.
+- Bild-/Hintergrund-Stellen tragen im HTML ein `data-slot="…"` (z. B. `index.hero`). Das `src` wird **beim Veröffentlichen aus `mapping.json` ins HTML gebacken** (`node _tools/bake-slots.mjs`) und ist das **echte Bild** — kein Platzhalter mit Fremdbild. `system/tfcz-images.js` bleibt nur Fallback (setzt denselben Wert).
 - `system/tfcz-images.js` setzt zur Laufzeit das echte Bild bzw. den Background aus `assets/fotos/galerie/mapping.json`; `system/tfcz-carousel.js` macht dasselbe für Karussells.
 - **`mapping.json` = Laufzeit-Quelle der Wahrheit** (Slot → Bildpfad). `slots.json` = Slot-Definitionen. `galerie.json` = Foto-Katalog.
 
@@ -1121,8 +1121,8 @@ Roh-JPG/PNG-Fotos gehören NICHT direkt in Seiten. (Logos/Embleme/Muster sind ke
 1. `assets/fotos/galerie/foto-manager.html` öffnen.
 2. Pro Slot ein Galerie-Foto wählen — Auflösung **full** oder **thumb**.
 3. Speichern → schreibt `mapping.json` (oder „mapping.json exportieren" und in `assets/fotos/galerie/` ersetzen).
-4. Veröffentlichen.
+4. **`node _tools/bake-slots.mjs`** laufen lassen — bäckt die gemappten Bilder ins `src` jeder Slot-`<img>`. Dann **veröffentlichen**.
 
 **Neue Fotos** in die Galerie kommen ausschliesslich über den `tfcz-fotos`-Skill (erzeugt full+thumb-WebP, katalogisiert in `galerie.json`, fragt vorher nach Event/Kategorie). Nicht von Hand katalogisieren.
 
-**Nie:** Inhaltsbild-Pfade fest im HTML/CSS verdrahten (ausser dem Platzhalter-`src`) · Slot-Bilder ausserhalb von `assets/fotos/galerie/` ablegen (sonst sieht der Foto-Manager sie nicht) · `mapping.json`/`slots.json` von Hand umbiegen, wenn der Foto-Manager es kann.
+**Nie:** Inhaltsbild-Pfade von Hand ins `src` schreiben (das macht `_tools/bake-slots.mjs` aus dem Mapping) · Slot-Bilder ausserhalb von `assets/fotos/galerie/` ablegen (sonst sieht der Foto-Manager sie nicht) · `mapping.json`/`slots.json` von Hand umbiegen, wenn der Foto-Manager es kann.
