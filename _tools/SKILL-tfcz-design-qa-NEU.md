@@ -8,7 +8,7 @@ description: >
   "Design QA"). Nutze ihn AUCH als Pflicht-Abschluss nach JEDER Änderung an HTML/CSS der
   Website — bevor du "fertig" sagst. Findet mechanische Schäden (Selektor-Trümmer, Kontrast,
   Icon-Grösse, Overflow, JS-Fehler) über ein Messskript und Abweichungen von CLAUDE.md +
-  component-library.html über gezielte Prüfung.
+  brandguide.html über gezielte Prüfung.
 ---
 
 # TFCZ Design-QA — messen statt meinen
@@ -34,14 +34,14 @@ Und prüfe ihn auf Fehlalarm (der erste Entwurf hielt CSS-Kommentare für Trümm
 
 ## Quellen der Wahrheit
 1. `~/Claude/Projects/TFCZ-v3/CLAUDE.md` — verbindliche Regeln (gewinnt bei Widerspruch).
-2. `ocsav - tfcz_Web/component-library.html` — Brand Guide (Live-Bausteine, Tokens, CTA-System).
+2. `ocsav - tfcz_Web/brandguide.html` — Brand Guide (Live-Bausteine, Tokens, CTA-System).
 3. `ocsav - tfcz_Web/index.html` — Home = Referenz für globale Elemente.
 4. `ocsav - tfcz_Web/system/` — die Bausteine. Ändert sich ein Element, ändert es sich HIER.
 
 ## Live-Seiten (immer alle prüfen)
 `index.html` (Home), `mitglied.html`, `tfcz-training.html`, `tfcz-firmenevents.html`,
 `tfcz-geschichte.html`, `tfcz-ueber-uns.html`, `tfcz-regeln.html`, `tfcz-medien.html`,
-`login.html`, `dashboard.html`, `component-library.html`.
+`login.html`, `dashboard.html`, `brandguide.html`.
 Ordner mit `_` (`_snapshots`, `_secret`, `_module`, `_tools`) sind **nie** Live.
 
 ## Ablauf bei JEDER Änderung (nicht verhandelbar)

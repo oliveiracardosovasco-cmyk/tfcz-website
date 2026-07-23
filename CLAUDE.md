@@ -109,7 +109,7 @@ kein anderes Logo, kein Shield + Text-Wortmarke, kein neues Laden. Immer exakt d
 **Logo-Klick (verbindlich, freigegeben Vasco 09.07.2026):** Das Kopf-Logo führt immer zur Home. Klick zeigt ein
 **Press-Feedback**: `:active{transform:scale(.9)}` plus kurze Bounce-Animation `@keyframes logoPress` (scale 1 → .86 →
 1.05 → 1, ~0.42s), Klasse `.pressed` per JS setzen; auf Unterseiten Navigation ~230ms verzögern, damit der Bounce
-sichtbar ist. `prefers-reduced-motion` respektieren. Referenz/Live-Demo: `component-library.html` → „4d · Logo".
+sichtbar ist. `prefers-reduced-motion` respektieren. Referenz/Live-Demo: `brandguide.html` → „4d · Logo".
 
 **Auswahl-/Selektions-Status (Entscheidung 03.07.2026):** Die Blau/Gold-Doppellinie ist der
 **Fenster-Signatur vorbehalten** — NICHT für markierte/selektierte Elemente verwenden (zu unruhig,
@@ -204,7 +204,7 @@ Bei Klick per JS kurz Klasse `.anim` setzen (für Touch, wo kein Hover existiert
 
 **Standard Menü-Aufklappen „Drop-Cascade" (verbindlich, freigegeben Vasco 09.07.2026):** Wenn die Menü-Liste/der
 Drawer aufgeht, fallen die Einträge **gestaffelt von oben** mit leichtem Bounce herein (nicht alle gleichzeitig).
-Umsetzung (Referenz `.drawer` in `index.html`, Live-Demo `component-library.html` → „4c"):
+Umsetzung (Referenz `.drawer` in `index.html`, Live-Demo `brandguide.html` → „4c"):
 
 ```css
 @keyframes drawerDrop{from{opacity:0; transform:translateY(-16px)}to{opacity:1; transform:none}}
@@ -222,7 +222,7 @@ Diagonallinien ~116°, reagieren auf die Maus, driften im Leerlauf; `prefers-red
 - **Dunkel-Navy (Tools, POS, Dashboards, Overlays):** `linear-gradient(180deg, #0d273d, #0a1f31, #081826)`.
 Zwischen den Modi kann umgeschaltet werden. **In BEIDEN Modi bleiben Boxen / Cards / Bausteine dunkel &
 frosted — NIE heller Hintergrund** (DarkNavy-Gradient, leicht transparent + feine 1px-Border). Heller Sand
-`#e6e3da` nur für Print/Social. Referenz: `ocsav - tfcz_Web/component-library.html` (Umschalter oben rechts).
+`#e6e3da` nur für Print/Social. Referenz: `ocsav - tfcz_Web/brandguide.html` (Umschalter oben rechts).
 
 **Hintergrund-Zuordnung öffentlich vs. Login (STRIKT, freigegeben Vasco 09.07.2026 — überschreibt „Zwischen den
 Modi kann umgeschaltet werden"):** Der **Dunkel-Navy-Hintergrund ist ausschliesslich den TFCZ-internen,
@@ -242,7 +242,7 @@ der **Schwerkraft-Wirbel** (Punktfeld, das um die Maus einen sanften Strudel bil
 (Idle-Weiss ~.15, aktive Gold-Punkte ~.2–.58, kleine Punkte). Alternativ: **maus-getriggerte „floating Lines"**
 (Diagonallinien ~116°). Beide laufen auch ohne Maus (Idle-Bewegung) und respektieren `prefers-reduced-motion`.
 Weitere wiederverwendbare Effekte in `(archiviert: TFCZ/01_Web/hintergrund-spielwiese.html)`; copy-fertige Snippets im Brand Guide
-(`ocsav - tfcz_Web/component-library.html`). Nie über Print/Social. (Frühere statische Drift-Ebene ersetzt.)
+(`ocsav - tfcz_Web/brandguide.html`). Nie über Print/Social. (Frühere statische Drift-Ebene ersetzt.)
 
 **Turnier-/Kategorie-Farbsystem (freigegeben Vasco 04.07.2026):** Turniere werden nach Kategorie
 eingefärbt (Akzent/Fläche, je nach Element):
@@ -299,9 +299,9 @@ X-Overflow prüfen. (Ergänzt „Responsive ist nicht verhandelbar".)
 **Elevation-Schatten decken nie den animierten Hintergrund zu (verbindlich, Vasco 10.07.2026):** Grosse,
 ruhende Layout-Container (Sektionen, Inhalts-/Demo-Boxen, Grids) tragen KEINE schweren Drop-Shadows —
 nur feine 1px-Border + inset-Highlight (max. e-1). e-2/e-3 sind schwebenden Elementen vorbehalten:
-Modals/Popups, sticky Bars, Hover-Lift. Grund (Wiederholungsfehler, u. a. component-library.html):
+Modals/Popups, sticky Bars, Hover-Lift. Grund (Wiederholungsfehler, u. a. brandguide.html):
 grosse Schatten (~45% Schwarz, 30px Blur) fluten die Lücken zwischen den Boxen und decken das
-Punktfeld/die Hintergrund-Animation komplett zu. Ebenfalls behoben 10.07.2026: component-library.html
+Punktfeld/die Hintergrund-Animation komplett zu. Ebenfalls behoben 10.07.2026: brandguide.html
 nutzt jetzt das globale `bg-swirl.js` (der dortige Inline-Wirbel hatte noch den alten Dauer-Idle-Stand).
 Die Component Library ist versioniert (v2.1) und enthält neu Element-Galerien (Eingabe-Controls,
 Navigations-Elemente, Feedback & Status, Daten & Listen), ein Starter-Template und Copy-Werkzeuge.
@@ -462,7 +462,7 @@ sauber umformulieren). Das schliesst Symbol-Glyphen ein, die als Icon missbrauch
 (das Land steht als Text). Am 14.07.2026 wurden projektweit **400 Vorkommen in 19 Dateien** entfernt.
 Vor jedem Ausliefern gegen Emoji-Unicode-Ranges scannen — Soll: **0**.
 Grundsatz (unverändert): In UI/Web werden keine Emojis als Icons verwendet. Stattdessen ausschliesslich **Lucide-
-Icons** (Open Source, ISC) aus der Icon-Bibliothek im Brand Guide (`component-library.html` → Sektion „7c ·
+Icons** (Open Source, ISC) aus der Icon-Bibliothek im Brand Guide (`brandguide.html` → Sektion „7c ·
 Icons"). Icons liegen als Dateien unter `ocsav - tfcz_Web/assets/icons/lucide/*.svg`; der **maschinen-
 lesbare Index** `ocsav - tfcz_Web/assets/icons/lucide-index.json` beschreibt pro Icon `name`, `tags`,
 `use` und `category` — damit klar ist, welches Icon wann/wo passt. SVGs nutzen `stroke:currentColor`
@@ -490,7 +490,7 @@ TFCZ-v3/
 │   ├── index.html               ← Home (früher tfcz-2026.html)
 │   ├── mitglied · tfcz-training · tfcz-firmenevents · tfcz-regeln
 │   ├── tfcz-ueber-uns · tfcz-geschichte · tfcz-medien · login
-│   ├── component-library.html   ← BRAND GUIDE (Referenz für jedes Bauteil)
+│   ├── brandguide.html   ← BRAND GUIDE (Referenz für jedes Bauteil)
 │   ├── system/                  ← DIE BAUSTEINE (Single Source, aktiv)
 │   │   ├── content.js           ← Inhalte: Name, Adresse, Mail, Logo, Koordinate, Seiten
 │   │   ├── cta.js               ← CTA-Registry: Ziel + Stil je Button
@@ -884,7 +884,7 @@ gezeichneten Herz-Pfad (das war Alt-Bestand und ist ersetzt). Zustände: Ruhe = 
 `.heartfx`). Der **Zähler-Badge** (früher ` N`) zeigt dasselbe Herz klein &amp; gefüllt (`.hz`) + Zahl —
 kein Glyph. **Blau, nicht Gold** — ein Like ist eine Aktion, keine Conversion (Gold bleibt „Mitglied
 werden"). `prefers-reduced-motion` respektieren. Referenz: `.lb-like` in `index.html`; Live-Demo im
-Brand Guide (`component-library.html` → Sektion 15).
+Brand Guide (`brandguide.html` → Sektion 15).
 
 **Like-Store = globaler Baustein `system/likes.js` (Single Source, verbindlich, freigegeben Vasco
 10.07.2026 · aktiv seit 14.07.2026):**
@@ -1069,7 +1069,7 @@ der Baustein fasst sie nicht an.)
   + `--ink-mut`-Text; **aktiver Reiter** = frost-Fläche (`--frost`), heller Text und eine **3px blaue Oberkante**
   (`box-shadow:inset 0 3px 0 var(--blue)`). Die Reiter-Zeile sitzt auf der **goldenen Grundlinie** der Bar/Kopf
   (`border-bottom:3px solid var(--gold)`) — so trägt der Baustein die Brand-Line „Blau oben / Gold unten".
-  Klassen `.rtabs`/`.rtab`/`.rtab.on` (Component-Library, Sektion Bausteine). Referenz: Foto-Manager
+  Klassen `.rtabs`/`.rtab`/`.rtab.on` (Brand Guide / brandguide.html, Sektion Bausteine). Referenz: Foto-Manager
   (`assets/fotos/galerie/foto-manager.html`).
 
 ### Footer (verbindlich, freigegeben Vasco 10.07.2026 · Baustein 14.07.2026)
@@ -1088,3 +1088,41 @@ der Baustein fasst sie nicht an.)
   und die Copyright-Zeile sind **alle horizontal zentriert** (gestapelte, mittige Spalte).
 - **Deckkraft/Optik = Home-Referenz** (deckender Navy-Verlauf), identisch auf allen Seiten.
 - Footer-Links = kanonische Seiten-/CTA-Registry (absolute Ziele, funktionieren überall).
+
+---
+
+## SEO-Meta (Pflicht je öffentliche Seite)
+
+Gilt für jede indexierbare Seite (Startseite + Unterseiten). Beim Bauen einhalten, damit die Suchergebnisse sauber sind:
+
+- Genau **ein** `<title>`, **≤ 60 Zeichen**, einzigartig, Markenname am Ende.
+- Genau **eine** Meta-Description, **150–160 Zeichen**, einzigartig, Nutzen bzw. Handlungsaufforderung nach vorne.
+- Genau **eine** H1 pro Seite.
+- OG-/Twitter-Description dürfen länger sein, müssen aber gesetzt sein.
+
+Prüfung: der `tfcz-audit`-Skill meldet Titel > 60 und Description > 160 Zeichen als Befund.
+
+---
+
+## Bilder — IMMER über Galerie (full/thumb) + Foto-Manager
+
+**Grundregel:** Alle Inhaltsbilder werden über das Galerie-CMS gehandhabt, nie als fester Pfad im HTML/CSS verdrahtet. Jedes Bild existiert als **WebP in zwei Auflösungen**:
+- `assets/fotos/galerie/full/…` — grosse Darstellung (Hero, Sektionsbilder, ~1600px)
+- `assets/fotos/galerie/thumb/…` — kleine Darstellung (Strips, Feeds, Karussell-Kacheln)
+
+Roh-JPG/PNG-Fotos gehören NICHT direkt in Seiten. (Logos/Embleme/Muster sind keine Galerie-Fotos → geteilte Assets in `assets/img/`.)
+
+**Wie es funktioniert (Slots):**
+- Bild-/Hintergrund-Stellen tragen im HTML ein `data-slot="…"` (z. B. `index.hero`). Das `src` daneben ist nur **Platzhalter/Fallback**.
+- `system/tfcz-images.js` setzt zur Laufzeit das echte Bild bzw. den Background aus `assets/fotos/galerie/mapping.json`; `system/tfcz-carousel.js` macht dasselbe für Karussells.
+- **`mapping.json` = Laufzeit-Quelle der Wahrheit** (Slot → Bildpfad). `slots.json` = Slot-Definitionen. `galerie.json` = Foto-Katalog.
+
+**Bilder ändern — nur über den Foto-Manager:**
+1. `assets/fotos/galerie/foto-manager.html` öffnen.
+2. Pro Slot ein Galerie-Foto wählen — Auflösung **full** oder **thumb**.
+3. Speichern → schreibt `mapping.json` (oder „mapping.json exportieren" und in `assets/fotos/galerie/` ersetzen).
+4. Veröffentlichen.
+
+**Neue Fotos** in die Galerie kommen ausschliesslich über den `tfcz-fotos`-Skill (erzeugt full+thumb-WebP, katalogisiert in `galerie.json`, fragt vorher nach Event/Kategorie). Nicht von Hand katalogisieren.
+
+**Nie:** Inhaltsbild-Pfade fest im HTML/CSS verdrahten (ausser dem Platzhalter-`src`) · Slot-Bilder ausserhalb von `assets/fotos/galerie/` ablegen (sonst sieht der Foto-Manager sie nicht) · `mapping.json`/`slots.json` von Hand umbiegen, wenn der Foto-Manager es kann.

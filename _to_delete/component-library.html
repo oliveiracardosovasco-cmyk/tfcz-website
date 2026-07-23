@@ -12049,6 +12049,42 @@ addEventListener('DOMContentLoaded', function(){
   </div>
 </section>
 
+<!-- BILDER-SYSTEM · GALERIE (FULL/THUMB) & FOTO-MANAGER -->
+<section class="cl" id="bildsystem">
+  <div class="sec-h"><span class="num">15a</span><h2>Bilder-System · Galerie (full/thumb) &amp; Foto-Manager</h2></div>
+  <p class="sec-sub"><b>Grundregel: Inhaltsbilder werden NIE fest im HTML/CSS verdrahtet.</b> Jedes Bild lebt im Galerie-CMS als WebP in zwei Auflösungen — <code>assets/fotos/galerie/full/…</code> (grosse Darstellung, ~1600px: Hero, Sektionsbilder) und <code>assets/fotos/galerie/thumb/…</code> (klein: Strips, Feeds, Karussell-Kacheln). Roh-JPG/PNG gehören nicht direkt in Seiten. Ausnahme: Logos/Embleme/Muster = geteilte Assets in <code>assets/img/</code>.</p>
+
+  <div class="demo col">
+    <div class="ccard">
+      <h4>Wie Bilder auf die Seite kommen (Slots)</h4>
+      <pre class="codeblock"><code>&lt;!-- src ist nur Platzhalter/Fallback — das echte Bild kommt aus mapping.json --&gt;
+&lt;img data-slot="index.hero" class="hc-img" src="…platzhalter.jpg" alt="…"&gt;
+&lt;div data-slot="index.bg-bar"&gt;&lt;/div&gt;   &lt;!-- Hintergrund-Slot --&gt;</code></pre>
+      <p class="sec-sub" style="margin:10px 0 0"><code>system/tfcz-images.js</code> setzt zur Laufzeit Bild bzw. Background aus <code>assets/fotos/galerie/mapping.json</code>; <code>system/tfcz-carousel.js</code> macht dasselbe für Karussells. <b><code>mapping.json</code> ist die Laufzeit-Quelle der Wahrheit</b> (Slot → Bild), <code>slots.json</code> hält die Slot-Definitionen, <code>galerie.json</code> den Foto-Katalog.</p>
+    </div>
+
+    <div class="ccard">
+      <h4>Bilder ändern — nur über den Foto-Manager</h4>
+      <ol class="chk">
+        <li><b>Foto-Manager öffnen</b>: <code>assets/fotos/galerie/foto-manager.html</code>.</li>
+        <li>Pro Slot ein <b>Galerie-Foto</b> wählen — Auflösung <b>full</b> oder <b>thumb</b>.</li>
+        <li><b>Speichern</b> → schreibt <code>mapping.json</code> (oder „mapping.json exportieren“ und in <code>assets/fotos/galerie/</code> ersetzen).</li>
+        <li><b>Veröffentlichen</b>, damit es live erscheint.</li>
+      </ol>
+      <p class="sec-sub" style="margin:10px 0 0"><b>Neue Fotos</b> kommen ausschliesslich über den <code>tfcz-fotos</code>-Skill in die Galerie: er erzeugt full+thumb-WebP, katalogisiert in <code>galerie.json</code> und fragt vorher nach Event/Kategorie. Nicht von Hand katalogisieren.</p>
+    </div>
+
+    <div class="ccard">
+      <h4>Nie</h4>
+      <div class="pill-row">
+        <span class="pillx">Inhaltsbild-Pfad fest im HTML/CSS</span>
+        <span class="pillx">Slot-Bild ausserhalb von galerie/</span>
+        <span class="pillx">mapping.json von Hand umbiegen, wenn der Foto-Manager es kann</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- BILD-PLAYER & FOTO-LIKE (BAUSTEIN) -->
 <section class="cl" id="bildplayer">
   <div class="sec-h"><span class="num">15b</span><h2>Bild-Player &amp; Foto-Like</h2></div>

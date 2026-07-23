@@ -65,5 +65,5 @@ TFCZ.ctas = {
   'ueberuns':     { href: 'tfcz-ueber-uns.html',     text: 'Über uns',           stil: 'ghost' },
   'geschichte':   { href: 'tfcz-geschichte.html',    text: 'Geschichte',         stil: 'ghost' },
   'medien':       { href: 'tfcz-medien.html',        text: 'Medien',             stil: 'ghost' },
-  'brandguide':   { href: 'component-library.html',  text: 'Brand Guide',        stil: 'ghost' }
+  'brandguide':   { href: 'brandguide.html',  text: 'Brand Guide',        stil: 'ghost' }
 };

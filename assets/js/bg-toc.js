@@ -1,7 +1,7 @@
 /* ============================================================
    TFCZ · Brand Guide — aufklappbares Inhaltsverzeichnis
 
-   Nur für den Brand Guide (component-library.html): die Seite ist lang, das
+   Nur für den Brand Guide (brandguide.html): die Seite ist lang, das
    Menü im Kopf reicht nicht mehr.
 
    Was es macht:

@@ -41,7 +41,7 @@ TFCZ.content = {
     geschichte:  { href: 'tfcz-geschichte.html',   text: 'Geschichte' },
     regeln:      { href: 'tfcz-regeln.html',       text: 'Regeln' },
     medien:      { href: 'tfcz-medien.html',       text: 'Medien' },
-    brandguide:  { href: 'component-library.html', text: 'Brand Guide' },
+    brandguide:  { href: 'brandguide.html', text: 'Brand Guide' },
     designstudio:{ href: 'design-studio.html',     text: 'Design Studio' },
     fotomanager: { href: 'assets/fotos/galerie/foto-manager.html', text: 'Foto-Manager' },
     login:       { href: 'login.html',             text: 'Login' }

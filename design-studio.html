@@ -3704,7 +3704,7 @@ function ensurePersona(){
 
 /* ===== Persona-Editor-Modus (Karte pro Persona · HTML-Seite · .md-Export) ===== */
 var personaMode=false, pmCur=null, pmSel=null;
-function openBrandGuide(){ var m=document.getElementById('bgModal'),f=document.getElementById('bgFrame'); if(!m)return; if(f&&!f.getAttribute('src'))f.setAttribute('src','component-library.html'); m.style.display='block'; }
+function openBrandGuide(){ var m=document.getElementById('bgModal'),f=document.getElementById('bgFrame'); if(!m)return; if(f&&!f.getAttribute('src'))f.setAttribute('src','brandguide.html'); m.style.display='block'; }
 function pmPersona(pid){ return (state.personas||[]).find(function(x){return x.id===pid;})||{}; }
 function pmDefaultBoxes(pid){ var p=pmPersona(pid); return [
   {id:'t',x:56,y:54,w:684,text:((p.emoji||'')+' '+(p.name||'')).trim(),size:46,weight:900,role:'title',color:'#ffffff'},

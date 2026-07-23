@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training mit Philipp · TFCZ — Tischfussball Club Zürich</title>
+<meta name="description" content="Geführtes Tischfussball-Training beim TFCZ: Technik lernen und sichtbar besser werden. Dienstags 18:45–20:15, gratis für Mitglieder. Jetzt Platz sichern.">
+<meta name="theme-color" content="#0d273d">
+<link rel="canonical" href="https://tfcz.ch/training">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta property="og:title" content="Training mit Philipp — Tischfussball Club Zürich">
+<meta property="og:description" content="Technik, die dich schnell besser macht. Bisher jedes Semester ausverkauft – jetzt Platz sichern.">
+<meta property="og:image" content="https://tfcz.ch/assets/fotos/action/philipp.jpg">
+<link rel="stylesheet" href="assets/css/tfcz-fonts.css">
+<link rel="stylesheet" href="system/tokens.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{ overflow-x:clip; background:linear-gradient(165deg, #5ca7dc 0%, #4489c7 46%, #005a94 100%) #005a94}
+body{font-family:var(--font); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased; min-height:100vh; overflow-x:clip; background:transparent}
+body::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:radial-gradient(900px 620px at 12% 4%, rgba(233,196,117,.20), transparent 55%), radial-gradient(1000px 720px at 90% 96%, rgba(205,168,87,.13), transparent 60%), linear-gradient(165deg, #5ca7dc 0%, #4489c7 46%, #005a94 100%)}
+#bg{position:fixed; inset:0; width:100vw; height:100vh; z-index:0; pointer-events:none}
+main{position:relative; z-index:1}
+.wrap{position:relative; z-index:1; max-width:1160px; margin:0 auto; padding:0 22px}
+a{color:inherit}
+h1,h2,h3{line-height:1.1; letter-spacing:-.015em}
+img{display:block; max-width:100%}
+
+/* ===== Sticky Nav ===== */
+.top{position:sticky; top:0; z-index:60; background:linear-gradient(180deg,rgba(13,39,61,.94),rgba(10,31,49,.88)); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); }
+.top .wrap{display:flex; align-items:center; gap:12px; padding:12px 22px}
+.top .logo{display:inline-flex; align-items:center; gap:10px; font-weight:900; color:#fff; text-decoration:none; font-size:15px; flex:none}
+.top .logo img{height:38.8px; width:auto; object-fit:contain; display:block}
+@media(max-width:640px){ .top .logo img{height:35.2px} }
+.top .navlinks{display:flex; align-items:center; gap:2px; margin-left:18px}
+.top .lnk{position:relative; color:var(--ink-mut); font-size:13.5px; font-weight:700; padding:8px 12px; border-radius:var(--r-sm); text-decoration:none; transition:color .18s var(--ease),transform .18s var(--ease)}
+ @media(max-width:900px){ .top .navlinks{display:none} }
+.top .back{margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:800; color:var(--ink-mut); text-decoration:none; padding:8px 13px; border:1px solid var(--card-brd); border-radius:var(--r-sm); transition:var(--t-fast)}
+.top .back:hover{color:#fff; border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+
+section{padding:clamp(30px,4.5vw,60px) 0}
+.lbl{font-size:11px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:16px; display:flex; align-items:center; gap:10px}
+.lbl::before{content:""; width:26px; height:2px; background:var(--gold)}
+.h2{font-size:clamp(28px,3.8vw,46px); font-weight:900; color:#fff; text-transform:uppercase; line-height:1.02}
+.h2 .g{color:var(--gold-lt)}
+.intro{font-size:clamp(15px,1.6vw,17px); color:var(--ink-mut); max-width:680px; margin-top:14px} .intro b{color:#fff}
+
+/* Buttons */
+.btn-gold{display:inline-flex; align-items:center; gap:9px; font-family:var(--font); font-size:15px; font-weight:900; color:var(--navy); background:linear-gradient(155deg,var(--gold),var(--gold-lt)); border:0; padding:14px 24px; border-radius:var(--r-pill); cursor:pointer; text-decoration:none; transition:transform .18s var(--ease), box-shadow .18s var(--ease)}
+.btn-gold:hover{transform:translateY(-2px); box-shadow:0 12px 26px rgba(205,168,87,.4)}
+.btn-gold svg{width:17px;height:17px;flex:none}
+.btn-ghost{display:inline-flex; align-items:center; gap:8px; font-family:var(--font); font-size:14.5px; font-weight:800; color:#fff; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.28); padding:13px 20px; border-radius:var(--r-pill); cursor:pointer; text-decoration:none; transition:var(--t-fast)}
+.btn-ghost:hover{border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.btn-ghost svg{width:18px;height:18px;flex:none}
+
+/* ===== HERO (Parallax-Vollbild) ===== */
+.hero{position:relative; min-height:clamp(540px,90vh,840px); display:grid; align-items:center; overflow:hidden}
+.hero-bg{position:absolute; inset:-12% 0 -12% 0; z-index:0; will-change:transform}
+.hero-bg img{width:100%; height:100%; object-fit:cover}
+.hero-ov{position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(6,15,24,.6) 0%, rgba(7,20,33,.52) 40%, rgba(5,12,20,.9) 100%), radial-gradient(1200px 700px at 78% 12%, rgba(0,90,148,.42), transparent 60%)}
+.hero-ov::after{content:""; position:absolute; left:0; right:0; bottom:0; height:5px; background:linear-gradient(90deg,var(--blue),var(--gold))}
+.hero .wrap{position:relative; z-index:2; width:100%; padding-top:60px; padding-bottom:70px}
+.hero .kick{display:inline-flex; align-items:center; gap:9px; font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.4); padding:7px 15px; border-radius:var(--r-pill); margin-bottom:20px;}
+.hero h1{font-size:clamp(40px,7.4vw,86px); font-weight:900; color:#fff; text-transform:uppercase; line-height:.95; text-shadow:0 6px 40px rgba(0,0,0,.5); max-width:12ch}
+.hero h1 .g{color:var(--gold-lt)}   /* Kontrast: Akzent auf dunklem Foto = Gold, nie Blau */
+/* Dringlichkeits-Pille */
+.urg{display:inline-flex; align-items:center; gap:10px; background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.5); color:#fff; font-size:13px; font-weight:800; padding:9px 16px; border-radius:var(--r-pill); margin:22px 0 0}
+.urg .dot{width:9px; height:9px; border-radius:50%; background:var(--gold-lt); box-shadow:0 0 0 0 rgba(233,196,117,.6); animation:pulse 1.8s var(--ease) infinite; flex:none}
+.urg b{color:var(--gold-lt)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,196,117,.5)}70%{box-shadow:0 0 0 11px rgba(233,196,117,0)}100%{box-shadow:0 0 0 0 rgba(233,196,117,0)}}
+.hero .sub{font-size:clamp(16px,2vw,20px); color:#eef4fa; max-width:580px; font-weight:600; margin:20px 0 26px; text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.hero .sub b{color:var(--gold-lt)}
+.hero .ctas{display:flex; gap:12px; flex-wrap:wrap}
+.hero .cue{position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:2; color:rgba(255,255,255,.7); font-size:11px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:8px}
+.hero .cue .arw{width:22px; height:22px; border-right:2px solid rgba(255,255,255,.7); border-bottom:2px solid rgba(255,255,255,.7); transform:rotate(45deg); animation:bob 1.8s var(--ease) infinite}
+@keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(4px,4px)}}
+@media(max-width:640px){ .hero{min-height:86vh} .hero .cue{display:none} }
+
+/* ===== Parallax-Bänder ===== */
+.pband{position:relative; overflow:hidden; min-height:clamp(320px,44vw,520px); display:grid; place-items:center; margin:clamp(10px,2vw,26px) 0}
+.pband-bg{position:absolute; inset:-16% 0 -16% 0; z-index:0; will-change:transform}
+.pband-bg img{width:100%; height:100%; object-fit:cover}
+.pband-ov{position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(6,15,24,.55), rgba(6,15,24,.78)), radial-gradient(900px 500px at 20% 30%, rgba(0,90,148,.4), transparent 60%)}
+.pband-ov::before{content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--blue)}
+.pband-ov::after{content:""; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--gold)}
+.pband .wrap{position:relative; z-index:2; text-align:center}
+.pquote{font-size:clamp(24px,4.2vw,48px); font-weight:900; color:#fff; text-transform:uppercase; line-height:1.05; text-shadow:0 4px 30px rgba(0,0,0,.55); max-width:17ch; margin:0 auto}
+.pquote .g{color:var(--gold-lt)}
+.psub{margin-top:14px; font-size:clamp(14px,1.6vw,17px); color:rgba(255,255,255,.85); font-weight:600}
+
+/* ===== Counter-Band ===== */
+.facts{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+@media(max-width:720px){ .facts{grid-template-columns:repeat(2,1fr)} }
+.fact{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:22px 16px; text-align:center; box-shadow:var(--e-1)}
+.fact b{display:block; font-size:clamp(28px,3.6vw,42px); font-weight:900; color:#fff; line-height:1}
+.fact b .u{color:var(--blue); font-size:.6em}
+.fact span{display:block; margin-top:7px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-mut)}
+
+/* ===== Warum / Kernidee ===== */
+.why{display:grid; grid-template-columns:.95fr 1.05fr; gap:clamp(22px,4vw,46px); align-items:center}
+@media(max-width:880px){ .why{grid-template-columns:1fr} }
+.why-ph{border-radius:var(--r-xl); overflow:hidden; border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-2); aspect-ratio:5/4}
+.why-ph img{width:100%; height:100%; object-fit:cover}
+.why h2{font-size:clamp(26px,3.6vw,40px); font-weight:900; color:#fff; text-transform:uppercase; line-height:1.02}
+.why h2 .g{color:var(--gold-lt)}
+.why p{font-size:15px; color:var(--ink-mut); margin-top:14px; line-height:1.65} .why p b{color:#fff}
+.why .checks{list-style:none; margin-top:18px; display:flex; flex-direction:column; gap:11px}
+.why .checks li{position:relative; padding-left:30px; font-size:14.5px; color:var(--ink-mut)} .why .checks li b{color:#fff}
+.why .checks li::before{content:""; position:absolute; left:0; top:2px; width:20px; height:20px; border-radius:50%; background:linear-gradient(155deg,var(--blue),var(--blue-dk)); box-shadow:0 0 0 3px rgba(92,167,220,.16)}
+.why .checks li::after{content:""; position:absolute; left:6px; top:8px; width:8px; height:4px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg)}
+
+/* ===== FLIP-Karten (Das erwartet dich) ===== */
+.flipgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+@media(max-width:860px){ .flipgrid{grid-template-columns:1fr 1fr} } @media(max-width:520px){ .flipgrid{grid-template-columns:1fr} }
+.flip{perspective:1400px; height:220px; cursor:pointer}
+.flip-in{position:relative; width:100%; height:100%; transition:transform .7s var(--ease); transform-style:preserve-3d}
+.flip:hover .flip-in, .flip.on .flip-in{transform:rotateY(180deg)}
+.flip-f,.flip-b{position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:var(--r-lg); border:1px solid var(--card-brd); padding:22px 18px; display:flex; flex-direction:column; box-shadow:var(--e-1); overflow:hidden}
+.flip-f{background:var(--card)}
+.flip-b{background:linear-gradient(155deg, rgba(0,90,148,.5), rgba(7,18,30,.92)); transform:rotateY(180deg); justify-content:center}
+.flip-f .vic{width:46px; height:46px; border-radius:13px; display:grid; place-items:center; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk)); box-shadow:0 6px 16px rgba(0,90,148,.4); margin-bottom:14px}
+.flip-f .vic svg{width:23px;height:23px}
+.flip-f h3{font-size:16px; font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:auto}
+.flip-f .more{font-size:11.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-lt); margin-top:12px}
+.flip-b p{font-size:14px; color:#eaf2fa; line-height:1.6} .flip-b p b{color:var(--gold-lt)}
+.flip-b .bt{font-size:12px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:8px}
+
+/* ===== Info-Boxen / Preise ===== */
+.info-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
+.ibox{background:var(--card-soft); border:1px solid var(--card-brd); border-left:4px solid var(--acc,var(--gold)); border-radius:var(--r-lg); padding:clamp(18px,2.6vw,26px)}
+.ibox h3{font-size:18px; font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:12px}
+.ibox ul{list-style:none; display:flex; flex-direction:column; gap:10px}
+.ibox li{position:relative; padding-left:22px; font-size:14px; color:var(--ink-mut); line-height:1.5} .ibox li b{color:#fff; font-weight:800}
+.ibox li::before{content:""; position:absolute; left:2px; top:7px; width:9px; height:9px; border-radius:2px; background:var(--acc,var(--gold))}
+.price-row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
+.pr{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:24px 22px; text-align:center; box-shadow:var(--e-1)}
+.pr .prn{font-size:11.5px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-lt)}
+.pr .prp{font-size:clamp(26px,3.4vw,34px); font-weight:900; color:#fff; margin:8px 0 2px; line-height:1} .pr .prp small{font-size:13px; font-weight:700; color:var(--ink-mut)}
+.pr .prd{font-size:13px; color:var(--ink-mut); margin-top:6px}
+.pr.hl{border-color:var(--gold); outline:1.5px solid rgba(205,168,87,.5)}
+
+/* ===== Status-Banner (Termine provisorisch) ===== */
+.status{position:relative; overflow:hidden; background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,30px); box-shadow:var(--e-2); display:flex; gap:20px; align-items:center; flex-wrap:wrap}
+.status .stx{flex:1 1 320px; min-width:0}
+.status .pulse{display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:9px}
+.status .pulse::before{content:""; width:9px; height:9px; border-radius:50%; background:var(--gold-lt); animation:pulse 1.9s var(--ease) infinite}
+.status h2{font-size:clamp(19px,2.5vw,25px); font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:8px}
+.status p{font-size:14px; color:var(--ink-mut); max-width:600px} .status p b{color:#fff}
+.status .sact{flex:0 0 auto; display:flex; flex-direction:column; gap:10px}
+.dprov{display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); background:linear-gradient(155deg,var(--gold),var(--gold-lt)); padding:5px 12px; border-radius:var(--r-pill); margin-bottom:10px}
+.dline{font-size:14px; color:var(--ink-mut); margin-top:2px} .dline b{color:#fff}
+
+/* ===== Foto-Marquee ===== */
+.marquee{position:relative; overflow:hidden; padding:6px 0; -webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mtrack{display:flex; gap:14px; width:max-content; animation:marq 46s linear infinite}
+.marquee:hover .mtrack{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
+.mtrack .mimg{position:relative; cursor:pointer; flex:0 0 auto; width:clamp(210px,26vw,300px); aspect-ratio:4/3; border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--card-brd); box-shadow:var(--e-1)}
+.mtrack .mimg img{width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease)}
+.mtrack .mimg:hover img{transform:scale(1.08)}
+
+/* ===== Testimonials ===== */
+.tgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.tcard{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:22px 20px; box-shadow:var(--e-1); display:flex; flex-direction:column; transform-style:preserve-3d}
+.tcard .stars{display:flex; gap:3px; color:var(--gold-lt); margin-bottom:10px}
+.tcard .stars .st{width:15px; height:15px; display:block}
+.tcard .quote{font-size:14.5px; color:var(--ink); line-height:1.6; flex:1} .tcard .quote b{color:#fff}
+.tcard .who{margin-top:16px; display:flex; align-items:center; gap:11px}
+.tcard .av{width:38px; height:38px; border-radius:11px; flex:none; display:grid; place-items:center; font-weight:900; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk))}
+.tcard .nm{font-size:13px; font-weight:900; color:#fff} .tcard .rl{font-size:11.5px; color:var(--ink-mut); font-weight:700}
+.tnote{margin-top:16px; font-size:12.5px; color:var(--ink-mut); font-style:italic}
+
+/* ===== Voranmeldung-Formular ===== */
+.formbox{background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,32px); box-shadow:var(--e-2)}
+.formbox h2{font-size:clamp(20px,2.6vw,26px); font-weight:900; color:#fff; text-transform:uppercase}
+.formbox .fsub{font-size:13.5px; color:var(--ink-mut); margin:4px 0 18px; max-width:600px}
+.fgrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.field{display:flex; flex-direction:column; gap:6px; min-width:0} .field.full{grid-column:1/-1}
+.field label{font-size:12px; font-weight:900; letter-spacing:.03em; color:var(--ink-mut)} .field label .req{color:var(--gold-lt)}
+.field input,.field select,.field textarea{font-family:var(--font); font-size:14.5px; font-weight:600; color:#fff; background:linear-gradient(155deg,rgba(17,34,51,.66),rgba(9,21,33,.5)); border:1px solid var(--card-brd); border-radius:var(--r-sm); padding:11px 13px; outline:none; transition:border-color var(--t-fast),box-shadow var(--t-fast); width:100%}
+.field textarea{min-height:90px; resize:vertical}
+.field select{appearance:none; -webkit-appearance:none; cursor:pointer}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-mut); font-weight:500}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold); box-shadow:0 0 0 3px rgba(205,168,87,.18)}
+.field.err input,.field.err select,.field.err textarea{border-color:var(--red); box-shadow:0 0 0 3px rgba(218,41,41,.2)}
+.fnote{font-size:13px; color:var(--ink-mut); margin:16px 0 4px; display:flex; align-items:flex-start; gap:9px} .fnote svg{flex:none;margin-top:2px;color:var(--gold-lt)}
+
+ 
+.btnrow{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:16px}
+
+ 
+.formerr{color:#f0a5a5; font-size:13px; font-weight:800; display:none} .formerr.on{display:block}
+#fDone{text-align:center; padding:8px 4px 4px}
+.done-ic{width:56px;height:56px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;color:var(--navy);background:linear-gradient(155deg,var(--gold),var(--gold-lt));box-shadow:var(--e-1)} .done-ic svg{width:26px;height:26px}
+#fDone h2{margin:0 0 8px;font-size:20px;font-weight:900;color:#fff}
+.done-p{max-width:460px;margin:0 auto 18px;font-size:14.5px;color:var(--ink-mut)} .done-p a{color:var(--gold-lt);font-weight:800}
+.fback{margin-top:16px;background:none;border:0;color:var(--ink-mut);font-family:var(--font);font-size:13px;font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px} .fback:hover{color:#fff}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);z-index:300;background:var(--navy);border:1px solid var(--gold);color:var(--gold-lt);font-weight:800;font-size:13px;padding:10px 18px;border-radius:var(--r-pill);opacity:0;pointer-events:none;transition:.25s var(--ease)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.foot{margin-top:20px; padding:26px 0 40px; border-top:1px solid var(--card-brd); font-size:13px; color:var(--ink-mut); text-align:center}
+.foot a{color:var(--gold-lt); font-weight:800; text-decoration:none}
+@media(max-width:640px){ .fgrid,.info-grid,.price-row{grid-template-columns:1fr} .status{flex-direction:column; align-items:flex-start} .status .sact{width:100%} .status .sact .btn-gold,.status .sact .btn-ghost{width:100%; justify-content:center} }
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important} .mtrack{animation:none} .hero-bg,.pband-bg{transform:none!important}}
+.top .logo:active{transform:scale(.9)}
+.top .logo.pressed{animation:logoPress .42s var(--ease)}
+@keyframes logoPress{0%{transform:scale(1)}35%{transform:scale(.86)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
+</style>
+<link rel="stylesheet" href="system/page.css">
+<link rel="stylesheet" href="system/buttons.css">
+<script defer src="system/components/schema.js"></script>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"></a>
+    <nav class="navlinks">
+      <a class="lnk" href="#warum">Warum</a>
+      <a class="lnk" href="#erwartet">Ablauf</a>
+      <a class="lnk" href="#stimmen">Stimmen</a>
+      <a class="lnk" href="#voranmelden">Platz sichern</a>
+    </nav>
+    <a class="back" href="index.html">← Zur Website</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO (Parallax-Vollbild) -->
+  <section class="hero">
+    <div class="hero-bg" data-par="0.18"><img data-slot="training.hero" src="assets/fotos/action/philipp.jpg" alt="Geführtes Tischfussball-Training am TFCZ-Tisch"></div>
+    <div class="hero-ov"></div>
+    <div class="wrap">
+      <div class="kick" data-aos="fade-up">Der Tischfussball Club Zürich präsentiert</div>
+      <h1 data-aos="fade-up" data-aos-delay="80">Training mit <span class="g">Philipp</span></h1>
+      <div class="urg" data-aos="fade-up" data-aos-delay="140"><span class="dot"></span><span>Bisher <b>jedes Semester ausverkauft</b> — schnell Platz sichern</span></div>
+      <p class="sub" data-aos="fade-up" data-aos-delay="200">Wir geben dir die <b>Technik</b> weiter, mit der du in Wochen sichtbar besser wirst — und an Turnieren überzeugst. Für Einsteiger wie für ambitionierte Spieler.</p>
+      <div class="ctas" data-aos="fade-up" data-aos-delay="260">
+        <a class="btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Jetzt Platz sichern</a>
+        <a class="btn btn-social s-wa" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.2 1.27-1.97 1.43-.53.11-1.22.2-3.56-.77-2.99-1.24-4.9-4.27-5.05-4.47-.15-.2-1.2-1.6-1.2-3.06 0-1.45.76-2.16 1.03-2.46.24-.27.63-.39 1-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.57.82 1.98.89 2.13.07.15.12.32.02.51-.09.2-.14.32-.28.49-.14.17-.29.37-.42.5-.14.14-.28.29-.12.56.15.27.68 1.12 1.46 1.82 1.01.9 1.86 1.18 2.13 1.31.27.14.42.11.58-.07.15-.17.66-.77.84-1.03.17-.27.35-.22.58-.13.24.09 1.51.71 1.77.84.27.13.44.2.51.31.06.11.06.64-.18 1.32z"/></svg>WhatsApp-Gruppe</a>
+      </div>
+    </div>
+    <div class="cue">Scroll<span class="arw"></span></div>
+  </section>
+
+  <div class="wrap">
+
+  <!-- COUNTER -->
+  <section style="padding-top:clamp(24px,3.4vw,40px)">
+    <div class="facts">
+      <div class="fact" data-aos="zoom-out"><b data-count="14">0</b><span>Einheiten je Semester</span></div>
+      <div class="fact" data-aos="zoom-out" data-aos-delay="80"><b data-count="90"><span class="u">Min</span></b><span>pro Einheit</span></div>
+      <div class="fact" data-aos="zoom-out" data-aos-delay="160"><b data-count="2">0<span class="u">×</span></b><span>Semester pro Jahr</span></div>
+      <div class="fact" data-aos="zoom-out" data-aos-delay="240"><b>Gratis</b><span>für Mitglieder</span></div>
+    </div>
+  </section>
+
+  <!-- WARUM / KERNIDEE -->
+  <section id="warum">
+    <div class="lbl" data-aos="fade-up">Darum lohnt es sich</div>
+    <div class="why">
+      <div class="why-ph" data-aos="fade-up"><img data-slot="training.spieler" src="assets/fotos/atmosphaere/atmosphaere-01.jpg" alt="Spieler am Tisch beim Training"></div>
+      <div>
+        <h2 data-aos="fade-up">Technik, die dich <span class="g">schnell besser</span> macht</h2>
+        <p data-aos="fade-up">Im Kern geht es darum, <b>Technik weiterzugeben</b> — sauber, verständlich und direkt am Tisch. Kein blosses Töggelen, sondern gezieltes Üben mit Plan.</p>
+        <p data-aos="fade-up">Spieler aus dem Training haben <b>nachweislich in kürzester Zeit grosse Fortschritte</b> gemacht, sich an grossen Turnieren stark geschlagen und <b>tolle Platzierungen</b> geholt. Es lohnt sich also — für jede Spielstärke.</p>
+        <ul class="checks">
+          <li data-aos="fade-up"><b>Sichtbarer Fortschritt</b> in wenigen Wochen.</li>
+          <li data-aos="fade-up"><b>Wettkampf-taugliche Technik</b> — vom Pass bis zum Abschluss.</li>
+          <li data-aos="fade-up"><b>Für alle Levels</b>: Einstieg bis Turnierspieler.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- PARALLAX-BAND 1 -->
+  <section class="pband">
+    <div class="pband-bg" data-par="0.22"><img data-slot="training.turnierstimmung" src="assets/fotos/action/action-06.jpg" alt="Turnierstimmung"></div>
+    <div class="pband-ov"></div>
+    <div class="wrap">
+      <p class="pquote" data-aos="zoom-out">In Wochen <span class="g">sichtbar besser</span></p>
+      <p class="psub" data-aos="fade-up" data-aos-delay="120">Woche für Woche — messbar am Tisch und am Turnier.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+  <!-- DAS ERWARTET DICH (Flip) -->
+  <section id="erwartet">
+    <div class="lbl" data-aos="fade-up">Das erwartet dich</div>
+    <h2 class="h2" data-aos="fade-up">Kein Zufall <span class="g">— dreh die Karte</span></h2>
+    <div class="flipgrid" style="margin-top:22px">
+      <div class="flip" data-aos="fade-up"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.6 7.2 17.7l.9-5.4L4.2 8.5l5.4-.8z"/></svg></div><h3>Geführtes Training</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Mit Plan</div><p>Strukturierte Einheiten mit Philipp — <b>mit rotem Faden statt Zufall</b>, damit jede Woche aufeinander aufbaut.</p></div>
+      </div></div>
+      <div class="flip" data-aos="fade-up" data-aos-delay="80"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Übungs- & Spielformen</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Praxisnah</div><p>Von Pass, Schuss und Ballkontrolle bis zu <b>echten Spielsituationen</b> — abwechslungsreich statt trocken.</p></div>
+      </div></div>
+      <div class="flip" data-aos="fade-up" data-aos-delay="160"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Feedback & Tricks</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Direkt</div><p>Rückmeldung zu deiner Technik und <b>Kniffe, die im Spiel den Unterschied machen</b>.</p></div>
+      </div></div>
+      <div class="flip" data-aos="fade-up" data-aos-delay="240"><div class="flip-in">
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg></div><h3>Sichtbarer Fortschritt</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-b"><div class="bt">Messbar</div><p>Woche für Woche besser — <b>am Tisch und am Turnier deutlich spürbar</b>.</p></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ABLAUF & RAHMEN -->
+  <section id="ablauf">
+    <div class="lbl" data-aos="fade-up">Ablauf & Rahmen</div>
+    <div class="info-grid">
+      <div class="ibox" data-aos="fade-up" style="--acc:var(--blue)">
+        <h3>Wann & wie oft</h3>
+        <ul>
+          <li>Jeweils am <b>Dienstag, 18:45–20:15</b>.</li>
+          <li>Bei grosser Nachfrage zusätzlich am <b>Mittwoch, 18:30–20:00</b> (bei der Anmeldung angeben).</li>
+          <li><b>Frühlings- & Herbstsemester</b>, je <b>14 Einheiten</b>.</li>
+          <li>Winter- & Sommerpause dazwischen.</li>
+          <li>Durchführung <b>ab 8 Personen</b>.</li>
+        </ul>
+      </div>
+      <div class="ibox" data-aos="fade-up" data-aos-delay="80" style="--acc:var(--gold)">
+        <h3>Gut zu wissen</h3>
+        <ul>
+          <li><b>80 % Anwesenheit</b> erwünscht — damit alle vom Aufbau profitieren.</li>
+          <li>Anmeldung jeweils <b>pro Semester</b> (FS / HS).</li>
+          <li>Alle Levels willkommen — vom Einstieg bis zum Wettkampf.</li>
+          <li>Material ist vor Ort, einfach vorbeikommen.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- KOSTEN -->
+  <section id="preise">
+    <div class="lbl" data-aos="fade-up">Kosten</div>
+    <div class="price-row">
+      <div class="pr hl" data-aos="fade-up"><div class="prn">TFCZ-Mitglieder</div><div class="prp">Gratis</div><div class="prd">Im Aktivmitglied-Beitrag bereits enthalten.</div></div>
+      <div class="pr" data-aos="fade-up" data-aos-delay="80"><div class="prn">Nicht-Mitglieder</div><div class="prp">CHF 100 <small>/ Semester</small></div><div class="prd">Für die 14 Einheiten eines Semesters.</div></div>
+    </div>
+  </section>
+  </div>
+
+
+  <div class="wrap">
+  <!-- TERMINE / STATUS -->
+  <section id="termine">
+    <div class="lbl" data-aos="fade-up">Nächste Termine</div>
+    <div class="status" data-aos="fade-up">
+      <div class="stx">
+        <div class="pulse">Neue Termine folgen bald</div>
+        <div class="dprov">Provisorisch</div>
+        <h2>Herbstsemester 2026</h2>
+        <div class="dline">Dienstags 18:45–20:15 · 14 Einheiten<b>Start voraussichtlich ab 19. August 2026</b></div>
+        <p style="margin-top:12px">Die genauen Daten stehen <b>noch nicht definitiv</b> fest und werden bald bekannt gegeben. Sichere dir schon jetzt unverbindlich deinen Platz — wir melden uns, sobald das Programm steht.</p>
+      </div>
+      <div class="sact">
+        <a class="btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Platz sichern</a>
+        <a class="btn btn-social s-wa" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.2 1.27-1.97 1.43-.53.11-1.22.2-3.56-.77-2.99-1.24-4.9-4.27-5.05-4.47-.15-.2-1.2-1.6-1.2-3.06 0-1.45.76-2.16 1.03-2.46.24-.27.63-.39 1-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.57.82 1.98.89 2.13.07.15.12.32.02.51-.09.2-.14.32-.28.49-.14.17-.29.37-.42.5-.14.14-.28.29-.12.56.15.27.68 1.12 1.46 1.82 1.01.9 1.86 1.18 2.13 1.31.27.14.42.11.58-.07.15-.17.66-.77.84-1.03.17-.27.35-.22.58-.13.24.09 1.51.71 1.77.84.27.13.44.2.51.31.06.11.06.64-.18 1.32z"/></svg>WhatsApp-Gruppe</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VORANMELDUNG -->
+  <section id="voranmelden">
+    <div class="lbl" data-aos="fade-up">Voranmeldung — unverbindlich</div>
+    <div class="formbox" data-aos="fade-up">
+      <div id="fEdit">
+        <h2>Platz vormerken</h2>
+        <div class="fsub">Trag dich unverbindlich ein — sobald die Termine feststehen, melden wir uns bei dir. Beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an info@tfcz.ch.</div>
+        <form id="trForm" data-tfcz="form" data-form="training" novalidate>
+          <div class="fgrid" id="fFields"></div>
+          <div class="fnote"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Beim Senden öffnet sich dein Mailprogramm mit Empfänger, Betreff und Text — alles schon ausgefüllt.</span></div>
+          <div class="btnrow">
+            <button class="btn btn-gold" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Voranmeldung als Mail senden</button>
+            <a class="btn btn-social s-wa" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.2 1.27-1.97 1.43-.53.11-1.22.2-3.56-.77-2.99-1.24-4.9-4.27-5.05-4.47-.15-.2-1.2-1.6-1.2-3.06 0-1.45.76-2.16 1.03-2.46.24-.27.63-.39 1-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.57.82 1.98.89 2.13.07.15.12.32.02.51-.09.2-.14.32-.28.49-.14.17-.29.37-.42.5-.14.14-.28.29-.12.56.15.27.68 1.12 1.46 1.82 1.01.9 1.86 1.18 2.13 1.31.27.14.42.11.58-.07.15-.17.66-.77.84-1.03.17-.27.35-.22.58-.13.24.09 1.51.71 1.77.84.27.13.44.2.51.31.06.11.06.64-.18 1.32z"/></svg>Lieber per WhatsApp</a>
+            <span class="formerr" id="fErr">Bitte fülle die markierten Pflichtfelder aus.</span>
+          </div>
+        </form>
+      </div>
+      <div id="fDone" hidden>
+        <div class="done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <h2>Dein Mailprogramm sollte sich öffnen …</h2>
+        <p class="done-p">Hat sich <strong>nichts geöffnet</strong>? Kopier den Text mit dem Button und sende ihn an <a href="mailto:info@tfcz.ch">info@tfcz.ch</a>, oder schreib uns in der WhatsApp-Gruppe.</p>
+        <div class="btnrow" style="justify-content:center">
+          <button class="btn btn-gold" type="button" id="doneCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Text kopieren</button>
+          <a class="btn-ghost" id="doneOpen" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Mail erneut öffnen</a>
+        </div>
+        <button class="fback" type="button" id="fBack">← Angaben nochmal bearbeiten</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (Namen anonym — später ersetzen) -->
+  <section id="stimmen">
+    <div class="lbl" data-aos="fade-up">Das sagen die Spieler</div>
+    <div class="tgrid" style="margin-top:6px">
+      <div class="tcard" data-aos="fade-up" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+        <div class="quote">„Ich hab in <b>zwei, drei Wochen</b> mehr über saubere Technik gelernt als vorher in Jahren. Plötzlich sitzen Pässe und Schüsse."</div>
+        <div class="who"><div class="av">A</div><div><div class="nm">Anonym</div><div class="rl">Aktivmitglied</div></div></div>
+      </div>
+      <div class="tcard" data-aos="fade-up" data-aos-delay="80" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+        <div class="quote">„Als kompletter Einsteiger reingekommen — nach einem Semester hab ich mich an meinem <b>ersten Turnier richtig gut geschlagen</b>."</div>
+        <div class="who"><div class="av">A</div><div><div class="nm">Anonym</div><div class="rl">Einsteiger</div></div></div>
+      </div>
+      <div class="tcard" data-aos="fade-up" data-aos-delay="160" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+        <div class="quote">„Philipp erklärt so, dass es sofort klick macht. Der <b>Fortschritt ist echt messbar</b> — und die Abende machen Spass."</div>
+        <div class="who"><div class="av">A</div><div><div class="nm">Anonym</div><div class="rl">Turnierspieler</div></div></div>
+      </div>
+      <div class="tcard" data-aos="fade-up" data-aos-delay="240" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
+        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
+        <div class="quote">„Für den Preis unschlagbar. Ich hab mich klar gesteigert und an grösseren Turnieren <b>tolle Platzierungen</b> geholt."</div>
+        <div class="who"><div class="av">A</div><div><div class="nm">Anonym</div><div class="rl">Aktivmitglied</div></div></div>
+      </div>
+    </div>
+    <p class="tnote" data-aos="fade-up">Feedback aus dem Training — Namen folgen, sobald die Teilnehmer freigegeben haben.</p>
+  </section>
+
+  <div data-tfcz="footer"></div>
+  </div>
+</main>
+
+<div id="toast">Kopiert</div>
+
+<script defer src="assets/js/bg-swirl.js"></script>
+<script defer src="assets/js/tfcz-fx.js"></script>
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* Reveal statt AOS/vanilla-tilt: eigenes System, kein externes Lib, kein Render-Blocking (QA 20.07.2026) */
+  (function(){
+    var css='.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}.reveal.in{opacity:1;transform:none}@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}';
+    var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
+    var els=[].slice.call(document.querySelectorAll('[data-aos]'));
+    els.forEach(function(el){ el.classList.add('reveal'); el.removeAttribute('data-aos'); el.removeAttribute('data-aos-delay'); });
+    function alle(){ els.forEach(function(el){ el.classList.add('in'); }); }
+    if(reduce){ alle(); return; }
+    var o=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); o.unobserve(e.target); } }); },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(el){ o.observe(el); });
+    setTimeout(alle, 3000);   /* Failsafe: nichts bleibt je unsichtbar */
+  })();
+  document.addEventListener('click',function(e){ var f=e.target.closest && e.target.closest('.flip'); if(f && matchMedia('(hover:none)').matches){ f.classList.toggle('on'); } });
+
+  /* Parallax */
+  var pars=[].slice.call(document.querySelectorAll('[data-par]')), ticking=false;
+  function par(){ ticking=false; var vh=window.innerHeight;
+    for(var i=0;i<pars.length;i++){ var el=pars[i], r=el.getBoundingClientRect(), spd=parseFloat(el.getAttribute('data-par'))||0.2, mid=r.top+r.height/2, off=(mid-vh/2)*spd; el.style.transform='translate3d(0,'+(-off).toFixed(1)+'px,0)'; } }
+  if(!reduce){ addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(par); } },{passive:true}); addEventListener('resize',par); par(); }
+
+  /* Counter */
+  var cio=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting)return; var el=en.target; cio.unobserve(el); var end=+el.getAttribute('data-count'), suffix=el.querySelector('.u'), suf=suffix?suffix.outerHTML:''; if(reduce){el.innerHTML=end+suf;return;} var t0=null,dur=1100; function step(ts){t0=t0||ts; var p=Math.min(1,(ts-t0)/dur); var v=Math.round(end*(1-Math.pow(1-p,3))); el.innerHTML=v+suf; if(p<1)requestAnimationFrame(step);} requestAnimationFrame(step); }); },{threshold:.5});
+  [].forEach.call(document.querySelectorAll('[data-count]'),function(el){ cio.observe(el); });
+
+  /* Formular */
+  /* Formular = Baustein system/components/form.js (Felder + Mail-Texte: system/forms.js) */
+
+  /* Hintergrund-Wirbel: globales Standardmodul (bg-swirl.js) übernimmt den Effekt */
+
+  var lg=document.querySelector(".top .logo"); if(lg) lg.addEventListener("click",function(e){ lg.classList.remove("pressed"); void lg.offsetWidth; lg.classList.add("pressed"); var href=lg.getAttribute("href"); if(href&&href.charAt(0)!=="#"){ e.preventDefault(); setTimeout(function(){ location.href=href; },230); } setTimeout(function(){lg.classList.remove("pressed");},440); });
+})();
+</script>
+<script src="system/content.js"></script>
+<script src="system/forms.js"></script>
+<script src="system/cta.js"></script>
+<script src="system/likes.js"></script>
+<script defer src="system/components/portal.js"></script>
+<script defer src="system/components/nav.js"></script>
+<script defer src="system/components/scroll.js"></script>
+<script defer src="system/components/icons.js"></script>
+<script defer src="system/components/form.js"></script>
+<script defer src="system/components/footer.js"></script>
+<script defer src="system/components/cta.js"></script>
+<script defer src="system/components/lightbox.js"></script>
+<script defer src="system/tfcz-images.js"></script>
+</body>
+</html>

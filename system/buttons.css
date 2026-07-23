@@ -1,7 +1,7 @@
 /* ============================================================
    TFCZ · BAUSTEIN: Buttons / CTA-System — EINE Quelle für alle Seiten.
 
-   Referenz + Doku: Brand Guide „CTA-System" (component-library.html).
+   Referenz + Doku: Brand Guide „CTA-System" (brandguide.html).
    Größen/Radius kommen aus system/tokens.css:
      --btn-radius (12px) · --btn-pad-y · --btn-pad-x · --btn-font
    Ändert man --btn-radius im Token, ändern sich ALLE Buttons auf ALLEN

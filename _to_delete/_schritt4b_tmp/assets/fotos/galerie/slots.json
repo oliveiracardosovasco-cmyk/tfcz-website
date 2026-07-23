@@ -1,0 +1,167 @@
+{
+ "count": 18,
+ "slots": [
+  {
+   "key": "index.hero",
+   "page": "Startseite",
+   "label": "Hero – Spielszene",
+   "current": "assets/fotos/slots/action-13.webp",
+   "type": "img",
+   "page_file": "index.html",
+   "anchor": null
+  },
+  {
+   "key": "index.tisch",
+   "page": "Startseite",
+   "label": "Tisch / stimmungsvolles Licht",
+   "current": "assets/fotos/action/philipp.jpg",
+   "type": "img",
+   "page_file": "index.html",
+   "anchor": "angebote"
+  },
+  {
+   "key": "index.nachwuchs",
+   "page": "Startseite",
+   "label": "Nachwuchs",
+   "current": "assets/fotos/slots/nachwuchs.webp",
+   "type": "img",
+   "page_file": "index.html",
+   "anchor": "angebote"
+  },
+  {
+   "key": "index.firmenevent",
+   "page": "Startseite",
+   "label": "Firmenevent-Teaser",
+   "current": "assets/fotos/action/firmenevent-7012.jpg",
+   "type": "img",
+   "page_file": "index.html",
+   "anchor": "angebote"
+  },
+  {
+   "key": "index.bg-manifest",
+   "page": "Startseite",
+   "label": "Hintergrund – Manifest-Sektion",
+   "current": "assets/fotos/slots/manifest-777.webp",
+   "type": "bg",
+   "page_file": "index.html",
+   "anchor": null
+  },
+  {
+   "key": "index.bg-bar",
+   "page": "Startseite",
+   "label": "Hintergrund – Bar-Sektion",
+   "current": "assets/fotos/slots/bar.webp",
+   "type": "bg",
+   "page_file": "index.html",
+   "anchor": null
+  },
+  {
+   "key": "index.galerie-feed",
+   "page": "Startseite",
+   "label": "Foto-Galerie (Marquee, mehrere Bilder)",
+   "current": "action-01…20",
+   "type": "feed",
+   "page_file": "index.html",
+   "anchor": "galerie"
+  },
+  {
+   "key": "ueber-uns.hero-halle",
+   "page": "Über uns",
+   "label": "Hero – Halle Wipkingen",
+   "current": "assets/fotos/action/action-13.jpg",
+   "type": "img",
+   "page_file": "tfcz-ueber-uns.html",
+   "anchor": null
+  },
+  {
+   "key": "ueber-uns.clubliga",
+   "page": "Über uns",
+   "label": "Clubliga",
+   "current": "assets/fotos/slots/action-12.webp",
+   "type": "img",
+   "page_file": "tfcz-ueber-uns.html",
+   "anchor": "fordere"
+  },
+  {
+   "key": "ueber-uns.nachwuchs",
+   "page": "Über uns",
+   "label": "Nachwuchs",
+   "current": "assets/fotos/slots/nachwuchs.webp",
+   "type": "img",
+   "page_file": "tfcz-ueber-uns.html",
+   "anchor": "kinder"
+  },
+  {
+   "key": "ueber-uns.community",
+   "page": "Über uns",
+   "label": "Community",
+   "current": "assets/fotos/slots/atmosphaere-07.webp",
+   "type": "img",
+   "page_file": "tfcz-ueber-uns.html",
+   "anchor": "community"
+  },
+  {
+   "key": "ueber-uns.insta",
+   "page": "Über uns",
+   "label": "Insta-Diashow (mehrere Bilder)",
+   "current": null,
+   "type": "feed",
+   "page_file": "tfcz-ueber-uns.html",
+   "anchor": "social"
+  },
+  {
+   "key": "training.hero",
+   "page": "Training",
+   "label": "Hero – geführtes Training",
+   "current": "assets/fotos/action/philipp.jpg",
+   "type": "img",
+   "page_file": "tfcz-training.html",
+   "anchor": null
+  },
+  {
+   "key": "training.spieler",
+   "page": "Training",
+   "label": "Spieler am Tisch",
+   "current": "assets/fotos/atmosphaere/atmosphaere-01.jpg",
+   "type": "img",
+   "page_file": "tfcz-training.html",
+   "anchor": "warum"
+  },
+  {
+   "key": "training.turnierstimmung",
+   "page": "Training",
+   "label": "Turnierstimmung",
+   "current": "assets/fotos/action/action-06.jpg",
+   "type": "img",
+   "page_file": "tfcz-training.html",
+   "anchor": "warum"
+  },
+  {
+   "key": "firmenevents.hero",
+   "page": "Firmenevents",
+   "label": "Hero – Firmenteam",
+   "current": "assets/fotos/action/firmenevent-7012.jpg",
+   "type": "img",
+   "page_file": "tfcz-firmenevents.html",
+   "anchor": null
+  },
+  {
+   "key": "firmenevents.nah",
+   "page": "Firmenevents",
+   "label": "Nah am Tisch",
+   "current": "assets/fotos/atmosphaere/atmosphaere-06.jpg",
+   "type": "img",
+   "page_file": "tfcz-firmenevents.html",
+   "anchor": "idee"
+  },
+  {
+   "key": "firmenevents.turnierstimmung",
+   "page": "Firmenevents",
+   "label": "Turnierstimmung",
+   "current": "assets/fotos/action/action-21.jpg",
+   "type": "img",
+   "page_file": "tfcz-firmenevents.html",
+   "anchor": "fakten"
+  }
+ ]
+}
