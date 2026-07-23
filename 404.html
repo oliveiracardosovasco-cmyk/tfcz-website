@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 · Seite im Aus — Tischfussball Club Zürich</title>
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0d273d">
+<style>
+  :root{
+    --navy:#0d273d; --navy-2:#0a1f31; --blue:#5ca7dc; --gold:#cda857; --gold-lt:#e9c475;
+    --ink:#eaf2fb; --muted:#9db6cf;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--ink); overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Roboto,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(circle at 15% 12%, rgba(92,167,220,.14), transparent 42%),
+      radial-gradient(circle at 85% 88%, rgba(205,168,87,.12), transparent 45%),
+      #0d273d;
+  }
+  /* Punkt-Muster wie auf der Website */
+  .dots{position:fixed;inset:0;z-index:0;opacity:.5;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.10) 1.4px, transparent 1.6px);
+    background-size:26px 26px}
+  #game{position:fixed;inset:0;z-index:1;display:block}
+  .ui{position:fixed;inset:0;z-index:2;pointer-events:none;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;text-align:center;padding:24px}
+  .brandline{width:66px;height:4px;border-radius:3px;margin:0 auto 20px;
+      background:linear-gradient(90deg,var(--blue),var(--gold))}
+  .big{font-size:clamp(90px,22vw,190px);font-weight:900;line-height:.9;letter-spacing:-.02em;
+      color:var(--gold-lt);text-shadow:0 8px 30px rgba(0,0,0,.45);margin:0}
+  h1{font-size:clamp(22px,4.5vw,34px);font-weight:800;margin:.35em 0 .15em}
+  p.sub{max-width:34ch;margin:0 auto;color:var(--muted);font-size:clamp(14px,2.4vw,17px);line-height:1.5}
+  .hint{margin-top:10px;font-size:13px;color:#7f9bb6}
+  .cta{pointer-events:auto;margin-top:26px;display:inline-flex;align-items:center;gap:9px;
+      background:var(--gold);color:var(--navy);font-weight:800;text-decoration:none;
+      padding:13px 24px;border-radius:999px;font-size:16px;box-shadow:0 10px 26px rgba(0,0,0,.35);
+      transition:transform .15s ease, background .15s ease}
+  .cta:hover{transform:translateY(-2px);background:var(--gold-lt)}
+  .cta:active{transform:scale(.96)}
+  .hud{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:3;
+      display:flex;gap:10px;pointer-events:none}
+  .chip{background:rgba(13,39,61,.66);border:1px solid rgba(255,255,255,.14);border-radius:999px;
+      padding:7px 14px;font-weight:800;font-size:14px;color:#fff;backdrop-filter:blur(4px);
+      display:flex;align-items:center;gap:7px;white-space:nowrap}
+  .chip b{color:var(--gold-lt)}
+  .foot{position:fixed;bottom:14px;left:0;right:0;z-index:3;text-align:center;
+      font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6f8aa4;pointer-events:none}
+  @media (max-height:520px){ .big{font-size:clamp(60px,16vw,110px)} h1{margin-top:0} }
+</style>
+</head>
+<body>
+  <div class="dots"></div>
+  <canvas id="game"></canvas>
+
+  <div class="hud">
+    <div class="chip">⚽ Tore <b id="score">0</b></div>
+    <div class="chip">⏱ <b id="time">0.0</b>s</div>
+  </div>
+
+  <div class="ui">
+    <div class="brandline"></div>
+    <p class="big">404</p>
+    <h1>Diese Seite ist im Aus.</h1>
+    <p class="sub">Kein Grund zum Aufhören: beweg die Maus (oder wisch am Handy) und schubs die Bälle in eines der beiden Tore.</p>
+    <div class="hint">Bewegen = schubsen · triff das goldene oder blaue Tor</div>
+    <a class="cta" href="/">◂ Zurück zur Startseite</a>
+  </div>
+
+  <div class="foot">Tischfussball Club Zürich · Wipkingen</div>
+
+<script>
+(function(){
+  var cv=document.getElementById('game'), ctx=cv.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  var W,H;
+  var COLORS=['#5ca7dc','#cda857','#e9c475','#eef4fb','#4489c7'];
+  var balls=[], goals=[], px=-9999, py=-9999, score=0, t0=null, confetti=[];
+
+  function resize(){
+    W=cv.clientWidth=window.innerWidth; H=cv.clientHeight=window.innerHeight;
+    cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+    layoutGoals();
+  }
+  function layoutGoals(){
+    var gh=Math.min(H*0.34, 260), gy=(H-gh)/2, gw=Math.max(26, W*0.028);
+    goals=[
+      {x:0,      y:gy, w:gw, h:gh, side:'L', color:'#5ca7dc'},
+      {x:W-gw,   y:gy, w:gw, h:gh, side:'R', color:'#cda857'}
+    ];
+  }
+  function rand(a,b){return a+Math.random()*(b-a);}
+  function spawnBall(cx,cy){
+    var r=Math.max(13, Math.min(W,H)*0.021);
+    return {x:cx!=null?cx:W/2+rand(-60,60), y:cy!=null?cy:H/2+rand(-60,60),
+            vx:rand(-2,2), vy:rand(-2,2), r:r, c:COLORS[(Math.random()*COLORS.length)|0]};
+  }
+  function init(){
+    resize(); balls=[]; for(var i=0;i<7;i++) balls.push(spawnBall());
+    t0=performance.now(); requestAnimationFrame(loop);
+  }
+
+  function pointer(e){
+    var t=(e.touches&&e.touches[0])||e; px=t.clientX; py=t.clientY;
+  }
+  function pointerOut(){ px=-9999; py=-9999; }
+  window.addEventListener('mousemove',pointer,{passive:true});
+  window.addEventListener('touchmove',function(e){pointer(e);},{passive:true});
+  window.addEventListener('mouseout',pointerOut);
+  window.addEventListener('touchend',pointerOut);
+  window.addEventListener('resize',resize);
+
+  function drawBall(b){
+    ctx.save();
+    ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2);
+    ctx.fillStyle=b.c; ctx.shadowColor='rgba(0,0,0,.35)'; ctx.shadowBlur=10; ctx.shadowOffsetY=4; ctx.fill();
+    ctx.restore();
+    // kleiner TFCZ-Schild-Punkt
+    ctx.beginPath(); ctx.arc(b.x-b.r*0.28,b.y-b.r*0.30,b.r*0.34,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,.55)'; ctx.fill();
+  }
+  function drawGoal(g){
+    ctx.save();
+    var grd=ctx.createLinearGradient(g.x,0,g.x+g.w,0);
+    var c=g.color;
+    grd.addColorStop(0, g.side==='L'? c : 'rgba(0,0,0,0)');
+    grd.addColorStop(1, g.side==='L'? 'rgba(0,0,0,0)' : c);
+    ctx.globalAlpha=.30; ctx.fillStyle=grd; ctx.fillRect(g.x,g.y,g.w,g.h);
+    ctx.globalAlpha=1; ctx.strokeStyle=c; ctx.lineWidth=4;
+    ctx.strokeRect(g.x+(g.side==='L'?0:0), g.y, g.w, g.h);
+    // Netz-Linien
+    ctx.globalAlpha=.35; ctx.lineWidth=1; ctx.strokeStyle=c;
+    for(var i=1;i<6;i++){var yy=g.y+g.h*i/6; ctx.beginPath();ctx.moveTo(g.x,yy);ctx.lineTo(g.x+g.w,yy);ctx.stroke();}
+    ctx.restore();
+  }
+  function burst(x,y,col){
+    for(var i=0;i<26;i++) confetti.push({x:x,y:y,vx:rand(-4,4),vy:rand(-6,1),
+      r:rand(2,5),c:Math.random()<.5?col:COLORS[(Math.random()*COLORS.length)|0],life:1});
+  }
+
+  function loop(now){
+    ctx.clearRect(0,0,W,H);
+    goals.forEach(drawGoal);
+
+    for(var i=0;i<balls.length;i++){
+      var b=balls[i];
+      // Maus-Abstossung
+      var dx=b.x-px, dy=b.y-py, dm=Math.hypot(dx,dy), R=b.r+120;
+      if(dm<R && dm>0){ var f=Math.pow(1-dm/R,2)*2.4; b.vx+=dx/dm*f; b.vy+=dy/dm*f; }
+      // Ball-Ball-Kollision (leicht)
+      for(var j=i+1;j<balls.length;j++){
+        var o=balls[j], ox=o.x-b.x, oy=o.y-b.y, od=Math.hypot(ox,oy), mn=b.r+o.r;
+        if(od<mn && od>0){ var pp=(mn-od)/mn*0.6, ux=ox/od, uy=oy/od;
+          b.vx-=ux*pp; b.vy-=uy*pp; o.vx+=ux*pp; o.vy+=uy*pp; }
+      }
+      b.vx*=.99; b.vy*=.99;
+      var sp=Math.hypot(b.vx,b.vy); if(sp>9){ b.vx=b.vx/sp*9; b.vy=b.vy/sp*9; }
+      b.x+=b.vx; b.y+=b.vy;
+      // Wände
+      if(b.y<b.r){b.y=b.r;b.vy*=-.86;} if(b.y>H-b.r){b.y=H-b.r;b.vy*=-.86;}
+      // Tore prüfen (nur im vertikalen Torband)
+      var scored=false;
+      for(var k=0;k<goals.length;k++){ var g=goals[k];
+        if(b.y>g.y && b.y<g.y+g.h){
+          if((g.side==='L' && b.x<g.w+b.r*0.4) || (g.side==='R' && b.x>W-g.w-b.r*0.4)){
+            score++; document.getElementById('score').textContent=score;
+            burst(g.side==='L'?g.w:W-g.w, b.y, g.color);
+            balls[i]=spawnBall(); scored=true; break;
+          }
+        }
+      }
+      if(scored) continue;
+      // seitliche Wände (ausserhalb Torhöhe abprallen)
+      if(b.x<b.r){b.x=b.r;b.vx*=-.86;} if(b.x>W-b.r){b.x=W-b.r;b.vx*=-.86;}
+      drawBall(b);
+    }
+    // Konfetti
+    for(var c=confetti.length-1;c>=0;c--){ var p=confetti[c];
+      p.vy+=0.18; p.x+=p.vx; p.y+=p.vy; p.life-=0.016;
+      if(p.life<=0){ confetti.splice(c,1); continue; }
+      ctx.globalAlpha=Math.max(0,p.life); ctx.fillStyle=p.c;
+      ctx.fillRect(p.x,p.y,p.r,p.r); ctx.globalAlpha=1;
+    }
+    if(t0!=null){ document.getElementById('time').textContent=((now-t0)/1000).toFixed(1); }
+    requestAnimationFrame(loop);
+  }
+  init();
+})();
+</script>
+</body>
+</html>

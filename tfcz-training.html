@@ -505,10 +505,10 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   var lg=document.querySelector(".top .logo"); if(lg) lg.addEventListener("click",function(e){ lg.classList.remove("pressed"); void lg.offsetWidth; lg.classList.add("pressed"); var href=lg.getAttribute("href"); if(href&&href.charAt(0)!=="#"){ e.preventDefault(); setTimeout(function(){ location.href=href; },230); } setTimeout(function(){lg.classList.remove("pressed");},440); });
 })();
 </script>
-<script src="system/content.js"></script>
-<script src="system/forms.js"></script>
-<script src="system/cta.js"></script>
-<script src="system/likes.js"></script>
+<script defer src="system/content.js"></script>
+<script defer src="system/forms.js"></script>
+<script defer src="system/cta.js"></script>
+<script defer src="system/likes.js"></script>
 <script defer src="system/components/portal.js"></script>
 <script defer src="system/components/nav.js"></script>
 <script defer src="system/components/scroll.js"></script>
