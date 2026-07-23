@@ -49,6 +49,10 @@
   .chip b{color:var(--gold-lt)}
   .foot{position:fixed;bottom:14px;left:0;right:0;z-index:3;text-align:center;
       font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6f8aa4;pointer-events:none}
+  #win{position:fixed;top:62px;left:50%;transform:translateX(-50%) scale(.9);z-index:4;opacity:0;
+      transition:opacity .3s ease, transform .3s ease;pointer-events:none;background:var(--gold);
+      color:var(--navy);font-weight:900;font-size:17px;padding:11px 24px;border-radius:999px;
+      box-shadow:0 12px 30px rgba(0,0,0,.42);white-space:nowrap}
   @media (max-height:520px){ .big{font-size:clamp(60px,16vw,110px)} h1{margin-top:0} }
 </style>
 </head>
@@ -57,9 +61,10 @@
   <canvas id="game"></canvas>
 
   <div class="hud">
-    <div class="chip">⚽ Tore <b id="score">0</b></div>
+    <div class="chip">⚽ Tore <b id="score">0</b> / 10</div>
     <div class="chip">⏱ <b id="time">0.0</b>s</div>
   </div>
+  <div id="win">🏆 10 Tore — stark gekickt!</div>
 
   <div class="ui">
     <div class="brandline"></div>
@@ -99,7 +104,7 @@
             vx:rand(-2,2), vy:rand(-2,2), r:r, c:COLORS[(Math.random()*COLORS.length)|0]};
   }
   function init(){
-    resize(); balls=[]; for(var i=0;i<7;i++) balls.push(spawnBall());
+    resize(); balls=[]; for(var i=0;i<10;i++) balls.push(spawnBall());
     t0=performance.now(); requestAnimationFrame(loop);
   }
 
@@ -140,6 +145,13 @@
     for(var i=0;i<26;i++) confetti.push({x:x,y:y,vx:rand(-4,4),vy:rand(-6,1),
       r:rand(2,5),c:Math.random()<.5?col:COLORS[(Math.random()*COLORS.length)|0],life:1});
   }
+  function win(){
+    for(var i=0;i<90;i++) confetti.push({x:rand(0,W),y:rand(-30,H*0.35),vx:rand(-5,5),vy:rand(-1,7),
+      r:rand(3,7),c:COLORS[(Math.random()*COLORS.length)|0],life:rand(1.1,1.8)});
+    var el=document.getElementById('win');
+    if(el){ el.style.opacity='1'; el.style.transform='translateX(-50%) scale(1)';
+      clearTimeout(win._t); win._t=setTimeout(function(){ el.style.opacity='0'; el.style.transform='translateX(-50%) scale(.9)'; },2000); }
+  }
 
   function loop(now){
     ctx.clearRect(0,0,W,H);
@@ -166,8 +178,10 @@
       for(var k=0;k<goals.length;k++){ var g=goals[k];
         if(b.y>g.y && b.y<g.y+g.h){
           if((g.side==='L' && b.x<g.w+b.r*0.4) || (g.side==='R' && b.x>W-g.w-b.r*0.4)){
-            score++; document.getElementById('score').textContent=score;
+            score++;
             burst(g.side==='L'?g.w:W-g.w, b.y, g.color);
+            if(score>=10){ win(); score=0; }
+            document.getElementById('score').textContent=score;
             balls[i]=spawnBall(); scored=true; break;
           }
         }
