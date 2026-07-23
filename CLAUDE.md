@@ -1113,7 +1113,7 @@ Prüfung: der `tfcz-audit`-Skill meldet Titel > 60 und Description > 160 Zeichen
 Roh-JPG/PNG-Fotos gehören NICHT direkt in Seiten. (Logos/Embleme/Muster sind keine Galerie-Fotos → geteilte Assets in `assets/img/`.)
 
 **Wie es funktioniert (Slots):**
-- Bild-/Hintergrund-Stellen tragen im HTML ein `data-slot="…"` (z. B. `index.hero`). Das `src` wird **beim Veröffentlichen aus `mapping.json` ins HTML gebacken** (`node _tools/bake-slots.mjs`) und ist das **echte Bild** — kein Platzhalter mit Fremdbild. `system/tfcz-images.js` bleibt nur Fallback (setzt denselben Wert).
+- Bild-/Hintergrund-Stellen tragen im HTML ein `data-slot="…"` (z. B. `index.hero`). Das `src` wird **beim Veröffentlichen aus `mapping.json` ins HTML gebacken** (`node _tools/bake-slots.mjs`) und ist das **echte Bild** — kein Platzhalter mit Fremdbild. `system/tfcz-images.js` bleibt nur Fallback (setzt denselben Wert). Der Bake setzt zudem `loading="lazy"` (ausser Hero-Slots, die bleiben eager fürs LCP) und `decoding="async"`. **Kein** `width`/`height` nötig: der Layout-Platz ist bereits über die CSS-Container (feste/geclampte Höhe + `object-fit:cover`) reserviert.
 - `system/tfcz-images.js` setzt zur Laufzeit das echte Bild bzw. den Background aus `assets/fotos/galerie/mapping.json`; `system/tfcz-carousel.js` macht dasselbe für Karussells.
 - **`mapping.json` = Laufzeit-Quelle der Wahrheit** (Slot → Bildpfad). `slots.json` = Slot-Definitionen. `galerie.json` = Foto-Katalog.
 
