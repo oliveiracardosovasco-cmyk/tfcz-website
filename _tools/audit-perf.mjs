@@ -33,7 +33,6 @@ const PAGES = [
   ["/regeln",        "tfcz-regeln.html"],
   ["/medien",        "tfcz-medien.html"],
   ["/mitglied",      "mitglied.html"],
-  ["/zueri-open-2",  "zueri-pro-tour-2-eroeffnung.html"],
 ];
 
 const MIME = {

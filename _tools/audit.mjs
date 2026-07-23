@@ -28,7 +28,6 @@ const PAGES = [
   ["/regeln",        "tfcz-regeln.html"],
   ["/medien",        "tfcz-medien.html"],
   ["/mitglied",      "mitglied.html"],
-  ["/zueri-open-2",  "zueri-pro-tour-2-eroeffnung.html"],
 ];
 // noindex-/App-Seiten: nicht SEO-relevant, aber auf Indexierbarkeit geprüft.
 const APP_PAGES = ["login.html", "dashboard.html"];
