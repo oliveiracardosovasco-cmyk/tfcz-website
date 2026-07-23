@@ -72,6 +72,7 @@ h1 .g{color:var(--gold-lt)}
 .langsw button{font-family:var(--font); font-weight:900; font-size:12.5px; padding:8px 15px; border:0; border-radius:var(--r-pill); cursor:pointer; color:var(--ink-mut); background:none; white-space:nowrap; transition:.15s; display:flex; flex-direction:column; align-items:center; line-height:1.15}
 .langsw button small{font-weight:800; font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; opacity:.75}
 .langsw button.on{background:var(--gold); color:var(--navy)}
+.langsw button.on small{opacity:1}  /* Navy voll deckend auf Gold = 6,79:1 (WCAG AA); .75 ergab nur 4,28:1 */
 
 .tools{position:sticky; top:64px; z-index:80; margin-top:20px; padding:12px 0; background:linear-gradient(180deg, rgba(0,90,148,.9), rgba(0,90,148,.55) 72%, transparent)}
 .toprow{margin-bottom:10px}

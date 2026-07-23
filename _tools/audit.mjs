@@ -135,7 +135,13 @@ function analyzePage(urlPath, file) {
   for (const lvl of hs) { if (prev && lvl > prev + 1) skip = true; prev = lvl; }
   if (skip) add("LOW", "a11y", urlPath, "Überschriften-Ebene übersprungen (z. B. H2 → H4) — Gliederung für Screenreader/SEO unklar.");
 
-  if (!html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/i)) add("MEDIUM", "seo", urlPath, "Kein Canonical.");
+  const canTag = html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/i);
+  if (!canTag) add("MEDIUM", "seo", urlPath, "Kein Canonical.");
+  else { // Selbstreferenz prüfen: zeigt der Canonical auf die eigene URL?
+    const canHref = (tagAttr(canTag[0], "href") || "").replace(/\/$/, "");
+    const expect = ("https://tfcz.ch" + (urlPath === "/" ? "" : urlPath)).replace(/\/$/, "");
+    if (canHref && canHref !== expect) add("LOW", "seo", urlPath, `Canonical zeigt auf ${canHref} statt auf die eigene URL (${expect}).`);
+  }
   if (!html.match(/<html\b[^>]*\blang=/i)) add("MEDIUM", "seo", urlPath, "Kein lang-Attribut am <html>.");
 
   // meta viewport / charset (Mobile & Encoding)
