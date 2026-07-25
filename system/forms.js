@@ -131,8 +131,8 @@ window.TFCZ = window.TFCZ || {};
           { k:'email', label:'E-Mail', type:'email', ph:'name@firma.ch' },
           { k:'tel', label:'Telefon', type:'tel', opt:true, ph:'optional' },
           { k:'anzahl', label:'Anzahl Personen (ca.)', type:'number', ph:'z. B. 16' },
-          { k:'datum', label:'Wunschdatum', type:'text', ph:'aus Kalender oder z. B. Do 12. Nov' },
-          { k:'zeit', label:'Wunschzeit', type:'text', opt:true, ph:'z. B. 18:00–20:00', leerText:'noch offen' },
+          { k:'datum', label:'Wunschdatum', type:'text', ph:'z. B. Do 12. Nov' },
+          { k:'zeit', label:'Wunsch-Zeitfenster', type:'select', options:['16:00–18:00','17:00–19:00','18:00–20:00','19:00–21:00','Noch flexibel'] },
           { k:'msg', label:'Nachricht', type:'textarea', opt:true, full:true, ph:'Anlass, Wünsche, Fragen?' }
         ]
       },

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Firmenevent & Teamanlass · TFCZ — Tischfussball Club Zürich</title>
-<meta name="description" content="Der Teamanlass, über den alle reden: Tischfussball-Turnier für euer Unternehmen — alle spielen mit allen, max. 2 Std, zentral in Zürich. Jetzt anfragen.">
+<meta name="description" content="Der Teamanlass, über den alle reden: Tischfussball-Turnier für euer Unternehmen — gute Durchmischung, ca. 2 Std, zentral in Zürich. Jetzt anfragen.">
 <meta name="theme-color" content="#0d273d">
 <link rel="canonical" href="https://tfcz.ch/firmenevents">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
@@ -14,11 +14,11 @@
 <meta property="og:site_name" content="Tischfussball Club Zürich">
 <meta property="og:locale" content="de_CH">
 <meta property="og:title" content="Firmenevent & Teamanlass — Tischfussball Club Zürich">
-<meta property="og:description" content="Ein Turnier für euer Team: alle spielen mit allen, maximal 2 Stunden, zentral in Zürich. Verfügbarkeit prüfen und anfragen.">
+<meta property="og:description" content="Ein Turnier für euer Team: gute Durchmischung, ca. 2 Stunden, zentral in Zürich. Jetzt unverbindlich anfragen.">
 <meta property="og:image" content="https://tfcz.ch/assets/fotos/action/firmenevent-7012.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Firmenevent & Teamanlass — Tischfussball Club Zürich">
-<meta name="twitter:description" content="Ein Turnier für euer Team: alle spielen mit allen, maximal 2 Stunden, zentral in Zürich. Verfügbarkeit prüfen und anfragen.">
+<meta name="twitter:description" content="Ein Turnier für euer Team: gute Durchmischung, ca. 2 Stunden, zentral in Zürich. Jetzt unverbindlich anfragen.">
 <meta name="twitter:image" content="https://tfcz.ch/assets/fotos/action/firmenevent-7012.jpg">
 <link rel="stylesheet" href="assets/css/tfcz-fonts.css">
 <link rel="stylesheet" href="system/tokens.css">
@@ -131,7 +131,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .frow{display:flex; gap:14px; align-items:flex-start; padding:13px 0; border-bottom:1px solid rgba(255,255,255,.08)}
 .frow .fk{flex:0 0 132px; font-size:12px; font-weight:900; letter-spacing:.04em; text-transform:uppercase; color:var(--gold-lt); padding-top:2px}
 .frow .fv{font-size:14.5px; color:#fff; font-weight:600} .frow .fv small{color:var(--ink-mut); font-weight:600}
-.sendhint{margin-top:18px; font-size:13px; color:var(--ink-mut); display:flex; align-items:flex-start; gap:9px} .sendhint svg{flex:none;margin-top:2px;color:var(--gold-lt)} .sendhint b{color:#fff}
+.fakten-share{margin-top:20px; padding-top:18px; border-top:1px solid var(--card-brd); display:flex; justify-content:center}
 
 /* ===== Ablauf Timeline ===== */
 .tl{position:relative; margin-top:6px; padding-left:26px}
@@ -151,42 +151,6 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .mtrack .mimg{position:relative; cursor:pointer; flex:0 0 auto; width:clamp(210px,26vw,300px); aspect-ratio:4/3; border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--card-brd); box-shadow:var(--e-1)}
 .mtrack .mimg img{width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease)}
 .mtrack .mimg:hover img{transform:scale(1.08)}
-
-/* ===== Verfügbarkeits-Kalender ===== */
-.calbox{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-xl); padding:clamp(18px,2.6vw,28px); box-shadow:var(--e-2)}
-.calhead{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px}
-.calnav{display:flex; align-items:center; gap:10px}
-.calnav button{width:36px; height:36px; border-radius:50%; background:rgba(92,167,220,.16); border:1px solid rgba(92,167,220,.35); color:#fff; cursor:pointer; transition:var(--t-fast); display:grid; place-items:center}
-.calnav button:hover{background:var(--blue-mid); transform:translateY(-1px)} .calnav button svg{width:16px;height:16px}
-.calnav b{font-size:13.5px; font-weight:900; color:#fff; min-width:170px; text-align:center; text-transform:uppercase; letter-spacing:.08em}
-.callegend{margin-left:auto; display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; font-weight:700; color:var(--ink-mut)}
-.callegend span{display:inline-flex; align-items:center; gap:6px} .callegend i{width:11px; height:11px; border-radius:3px; display:inline-block}
-.li-free{background:rgba(92,167,220,.5); border:1px solid var(--blue)} .li-book{background:rgba(218,41,41,.35); border:1px solid rgba(218,41,41,.7)} .li-sel{background:var(--gold)}
-.mgrid{display:grid; grid-template-columns:repeat(7,1fr); gap:clamp(4px,0.7vw,8px)}
-.mh{font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-mut); text-align:center; padding:4px 0}
-.mcell{position:relative; min-height:clamp(56px,8vw,74px); background:rgba(8,18,29,.42); border:1px solid rgba(255,255,255,.07); border-radius:10px; padding:8px; display:flex; flex-direction:column; gap:3px; cursor:pointer; transition:transform .2s var(--ease)}
-.mcell.out{visibility:hidden; pointer-events:none}
-.mcell .md{font-weight:900; color:#fff; font-size:13px}
-.mcell .mt{margin-top:auto; font-size:9.5px; font-weight:900; letter-spacing:.04em; text-transform:uppercase}
-.mcell.free .mt{color:var(--blue)} .mcell.free::after{content:""; position:absolute; left:8px; bottom:8px; width:7px; height:7px; border-radius:50%; background:var(--blue)}
-.mcell.today .md{color:var(--gold-lt)}
-.mcell.free:not(.msel):hover{box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
-.mcell.msel{border-color:var(--gold); outline:1.5px solid var(--gold); background:linear-gradient(155deg,#12283c,#0b1c2e)}
-.mcell.msel .md{color:var(--gold-lt)}
-.mcell.booked{cursor:not-allowed; background:rgba(40,14,18,.5); border-color:rgba(218,41,41,.28)}
-.mcell.booked .md{color:rgba(240,165,165,.8)} .mcell.booked .mt{color:rgba(240,165,165,.7)}
-.mcell.past{cursor:not-allowed; opacity:.32} .mcell.past .mt, .mcell.past::after{display:none}
-.slotpanel{margin-top:16px; border-top:1px solid var(--card-brd); padding-top:16px}
-.slotpanel .sp-empty{font-size:13.5px; color:var(--ink-mut)}
-.sp-date{font-size:15px; font-weight:900; color:#fff; margin-bottom:4px}
-.sp-sub{font-size:12.5px; color:var(--ink-mut); margin-bottom:12px}
-.sp-booked{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:800; color:#f0a5a5; background:rgba(218,41,41,.14); border:1px solid rgba(218,41,41,.4); padding:9px 14px; border-radius:var(--r-pill)}
-.slots{display:flex; gap:10px; flex-wrap:wrap}
-.slot{font-family:var(--font); font-size:13.5px; font-weight:800; color:#fff; background:rgba(17,34,51,.66); border:1px solid var(--card-brd); border-radius:var(--r-md); padding:11px 16px; cursor:pointer; transition:var(--t-fast)}
-.slot:not(.on):hover{box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
-.slot.on{border-color:var(--gold); outline:1.5px solid var(--gold); color:var(--gold-lt)}
-.sp-go{margin-top:16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-.sp-go .pick{font-size:13px; color:var(--ink-mut)} .sp-go .pick b{color:#fff}
 
 /* ===== Getränke ===== */
 .menu{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
@@ -258,7 +222,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
    "@type": "Service",
    "serviceType": "Firmenevent / Teamanlass",
    "name": "Tischfussball-Firmenevent & Teamanlass",
-   "description": "Der Teamanlass, über den alle reden: Tischfussball-Turnier für euer Unternehmen — alle spielen mit allen, max. 2 Std, zentral in Zürich. Jetzt anfragen.",
+   "description": "Der Teamanlass, über den alle reden: Tischfussball-Turnier für euer Unternehmen — gute Durchmischung, ca. 2 Std, zentral in Zürich. Jetzt anfragen.",
    "url": "https://tfcz.ch/firmenevents",
    "provider": {
     "@type": "SportsClub",
@@ -302,7 +266,6 @@ section{padding:clamp(30px,4.5vw,60px) 0}
       <a class="lnk" href="#idee">Die Idee</a>
       <a class="lnk" href="#warum">Warum</a>
       <a class="lnk" href="#fakten">Fakten</a>
-      <a class="lnk" href="#verfuegbar">Verfügbarkeit</a>
     </nav>
     <a class="back" href="index.html">← Zur Website</a>
   </div>
@@ -317,9 +280,9 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     <div class="wrap">
       <div class="kick" data-aos="fade-up">Firmenevent · Teamanlass in Zürich</div>
       <h1 data-aos="fade-up" data-aos-delay="80">Der Teamanlass, über den alle <span class="g">reden</span></h1>
-      <p class="sub" data-aos="fade-up" data-aos-delay="160">Wir organisieren für euer Team ein <b>Tischfussball-Turnier</b>: Zwei gegen zwei, in jeder Runde neue Partner — alle spielen mit allen. In <b>maximal 2 Stunden</b>, ohne Vorwissen.</p>
+      <p class="sub" data-aos="fade-up" data-aos-delay="160">Wir organisieren für euer Team ein <b>Tischfussball-Turnier</b>: Zwei gegen zwei, in jeder Runde neue Partner — für eine <b>gute Durchmischung</b>. In <b>ca. 2 Stunden</b>, ohne Vorwissen.</p>
       <div class="ctas" data-aos="fade-up" data-aos-delay="240">
-        <a class="btn-gold" data-cta="firmenevent-verfuegbarkeit" href="#verfuegbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2.2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>Verfügbarkeit prüfen</a>
+        <a class="btn-gold" data-cta="firmenevent-verfuegbarkeit" href="#anfrage-formular"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Jetzt anfragen</a>
         <a class="btn-ghost" href="#idee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>So funktioniert's</a>
       </div>
     </div>
@@ -332,12 +295,12 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   <section id="idee">
     <div class="lbl" data-aos="fade-up">In 30 Sekunden erklärt</div>
     <h2 class="h2" data-aos="fade-up">Ein Turnier, das euer Team <span class="g">durchmischt</span></h2>
-    <p class="intro" data-aos="fade-up">Kein kompliziertes Regelwerk, kein Vorwissen nötig. Ihr kommt, wir übernehmen den Rest — und am Ende hat jeder mit jedem gespielt.</p>
+    <p class="intro" data-aos="fade-up">Kein kompliziertes Regelwerk, kein Vorwissen nötig. Ihr kommt, wir übernehmen den Rest — für eine gute Durchmischung im ganzen Team.</p>
     <div class="expl" style="margin-top:24px">
       <div class="estep" data-aos="fade-up" data-aos-delay="0"><div class="no">1</div><h3>Ihr kommt an</h3><p>Wir begrüssen euch, erklären in zwei Minuten alles Wichtige. Getränke gibt es vor Ort.</p></div>
       <div class="estep" data-aos="fade-up" data-aos-delay="80"><div class="no">2</div><h3>Zwei gegen zwei</h3><p>Gespielt wird immer zu viert an einem Tisch — zwei Teams pro Runde. Einfacher geht es nicht.</p></div>
-      <div class="estep" data-aos="fade-up" data-aos-delay="160"><div class="no">3</div><h3>Neu gemischt</h3><p>Nach jeder Runde neue Partner. So spielt am Ende jeder mit und gegen alle.</p></div>
-      <div class="estep" data-aos="fade-up" data-aos-delay="240"><div class="no">4</div><h3>Finale & Sieger</h3><p>Zum Schluss die Entscheidung und eine kleine Siegerehrung — alles in maximal 2 Stunden.</p></div>
+      <div class="estep" data-aos="fade-up" data-aos-delay="160"><div class="no">3</div><h3>Neu gemischt</h3><p>Nach jeder Runde neue Partner. So entsteht eine gute Durchmischung im Team.</p></div>
+      <div class="estep" data-aos="fade-up" data-aos-delay="240"><div class="no">4</div><h3>Finale & Sieger</h3><p>Zum Schluss die Entscheidung und eine kleine Siegerehrung — alles in ca. 2 Stunden.</p></div>
     </div>
   </section>
   </div>
@@ -347,7 +310,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     <div class="pband-bg" data-par="0.22"><img decoding="async" loading="lazy" data-slot="firmenevents.nah" src="assets/fotos/galerie/full/dsc_7326.webp" alt="Nah am Tisch"></div>
     <div class="pband-ov"></div>
     <div class="wrap">
-      <p class="pquote" data-aos="zoom-out">Alle spielen <span class="g">mit allen</span></p>
+      <p class="pquote" data-aos="zoom-out">Ständig neue <span class="g">Partner</span></p>
       <p class="psub" data-aos="fade-up" data-aos-delay="120">Die Geschäftsleitung neben dem neuen Gesicht — am selben Tisch, auf Augenhöhe.</p>
     </div>
   </section>
@@ -361,7 +324,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     <div class="flipgrid" style="margin-top:24px">
       <div class="flip" data-aos="fade-up"><div class="flip-in">
         <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div><h3>Hierarchien lösen sich</h3></div>
-        <div class="flip-b"><div class="bt">Auf Augenhöhe</div><p>Weil alle mit allen spielen, steht die <b>Geschäftsleitung neben dem neuen Team-Mitglied</b> am selben Tisch. Titel spielen keine Rolle mehr.</p></div>
+        <div class="flip-b"><div class="bt">Auf Augenhöhe</div><p>Durch die ständige Durchmischung steht die <b>Geschäftsleitung neben dem neuen Team-Mitglied</b> am selben Tisch. Titel spielen keine Rolle mehr.</p></div>
       </div></div>
       <div class="flip" data-aos="fade-up" data-aos-delay="80"><div class="flip-in">
         <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Man kommt sich näher</h3></div>
@@ -377,7 +340,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
       </div></div>
       <div class="flip" data-aos="fade-up" data-aos-delay="80"><div class="flip-in">
         <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Kompakt & planbar</h3></div>
-        <div class="flip-b"><div class="bt">Max. 2 Stunden</div><p><b>Perfekt vor dem Abendessen</b>, nach der Arbeit oder als Auftakt in den Feierabend. Klar planbar.</p></div>
+        <div class="flip-b"><div class="bt">ca. 2 Stunden</div><p><b>Perfekt vor dem Abendessen</b>, nach der Arbeit oder als Auftakt in den Feierabend. Klar planbar.</p></div>
       </div></div>
       <div class="flip" data-aos="fade-up" data-aos-delay="160"><div class="flip-in">
         <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Kein Vorwissen</h3></div>
@@ -389,7 +352,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   <!-- COUNTER -->
   <section id="fakten-zahlen" style="padding-top:6px">
     <div class="facts">
-      <div class="fact" data-aos="zoom-out"><b data-count="2"><span class="u">h</span></b><span>maximal</span></div>
+      <div class="fact" data-aos="zoom-out"><b data-count="2"><span class="u">h</span></b><span>circa</span></div>
       <div class="fact" data-aos="zoom-out" data-aos-delay="80"><b data-count="4">0</b><span>an jedem Tisch</span></div>
       <div class="fact" data-aos="zoom-out" data-aos-delay="160"><b data-count="100"><span class="u">%</span></b><span>durchmischt</span></div>
       <div class="fact" data-aos="zoom-out" data-aos-delay="240"><b data-count="0"><span class="u">×</span></b><span>Vorwissen nötig</span></div>
@@ -404,17 +367,17 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     <div class="factbox" data-aos="fade-up" style="margin-top:20px">
       <div class="factgrid">
         <div class="frow"><div class="fk">Was</div><div class="fv">Betreutes Tischfussball-Turnier, komplett von uns organisiert und geleitet</div></div>
-        <div class="frow"><div class="fk">Format</div><div class="fv">Zwei gegen zwei, jede Runde neue Partner — am Ende hat jeder mit allen gespielt</div></div>
-        <div class="frow"><div class="fk">Dauer</div><div class="fv">Maximal 2 Stunden <small>inkl. Begrüssung, Turnier und Siegerehrung</small></div></div>
+        <div class="frow"><div class="fk">Format</div><div class="fv">Zwei gegen zwei, jede Runde neue Partner — für eine gute Durchmischung</div></div>
+        <div class="frow"><div class="fk">Dauer</div><div class="fv">ca. 2 Stunden <small>inkl. Begrüssung, Turnier und Siegerehrung</small></div></div>
         <div class="frow"><div class="fk">Teilnehmer</div><div class="fv">Von kleinen Teams bis zu grösseren Gruppen <small>Zahl bei der Anfrage angeben</small></div></div>
         <div class="frow"><div class="fk">Vorwissen</div><div class="fv">Keines nötig — für alle Levels geeignet</div></div>
         <div class="frow"><div class="fk">Inklusive</div><div class="fv">Organisation, Turnierleitung, Tische & Material vor Ort</div></div>
-        <div class="frow"><div class="fk">Verpflegung</div><div class="fv">Getränke vor Ort erhältlich <small>kein Essen / keine Apéro-Platten</small></div></div>
-        <div class="frow"><div class="fk">Ort</div><div class="fv">Landenbergstrasse 10, 8037 Zürich — zentral & top angebunden</div></div>
+        <div class="frow"><div class="fk">Verpflegung</div><div class="fv">Getränke vor Ort erhältlich <small>Essen & Apéro-Platten können nicht bestellt werden</small></div></div>
+        <div class="frow"><div class="fk">Ort</div><div class="fv">Landenbergstrasse 10, 8037 Zürich — 2 Min zu Fuss zum Bhf Wipkingen</div></div>
         <div class="frow"><div class="fk">Preis</div><div class="fv">Auf Anfrage — je nach Gruppengrösse und Termin</div></div>
-        <div class="frow"><div class="fk">Nächster Schritt</div><div class="fv">Termin auf Verfügbarkeit prüfen und unverbindlich anfragen</div></div>
+        <div class="frow"><div class="fk">Nächster Schritt</div><div class="fv">Unverbindlich anfragen — Wunschtermin & Zeitfenster im Formular angeben</div></div>
       </div>
-      <div class="sendhint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg><span><b>Tipp:</b> Diese Seite lässt sich direkt intern weiterleiten — sie erklärt den Anlass für alle verständlich.</span></div>
+      <div class="fakten-share"><button class="btn btn-ghost" type="button" id="shareBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Seite teilen</button></div>
     </div>
   </section>
   </div>
@@ -445,28 +408,6 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 
 
   <div class="wrap">
-  <!-- VERFÜGBARKEIT / KALENDER -->
-  <section id="verfuegbar">
-    <div class="lbl" data-aos="fade-up">Verfügbarkeit prüfen</div>
-    <h2 class="h2" data-aos="fade-up">Wann soll es sein?</h2>
-    <p class="intro" data-aos="fade-up">Wähl einen Tag im Kalender. <b>Rot markierte Tage sind bereits vergeben.</b> An freien Tagen wählst du eine Zeit und schickst uns direkt eine unverbindliche Anfrage.</p>
-    <div class="calbox" data-aos="fade-up" style="margin-top:20px">
-      <div class="calhead">
-        <div class="calnav">
-          <button id="cPrev" type="button" aria-label="Vorheriger Monat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <b id="cLabel">—</b>
-          <button id="cNext" type="button" aria-label="Nächster Monat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        </div>
-        <div class="callegend">
-          <span><i class="li-free"></i>frei</span><span><i class="li-book"></i>vergeben</span><span><i class="li-sel"></i>gewählt</span>
-        </div>
-      </div>
-      <div class="mgrid" id="cHead"></div>
-      <div class="mgrid" id="cGrid" style="margin-top:4px"></div>
-      <div class="slotpanel" id="cSlot"><div class="sp-empty">Wähl oben einen freien Tag, um die verfügbaren Zeiten zu sehen.</div></div>
-    </div>
-  </section>
-
   <!-- GETRÄNKE -->
   <section id="getraenke">
     <div class="lbl" data-aos="fade-up">Getränke vor Ort</div>
@@ -474,7 +415,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     <p class="intro" data-aos="fade-up">An unserer Bar gibt es eine Auswahl an kalten und warmen Getränken — direkt vor Ort erhältlich.</p>
     <!-- Getränkeliste = Baustein system/components/drinks.js (Daten: system/drinks.js) -->
     <div style="margin-top:20px" data-aos="fade-up" data-tfcz="drinks" data-snacks="0" data-preis="vor Ort"></div>
-    <p class="menu-note" data-aos="fade-up"><b>Hinweis:</b> Es gibt Getränke, aber kein Essen und keine Apéro-Platten. Zum gemeinsamen Essen zieht ihr im Anschluss weiter — dank zentraler Lage in wenigen Minuten.</p>
+    <p class="menu-note" data-aos="fade-up"><b>Hinweis:</b> Es gibt Getränke, aber Essen und Apéro-Platten können nicht bestellt werden. Zum gemeinsamen Essen zieht ihr im Anschluss weiter — in wenigen Minuten mitten in der Stadt.</p>
   </section>
 
   <!-- LOCATION -->
@@ -484,22 +425,10 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     <div class="loc" style="margin-top:20px">
       <div class="lbox" data-aos="fade-up">
         <h3>Mitten in Zürich</h3>
-        <p>Unser Clublokal liegt an der <b>Landenbergstrasse 10, 8037 Zürich</b> (Wipkingen) — zentral und mit dem öffentlichen Verkehr bestens erreichbar. Nach dem Turnier seid ihr in wenigen Minuten in der Stadt, um <b>gemeinsam essen zu gehen oder den Abend ausklingen zu lassen</b>.</p>
+        <p>Unser Clublokal liegt an der <b>Landenbergstrasse 10, 8037 Zürich</b> — nur <b>2 Minuten zu Fuss vom Bahnhof Wipkingen</b> und mit dem öffentlichen Verkehr bestens erreichbar. Nach dem Turnier seid ihr in wenigen Minuten in der Stadt, um <b>gemeinsam essen zu gehen oder den Abend ausklingen zu lassen</b>.</p>
       </div>
       <div class="map" data-aos="fade-up" data-aos-delay="80">
         <div data-tfcz="map"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA-BAND -->
-  <section id="anfrage">
-    <div class="ctaband" data-aos="zoom-out">
-      <h2>Bringt euer Team an den Tisch</h2>
-      <p>Prüft eine Verfügbarkeit oder fragt direkt und unverbindlich an — <b>Preise auf Anfrage</b>, wir melden uns schnell mit einem passenden Vorschlag.</p>
-      <div class="row">
-        <a class="btn-gold" data-cta="firmenevent-verfuegbarkeit" href="#verfuegbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2.2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>Verfügbarkeit prüfen</a>
-        <button class="btn-ghost" type="button" id="shareBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Seite teilen</button>
       </div>
     </div>
   </section>
@@ -512,7 +441,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
         <div class="fsub">Sag uns kurz, wer ihr seid und wann es sein soll — wir melden uns mit Verfügbarkeit und einem passenden Angebot. Beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an info@tfcz.ch.</div>
         <form id="evForm" data-tfcz="form" data-form="firmenevent" novalidate>
           <div class="fgrid" id="fFields"></div>
-          <div class="fnote"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Wunschdatum und Zeit werden aus dem Kalender oben übernommen — du kannst sie im Feld auch anpassen.</span></div>
+          <div class="fnote"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Gib einfach dein Wunschdatum und das gewünschte Zeitfenster in den Feldern an — wir prüfen die Verfügbarkeit und melden uns.</span></div>
           <div class="btnrow">
             <button class="btn btn-gold" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Anfrage als Mail senden</button>
             <span class="formerr" id="fErr">Bitte fülle die markierten Pflichtfelder aus.</span>
@@ -572,68 +501,14 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   var cio=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting)return; var el=en.target; cio.unobserve(el); var end=+el.getAttribute('data-count'), suffix=el.querySelector('.u'), suf=suffix?suffix.outerHTML:''; if(reduce){el.innerHTML=end+suf;return;} var t0=null,dur=1100; function step(ts){t0=t0||ts; var p=Math.min(1,(ts-t0)/dur); var v=Math.round(end*(1-Math.pow(1-p,3))); el.innerHTML=v+suf; if(p<1)requestAnimationFrame(step);} requestAnimationFrame(step); }); },{threshold:.5});
   [].forEach.call(document.querySelectorAll('[data-count]'),function(el){ cio.observe(el); });
 
-  /* Share */
+  /* Seite teilen — Link in die Zwischenablage + Toast „Link kopiert" (nur Ausgabe, kein Layout) */
   var sb=document.getElementById('shareBtn');
+  function evToast(msg){ var t=document.getElementById('toast'); if(!t)return; t.textContent=msg; t.classList.add('on'); clearTimeout(t._h); t._h=setTimeout(function(){ t.classList.remove('on'); },2200); }
   if(sb) sb.addEventListener('click',function(){
-    var data={title:'Firmenevent beim TFCZ', text:'Teamanlass-Idee: ein Tischfussball-Turnier, bei dem alle mit allen spielen.', url:location.href};
-    if(navigator.share){ navigator.share(data).catch(function(){}); }
-    else if(navigator.clipboard){ navigator.clipboard.writeText(location.href).then(function(){ if(window.TFCZ&&TFCZ.toast)TFCZ.toast('Link kopiert — jetzt teilen'); }); }
+    var url=location.href;
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(function(){ evToast('Link kopiert'); }).catch(function(){ evToast('Link kopiert'); }); }
+    else { var ta=document.createElement('textarea'); ta.value=url; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); evToast('Link kopiert'); }
   });
-
-  /* ===== BELEGTE TAGE — hier pflegen: 'YYYY-MM-DD' ===== */
-  var BOOKED = ['2026-07-16','2026-07-23','2026-08-13','2026-08-28','2026-09-10','2026-09-25','2026-10-08','2026-11-14','2026-12-04','2026-12-18'];
-  var SLOTS = ['16:00–18:00','17:00–19:00','18:00–20:00','19:00–21:00'];
-  var MON=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-  var DOW=['Mo','Di','Mi','Do','Fr','Sa','So'];
-  function iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-  function fmtLong(d){ return DOW[(d.getDay()+6)%7]+', '+d.getDate()+'. '+MON[d.getMonth()]+' '+d.getFullYear(); }
-  var today=new Date(); today.setHours(0,0,0,0);
-  var view=new Date(today.getFullYear(), today.getMonth(), 1);
-  var selDate=null, selSlot=null;
-  var head=document.getElementById('cHead'), grid=document.getElementById('cGrid'), label=document.getElementById('cLabel'), slotWrap=document.getElementById('cSlot');
-  head.innerHTML=DOW.map(function(d){return '<div class="mh">'+d+'</div>';}).join('');
-  function render(){
-    label.textContent=MON[view.getMonth()]+' '+view.getFullYear();
-    var first=new Date(view.getFullYear(),view.getMonth(),1), startPad=(first.getDay()+6)%7, daysIn=new Date(view.getFullYear(),view.getMonth()+1,0).getDate(), cells=[];
-    for(var i=0;i<startPad;i++) cells.push('<div class="mcell out"></div>');
-    for(var day=1;day<=daysIn;day++){
-      var d=new Date(view.getFullYear(),view.getMonth(),day); d.setHours(0,0,0,0); var key=iso(d);
-      var isPast=d<today, isBooked=BOOKED.indexOf(key)>-1, isToday=key===iso(today), cls='mcell', tag='';
-      if(isPast) cls+=' past'; else if(isBooked){ cls+=' booked'; tag='<span class="mt">Vergeben</span>'; } else { cls+=' free'; tag='<span class="mt">Frei</span>'; }
-      if(isToday) cls+=' today'; if(selDate && key===selDate) cls+=' msel';
-      cells.push('<div class="'+cls+'" data-d="'+key+'"><span class="md">'+day+'</span>'+tag+'</div>');
-    }
-    grid.innerHTML=cells.join('');
-  }
-  function renderSlots(){
-    if(!selDate){ slotWrap.innerHTML='<div class="sp-empty">Wähl oben einen freien Tag, um die verfügbaren Zeiten zu sehen.</div>'; return; }
-    var d=new Date(selDate+'T00:00:00');
-    if(BOOKED.indexOf(selDate)>-1){ slotWrap.innerHTML='<div class="sp-date">'+fmtLong(d)+'</div><div class="sp-booked"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg>Dieser Tag ist bereits vergeben — bitte einen anderen wählen.</div>'; return; }
-    var chips=SLOTS.map(function(s){ return '<button class="slot'+(s===selSlot?' on':'')+'" type="button" data-s="'+s+'">'+s+'</button>'; }).join('');
-    var go = selSlot ? '<div class="sp-go"><span class="pick">Gewählt: <b>'+fmtLong(d)+'</b><b>'+selSlot+'</b></span><a class="btn-gold" id="cGo" data-cta="firmenevent-termin" href="#anfrage-formular"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Diesen Termin anfragen</a></div>' : '<div class="sp-go"><span class="pick">Wähl eine Zeit, um den Termin anzufragen.</span></div>';
-    slotWrap.innerHTML='<div class="sp-date">'+fmtLong(d)+'</div><div class="sp-sub">Verfügbare Zeitfenster (ca. 2 Stunden):</div><div class="slots">'+chips+'</div>'+go;
-  }
-  grid.addEventListener('click',function(e){ var c=e.target.closest('.mcell'); if(!c||!c.classList.contains('free'))return; selDate=c.getAttribute('data-d'); selSlot=null; render(); renderSlots(); slotWrap.scrollIntoView({behavior:'smooth',block:'nearest'}); });
-  slotWrap.addEventListener('click',function(e){ var s=e.target.closest('.slot'); if(s){ selSlot=s.getAttribute('data-s'); renderSlots(); syncForm(); return; } if(e.target.closest('#cGo')){ syncForm(true); } });
-  document.getElementById('cPrev').addEventListener('click',function(){ view.setMonth(view.getMonth()-1); render(); });
-  document.getElementById('cNext').addEventListener('click',function(){ view.setMonth(view.getMonth()+1); render(); });
-  render(); renderSlots();
-
-  /* Formular */
-  /* Formular = Baustein system/components/form.js (Felder + Mail-Texte: system/forms.js).
-     Seiten-eigen bleibt nur die Kalender-Übernahme: gewähltes Datum/Zeit ins Formular. */
-  function syncForm(scroll){
-    if(selDate){ var d=new Date(selDate+'T00:00:00'); var fd=document.getElementById('f_datum'); if(fd)fd.value=fmtLong(d); }
-    if(selSlot){ var fz=document.getElementById('f_zeit'); if(fz)fz.value=selSlot; }
-    if(scroll){ document.getElementById('anfrage-formular').scrollIntoView({behavior:'smooth',block:'start'}); }
-  }
-  /* Sicherheitsnetz: was im Kalender gewählt wurde, MUSS in der Mail landen — auch wenn
-     der Nutzer das Feld nie gesehen hat. Nur füllen, nie eine eigene Eingabe überschreiben. */
-  document.getElementById('evForm').addEventListener('submit',function(){
-    var fd=document.getElementById('f_datum'), fz=document.getElementById('f_zeit');
-    if(fd && !fd.value.trim() && selDate){ fd.value=fmtLong(new Date(selDate+'T00:00:00')); }
-    if(fz && !fz.value.trim() && selSlot){ fz.value=selSlot; }
-  },true);   /* capture: läuft VOR dem Baustein-Handler */
 
   /* Hintergrund-Wirbel: globales Standardmodul (bg-swirl.js) übernimmt den Effekt */
 
