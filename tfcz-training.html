@@ -72,8 +72,18 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .hero .kick{display:inline-flex; align-items:center; gap:9px; font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.4); padding:7px 15px; border-radius:var(--r-pill); margin-bottom:20px;}
 .hero h1{font-size:clamp(40px,7.4vw,86px); font-weight:900; color:#fff; text-transform:uppercase; line-height:.95; text-shadow:0 6px 40px rgba(0,0,0,.5); max-width:12ch}
 .hero h1 .g{color:var(--gold-lt)}   /* Kontrast: Akzent auf dunklem Foto = Gold, nie Blau */
-/* Dringlichkeits-Pille */
-.urg{display:inline-flex; align-items:center; gap:10px; background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.5); color:#fff; font-size:13px; font-weight:800; padding:9px 16px; border-radius:var(--r-pill); margin:22px 0 0}
+/* Hero-Badges: Herbstsemester (prominent, Glow-Puls) + Beliebt (Flamme pulsiert) */
+.hero-badges{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:22px 0 0}
+.hb{display:inline-flex; align-items:center; gap:9px; font-weight:900; text-transform:uppercase; letter-spacing:.07em; border-radius:var(--r-pill); white-space:nowrap}
+.hb svg{flex:none}
+.hb-season{font-size:14px; color:var(--gold-lt); background:rgba(8,18,29,.62); border:1.5px solid rgba(233,196,117,.6); padding:11px 20px; animation:seasonGlow 2.8s var(--ease) infinite}
+.hb-season svg{width:17px; height:17px; color:var(--gold-lt)}
+.hb-pop{font-size:12.5px; color:var(--navy); background:linear-gradient(155deg,var(--gold),var(--gold-lt)); padding:10px 16px; box-shadow:0 6px 18px rgba(205,168,87,.4)}
+.hb-pop svg{width:15px; height:15px; color:var(--navy); transform-origin:center bottom; animation:flamePulse 1.5s var(--ease) infinite}
+@keyframes seasonGlow{0%{box-shadow:0 0 0 0 rgba(233,196,117,.5)}70%{box-shadow:0 0 0 13px rgba(233,196,117,0)}100%{box-shadow:0 0 0 0 rgba(233,196,117,0)}}
+@keyframes flamePulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.22);opacity:.82}}
+/* Scarcity-Zeile */
+.urg{display:inline-flex; align-items:center; gap:10px; background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.5); color:#fff; font-size:13px; font-weight:800; padding:9px 16px; border-radius:var(--r-pill); margin:14px 0 0}
 .urg .dot{width:9px; height:9px; border-radius:50%; background:var(--gold-lt); box-shadow:0 0 0 0 rgba(233,196,117,.6); animation:pulse 1.8s var(--ease) infinite; flex:none}
 .urg b{color:var(--gold-lt)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,196,117,.5)}70%{box-shadow:0 0 0 11px rgba(233,196,117,0)}100%{box-shadow:0 0 0 0 rgba(233,196,117,0)}}
@@ -101,9 +111,9 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .facts{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
 @media(max-width:720px){ .facts{grid-template-columns:repeat(2,1fr)} }
 .fact{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:22px 16px; text-align:center; box-shadow:var(--e-1)}
-.fact b{display:block; font-size:clamp(28px,3.6vw,42px); font-weight:900; color:#fff; line-height:1}
-.fact b .u{color:var(--blue); font-size:.6em}
-.fact span{display:block; margin-top:7px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-mut)}
+.fact b{display:block; white-space:nowrap; font-size:clamp(28px,3.6vw,42px); font-weight:900; color:#fff; line-height:1}
+.fact b .u{display:inline; color:var(--blue); font-size:.58em; margin-left:2px}
+.fact span{display:block; margin-top:7px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-mut); line-height:1.25}
 
 /* ===== Warum / Kernidee ===== */
 .why{display:grid; grid-template-columns:.95fr 1.05fr; gap:clamp(22px,4vw,46px); align-items:center}
@@ -134,6 +144,15 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .flip-b p{font-size:14px; color:#eaf2fa; line-height:1.6} .flip-b p b{color:var(--gold-lt)}
 .flip-b .bt{font-size:12px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:8px}
 
+/* ===== Der Rahmen (kombiniert mit den Karten) ===== */
+.frame{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px}
+@media(max-width:860px){ .frame{grid-template-columns:1fr 1fr} } @media(max-width:520px){ .frame{grid-template-columns:1fr} }
+.fcard{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:20px 18px; box-shadow:var(--e-1)}
+.fcard .fic{width:42px; height:42px; border-radius:12px; display:grid; place-items:center; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk)); box-shadow:0 6px 16px rgba(0,90,148,.4); margin-bottom:13px}
+.fcard .fic svg{width:21px; height:21px}
+.fcard h4{font-size:14.5px; font-weight:900; color:#fff; text-transform:uppercase; line-height:1.15; margin-bottom:7px}
+.fcard p{font-size:13px; color:var(--ink-mut); line-height:1.5} .fcard p b{color:#fff}
+
 /* ===== Info-Boxen / Preise ===== */
 .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
 .ibox{background:var(--card-soft); border:1px solid var(--card-brd); border-left:4px solid var(--acc,var(--gold)); border-radius:var(--r-lg); padding:clamp(18px,2.6vw,26px)}
@@ -148,16 +167,32 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .pr .prd{font-size:13px; color:var(--ink-mut); margin-top:6px}
 .pr.hl{border-color:var(--gold); outline:1.5px solid rgba(205,168,87,.5)}
 
-/* ===== Status-Banner (Termine provisorisch) ===== */
-.status{position:relative; overflow:hidden; background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,30px); box-shadow:var(--e-2); display:flex; gap:20px; align-items:center; flex-wrap:wrap}
-.status .stx{flex:1 1 320px; min-width:0}
-.status .pulse{display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:9px}
-.status .pulse::before{content:""; width:9px; height:9px; border-radius:50%; background:var(--gold-lt); animation:pulse 1.9s var(--ease) infinite}
-.status h2{font-size:clamp(19px,2.5vw,25px); font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:8px}
-.status p{font-size:14px; color:var(--ink-mut); max-width:600px} .status p b{color:#fff}
-.status .sact{flex:0 0 auto; display:flex; flex-direction:column; gap:10px}
-.dprov{display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); background:linear-gradient(155deg,var(--gold),var(--gold-lt)); padding:5px 12px; border-radius:var(--r-pill); margin-bottom:10px}
-.dline{font-size:14px; color:var(--ink-mut); margin-top:2px} .dline b{color:#fff}
+/* ===== Semester-Programm (Terminplan als Herzstück) ===== */
+.prog{position:relative; background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,30px); box-shadow:var(--e-2); margin-top:20px}
+.pg-meta{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:20px}
+.pg-chip{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:800; color:var(--ink-mut); background:var(--card-soft); border:1px solid var(--card-brd); padding:8px 14px; border-radius:var(--r-pill)}
+.pg-chip svg{width:15px; height:15px; color:var(--blue); flex:none}
+.pg-chip b{color:#fff}
+.pg-chip.gold{color:var(--gold-lt); border-color:rgba(205,168,87,.42)} .pg-chip.gold svg{color:var(--gold-lt)}
+.pg-months{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+@media(max-width:900px){ .pg-months{grid-template-columns:1fr 1fr} }
+@media(max-width:520px){ .pg-months{grid-template-columns:1fr} }
+.pg-month{background:var(--card-soft); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:15px 13px}
+.pg-mname{font-size:12px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:10px; display:flex; align-items:center; gap:9px}
+.pg-mname::before{content:""; width:22px; height:2px; background:var(--gold); flex:none}
+.pg-day{display:flex; align-items:center; gap:11px; padding:9px 7px; border-radius:var(--r-sm); transition:box-shadow var(--t-fast)}
+.pg-day + .pg-day{border-top:1px solid rgba(255,255,255,.07)}
+.pg-day:hover{box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.pg-num{flex:none; width:30px; height:30px; border-radius:9px; display:grid; place-items:center; font-size:13px; font-weight:900; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk)); box-shadow:0 4px 12px rgba(0,90,148,.35)}
+.pg-dt{font-size:14px; font-weight:800; color:#fff; min-width:0}
+.pg-day.prov .pg-num{background:transparent; border:1.5px dashed var(--gold); color:var(--gold-lt); box-shadow:none}
+.pg-day.prov .pg-num svg{width:15px; height:15px}
+.pg-day.prov .pg-dt{color:var(--ink-mut); font-weight:700}
+.pg-tag{margin-left:auto; font-size:10px; font-weight:900; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-lt); background:rgba(205,168,87,.14); border:1px solid rgba(205,168,87,.4); padding:3px 8px; border-radius:var(--r-pill); flex:none}
+.pg-note{margin-top:18px; display:flex; align-items:flex-start; gap:9px; font-size:13px; color:var(--ink-mut); line-height:1.55}
+.pg-note svg{flex:none; margin-top:1px; color:var(--gold-lt); width:18px; height:18px}
+.pg-note b{color:#fff}
+.pg-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
 
 /* ===== Foto-Marquee ===== */
 .marquee{position:relative; overflow:hidden; padding:6px 0; -webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
@@ -168,18 +203,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .mtrack .mimg img{width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease)}
 .mtrack .mimg:hover img{transform:scale(1.08)}
 
-/* ===== Testimonials ===== */
-.tgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
-.tcard{background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:22px 20px; box-shadow:var(--e-1); display:flex; flex-direction:column; transform-style:preserve-3d}
-.tcard .stars{display:flex; gap:3px; color:var(--gold-lt); margin-bottom:10px}
-.tcard .stars .st{width:15px; height:15px; display:block}
-.tcard .quote{font-size:14.5px; color:var(--ink); line-height:1.6; flex:1} .tcard .quote b{color:#fff}
-.tcard .who{margin-top:16px; display:flex; align-items:center; gap:11px}
-.tcard .av{width:38px; height:38px; border-radius:11px; flex:none; display:grid; place-items:center; font-weight:900; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk))}
-.tcard .nm{font-size:13px; font-weight:900; color:#fff} .tcard .rl{font-size:11.5px; color:var(--ink-mut); font-weight:700}
-.tnote{margin-top:16px; font-size:12.5px; color:var(--ink-mut); font-style:italic}
-
-/* ===== Voranmeldung-Formular ===== */
+/* ===== Anmelde-Formular ===== */
 .formbox{background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,32px); box-shadow:var(--e-2)}
 .formbox h2{font-size:clamp(20px,2.6vw,26px); font-weight:900; color:#fff; text-transform:uppercase}
 .formbox .fsub{font-size:13.5px; color:var(--ink-mut); margin:4px 0 18px; max-width:600px}
@@ -209,7 +233,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 
 .foot{margin-top:20px; padding:26px 0 40px; border-top:1px solid var(--card-brd); font-size:13px; color:var(--ink-mut); text-align:center}
 .foot a{color:var(--gold-lt); font-weight:800; text-decoration:none}
-@media(max-width:640px){ .fgrid,.info-grid,.price-row{grid-template-columns:1fr} .status{flex-direction:column; align-items:flex-start} .status .sact{width:100%} .status .sact .btn-gold,.status .sact .btn-ghost{width:100%; justify-content:center} }
+@media(max-width:640px){ .fgrid,.info-grid,.price-row{grid-template-columns:1fr} .pg-cta .btn-gold,.pg-cta .btn-social{width:100%; justify-content:center} }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important} .mtrack{animation:none} .hero-bg,.pband-bg{transform:none!important}}
 .top .logo:active{transform:scale(.9)}
 .top .logo.pressed{animation:logoPress .42s var(--ease)}
@@ -231,6 +255,17 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     "@type": "SportsClub",
     "@id": "https://tfcz.ch/#club",
     "name": "Tischfussball Club Zürich"
+   },
+   "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "name": "Herbstsemester 2026",
+    "courseMode": "onsite",
+    "startDate": "2026-09-01",
+    "endDate": "2026-12-15",
+    "location": {
+     "@type": "Place",
+     "name": "Tischfussball Club Zürich"
+    }
    },
    "inLanguage": "de"
   },
@@ -262,9 +297,9 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   <div class="wrap">
     <a class="logo" href="index.html"><img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"></a>
     <nav class="navlinks">
+      <a class="lnk" href="#programm">Termine</a>
       <a class="lnk" href="#warum">Warum</a>
       <a class="lnk" href="#erwartet">Ablauf</a>
-      <a class="lnk" href="#stimmen">Stimmen</a>
       <a class="lnk" href="#voranmelden">Platz sichern</a>
     </nav>
     <a class="back" href="index.html">← Zur Website</a>
@@ -280,11 +315,15 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     <div class="wrap">
       <div class="kick" data-aos="fade-up">Der Tischfussball Club Zürich präsentiert</div>
       <h1 data-aos="fade-up" data-aos-delay="80">Training mit <span class="g">Philipp</span></h1>
-      <div class="urg" data-aos="fade-up" data-aos-delay="140"><span class="dot"></span><span>Bisher <b>jedes Semester ausverkauft</b> — schnell Platz sichern</span></div>
-      <p class="sub" data-aos="fade-up" data-aos-delay="200">Wir geben dir die <b>Technik</b> weiter, mit der du in Wochen sichtbar besser wirst — und an Turnieren überzeugst. Für Einsteiger wie für ambitionierte Spieler.</p>
+      <div class="hero-badges" data-aos="fade-up" data-aos-delay="130">
+        <span class="hb hb-season"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Herbstsemester 2026</span>
+        <span class="hb hb-pop"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Beliebt</span>
+      </div>
+      <div class="urg" data-aos="fade-up" data-aos-delay="170"><span class="dot"></span><span><b>Jedes Semester ausverkauft</b> — Start Di 1. September · Plätze begrenzt</span></div>
+      <p class="sub" data-aos="fade-up" data-aos-delay="200">Neues Semester ab <b>September 2026</b>: 14 Einheiten Technik, mit der du in Wochen sichtbar besser wirst — für Einsteiger wie für ambitionierte Spieler.</p>
       <div class="ctas" data-aos="fade-up" data-aos-delay="260">
         <a class="btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Jetzt Platz sichern</a>
-        <a class="btn btn-social s-wa" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.2 1.27-1.97 1.43-.53.11-1.22.2-3.56-.77-2.99-1.24-4.9-4.27-5.05-4.47-.15-.2-1.2-1.6-1.2-3.06 0-1.45.76-2.16 1.03-2.46.24-.27.63-.39 1-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.57.82 1.98.89 2.13.07.15.12.32.02.51-.09.2-.14.32-.28.49-.14.17-.29.37-.42.5-.14.14-.28.29-.12.56.15.27.68 1.12 1.46 1.82 1.01.9 1.86 1.18 2.13 1.31.27.14.42.11.58-.07.15-.17.66-.77.84-1.03.17-.27.35-.22.58-.13.24.09 1.51.71 1.77.84.27.13.44.2.51.31.06.11.06.64-.18 1.32z"/></svg>WhatsApp-Gruppe</a>
+        <a class="btn-ghost" href="#programm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Termine ansehen</a>
       </div>
     </div>
     <div class="cue">Scroll<span class="arw"></span></div>
@@ -299,6 +338,55 @@ section{padding:clamp(30px,4.5vw,60px) 0}
       <div class="fact" data-aos="zoom-out" data-aos-delay="80"><b data-count="90"><span class="u">Min</span></b><span>pro Einheit</span></div>
       <div class="fact" data-aos="zoom-out" data-aos-delay="160"><b data-count="2">0<span class="u">×</span></b><span>Semester pro Jahr</span></div>
       <div class="fact" data-aos="zoom-out" data-aos-delay="240"><b>Gratis</b><span>für Mitglieder</span></div>
+    </div>
+  </section>
+
+  <!-- SEMESTER-PROGRAMM (Terminplan als Herzstück) -->
+  <section id="programm">
+    <div class="lbl" data-aos="fade-up">Semester-Programm</div>
+    <h2 class="h2" data-aos="fade-up">Herbstsemester <span class="g">2026</span></h2>
+    <p class="intro" data-aos="fade-up">14 feste Einheiten, immer <b>dienstags</b>. Sichere dir jetzt deinen Platz — die Gruppen sind begrenzt.</p>
+    <div class="prog" data-aos="fade-up">
+      <div class="pg-meta">
+        <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18m-9 4l2 2 4-4"/></svg><b>14</b>&nbsp;Einheiten</span>
+        <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Di <b>18:45–20:15</b></span>
+        <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>1. Sept – 15. Dez</span>
+        <span class="pg-chip gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>Gratis für Mitglieder</span>
+      </div>
+      <div class="pg-months">
+        <div class="pg-month">
+          <div class="pg-mname">September</div>
+          <div class="pg-day"><span class="pg-num">1</span><span class="pg-dt">Di 1. Sept</span></div>
+          <div class="pg-day"><span class="pg-num">2</span><span class="pg-dt">Di 8. Sept</span></div>
+          <div class="pg-day"><span class="pg-num">3</span><span class="pg-dt">Di 15. Sept</span></div>
+          <div class="pg-day prov"><span class="pg-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.5"/><path d="M12 18h.01"/></svg></span><span class="pg-dt">Di 22. Sept</span><span class="pg-tag">offen</span></div>
+          <div class="pg-day prov"><span class="pg-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.5"/><path d="M12 18h.01"/></svg></span><span class="pg-dt">Di 29. Sept</span><span class="pg-tag">offen</span></div>
+        </div>
+        <div class="pg-month">
+          <div class="pg-mname">Oktober</div>
+          <div class="pg-day"><span class="pg-num">4</span><span class="pg-dt">Di 6. Okt</span></div>
+          <div class="pg-day"><span class="pg-num">5</span><span class="pg-dt">Di 13. Okt</span></div>
+          <div class="pg-day"><span class="pg-num">6</span><span class="pg-dt">Di 20. Okt</span></div>
+          <div class="pg-day"><span class="pg-num">7</span><span class="pg-dt">Di 27. Okt</span></div>
+        </div>
+        <div class="pg-month">
+          <div class="pg-mname">November</div>
+          <div class="pg-day"><span class="pg-num">8</span><span class="pg-dt">Di 3. Nov</span></div>
+          <div class="pg-day"><span class="pg-num">9</span><span class="pg-dt">Di 10. Nov</span></div>
+          <div class="pg-day"><span class="pg-num">10</span><span class="pg-dt">Di 17. Nov</span></div>
+          <div class="pg-day"><span class="pg-num">11</span><span class="pg-dt">Di 24. Nov</span></div>
+        </div>
+        <div class="pg-month">
+          <div class="pg-mname">Dezember</div>
+          <div class="pg-day"><span class="pg-num">12</span><span class="pg-dt">Di 1. Dez</span></div>
+          <div class="pg-day"><span class="pg-num">13</span><span class="pg-dt">Di 8. Dez</span></div>
+          <div class="pg-day"><span class="pg-num">14</span><span class="pg-dt">Di 15. Dez</span></div>
+        </div>
+      </div>
+      <div class="pg-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Di 22. + 29. September</b> sind zusätzlich möglich, aber noch offen — an diesen zwei Terminen ist der Trainer noch nicht fix. Sobald das steht, geben wir Bescheid.</span></div>
+      <div class="pg-cta">
+        <a class="btn btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Platz sichern</a>
+      </div>
     </div>
   </section>
 
@@ -335,49 +423,47 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   <!-- DAS ERWARTET DICH (Flip) -->
   <section id="erwartet">
     <div class="lbl" data-aos="fade-up">Das erwartet dich</div>
-    <h2 class="h2" data-aos="fade-up">Kein Zufall <span class="g">— dreh die Karte</span></h2>
+    <h2 class="h2" data-aos="fade-up">Das ist <span class="g">kein Zufall</span></h2>
     <div class="flipgrid" style="margin-top:22px">
       <div class="flip" data-aos="fade-up"><div class="flip-in">
-        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.6 7.2 17.7l.9-5.4L4.2 8.5l5.4-.8z"/></svg></div><h3>Geführtes Training</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.6 7.2 17.7l.9-5.4L4.2 8.5l5.4-.8z"/></svg></div><h3>Geführtes Training</h3></div>
         <div class="flip-b"><div class="bt">Mit Plan</div><p>Strukturierte Einheiten mit Philipp — <b>mit rotem Faden statt Zufall</b>, damit jede Woche aufeinander aufbaut.</p></div>
       </div></div>
       <div class="flip" data-aos="fade-up" data-aos-delay="80"><div class="flip-in">
-        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Übungs- & Spielformen</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Übungs- & Spielformen</h3></div>
         <div class="flip-b"><div class="bt">Praxisnah</div><p>Von Pass, Schuss und Ballkontrolle bis zu <b>echten Spielsituationen</b> — abwechslungsreich statt trocken.</p></div>
       </div></div>
       <div class="flip" data-aos="fade-up" data-aos-delay="160"><div class="flip-in">
-        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Feedback & Tricks</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Feedback & Tricks</h3></div>
         <div class="flip-b"><div class="bt">Direkt</div><p>Rückmeldung zu deiner Technik und <b>Kniffe, die im Spiel den Unterschied machen</b>.</p></div>
       </div></div>
       <div class="flip" data-aos="fade-up" data-aos-delay="240"><div class="flip-in">
-        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg></div><h3>Sichtbarer Fortschritt</h3><span class="more">Mehr ↻</span></div>
+        <div class="flip-f"><div class="vic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg></div><h3>Sichtbarer Fortschritt</h3></div>
         <div class="flip-b"><div class="bt">Messbar</div><p>Woche für Woche besser — <b>am Tisch und am Turnier deutlich spürbar</b>.</p></div>
       </div></div>
     </div>
-  </section>
 
-  <!-- ABLAUF & RAHMEN -->
-  <section id="ablauf">
-    <div class="lbl" data-aos="fade-up">Ablauf & Rahmen</div>
-    <div class="info-grid">
-      <div class="ibox" data-aos="fade-up" style="--acc:var(--blue)">
-        <h3>Wann & wie oft</h3>
-        <ul>
-          <li>Jeweils am <b>Dienstag, 18:45–20:15</b>.</li>
-          <li>Bei grosser Nachfrage zusätzlich am <b>Mittwoch, 18:30–20:00</b> (bei der Anmeldung angeben).</li>
-          <li><b>Frühlings- & Herbstsemester</b>, je <b>14 Einheiten</b>.</li>
-          <li>Winter- & Sommerpause dazwischen.</li>
-          <li>Durchführung <b>ab 8 Personen</b>.</li>
-        </ul>
+    <div class="lbl" data-aos="fade-up" style="margin-top:42px">Der Rahmen</div>
+    <div class="frame">
+      <div class="fcard" data-aos="fade-up">
+        <div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h4>Dienstags 18:45–20:15</h4>
+        <p>Bei grosser Nachfrage auch am <b>Mittwoch 18:30–20:00</b> — bei der Anmeldung angeben.</p>
       </div>
-      <div class="ibox" data-aos="fade-up" data-aos-delay="80" style="--acc:var(--gold)">
-        <h3>Gut zu wissen</h3>
-        <ul>
-          <li><b>80 % Anwesenheit</b> erwünscht — damit alle vom Aufbau profitieren.</li>
-          <li>Anmeldung jeweils <b>pro Semester</b> (FS / HS).</li>
-          <li>Alle Levels willkommen — vom Einstieg bis zum Wettkampf.</li>
-          <li>Material ist vor Ort, einfach vorbeikommen.</li>
-        </ul>
+      <div class="fcard" data-aos="fade-up" data-aos-delay="80">
+        <div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h4>14 Einheiten je Semester</h4>
+        <p><b>Frühlings- & Herbstsemester</b>, dazwischen Winter- & Sommerpause.</p>
+      </div>
+      <div class="fcard" data-aos="fade-up" data-aos-delay="160">
+        <div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg></div>
+        <h4>80 % Anwesenheit</h4>
+        <p>Erwünscht, damit alle vom Aufbau profitieren — Anmeldung <b>pro Semester</b>.</p>
+      </div>
+      <div class="fcard" data-aos="fade-up" data-aos-delay="240">
+        <div class="fic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h4>Ab 8 Personen · alle Levels</h4>
+        <p>Vom Einstieg bis zum Wettkampf. Material ist <b>vor Ort</b> — einfach vorbeikommen.</p>
       </div>
     </div>
   </section>
@@ -394,36 +480,20 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 
 
   <div class="wrap">
-  <!-- TERMINE / STATUS -->
-  <section id="termine">
-    <div class="lbl" data-aos="fade-up">Nächste Termine</div>
-    <div class="status" data-aos="fade-up">
-      <div class="stx">
-        <div class="pulse">Neue Termine folgen bald</div>
-        <div class="dprov">Provisorisch</div>
-        <h2>Herbstsemester 2026</h2>
-        <div class="dline">Dienstags 18:45–20:15 · 14 Einheiten<b>Start voraussichtlich ab 19. August 2026</b></div>
-        <p style="margin-top:12px">Die genauen Daten stehen <b>noch nicht definitiv</b> fest und werden bald bekannt gegeben. Sichere dir schon jetzt unverbindlich deinen Platz — wir melden uns, sobald das Programm steht.</p>
-      </div>
-      <div class="sact">
-        <a class="btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Platz sichern</a>
-        <a class="btn btn-social s-wa" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.2 1.27-1.97 1.43-.53.11-1.22.2-3.56-.77-2.99-1.24-4.9-4.27-5.05-4.47-.15-.2-1.2-1.6-1.2-3.06 0-1.45.76-2.16 1.03-2.46.24-.27.63-.39 1-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.57.82 1.98.89 2.13.07.15.12.32.02.51-.09.2-.14.32-.28.49-.14.17-.29.37-.42.5-.14.14-.28.29-.12.56.15.27.68 1.12 1.46 1.82 1.01.9 1.86 1.18 2.13 1.31.27.14.42.11.58-.07.15-.17.66-.77.84-1.03.17-.27.35-.22.58-.13.24.09 1.51.71 1.77.84.27.13.44.2.51.31.06.11.06.64-.18 1.32z"/></svg>WhatsApp-Gruppe</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- VORANMELDUNG -->
+  <!-- ANMELDUNG -->
   <section id="voranmelden">
-    <div class="lbl" data-aos="fade-up">Voranmeldung — unverbindlich</div>
-    <div class="formbox" data-aos="fade-up">
+    <div class="lbl" data-aos="fade-up">Anmeldung Herbstsemester 2026</div>
+    <h2 class="h2" data-aos="fade-up">Meld dich an — <span class="g">Platz sichern</span></h2>
+    <p class="intro" data-aos="fade-up">Die Anmeldung gilt pro Semester. Fülls unten aus — beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an <b>info@tfcz.ch</b>.</p>
+    <div class="formbox" data-aos="fade-up" style="margin-top:22px">
       <div id="fEdit">
-        <h2>Platz vormerken</h2>
-        <div class="fsub">Trag dich unverbindlich ein — sobald die Termine feststehen, melden wir uns bei dir. Beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an info@tfcz.ch.</div>
+        <h2>Jetzt anmelden</h2>
+        <div class="fsub">Trag deine Angaben ein — wir bestätigen dir deinen Platz. <b>Wichtig:</b> gib an, ob dir Dienstag und/oder Mittwoch passt. Beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an info@tfcz.ch.</div>
         <form id="trForm" data-tfcz="form" data-form="training" novalidate>
           <div class="fgrid" id="fFields"></div>
           <div class="fnote"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Beim Senden öffnet sich dein Mailprogramm mit Empfänger, Betreff und Text — alles schon ausgefüllt.</span></div>
           <div class="btnrow">
-            <button class="btn btn-gold" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Voranmeldung als Mail senden</button>
+            <button class="btn btn-gold" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Anmeldung als Mail senden</button>
             <a class="btn btn-social s-wa" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.02c-.24.68-1.2 1.27-1.97 1.43-.53.11-1.22.2-3.56-.77-2.99-1.24-4.9-4.27-5.05-4.47-.15-.2-1.2-1.6-1.2-3.06 0-1.45.76-2.16 1.03-2.46.24-.27.63-.39 1-.39.12 0 .23 0 .33.01.29.01.44.03.63.49.24.57.82 1.98.89 2.13.07.15.12.32.02.51-.09.2-.14.32-.28.49-.14.17-.29.37-.42.5-.14.14-.28.29-.12.56.15.27.68 1.12 1.46 1.82 1.01.9 1.86 1.18 2.13 1.31.27.14.42.11.58-.07.15-.17.66-.77.84-1.03.17-.27.35-.22.58-.13.24.09 1.51.71 1.77.84.27.13.44.2.51.31.06.11.06.64-.18 1.32z"/></svg>Lieber per WhatsApp</a>
             <span class="formerr" id="fErr">Bitte fülle die markierten Pflichtfelder aus.</span>
           </div>
@@ -440,34 +510,6 @@ section{padding:clamp(30px,4.5vw,60px) 0}
         <button class="fback" type="button" id="fBack">← Angaben nochmal bearbeiten</button>
       </div>
     </div>
-  </section>
-
-  <!-- TESTIMONIALS (Namen anonym — später ersetzen) -->
-  <section id="stimmen">
-    <div class="lbl" data-aos="fade-up">Das sagen die Spieler</div>
-    <div class="tgrid" style="margin-top:6px">
-      <div class="tcard" data-aos="fade-up" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
-        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
-        <div class="quote">„Ich hab in <b>zwei, drei Wochen</b> mehr über saubere Technik gelernt als vorher in Jahren. Plötzlich sitzen Pässe und Schüsse."</div>
-        <div class="who"><div class="av">A</div><div><div class="nm">Anonym</div><div class="rl">Aktivmitglied</div></div></div>
-      </div>
-      <div class="tcard" data-aos="fade-up" data-aos-delay="80" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
-        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
-        <div class="quote">„Als kompletter Einsteiger reingekommen — nach einem Semester hab ich mich an meinem <b>ersten Turnier richtig gut geschlagen</b>."</div>
-        <div class="who"><div class="av">A</div><div><div class="nm">Anonym</div><div class="rl">Einsteiger</div></div></div>
-      </div>
-      <div class="tcard" data-aos="fade-up" data-aos-delay="160" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
-        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
-        <div class="quote">„Philipp erklärt so, dass es sofort klick macht. Der <b>Fortschritt ist echt messbar</b> — und die Abende machen Spass."</div>
-        <div class="who"><div class="av">A</div><div><div class="nm">Anonym</div><div class="rl">Turnierspieler</div></div></div>
-      </div>
-      <div class="tcard" data-aos="fade-up" data-aos-delay="240" data-tilt data-tilt-max="6" data-tilt-glare data-tilt-max-glare="0.15">
-        <div class="stars"><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg><svg class="st" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4 6.2 20.5l1.1-6.5L2.6 9.4l6.5-.9L12 2.6z"/></svg></div>
-        <div class="quote">„Für den Preis unschlagbar. Ich hab mich klar gesteigert und an grösseren Turnieren <b>tolle Platzierungen</b> geholt."</div>
-        <div class="who"><div class="av">A</div><div><div class="nm">Anonym</div><div class="rl">Aktivmitglied</div></div></div>
-      </div>
-    </div>
-    <p class="tnote" data-aos="fade-up">Feedback aus dem Training — Namen folgen, sobald die Teilnehmer freigegeben haben.</p>
   </section>
 
   <div data-tfcz="footer"></div>
