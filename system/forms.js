@@ -115,6 +115,8 @@ window.TFCZ = window.TFCZ || {};
           { k:'tel', label:'Mobile-Nr.', type:'tel', ph:'+41 …' },
           { k:'mitglied', label:'Bist du TFCZ-Mitglied?', type:'select', options:['Ja','Nein'] },
           { k:'adresse', label:'Adresse (nur Nicht-Mitglieder)', type:'text', opt:true, full:true, ph:'Strasse, PLZ Ort' },
+          { k:'tag', label:'Welcher Tag passt dir?', type:'select', options:['Dienstag','Mittwoch','Dienstag oder Mittwoch','Nur Mittwoch möglich'] },
+          { k:'semester', label:'Für welches Semester?', type:'select', options:['Herbstsemester 2026','Frühlingssemester 2027','Sobald möglich'] },
           { k:'msg', label:'Nachricht', type:'textarea', opt:true, full:true, ph:'Fragen, Level, Wünsche?' }
         ]
       },
