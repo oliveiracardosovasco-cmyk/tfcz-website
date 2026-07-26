@@ -428,7 +428,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
       <div class="pg-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Der <b>Dienstag</b> ist der Haupttag, die <b>Mittwoch-Gruppe</b> läuft parallel — je max. 20 Plätze. Wer nur am Mittwoch kann, meldet sich trotzdem an; gib bei der Anmeldung einfach deine Wunsch-Option an.</span></div>
       <div class="pg-cta">
         <a class="btn btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Platz sichern</a>
-        <button type="button" class="btn btn-ghost" data-ical-all><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h12M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/><path d="M19 16v6M16 19h6"/></svg>Alle Termine zum Kalender hinzufügen</button>
+        <button type="button" class="btn btn-ghost" data-ical-all><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h12M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/><path d="M19 16v6M16 19h6"/></svg><span data-ical-label>Alle Dienstag-Termine zum Kalender</span></button>
       </div>
     </div>
   </section>
@@ -638,7 +638,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 
   function collect(){
     var prog=document.getElementById('programm'); if(!prog) return [];
-    var panel=prog.querySelector('.pg-panel.on')||prog;   /* nur die aktive Gruppe */
+    var panel=prog.querySelector('.pg-panel.on')||prog.querySelector('.pg-panel')||prog;   /* NUR die aktive Gruppe (nie beide) */
     var ym=(prog.textContent.match(/\b(20\d{2})\b/)||[])[1];
     var year=ym?parseInt(ym,10):new Date().getFullYear();
     var out=[], lastMon=-1;
@@ -728,6 +728,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
       var g=t.getAttribute('data-grp');
       tabs.forEach(function(x){ var on=x===t; x.classList.toggle('on',on); x.setAttribute('aria-selected',on?'true':'false'); });
       panels.forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-grp')===g); });
+      var lbl=document.querySelector('[data-ical-label]'); if(lbl) lbl.textContent='Alle '+(g==='mi'?'Mittwoch':'Dienstag')+'-Termine zum Kalender';
     });
   });
 })();
