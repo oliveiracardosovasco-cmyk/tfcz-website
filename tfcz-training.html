@@ -133,7 +133,8 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 @media(max-width:860px){ .flipgrid{grid-template-columns:1fr 1fr} } @media(max-width:520px){ .flipgrid{grid-template-columns:1fr} }
 .flip{perspective:1400px; height:220px; cursor:pointer}
 .flip-in{position:relative; width:100%; height:100%; transition:transform .7s var(--ease); transform-style:preserve-3d}
-.flip:hover .flip-in, .flip.on .flip-in{transform:rotateY(180deg)}
+@media(hover:hover){ .flip:hover .flip-in{transform:rotateY(180deg)} }  /* Hover-Dreh NUR auf Hover-Geräten — sonst kämpft Sticky-Hover auf Touch gegen das Zurückkippen */
+.flip.on .flip-in{transform:rotateY(180deg)}
 .flip-f,.flip-b{position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:var(--r-lg); border:1px solid var(--card-brd); padding:22px 18px; display:flex; flex-direction:column; box-shadow:var(--e-1); overflow:hidden}
 .flip-f{background:var(--card)}
 .flip-b{background:linear-gradient(155deg, rgba(0,90,148,.5), rgba(7,18,30,.92)); transform:rotateY(180deg); justify-content:center}
@@ -182,6 +183,14 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 
 /* ===== Semester-Programm (Terminplan als Herzstück) ===== */
 .prog{position:relative; background:var(--card); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:clamp(20px,3vw,30px); box-shadow:var(--e-2); margin-top:20px}
+/* Gruppen-Reiter (Ansichts-Tabs nach Brand Guide) — Di / Mi */
+.pg-tabsbar{border-bottom:3px solid var(--gold); margin-bottom:18px}
+.rtabs{display:flex; gap:6px}
+.rtab{cursor:pointer; font-family:var(--font); font-weight:800; font-size:14px; color:var(--ink-mut); background:var(--navy-2); border:1px solid var(--card-brd); border-bottom:none; border-radius:10px 10px 0 0; padding:10px 18px; transition:var(--t-fast)}
+.rtab:hover{color:#fff}
+.rtab.on{background:var(--frost); color:var(--ink); box-shadow:inset 0 3px 0 var(--blue)}
+.pg-panel{display:none}
+.pg-panel.on{display:block}
 .pg-meta{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:20px}
 .pg-chip{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:800; color:var(--ink-mut); background:var(--card-soft); border:1px solid var(--card-brd); padding:8px 14px; border-radius:var(--r-pill)}
 .pg-chip svg{width:15px; height:15px; color:var(--blue); flex:none}
@@ -358,12 +367,20 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   <section id="programm">
     <div class="lbl" data-aos="fade-up">Semester-Programm</div>
     <h2 class="h2" data-aos="fade-up">Herbstsemester <span class="g">2026</span></h2>
-    <p class="intro" data-aos="fade-up">14 feste Einheiten, immer <b>dienstags</b>. Sichere dir jetzt deinen Platz — die Gruppen sind begrenzt.</p>
+    <p class="intro" data-aos="fade-up">14 feste Einheiten je Gruppe — <b>Dienstag</b> und <b>Mittwoch</b>, je max. <b>20 Plätze</b>. Wähl unten deine Gruppe.</p>
     <div class="prog" data-aos="fade-up">
+      <div class="pg-tabsbar">
+        <div class="rtabs" role="tablist" aria-label="Trainingsgruppe wählen">
+          <button class="rtab on" type="button" data-grp="di" aria-selected="true">Dienstag-Gruppe</button>
+          <button class="rtab" type="button" data-grp="mi" aria-selected="false">Mittwoch-Gruppe</button>
+        </div>
+      </div>
+      <div class="pg-panel on" data-grp="di">
       <div class="pg-meta">
         <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18m-9 4l2 2 4-4"/></svg><b>14</b>&nbsp;Einheiten</span>
         <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Di <b>18:45–20:15</b></span>
         <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>1. Sept – 15. Dez</span>
+        <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>max. <b>20</b> Plätze</span>
         <span class="pg-chip gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>Gratis für Mitglieder</span>
       </div>
       <div class="pg-months">
@@ -396,8 +413,19 @@ section{padding:clamp(30px,4.5vw,60px) 0}
           <div class="pg-day"><span class="pg-num">14</span><span class="pg-dt">Di 15. Dez</span></div>
         </div>
       </div>
-      <div class="pg-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Di 22. + 29. September</b> sind zusätzlich möglich, aber noch offen — an diesen zwei Terminen ist der Trainer noch nicht fix. Sobald das steht, geben wir Bescheid.</span></div>
-      <div class="pg-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Geplant sind <b>zwei Gruppen</b> — für Einsteiger und für Fortgeschrittene, verteilt auf <b>Dienstag und Mittwoch</b>. Gib bei der Anmeldung einfach deine Wunsch-Option an; wer nur am Mittwoch kann, meldet sich trotzdem an. So teilen wir die Gruppen passend ein.</span></div>
+      </div><!-- /pg-panel Dienstag -->
+      <div class="pg-panel" data-grp="mi">
+        <div class="pg-meta">
+          <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18m-9 4l2 2 4-4"/></svg><b>14</b>&nbsp;Einheiten</span>
+          <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Mi <b>18:30–20:00</b></span>
+          <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>2. Sept – 16. Dez</span>
+          <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>max. <b>20</b> Plätze</span>
+          <span class="pg-chip gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>Gratis für Mitglieder</span>
+        </div>
+        <div class="pg-months" data-mirror-di><!-- gespiegelt aus der Dienstag-Gruppe (Tag danach) — per JS befüllt --></div>
+      </div>
+      <div class="pg-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>Die <b>zwei letzten September-Termine</b> sind zusätzlich möglich, aber noch offen — an diesen Terminen ist der Trainer noch nicht fix. Sobald das steht, geben wir Bescheid.</span></div>
+      <div class="pg-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Der <b>Dienstag</b> ist der Haupttag, die <b>Mittwoch-Gruppe</b> läuft parallel — je max. 20 Plätze. Wer nur am Mittwoch kann, meldet sich trotzdem an; gib bei der Anmeldung einfach deine Wunsch-Option an.</span></div>
       <div class="pg-cta">
         <a class="btn btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Platz sichern</a>
         <button type="button" class="btn btn-ghost" data-ical-all><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h12M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/><path d="M19 16v6M16 19h6"/></svg>Alle Termine zum Kalender hinzufügen</button>
@@ -596,18 +624,25 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 
   var TITLE='Training MIT';
   var LOC='Landenbergstrasse 10, 8037 Zürich';
-  var T_START='1845', T_END='2015';   /* 18:45–20:15 */
   var MONTHS={jan:0,feb:1,'mär':2,mar:2,apr:3,mai:4,jun:5,jul:6,aug:7,sep:8,okt:9,nov:10,dez:11};
+  /* Welche Gruppe ist aktiv? Zeiten unterscheiden sich: Di 18:45–20:15 · Mi 18:30–20:00 */
+  function grpCfg(){
+    var t=document.querySelector('#programm .rtab.on'), g=(t&&t.getAttribute('data-grp'))||'di';
+    return g==='mi' ? { s:'1830', e:'2000', tag:'Mi', label:'Mittwoch' }
+                    : { s:'1845', e:'2015', tag:'Di', label:'Dienstag' };
+  }
+  function hhmm(x){ return x.slice(0,2)+':'+x.slice(2); }
 
   function pad(n){ return (n<10?'0':'')+n; }
   function esc(s){ return String(s).replace(/([\\;,])/g,'\\$1').replace(/\n/g,'\\n'); }
 
   function collect(){
     var prog=document.getElementById('programm'); if(!prog) return [];
+    var panel=prog.querySelector('.pg-panel.on')||prog;   /* nur die aktive Gruppe */
     var ym=(prog.textContent.match(/\b(20\d{2})\b/)||[])[1];
     var year=ym?parseInt(ym,10):new Date().getFullYear();
     var out=[], lastMon=-1;
-    [].forEach.call(prog.querySelectorAll('.pg-month'),function(m){
+    [].forEach.call(panel.querySelectorAll('.pg-month'),function(m){
       var mn=((m.querySelector('.pg-mname')||{}).textContent||'').trim().toLowerCase().slice(0,3);
       var mon=MONTHS[mn]; if(mon==null) return;
       if(lastMon>-1 && mon<lastMon) year++;   /* Jahreswechsel im Semester absichern */
@@ -627,8 +662,9 @@ section{padding:clamp(30px,4.5vw,60px) 0}
     return n.getUTCFullYear()+pad(n.getUTCMonth()+1)+pad(n.getUTCDate())+'T'+pad(n.getUTCHours())+pad(n.getUTCMinutes())+pad(n.getUTCSeconds())+'Z'; }
 
   function build(days){
+    var cfg=grpCfg();
     var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//TFCZ//Training mit Philipp//DE',
-      'CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:'+esc(TITLE+' · TFCZ'),
+      'CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:'+esc(TITLE+' · '+cfg.label),
       'BEGIN:VTIMEZONE','TZID:Europe/Zurich',
       'BEGIN:DAYLIGHT','TZOFFSETFROM:+0100','TZOFFSETTO:+0200','TZNAME:CEST',
       'DTSTART:19700329T020000','RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU','END:DAYLIGHT',
@@ -640,11 +676,11 @@ section{padding:clamp(30px,4.5vw,60px) 0}
       L.push('BEGIN:VEVENT',
         'UID:tfcz-training-'+o.y+pad(o.m+1)+pad(o.d)+'@tfcz.ch',
         'DTSTAMP:'+stamp,
-        'DTSTART;TZID=Europe/Zurich:'+local(o,T_START),
-        'DTEND;TZID=Europe/Zurich:'+local(o,T_END),
+        'DTSTART;TZID=Europe/Zurich:'+local(o,cfg.s),
+        'DTEND;TZID=Europe/Zurich:'+local(o,cfg.e),
         'SUMMARY:'+esc(TITLE),
         'LOCATION:'+esc(LOC),
-        'DESCRIPTION:'+esc('Tischfussball-Training beim TFCZ · Di 18:45–20:15'),
+        'DESCRIPTION:'+esc('Tischfussball-Training beim TFCZ · '+cfg.label+'-Gruppe · '+cfg.tag+' '+hhmm(cfg.s)+'–'+hhmm(cfg.e)),
         'STATUS:CONFIRMED','END:VEVENT');
     });
     L.push('END:VCALENDAR');
@@ -654,7 +690,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   function fileName(){
     var h=document.querySelector('#programm .h2');
     var base=(h?h.textContent:'Termine').replace(/\s+/g,'-').replace(/[^0-9A-Za-zäöüÄÖÜß\-]/g,'');
-    return 'TFCZ-Training-'+base+'.ics';
+    return 'TFCZ-Training-'+grpCfg().label+'-'+base+'.ics';
   }
 
   btn.addEventListener('click',function(){
@@ -668,6 +704,31 @@ section{padding:clamp(30px,4.5vw,60px) 0}
        nie, so löst der Kalender-Download kein Ei aus. Download klappt trotzdem. */
     a.click();
     setTimeout(function(){ URL.revokeObjectURL(url); },1500);
+  });
+})();
+
+/* ===== Gruppen-Tabs (Dienstag / Mittwoch) + Mittwoch-Spiegel ===== */
+(function(){
+  var prog=document.getElementById('programm'); if(!prog) return;
+  /* Mittwoch = Tag nach jedem Dienstag — aus der Dienstag-Gruppe gespiegelt (EINE Datenquelle) */
+  var di=prog.querySelector('.pg-panel[data-grp="di"] .pg-months');
+  var mi=prog.querySelector('.pg-panel[data-grp="mi"] .pg-months[data-mirror-di]');
+  if(di && mi && !mi.querySelector('.pg-month')){
+    var clone=di.cloneNode(true);
+    [].forEach.call(clone.querySelectorAll('.pg-dt'),function(dt){
+      dt.textContent=dt.textContent.replace(/Di\s+(\d{1,2})\./,function(_,d){ return 'Mi '+(parseInt(d,10)+1)+'.'; });
+    });
+    mi.innerHTML=clone.innerHTML;
+  }
+  /* Tab-Umschaltung */
+  var tabs=[].slice.call(prog.querySelectorAll('.rtab'));
+  var panels=[].slice.call(prog.querySelectorAll('.pg-panel'));
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      var g=t.getAttribute('data-grp');
+      tabs.forEach(function(x){ var on=x===t; x.classList.toggle('on',on); x.setAttribute('aria-selected',on?'true':'false'); });
+      panels.forEach(function(p){ p.classList.toggle('on', p.getAttribute('data-grp')===g); });
+    });
   });
 })();
 </script>
