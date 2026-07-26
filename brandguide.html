@@ -21,9 +21,13 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; ba
 
 /* ===== Sticky Unterseiten-Menü (Logo links · Nav links eingerückt · Zurück rechts · unten abgerundet) ===== */
 .nav{position:sticky; top:0; z-index:90; display:flex; align-items:center; gap:10px;
-  padding:12px max(22px, calc((100% - 1160px)/2 + 22px));
-  background:linear-gradient(155deg, rgba(10,24,38,.93), rgba(6,15,24,.90));
-  border-top:3px solid var(--blue); border-bottom:3px solid var(--gold);   /* Balken GERADE (kein border-radius) */ box-shadow:var(--e-2)}
+  padding:15px max(22px, calc((100% - 1160px)/2 + 22px));
+  background:linear-gradient(155deg, rgba(10,24,38,.93), rgba(6,15,24,.90)); box-shadow:var(--e-2)}
+/* Brand-Linie als Overlay (addiert KEINE Höhe) + Mobile-Override → Höhe exakt wie die anderen Seiten.
+   Der Brand Guide lädt kein system/page.css, darum hier inline (Vasco 26.07.2026). */
+.nav::before,.nav::after{content:""; position:absolute; left:0; right:0; height:3px; z-index:4; pointer-events:none}
+.nav::before{top:0; background:var(--blue)} .nav::after{bottom:0; background:var(--gold)}
+@media(max-width:600px){ .nav{padding-top:10px; padding-bottom:10px} .nav .logo img{height:35.2px} }
 .nav .logo{display:flex; align-items:center; min-width:0; flex:none}
 .nav .logo img{height:38.8px; width:auto; object-fit:contain; display:block}
 .navlinks{display:flex; align-items:center; gap:2px; margin-left:18px; overflow-x:auto; scrollbar-width:none}

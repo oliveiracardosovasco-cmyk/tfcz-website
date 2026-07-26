@@ -1384,7 +1384,7 @@ var CF=(function(){
   function lastFri(y,m){var d=new Date(y,m+1,0);while(d.getDay()!==5)d.setDate(d.getDate()-1);return d;}
   function allEv(dt){var ev=[],dow=dt.getDay();
     if(dow===2)ev.push({type:'training',t:'Offenes Training',time:'18:00',end:'23:00',info:'Alle Levels · Gratis* · Ohne Voranmeldung'});
-    if(dow===3){ev.push({type:'kids',t:'Kindertraining',time:'15:00',end:'17:00',info:'Für Kinder & Jugendliche · Ohne Voranmeldung'});
+    if(dow===3){ev.push({type:'kids',t:'Kindertraining',time:'15:00',end:'17:00',info:'Für Kinder &amp; Jugendliche · <a href="tfcz-ueber-uns.html#kinder" style="color:var(--gold-lt);font-weight:800;text-decoration:underline">Mehr Infos</a>'});
                 ev.push({type:'dyp',t:'Plausch-Turnier',time:'20:15',end:'23:00',info:'Doppel · Zugeloster Partner · 5.– · Ohne Voranmeldung'});}
     if(dow===5 && dt.getDate()===lastFri(dt.getFullYear(),dt.getMonth()).getDate())
       ev.push({type:'kaese',t:'Käsekick',time:'19:30',end:'22:00',info:'Plausch · Raclette · 5.– · Ohne Voranmeldung'});
