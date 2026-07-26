@@ -1630,6 +1630,12 @@ var CF=(function(){
   addEventListener('resize',function(){layoutFilters();if(view==='week')fisheye();else if(view==='list')listGenie();},{passive:true});
   addEventListener('load',layoutFilters);
   show('week');
+  /* Von der Ei-Belohnung „zum nächsten Käsekick" (index.html?cal=kaese): nur den Käsekick-Filter
+     aktivieren + Monatsansicht, damit man möglichst nur die Käsekick-Termine sieht (Vasco 26.07.2026).
+     Käsekick ist monatlich (letzter Freitag) — die Monatsansicht zeigt den nächsten Termin am besten. */
+  try{ if(/[?&]cal=kaese(&|#|$)/.test(location.search+location.hash) || /[?&]cal=kaese\b/.test(location.search)){
+    fsel={kaese:true}; renderFilters(); show('month');
+  } }catch(e){}
 })();
 
 /* ===== Fun-Barometer: Tube + Panel mit Kennwert-Balken (Pflicht-Kombination) ===== */
