@@ -182,8 +182,9 @@ h1 .g{color:var(--gold-lt)}
 .calhead{display:flex; flex-wrap:wrap; align-items:center; gap:clamp(12px,2vw,18px); margin:0 0 clamp(12px,2.2vw,20px)}
 .calhead .calswitch{order:1; flex:0 0 auto; width:auto; margin:0}
 .calhead .calfilterbtn{order:2}
-.calhead .calfilters{order:3; flex:1 1 300px; margin:0}
-.calhead .caltoday{order:4; flex:0 0 auto; margin-left:auto; display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; padding:0; color:#fff; background:rgba(92,167,220,.16); border:1px solid rgba(92,167,220,.42); border-radius:50%; cursor:pointer; transition:var(--t-fast)}
+.calhead .calfilters{order:4; flex:1 1 300px; margin:0}
+/* „Zu heute" sitzt IMMER direkt rechts vom Filter-Knopf (order:3), unabhängig von den Filtern (Vasco 26.07.2026) */
+.calhead .caltoday{order:3; flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; padding:0; color:#fff; background:rgba(92,167,220,.16); border:1px solid rgba(92,167,220,.42); border-radius:50%; cursor:pointer; transition:var(--t-fast)}
 .calhead .caltoday:hover{background:var(--blue-mid); transform:translateY(-1px)}
 .calhead .caltoday svg{display:block}
 @media(max-width:600px){ .calhead .calswitch{flex:1 1 100%} }
@@ -590,7 +591,7 @@ h1 .g{color:var(--gold-lt)}
 .agrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
 .acard{background:var(--frost); border:1px solid var(--card-brd); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--e-1);
   transition:transform var(--t-base) var(--ease), box-shadow var(--t-base) var(--ease), border-color var(--t-base) var(--ease); display:flex; flex-direction:column}
-.acard:hover{transform:translateY(-4px); box-shadow:var(--e-2); border-color:var(--blue)}
+.acard:hover{border-color:var(--blue)} /* Container hebt/zoomt NICHT mehr — nur das Foto (Vasco 26.07.2026) */
 .acard .aimg{height:170px; overflow:hidden}
 .acard .aimg img{width:100%; height:100%; object-fit:cover; transition:transform var(--t-slow) var(--ease)}
 .acard:hover .aimg img{transform:scale(1.07)}
@@ -684,7 +685,8 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
 .hc-pframe::after{content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(6,15,24,.5) 0%, rgba(7,20,33,.4) 42%, rgba(5,12,20,.84) 100%), radial-gradient(1200px 720px at 78% 14%, rgba(0,90,148,.4), transparent 60%)}
 .hc-over{position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:60px 22px}
 .hc-over>*{max-width:780px}
-.hc-over .kicker{color:#fff; margin-bottom:6px}
+.hc-over .kicker{color:#fff; margin-bottom:6px; gap:0}
+.hc-over .kicker::before{display:none} /* Home-Hero: kein Strich vor dem Vereinsnamen, Name zentriert (Vasco 26.07.2026) */
 .hc-over .hc-lead{color:#eef4fa; font-weight:600; margin:22px auto 0; text-shadow:0 2px 16px rgba(0,0,0,.5)}
 .hc-over .hc-ctas{margin-top:24px}
 .hc-over .hc-open{margin-top:16px; color:rgba(255,255,255,.86); text-shadow:0 2px 12px rgba(0,0,0,.5)}
@@ -1015,7 +1017,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
           <span class="hc-est reveal d2">seit 1990</span>
           <p class="hc-lead reveal d2">Grösster Profi-Verein der Schweiz — und der beste Ort, um zum ersten Mal an den Tisch zu stehen.</p>
           <div class="hc-ctas reveal d3">
-            <a class="hc-cta10" data-cta="schnuppern" href="mitglied.html?paket=schnuppern"><span class="swap"><span>Erster Abend gratis</span><span>Jetzt vorbeikommen</span></span></a>
+            <a class="hc-cta10" href="#woche">Jetzt vorbeikommen</a>
           </div>
           <p class="hc-open reveal d3">Dienstag &amp; Mittwoch offen · <a href="#woche">Weitere Infos <span class="arr">→</span></a></p>
         </div>
@@ -1042,7 +1044,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
         <p class="mfoot reveal">Getragen von unzähligen Freiwilligen, die das Clublokal in unser zweites Wohnzimmer verwandeln. Ohne diese Community gäbe es den TFCZ nicht — herzlich, hilfsbereit und immer da, um neue Mitspielende aufzufangen und mit dir zu wachsen, bis ganz nach oben.</p>
         <div class="mlink reveal d1" style="margin-top:24px">
           <a class="btn btn-ghost" href="tfcz-ueber-uns.html">Mehr über uns <span aria-hidden="true">→</span></a>
-          <a class="mlink-txt" href="tfcz-geschichte.html">Mehr über den Tischfussball als Sport <span aria-hidden="true" style="color:var(--gold-lt)">→</span></a>
+          <a class="mlink-txt" href="tfcz-geschichte.html">Mehr über den Tischfussball <span style="white-space:nowrap">als Sport <span aria-hidden="true" style="color:var(--gold-lt)">→</span></span></a>
         </div>
       </div>
     </div>
@@ -1110,10 +1112,10 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
         <div class="pr">Gratis<small>danach CHF 5 / Eintritt</small></div>
         <ul>
           <li>Erster Abend kostenlos</li>
-          <li>Drop-in ohne Mitgliedschaft: CHF 5</li>
+          <li>Keine Anmeldung — einfach vorbeikommen</li>
           <li>Material &amp; Tipps vor Ort</li>
         </ul>
-        <a class="btn btn-ghost" href="mitglied.html?paket=schnuppern">Schnuppern anmelden</a>
+        <a class="btn btn-ghost" href="#woche">Vorbeikommen</a>
       </div>
       <div class="pcard">
         <div class="ribbon">Beliebt</div>
@@ -1142,7 +1144,8 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
       <div class="pdots" id="pdots" role="slider" aria-label="Mitgliedschaften durchblättern" tabindex="0"><b></b><b></b><b></b></div>
     </div>
     </div>
-    <p class="pnote reveal">Du willst unterstützen, ohne selber zu spielen? Als <b>Gönner oder Sponsor</b> bist du dabei — <a href="mitglied.html?paket=goenner">Gönner werden</a><a href="mitglied.html?paket=sponsor">Sponsoring anfragen</a></p>
+    <p class="pnote reveal">Du willst unterstützen, ohne selber zu spielen? Als <b>Gönner oder Sponsor</b> bist du dabei.</p>
+    <p class="pnote pnote-ctas reveal" style="margin-top:12px; display:flex; gap:10px 20px; flex-wrap:wrap; justify-content:center"><a href="mitglied.html?paket=goenner">Gönner werden <span aria-hidden="true">→</span></a><a href="mitglied.html?paket=sponsor">Sponsoring anfragen <span aria-hidden="true">→</span></a></p>
   </div>
 </section>
 
@@ -1161,7 +1164,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
           <h3>Training mit</h3>
           <div class="am">Di 18:45 · Semester à 14 Einheiten</div>
           <p>Geführte Trainingsserie: Übungs- und Spielformen, Feedback, Tipps und Tricks. Gratis für Mitglieder, CHF 100 pro Semester für Nicht-Mitglieder.</p>
-          <a class="btn btn-gold btn-sm acta" href="tfcz-training.html">Fürs Semester anmelden <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="acta" href="tfcz-training.html">Training ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
       <div class="acard reveal d1">
@@ -1377,8 +1380,8 @@ var CF=(function(){
     var st='color:'+col+(marked?';background:'+col+'26;border-color:'+col+'66':'');
     return '<button class="fchip'+(on?'':' off')+(marked?' mk':'')+'" data-t="'+k+'" style="'+st+'">'+TYPES[k].label+'</button>';}).join('');
     layoutFilters();
-    /* „Heute"-Knopf in den Filter-Flow hängen → sitzt neben den Chips, bricht nur bei Platzmangel um */
-    var _tb=document.getElementById('calToday'); if(_tb)filtersEl.appendChild(_tb);}
+    /* „Zu heute" bleibt fest im Kalender-Kopf (rechts vom Filter-Knopf) — NICHT mehr in den Filter-Flow gehängt (Vasco 26.07.2026). */
+  }
   /* Chips text-breit (nicht uniform) + möglichst 1 Zeile; beim Umbruch gleichmässig verteilen (oben ggf. 1 mehr), nie 1 Chip allein */
   function layoutFilters(){var wrap=filtersEl; if(!wrap)return;
     [].slice.call(wrap.querySelectorAll('.fbreak')).forEach(function(b){b.remove();});
@@ -1562,7 +1565,7 @@ var CF=(function(){
     best.style.zIndex='40';}
   /* Mobile Tages-Popup (Maske) */
   var mdayEl=document.createElement('div'); mdayEl.className='mday';
-  mdayEl.innerHTML='<div class="mday-bd"></div><div class="mday-card"><div class="mday-head"><div class="mday-t" id="mdayT"></div><button class="mday-x" aria-label="Schliessen"></button></div><div class="mday-list" id="mdayL"></div></div>';
+  mdayEl.innerHTML='<div class="mday-bd"></div><div class="mday-card"><div class="mday-head"><div class="mday-t" id="mdayT"></div><button class="mday-x" aria-label="Schliessen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="mday-list" id="mdayL"></div></div>';
   document.body.appendChild(mdayEl);
   function closeMday(){
     if(!mdayEl.classList.contains('on'))return;
@@ -1593,16 +1596,9 @@ var CF=(function(){
   if(matchMedia('(hover:hover)').matches){var lgRAF=false;
     listEl.addEventListener('mousemove',function(e){listCy=e.clientY;if(lgRAF)return;lgRAF=true;requestAnimationFrame(function(){lgRAF=false;listGenie();});},{passive:true});
     listEl.addEventListener('mouseleave',function(){listCy=null;listGenie();});}
-  /* Wochen-Detail-Liste: Genie (Proximity-Scale) auf den Event-Rows */
+  /* Kein Zoom/Genie mehr auf den Event-Rows (Vasco 26.07.2026) — nur die Brand-Linien beim Hover bleiben (#wkList .ev:hover::after). */
   var wkCy=null;
-  function wkGenie(){var rows=wkList.querySelectorAll('.ev');if(!rows.length)return;
-    if(wkCy==null){[].forEach.call(rows,function(r){r.style.transform='';});return;}
-    var unit=rows[0].getBoundingClientRect().height||58;
-    [].forEach.call(rows,function(r){var rr=r.getBoundingClientRect();var d=Math.abs((rr.top+rr.height/2)-wkCy)/unit;var f=Math.exp(-d*d/1.2);
-      r.style.transform='scale('+(1+0.025*f).toFixed(3)+')';});}
-  if(matchMedia('(hover:hover)').matches){var wgRAF=false;
-    wkList.addEventListener('mousemove',function(e){wkCy=e.clientY;if(wgRAF)return;wgRAF=true;requestAnimationFrame(function(){wgRAF=false;wkGenie();});},{passive:true});
-    wkList.addEventListener('mouseleave',function(){wkCy=null;wkGenie();});}
+  function wkGenie(){var rows=wkList.querySelectorAll('.ev');[].forEach.call(rows,function(r){r.style.transform='';});}
   addEventListener('resize',function(){layoutFilters();if(view==='week')fisheye();else if(view==='list')listGenie();},{passive:true});
   addEventListener('load',layoutFilters);
   show('week');
@@ -1703,7 +1699,7 @@ var CF=(function(){
   renderCar(TABLES[0].slug); renderMain(TABLES[0]);
   /* Video eingebettet abspielen (kein externer Link) */
   var ytm=document.createElement('div'); ytm.className='ytm';
-  ytm.innerHTML='<div class="ytm-bd"></div><div class="ytm-box"><button class="ytm-x" type="button" aria-label="Schliessen"></button><div class="ytm-frame"></div></div>';
+  ytm.innerHTML='<div class="ytm-bd"></div><div class="ytm-box"><button class="ytm-x" type="button" aria-label="Schliessen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="ytm-frame"></div></div>';
   document.body.appendChild(ytm);
   var frame=ytm.querySelector('.ytm-frame');
   function closeYT(){
@@ -1904,7 +1900,7 @@ var CF=(function(){
 
 <div class="maildlg-scrim" id="mailScrim">
   <div class="maildlg" role="dialog" aria-modal="true" aria-labelledby="mailDlgH">
-    <button class="mdx" id="mailX" aria-label="Schliessen"></button>
+    <button class="mdx" id="mailX" aria-label="Schliessen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <div class="mic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
     <h3 id="mailDlgH">Dein Mailprogramm sollte sich öffnen …</h3>
     <p>Wir haben eine Mail an <b>info@tfcz.ch</b> für dich vorbereitet — <b>Betreff und Text sind schon gesetzt</b>. <b>Öffnet sich nichts</b> oder kommt ein Fehler? Kopier den Text mit dem Button und schick ihn direkt an <a href="mailto:info@tfcz.ch">info@tfcz.ch</a>.</p>

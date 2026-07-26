@@ -12973,7 +12973,7 @@ function copy(txt){
     var ctx=cv.getContext('2d'),r=cv.getBoundingClientRect();cv.width=r.width;cv.height=r.height;
     var W=cv.width,H=cv.height,ps=[];
     var spr=document.createElement('canvas');spr.width=spr.height=48;
-    var sc=spr.getContext('2d');sc.font='38px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif';sc.textAlign='center';sc.textBaseline='middle';sc.fillText('🧀',24,26);
+    var sc=spr.getContext('2d');sc.font='38px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif';sc.textAlign='center';sc.textBaseline='middle';sc.fillText('\uD83E\uDDC0',24,26);
     for(var i=0;i<80;i++){var a=Math.random()*6.283,sp=4+Math.random()*6;ps.push({x:W/2,y:H*0.5,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-3,rot:Math.random()*6.28,vr:(Math.random()-.5)*.3,s:16+Math.random()*10});}
     var t=0,raf;function fr(){ctx.clearRect(0,0,W,H);t++;for(var i=0;i<ps.length;i++){var p=ps[i];p.vy+=0.18;p.vx*=0.99;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
       ctx.save();ctx.globalAlpha=Math.max(0,1-t/165);ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.drawImage(spr,-p.s/2,-p.s/2,p.s,p.s);ctx.restore();}

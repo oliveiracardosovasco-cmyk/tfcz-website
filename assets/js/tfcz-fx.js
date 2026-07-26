@@ -69,8 +69,8 @@
 
   /* ---- CSS ---- */
   var css=[
-  '.fx-ov{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;padding:22px;opacity:0;transition:opacity .5s ease;font-family:"Nunito Sans",system-ui,sans-serif}',
-  '.fx-ov::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 120% at 50% 50%,rgba(4,9,16,.5) 0%,rgba(2,6,11,.86) 70%,#01040a 100%);opacity:0;transition:opacity .6s ease}',
+  '.fx-ov{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;padding:22px;opacity:0;transition:none;font-family:"Nunito Sans",system-ui,sans-serif}',
+  '.fx-ov::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 120% at 50% 50%,rgba(4,9,16,.5) 0%,rgba(2,6,11,.86) 70%,#01040a 100%);opacity:0;transition:none}',
   '.fx-ov.on{display:flex;opacity:1}','.fx-ov.on::before{opacity:1}',
   '.fx-acc{position:absolute;z-index:1;pointer-events:none;opacity:0;width:150px;height:230px;background:radial-gradient(closest-side,rgba(233,196,117,.5),transparent 70%);filter:blur(12px)}',
   '.fx-ov.on .fx-acc{animation:fxSmoke 1.15s ease .02s}',
@@ -80,10 +80,10 @@
      auch nicht bei den Easter Eggs"). Fenster nur noch schlicht ein-/ausblenden — kein Skalieren aus
      dem Klickpunkt, kein Portal-Kollaps. Die Käse-Feier, das Emblem-Knacken und der federnde X-Button
      bleiben unverändert. */
-  '.fx-pop.open{animation:fxOpen .26s ease forwards}',
-  '@keyframes fxOpen{from{opacity:0}to{opacity:1}}',
-  '.fx-pop.closing{animation:fxPortal .34s ease forwards}',
-  '@keyframes fxPortal{from{opacity:1}to{opacity:0}}',
+  /* Fenster erscheint/verschwindet SOFORT — keine Auf-/Zu-Animation (Vasco 26.07.2026, „so sachen dürfen nicht sein").
+     Käse-Feier + Emblem-Knacken + X-Squish bleiben. */
+  '.fx-pop.open{opacity:1}',
+  '.fx-pop.closing{opacity:0}',
   '.fx-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#fff;cursor:pointer;display:grid;place-items:center;z-index:9;font-size:15px;transition:background .15s,border-color .15s}',
   '.fx-x:hover{background:#da2929;border-color:#da2929;animation:fxSquish .42s}','.fx-x:active{transform:scale(.9)}',
   '@keyframes fxSquish{0%{transform:scale(1,1)}40%{transform:scale(1.22,.78)}70%{transform:scale(.94,1.06)}100%{transform:scale(1,1)}}',
@@ -266,13 +266,11 @@
   }
   function close(){
     if(closing || !ov.classList.contains('on')) return; closing=true;
-    pop.classList.add('closing');
-    if(cheese) cheese.fade();
-    setTimeout(function(){
-      ov.classList.remove('on'); pop.className='fx-pop'; pop.style.transformOrigin=''; pop.innerHTML='';
-      if(cheese){ cheese.stop(); cheese=null; } closing=false;
-      var p=pending; pending=null; if(p) p();
-    }, 520);
+    /* SOFORT schliessen — kein Fade, kein Timeout (Vasco 26.07.2026). */
+    if(cheese){ cheese.stop(); cheese=null; }
+    ov.classList.remove('on'); pop.className='fx-pop'; pop.style.transformOrigin=''; pop.innerHTML='';
+    closing=false;
+    var p=pending; pending=null; if(p) p();
   }
 
   /* ---- Fund ---- */
