@@ -130,7 +130,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 
 /* ===== FLIP-Karten (Das erwartet dich) ===== */
 .flipgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
-@media(max-width:860px){ .flipgrid{grid-template-columns:1fr 1fr} } @media(max-width:520px){ .flipgrid{grid-template-columns:1fr} }
+@media(max-width:860px){ .flipgrid{grid-template-columns:1fr 1fr} } @media(max-width:520px){ .flipgrid{grid-template-columns:1fr} .flip{height:196px} }
 .flip{perspective:1400px; height:220px; cursor:pointer}
 .flip-in{position:relative; width:100%; height:100%; transition:transform .7s var(--ease); transform-style:preserve-3d}
 @media(hover:hover){ .flip:hover .flip-in{transform:rotateY(180deg)} }  /* Hover-Dreh NUR auf Hover-Geräten — sonst kämpft Sticky-Hover auf Touch gegen das Zurückkippen */
@@ -141,7 +141,11 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .flip-f .vic{width:46px; height:46px; border-radius:13px; display:grid; place-items:center; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk)); box-shadow:0 6px 16px rgba(0,90,148,.4); margin-bottom:14px}
 .flip-f .vic svg{width:23px;height:23px}
 .flip-f h3{font-size:16px; font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:auto}
-.flip-f .more{font-size:11.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-lt); margin-top:12px}
+/* Dreh-Indikator: zeigt, dass die Karte drehbar ist (Vasco 26.07.2026 — „fehlt ein Indikator, dass man drehen kann").
+   Auf Touch „Antippen", sonst „Umdrehen". Rotier-Icon in Gold aus tokens.css (--gold-lt). */
+.flip-f::after{content:"Umdrehen"; position:absolute; left:18px; bottom:15px; padding-left:21px; font-size:11px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--gold-lt); opacity:.92;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23e9c475'%20stroke-width='2.6'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M21%2012a9%209%200%201%201-2.64-6.36'/%3E%3Cpath%20d='M21%203v6h-6'/%3E%3C/svg%3E") left center/15px no-repeat}
+@media(hover:none){ .flip-f::after{content:"Antippen"} }
 .flip-b p{font-size:14px; color:#eaf2fa; line-height:1.6} .flip-b p b{color:var(--gold-lt)}
 .flip-b .bt{font-size:12px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:8px}
 
@@ -160,11 +164,16 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .mtl-card p{font-size:12.5px; color:var(--ink-mut); line-height:1.5} .mtl-card p b{color:#fff}
 @media(max-width:760px){
   .mtl-track{display:none}
-  .mtl-row{grid-template-columns:1fr; gap:12px}
-  .mtl-col{flex-direction:row; flex-wrap:wrap; align-items:center; text-align:left; gap:10px 14px}
-  .mtl-node{flex:none}
-  .mtl-min{margin-top:0; order:2}
-  .mtl-card{margin-top:0; order:3; flex:1 1 100%}
+  .mtl-row{grid-template-columns:1fr; gap:0}
+  /* Mobile = vertikale Timeline: Knoten links mit durchgehender Verbindungslinie, Inhalt rechts
+     (Vasco 26.07.2026 — die alte Flex-Umbruch-Variante wirkte auf Mobile zerrissen). */
+  .mtl-col{display:block; position:relative; padding:0 0 22px 66px; text-align:left}
+  .mtl-col:last-child{padding-bottom:0}
+  .mtl-node{position:absolute; left:0; top:0; width:52px; height:52px; border-width:3px}
+  .mtl-node svg{width:23px; height:23px}
+  .mtl-min{margin:2px 0 4px}
+  .mtl-card{margin:0; width:auto}
+  .mtl-col:not(:last-child)::before{content:""; position:absolute; left:24.5px; top:58px; bottom:2px; width:3px; border-radius:3px; background:linear-gradient(180deg,var(--blue),rgba(92,167,220,.2))}
 }
 
 /* ===== Info-Boxen / Preise ===== */

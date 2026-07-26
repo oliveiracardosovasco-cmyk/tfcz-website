@@ -109,8 +109,11 @@
         'background:none; border:0; color:var(--gold,#cda857); transition:.16s ease}',
       '.tn-tog svg{width:16px; height:16px; display:block; transition:transform .22s ease}',
       '.tn-tog[aria-expanded="false"] svg{transform:rotate(-90deg)}',
-      '.tn-sub{overflow:hidden; max-height:300px; transition:max-height .3s ease}',
-      '.tn-tog[aria-expanded="false"] + .tn-sub{max-height:0}',
+      '.tn-sub{overflow:hidden; max-height:320px; transition:max-height .28s ease}',
+      /* .tn-sub ist KEIN direkter Nachbar von .tn-tog (liegt im .tn-group neben .tn-row) —
+         darum wird das Zuklappen über eine Klasse an der Gruppe gesteuert (Vasco 26.07.2026:
+         „die Pfeile machen nüt"). Der frühere Nachbar-Selektor griff nie. */
+      '.tn-group.tn-collapsed .tn-sub{max-height:0}',
       '.tn-sep{height:1px; background:rgba(255,255,255,.12); margin:12px 4px}',
 
       /* Login / Registrieren / Gold-CTA */
@@ -357,7 +360,10 @@
       var tog = e.target.closest('.tn-tog');
       if (tog) {
         e.preventDefault();
-        tog.setAttribute('aria-expanded', tog.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+        var offen = tog.getAttribute('aria-expanded') === 'true';
+        tog.setAttribute('aria-expanded', offen ? 'false' : 'true');
+        var grp = tog.closest('.tn-group');   /* .tn-collapsed steuert das Zuklappen der .tn-sub */
+        if (grp) grp.classList.toggle('tn-collapsed', offen);
         return;
       }
       if (e.target.closest('a')) zu();

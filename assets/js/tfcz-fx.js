@@ -76,10 +76,14 @@
   '.fx-ov.on .fx-acc{animation:fxSmoke 1.15s ease .02s}',
   '@keyframes fxSmoke{0%{opacity:0;transform:translate(-50%,-30%) scale(.3)}42%{opacity:.85}100%{opacity:0;transform:translate(-50%,-165%) scale(1.4)}}',
   '.fx-pop{position:relative;z-index:2;width:min(410px,94vw);border-radius:24px;padding:32px 24px 22px;text-align:center;overflow:hidden;opacity:0;color:#eef4fa;background:linear-gradient(160deg,rgba(19,38,58,.96),rgba(9,21,33,.95));border:1px solid rgba(255,255,255,.13);border-top:3px solid #5ca7dc;border-bottom:3px solid #cda857;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(205,168,87,.14)}',
-  '.fx-pop.open{animation:fxOpen .72s cubic-bezier(.16,.84,.3,1) forwards}',
-  '@keyframes fxOpen{0%{opacity:0;transform:scale(0)}55%{opacity:1}100%{opacity:1;transform:scale(1)}}',
-  '.fx-pop.closing{animation:fxPortal .5s cubic-bezier(.2,.7,.2,1) forwards}',
-  '@keyframes fxPortal{0%{opacity:1;clip-path:inset(0 0 0 0 round 24px)}70%{opacity:1}100%{opacity:0;clip-path:inset(49% 0 49% 0 round 24px)}}',
+  /* KEIN Auf-/Zu-Effekt des Fensters mehr (Vasco 26.07.2026: „kein Ein- und Ausschalten der Fenster,
+     auch nicht bei den Easter Eggs"). Fenster nur noch schlicht ein-/ausblenden — kein Skalieren aus
+     dem Klickpunkt, kein Portal-Kollaps. Die Käse-Feier, das Emblem-Knacken und der federnde X-Button
+     bleiben unverändert. */
+  '.fx-pop.open{animation:fxOpen .26s ease forwards}',
+  '@keyframes fxOpen{from{opacity:0}to{opacity:1}}',
+  '.fx-pop.closing{animation:fxPortal .34s ease forwards}',
+  '@keyframes fxPortal{from{opacity:1}to{opacity:0}}',
   '.fx-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#fff;cursor:pointer;display:grid;place-items:center;z-index:9;font-size:15px;transition:background .15s,border-color .15s}',
   '.fx-x:hover{background:#da2929;border-color:#da2929;animation:fxSquish .42s}','.fx-x:active{transform:scale(.9)}',
   '@keyframes fxSquish{0%{transform:scale(1,1)}40%{transform:scale(1.22,.78)}70%{transform:scale(.94,1.06)}100%{transform:scale(1,1)}}',

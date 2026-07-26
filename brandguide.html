@@ -12183,30 +12183,29 @@ addEventListener('DOMContentLoaded', function(){
 <!-- PORTAL-SCHLIESSEN (BAUSTEIN) -->
 <section class="cl" id="portal">
   <div class="sec-h"><span class="num">15d</span><h2>Portal-Schliessen</h2></div>
-  <p class="sec-sub"><b>Jedes Fenster schliesst gleich — über den Baustein, nie selbst ausblenden.</b>
-    <code>system/components/portal.js</code>. Das Fenster holt kurz Luft, sinkt weich zu einem Lichtspalt
-    zusammen und verblasst. Gilt für X-Button, Esc, Backdrop-Klick und „Weiter" — überall dieselbe Geste.
-    Läuft über <b>transform + opacity</b> (GPU, kein Layout, kein Ruckeln) — <b>nie über clip-path</b>,
-    das war die alte, harte Fassung.</p>
+  <p class="sec-sub"><b>Fenster öffnen und schliessen SOFORT — ohne Auf-/Zu-Animation.</b>
+    <code>system/components/portal.js</code>. Kein Zusammensinken, kein Verblassen, kein Skalieren aus dem
+    Klickpunkt. (Vasco 26.07.2026: „kein Ein- und Ausschalten der Fenster mehr — auch nicht bei den Easter
+    Eggs.") Das Schliessen läuft weiterhin zentral über den Baustein, damit alle Fenster gleich reagieren —
+    nur eben <b>ohne Effekt</b>. Das <b>EINZIGE</b>, das noch federt, ist der X-Button (Hover-Quetschung).</p>
 
   <div class="demo col">
     <div class="ccard">
       <h4>So benutzt man ihn</h4>
       <pre class="codeblock"><code>&lt;script defer src="system/components/portal.js"&gt;&lt;/script&gt;
 
-// Statt das Fenster sofort zu verstecken:
+// Statt das Fenster selbst zu verstecken — zentral schliessen (sofort, ohne Animation):
 TFCZ.portal.close(fensterEl, function () {
-  overlay.classList.remove('on');   // erst NACH der Animation aufräumen
+  overlay.classList.remove('on');   // aufräumen
 });</code></pre>
       <p class="sec-sub" style="margin:10px 0 0"><code>fensterEl</code> = die <b>Box</b> (nicht der Backdrop).
-        Werte: <b>0.62s</b>, <code>cubic-bezier(.22,.61,.24,1)</code>. <code>prefers-reduced-motion</code>
-        schliesst sofort. Doppelaufrufe (X + Esc) sind abgesichert.</p>
+        Der Callback läuft <b>sofort</b>; es gibt keine Animationsdauer und keinen Zustand mehr.</p>
     </div>
 
     <div class="ccard">
       <h4>Live — öffnen und schliessen</h4>
       <button class="btn btn-blue" type="button" id="portalDemoOpen">Fenster öffnen</button>
-      <p class="sec-sub" style="margin:10px 0 0">Schliessen per X, Esc oder Klick daneben — immer dieselbe Animation.</p>
+      <p class="sec-sub" style="margin:10px 0 0">Schliessen per X, Esc oder Klick daneben — jeweils sofort, ohne Effekt.</p>
     </div>
 
     <div class="ccard">
@@ -12214,10 +12213,12 @@ TFCZ.portal.close(fensterEl, function () {
       <ul class="rulelist">
         <li><b>Nie ein Fenster selbst ausblenden</b> (<code>display:none</code>, Klasse entfernen, wegschieben).
           Jede Schliess-Aktion läuft über <code>TFCZ.portal.close()</code>.</li>
-        <li><b>Nie clip-path</b> für den Effekt — nur <code>transform</code> + <code>opacity</code>.</li>
+        <li><b>Keine Auf-/Zu-Animation</b> für Fenster — weder Zusammensinken/Verblassen noch Skalieren.
+          Popups erscheinen und verschwinden sofort.</li>
         <li>Verdrahtet: Menü-Drawer, Tages-Maske, Video-Modal, Bild-Player, Barometer-Sheet, dieses
-          Inhaltsverzeichnis, das Demo-Popup und das Design Studio.</li>
-        <li>Der <b>X-Button</b> bleibt der Standard-X: runder Kreis, Hover rot, Quetsch-Animation.</li>
+          Inhaltsverzeichnis, das Demo-Popup, die Easter-Egg-Popups und das Design Studio.</li>
+        <li>Der <b>X-Button</b> bleibt der Standard-X: runder Kreis, Hover rot, Quetsch-Animation — das
+          ist die einzige verbliebene Fenster-nahe Animation.</li>
       </ul>
     </div>
   </div>
@@ -12431,7 +12432,7 @@ TFCZ.portal.close(fensterEl, function () {
 
 <section class="cl" id="easteregg">
   <div class="sec-h"><span class="num">16</span><h2>Easter-Egg · Emblem-Pop</h2></div>
-  <p class="sec-sub">Belohnungs-Popup der Eiersuche. Klasse <code>.eegg</code>: Ei fällt rein, <b>wackelt zunehmend (Spannung)</b>, knackt dann auf — das <b>blaue TFCZ-Emblem</b> springt mit Bounce heraus, Konfetti rundherum. Wiederverwendbar für jeden Egg-Fund.</p>
+  <p class="sec-sub">Belohnungs-Popup der Eiersuche. Klasse <code>.eegg</code>: Ei fällt rein, <b>wackelt zunehmend (Spannung)</b>, knackt dann auf — das <b>blaue TFCZ-Emblem</b> springt mit Bounce heraus, <b>Käse regnet</b> herum (thematisch zum Käsekick, wie im echten <code>assets/js/tfcz-fx.js → startCheese()</code>). Wiederverwendbar für jeden Egg-Fund.</p>
   <div class="demo">
     <div class="ccard">
       <h4>Emblem-Pop</h4>
@@ -12966,18 +12967,21 @@ function copy(txt){
   var stage=document.getElementById('eeggStage'), egg=document.getElementById('eegg');
   if(!egg)return;
   var cv=stage.querySelector('.eegg-cv'), stop=null, tmr=null;
-  function confetti(){
+  /* Käse-Regen (thematisch zum Käsekick, wie tfcz-fx.js → startCheese) statt Konfetti (Vasco 26.07.2026). */
+  function cheeseRain(){
+    if(matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches) return function(){};
     var ctx=cv.getContext('2d'),r=cv.getBoundingClientRect();cv.width=r.width;cv.height=r.height;
-    var W=cv.width,H=cv.height,cols=['#5ca7dc','#4489c7','#e9c475','#cda857','#fff'],ps=[];
-    for(var i=0;i<140;i++){var a=Math.random()*6.283,sp=4+Math.random()*6;ps.push({x:W/2,y:H*0.5,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,rot:a,vr:(Math.random()-.5)*.4,s:5+Math.random()*7,c:cols[i%cols.length],sh:Math.random()<.5});}
-    var t=0,raf;function fr(){ctx.clearRect(0,0,W,H);t++;for(var i=0;i<ps.length;i++){var p=ps[i];p.vy+=0.13;p.vx*=0.99;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
-      ctx.save();ctx.globalAlpha=Math.max(0,1-t/150);ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.c;
-      if(p.sh){ctx.beginPath();ctx.arc(0,0,p.s*.5,0,6.28);ctx.fill();}else ctx.fillRect(-p.s*.5,-p.s*.35,p.s,p.s*.7);ctx.restore();}
-      if(t<150)raf=requestAnimationFrame(fr);else ctx.clearRect(0,0,W,H);}
+    var W=cv.width,H=cv.height,ps=[];
+    var spr=document.createElement('canvas');spr.width=spr.height=48;
+    var sc=spr.getContext('2d');sc.font='38px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Twemoji Mozilla",sans-serif';sc.textAlign='center';sc.textBaseline='middle';sc.fillText('🧀',24,26);
+    for(var i=0;i<80;i++){var a=Math.random()*6.283,sp=4+Math.random()*6;ps.push({x:W/2,y:H*0.5,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-3,rot:Math.random()*6.28,vr:(Math.random()-.5)*.3,s:16+Math.random()*10});}
+    var t=0,raf;function fr(){ctx.clearRect(0,0,W,H);t++;for(var i=0;i<ps.length;i++){var p=ps[i];p.vy+=0.18;p.vx*=0.99;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
+      ctx.save();ctx.globalAlpha=Math.max(0,1-t/165);ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.drawImage(spr,-p.s/2,-p.s/2,p.s,p.s);ctx.restore();}
+      if(t<165)raf=requestAnimationFrame(fr);else ctx.clearRect(0,0,W,H);}
     fr();return function(){if(raf)cancelAnimationFrame(raf);ctx.clearRect(0,0,W,H);};
   }
   function play(){ egg.classList.remove('play'); void egg.offsetWidth; egg.classList.add('play');
-    if(stop)stop(); clearTimeout(tmr); tmr=setTimeout(function(){ if(stop)stop(); stop=confetti(); }, 2200); }
+    if(stop)stop(); clearTimeout(tmr); tmr=setTimeout(function(){ if(stop)stop(); stop=cheeseRain(); }, 2200); }
   var b=document.querySelector('[data-eegg]'); if(b)b.addEventListener('click',play);
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){play();io.unobserve(e.target);}});},{threshold:.4});
   io.observe(egg);

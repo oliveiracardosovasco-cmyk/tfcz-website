@@ -102,17 +102,21 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 
 /* ===== FLIP-Karten (Warum) ===== */
 .flipgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-@media(max-width:860px){ .flipgrid{grid-template-columns:1fr 1fr} } @media(max-width:560px){ .flipgrid{grid-template-columns:1fr} }
+@media(max-width:860px){ .flipgrid{grid-template-columns:1fr 1fr} } @media(max-width:560px){ .flipgrid{grid-template-columns:1fr} .flip{height:200px} }
 .flip{perspective:1400px; height:230px; cursor:pointer}
 .flip-in{position:relative; width:100%; height:100%; transition:transform .7s var(--ease); transform-style:preserve-3d}
-.flip:hover .flip-in, .flip.on .flip-in{transform:rotateY(180deg)}
+@media(hover:hover){ .flip:hover .flip-in{transform:rotateY(180deg)} }  /* Hover-Dreh NUR auf Hover-Geräten — sonst klebt der Sticky-Hover auf Touch und die Karte kippt nicht zurück (Memory web-gotchas) */
+.flip.on .flip-in{transform:rotateY(180deg)}
 .flip-f,.flip-b{position:absolute; inset:0; -webkit-backface-visibility:hidden; backface-visibility:hidden; border-radius:var(--r-lg); border:1px solid var(--card-brd); padding:24px 20px; display:flex; flex-direction:column; box-shadow:var(--e-1); overflow:hidden}
 .flip-f{background:var(--card)}
 .flip-b{background:linear-gradient(155deg, rgba(0,90,148,.5), rgba(7,18,30,.92)); transform:rotateY(180deg); justify-content:center}
 .flip-f .vic{width:48px; height:48px; border-radius:13px; display:grid; place-items:center; color:#fff; background:linear-gradient(155deg,var(--blue),var(--blue-dk)); box-shadow:0 6px 16px rgba(0,90,148,.4); margin-bottom:14px}
 .flip-f .vic svg{width:24px;height:24px}
 .flip-f h3{font-size:17px; font-weight:900; color:#fff; text-transform:uppercase; margin-bottom:auto}
-.flip-f .more{font-size:11.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-lt); display:inline-flex; align-items:center; gap:6px; margin-top:12px}
+/* Dreh-Indikator: zeigt, dass die Karte drehbar ist (Vasco 26.07.2026). Auf Touch „Antippen", sonst „Umdrehen". */
+.flip-f::after{content:"Umdrehen"; position:absolute; left:20px; bottom:16px; padding-left:21px; font-size:11px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--gold-lt); opacity:.92;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23e9c475'%20stroke-width='2.6'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M21%2012a9%209%200%201%201-2.64-6.36'/%3E%3Cpath%20d='M21%203v6h-6'/%3E%3C/svg%3E") left center/15px no-repeat}
+@media(hover:none){ .flip-f::after{content:"Antippen"} }
 .flip-b p{font-size:14.5px; color:#eaf2fa; line-height:1.6} .flip-b p b{color:var(--gold-lt)}
 .flip-b .bt{font-size:12px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:8px}
 
@@ -148,11 +152,16 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .mtl-card p{font-size:12.5px; color:var(--ink-mut); line-height:1.5}
 @media(max-width:760px){
   .mtl-track{display:none}
-  .mtl-row{grid-template-columns:1fr; gap:12px}
-  .mtl-col{flex-direction:row; flex-wrap:wrap; align-items:center; text-align:left; gap:10px 14px}
-  .mtl-node{flex:none}
-  .mtl-min{margin-top:0; order:2}
-  .mtl-card{margin-top:0; order:3; flex:1 1 100%}
+  .mtl-row{grid-template-columns:1fr; gap:0}
+  /* Mobile = vertikale Timeline: Knoten links mit durchgehender Verbindungslinie, Inhalt rechts
+     (Vasco 26.07.2026 — die alte Flex-Umbruch-Variante wirkte auf Mobile zerrissen). */
+  .mtl-col{display:block; position:relative; padding:0 0 22px 66px; text-align:left}
+  .mtl-col:last-child{padding-bottom:0}
+  .mtl-node{position:absolute; left:0; top:0; width:52px; height:52px; border-width:3px}
+  .mtl-node svg{width:23px; height:23px}
+  .mtl-min{margin:2px 0 4px}
+  .mtl-card{margin:0; width:auto}
+  .mtl-col:not(:last-child)::before{content:""; position:absolute; left:24.5px; top:58px; bottom:2px; width:3px; border-radius:3px; background:linear-gradient(180deg,var(--blue),rgba(92,167,220,.2))}
 }
 
 /* ===== Foto-Marquee ===== */
@@ -381,12 +390,13 @@ section{padding:clamp(30px,4.5vw,60px) 0}
         <div class="frow"><div class="fk">Was</div><div class="fv">Betreutes Tischfussball-Turnier, komplett von uns organisiert und geleitet</div></div>
         <div class="frow"><div class="fk">Format</div><div class="fv">Zwei gegen zwei, jede Runde neue Partner — für eine gute Durchmischung</div></div>
         <div class="frow"><div class="fk">Dauer</div><div class="fv">ca. 2 Stunden <small>inkl. Begrüssung, Turnier und Siegerehrung</small></div></div>
-        <div class="frow"><div class="fk">Teilnehmer</div><div class="fv">Von kleinen Teams bis zu grösseren Gruppen <small>Zahl bei der Anfrage angeben</small></div></div>
+        <div class="frow"><div class="fk">Teilnehmer</div><div class="fv">4 – 100 Personen <small>Zahl bei der Anfrage angeben</small></div></div>
         <div class="frow"><div class="fk">Vorwissen</div><div class="fv">Keines nötig — für alle Levels geeignet</div></div>
         <div class="frow"><div class="fk">Inklusive</div><div class="fv">Organisation, Turnierleitung, Tische & Material vor Ort</div></div>
         <div class="frow"><div class="fk">Verpflegung</div><div class="fv">Getränke vor Ort erhältlich <small>Essen & Apéro-Platten können nicht bestellt werden</small></div></div>
         <div class="frow"><div class="fk">Ort</div><div class="fv">Landenbergstrasse 10, 8037 Zürich — 2 Min zu Fuss zum Bhf Wipkingen</div></div>
-        <div class="frow"><div class="fk">Preis</div><div class="fv">Auf Anfrage — je nach Gruppengrösse und Termin</div></div>
+        <div class="frow"><div class="fk">Individuell</div><div class="fv">Völlig individuell auf euer Team zugeschnitten — vom lockeren Plauschturnier bis zum Workshop mit Tricks und Turnier</div></div>
+        <div class="frow"><div class="fk">Preis</div><div class="fv">Ab CHF 30 pro Person <small>Für jedes Budget finden wir eine Lösung</small></div></div>
         <div class="frow"><div class="fk">Nächster Schritt</div><div class="fv">Unverbindlich anfragen — Wunschtermin & Zeitfenster im Formular angeben</div></div>
       </div>
       <div class="fakten-share"><button class="btn btn-ghost" type="button" id="shareBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>Seite teilen</button></div>

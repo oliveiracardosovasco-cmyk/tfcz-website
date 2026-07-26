@@ -132,7 +132,10 @@
       '.tb-sheet .card{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:min(620px,92vw); max-height:82vh; overflow-y:auto; overflow-x:hidden;',
         'background:linear-gradient(155deg, rgba(10,26,40,.97), rgba(7,18,30,.96)); border:1px solid var(--card-brd,rgba(255,255,255,.14));',
         'border-top:3px solid var(--blue,#5ca7dc); border-bottom:3px solid var(--gold,#cda857); border-radius:var(--r-lg,16px);',
-        'padding:22px; box-shadow:var(--e-3,0 24px 60px rgba(0,0,0,.5)); animation:tbBox .3s cubic-bezier(.4,0,.2,1)}',
+        /* KEINE Auf-Animation: `animation:tbBox` setzte transform:scale(...) und überschrieb dabei
+           das zentrierende translate(-50%,-50%) → das Sheet ging schräg/aus der Ecke auf (Vasco 26.07.2026).
+           Jetzt erscheint es sofort mittig; geschlossen wird es sofort über den Portal-Baustein. */
+        'padding:22px; box-shadow:var(--e-3,0 24px 60px rgba(0,0,0,.5))}',
       '.tb-sheet .hd{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px}',
       '.tb-sheet .hd h4{margin:0; font-size:18px; font-weight:900; color:#fff; text-transform:uppercase}',
       '.tb-sheet .hd em{font-style:normal; font-weight:700; font-size:12px; color:var(--gold-lt,#e9c475)}',
