@@ -242,6 +242,15 @@ section{padding:clamp(18px,3vw,30px) 0}
         </div>
         <button class="btn btn-text" type="button" id="fBack">← Angaben nochmal bearbeiten</button>
       </div>
+      <!-- Schnuppern braucht KEIN Formular / keine Anmeldung (Vasco 26.07.2026) -->
+      <div id="fInfo" hidden>
+        <h2>Schnuppern — einfach vorbeikommen</h2>
+        <div class="fsub">Für den ersten Abend brauchst du <b>keine Anmeldung</b>. Komm zu den offiziellen Öffnungszeiten (<b>Dienstag &amp; Mittwoch</b>) oder zu einem Event wie dem <b>Käsekick am letzten Freitag im Monat</b> (inkl. Walliser Raclette). Material &amp; Tipps gibt's vor Ort.</div>
+        <div class="frow" style="flex-wrap:wrap; gap:12px; margin-top:4px">
+          <a class="btn btn-blue" href="index.html#woche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="2.2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>Termine im Kalender</a>
+          <a class="btn btn-ghost" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 21l2-5.5a8.5 8.5 0 0 1 3.5-11.5A8.38 8.38 0 0 1 21 11.5z"/></svg>WhatsApp-Gruppe beitreten</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -312,10 +321,16 @@ section{padding:clamp(18px,3vw,30px) 0}
   function renderForm(key){
     var p=byKey[key]; if(!p)return; cur=key;
     [].forEach.call(grid.children,function(c){c.classList.toggle('on',c.getAttribute('data-key')===key);});
+    var fd=document.getElementById('fDone'), fe=document.getElementById('fEdit'), fi=document.getElementById('fInfo');
+    /* Schnuppern = kein Formular, sondern Info (keine Anmeldung nötig) */
+    if(key==='schnuppern'){
+      if(fe)fe.hidden=true; if(fd)fd.hidden=true; if(fi)fi.hidden=false;
+      return;
+    }
+    if(fi)fi.hidden=true;
     fTitle.textContent=p.title; fSub.textContent=p.sub;
     setzePaket(key);                                   /* Felder kommen vom Baustein */
     document.getElementById('fErr').classList.remove('on');
-    var fd=document.getElementById('fDone'), fe=document.getElementById('fEdit');
     if(fd&&fe){ fd.hidden=true; fe.hidden=false; }
   }
   grid.addEventListener('click',function(e){var b=e.target.closest('.pk'); if(b)renderForm(b.getAttribute('data-key'));});
