@@ -34,6 +34,93 @@
   function el(id) { return document.getElementById(id); }
   function mail() { return (window.TFCZ && TFCZ.content && TFCZ.content.mail) || 'info@tfcz.ch'; }
 
+  /* ---------- Feld-CSS (Single Source): Wunschzeitfenster-Picker + Datumsfeld zähmen ---------- */
+  function injectCSS() {
+    if (document.getElementById('tfcz-form-css')) return;
+    var css = [
+      /* Wunschzeitfenster: Startzeit-Picker (kein natives Widget, Brand-Optik wie .field) */
+      '.tfcz-tp{position:relative; width:100%}',
+      '.tfcz-tp-btn{width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px; font-family:var(--font); font-size:14.5px; font-weight:600; color:#fff; text-align:left; background:linear-gradient(155deg,rgba(17,34,51,.66),rgba(9,21,33,.5)); border:1px solid var(--card-brd); border-radius:var(--r-sm); padding:11px 13px; cursor:pointer; transition:border-color var(--t-fast),box-shadow var(--t-fast)}',
+      '.tfcz-tp-btn.ph .tfcz-tp-txt{color:var(--ink-mut); font-weight:500}',
+      '.tfcz-tp-txt{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0}',
+      '.tfcz-tp-ch{width:16px; height:16px; flex:none; color:var(--ink-mut); transition:transform .25s ease}',
+      '.tfcz-tp.open .tfcz-tp-ch{transform:rotate(180deg); color:var(--gold-lt)}',
+      '.tfcz-tp-btn:focus-visible,.tfcz-tp.open .tfcz-tp-btn{border-color:var(--gold); outline:none; box-shadow:0 0 0 3px rgba(205,168,87,.18)}',
+      '.field.err .tfcz-tp-btn{border-color:var(--red); box-shadow:0 0 0 3px rgba(218,41,41,.2)}',
+      '.tfcz-tp-menu{position:absolute; top:calc(100% + 8px); left:0; right:0; z-index:80; display:none; border-radius:12px; border:1px solid var(--card-brd); border-top:2px solid var(--blue); border-bottom:2px solid var(--gold); background:linear-gradient(160deg,rgba(13,39,61,.97),rgba(8,24,38,.96)); box-shadow:0 12px 30px rgba(0,0,0,.45); overflow:hidden}',
+      '.tfcz-tp.open .tfcz-tp-menu{display:block}',
+      '.tfcz-tp-hint{font-size:11px; font-weight:800; letter-spacing:.02em; color:var(--ink-mut); padding:11px 13px 5px}',
+      '.tfcz-tp-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; padding:6px 10px 12px; max-height:232px; overflow-y:auto; overflow-x:hidden}',
+      '.tfcz-tp-opt{font-family:var(--font); color:#fff; background:rgba(255,255,255,.05); border:1px solid transparent; border-radius:8px; padding:8px 4px; cursor:pointer; text-align:center; line-height:1.15; transition:box-shadow var(--t-fast),background var(--t-fast)}',
+      '.tfcz-tp-opt b{display:block; font-size:14px; font-weight:800}',
+      '.tfcz-tp-opt i{display:block; font-style:normal; font-size:10.5px; font-weight:700; color:var(--gold-lt); margin-top:1px}',
+      /* Hover = Brand-Rahmen (inset, kein Layout-Sprung); Auswahl = Gold; nie beide zugleich */
+      '.tfcz-tp-opt:hover{border-color:transparent; box-shadow:inset 0 2px 0 var(--blue),inset 0 -2px 0 var(--gold)}',
+      '.tfcz-tp-opt.on{border-color:var(--gold); background:rgba(205,168,87,.14)}',
+      '.tfcz-tp-opt.on:hover{border-color:transparent}',
+      /* Datumsfeld: native Chrome zähmen, damit es im einheitlichen .field-Stil bleibt (nicht ausbricht) */
+      '.field input[type="date"]{-webkit-appearance:none; appearance:none}',
+      '.field input[type="date"]::-webkit-date-and-time-value{text-align:left; margin:0}',
+      '.field input[type="date"]::-webkit-datetime-edit{padding:0; color:#fff}',
+      '.field input[type="date"]::-webkit-inner-spin-button,.field input[type="date"]::-webkit-clear-button{display:none; -webkit-appearance:none}',
+      '.field input[type="date"]::-webkit-calendar-picker-indicator{margin:0; opacity:.75; cursor:pointer; filter:invert(1) brightness(1.4)}',
+      '.field input[type="date"]::-webkit-calendar-picker-indicator:hover{opacity:1}'
+    ].join('');
+    var st = document.createElement('style');
+    st.id = 'tfcz-form-css';
+    st.textContent = css;
+    document.head.appendChild(st);
+  }
+
+  /* ---------- Wunschzeitfenster-Picker: globale Delegation (übersteht Neu-Rendern) ---------- */
+  function schliesseAlle(ausser) {
+    [].forEach.call(document.querySelectorAll('.tfcz-tp.open'), function (tp) {
+      if (tp !== ausser) {
+        tp.classList.remove('open');
+        var b = tp.querySelector('.tfcz-tp-btn'); if (b) b.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+  function initPicker() {
+    if (window.__tfczPicker) return;
+    window.__tfczPicker = true;
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.tfcz-tp-btn');
+      if (btn) {
+        e.preventDefault();
+        var tp = btn.closest('.tfcz-tp');
+        var offen = tp.classList.contains('open');
+        schliesseAlle(tp);
+        tp.classList.toggle('open', !offen);
+        btn.setAttribute('aria-expanded', offen ? 'false' : 'true');
+        return;
+      }
+      var opt = e.target.closest('.tfcz-tp-opt');
+      if (opt) {
+        e.preventDefault();
+        var tp2 = opt.closest('.tfcz-tp');
+        var hid = tp2.querySelector('input[type="hidden"]');
+        var txt = tp2.querySelector('.tfcz-tp-txt');
+        var b2  = tp2.querySelector('.tfcz-tp-btn');
+        [].forEach.call(tp2.querySelectorAll('.tfcz-tp-opt.on'), function (o) { o.classList.remove('on'); });
+        opt.classList.add('on');
+        if (hid) hid.value = opt.getAttribute('data-v') || '';
+        if (txt) txt.textContent = opt.getAttribute('data-v') || '';
+        if (b2) b2.classList.remove('ph');
+        var fld = tp2.closest('.field'); if (fld) fld.classList.remove('err');
+        tp2.classList.remove('open');
+        if (b2) b2.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      /* Klick ausserhalb eines offenen Pickers → schliessen */
+      if (!e.target.closest('.tfcz-tp')) schliesseAlle(null);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.keyCode === 27) schliesseAlle(null);
+    });
+  }
+
   /* Toast — eine Quelle fuer alle Seiten (jede Seite hat ein <div id="toast">).
      Wird auch ausserhalb der Formulare gebraucht (z. B. "Link kopiert"). */
   var tt;
@@ -45,6 +132,23 @@
     clearTimeout(tt);
     tt = setTimeout(function () { t.classList.remove('on'); }, 1600);
   }
+
+  /* ---------- Zeit-Helfer für das Wunschzeitfenster ---------- */
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function hhmm(min) { return pad2(Math.floor(min / 60) % 24) + ':' + pad2(min % 60); }
+  /* Startzeiten von f.from bis f.to (Minutenraster f.step); Ende = Start + f.dur. Wert = „Start – Ende". */
+  function zeitOptionen(f) {
+    function toMin(s) { var p = String(s || '').split(':'); return (+p[0] || 0) * 60 + (+p[1] || 0); }
+    var von = toMin(f.from || '09:00'), bis = toMin(f.to || '22:00');
+    var step = f.step || 30, dur = f.dur || 120, out = [];
+    for (var m = von; m <= bis; m += step) {
+      var s = hhmm(m), e = hhmm(m + dur), v = s + ' – ' + e;
+      out.push('<button type="button" class="tfcz-tp-opt" data-v="' + v + '" role="option">' +
+               '<b>' + s + '</b><i>bis ' + e + '</i></button>');
+    }
+    return out.join('');
+  }
+  var CHEV = '<svg class="tfcz-tp-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 
   /* ---------- Feld-Markup (nutzt die Seiten-Klassen) ---------- */
   function feldHTML(f) {
@@ -61,6 +165,18 @@
               '<option value="" disabled selected hidden>Bitte wählen …</option>' +
               (f.options || []).map(function (o) { return '<option>' + o + '</option>'; }).join('') +
               '</select>';
+    } else if (f.type === 'timerange') {
+      /* Startzeit-Picker: Startzeit anklicken → +Dauer wird angezeigt (z. B. 13:30 → 13:30 – 15:30). */
+      inner = '<div class="tfcz-tp"' + reqA + '>' +
+                '<button type="button" class="tfcz-tp-btn ph" aria-haspopup="listbox" aria-expanded="false">' +
+                  '<span class="tfcz-tp-txt">' + (ph || 'Startzeit wählen') + '</span>' + CHEV +
+                '</button>' +
+                '<input type="hidden" id="' + id + '" name="' + f.k + '">' +
+                '<div class="tfcz-tp-menu" role="listbox">' +
+                  '<div class="tfcz-tp-hint">Startzeit wählen — 2 Std. rechnen wir dazu</div>' +
+                  '<div class="tfcz-tp-grid">' + zeitOptionen(f) + '</div>' +
+                '</div>' +
+              '</div>';
     } else {
       inner = '<input id="' + id + '" name="' + f.k + '" type="' + (f.type || 'text') + '"' + reqA + ' placeholder="' + ph + '">';
     }
@@ -194,6 +310,8 @@
   }
 
   function init() {
+    injectCSS();
+    initPicker();
     [].forEach.call(document.querySelectorAll('form[data-tfcz="form"]'), bauen);
   }
 

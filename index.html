@@ -1173,7 +1173,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
     </div>
     </div>
     <p class="pnote reveal">Du willst unterstützen, ohne selber zu spielen? Als <b>Gönner oder Sponsor</b> bist du dabei.</p>
-    <p class="pnote pnote-ctas reveal" style="margin-top:12px; display:flex; gap:10px 20px; flex-wrap:wrap; justify-content:center"><a href="mitglied.html?paket=goenner">Gönner werden <span aria-hidden="true">→</span></a><a href="mitglied.html?paket=sponsor">Sponsoring anfragen <span aria-hidden="true">→</span></a></p>
+    <p class="pnote pnote-ctas reveal" style="margin-top:12px; display:flex; gap:10px 20px; flex-wrap:wrap; justify-content:center"><a href="mitglied.html?paket=goenner#formular">Gönner werden <span aria-hidden="true">→</span></a><a href="mitglied.html?paket=sponsor#formular">Sponsoring anfragen <span aria-hidden="true">→</span></a></p>
   </div>
 </section>
 
@@ -1631,10 +1631,9 @@ var CF=(function(){
   addEventListener('load',layoutFilters);
   show('week');
   /* Von der Ei-Belohnung „zum nächsten Käsekick" (index.html?cal=kaese): nur den Käsekick-Filter
-     aktivieren + Monatsansicht, damit man möglichst nur die Käsekick-Termine sieht (Vasco 26.07.2026).
-     Käsekick ist monatlich (letzter Freitag) — die Monatsansicht zeigt den nächsten Termin am besten. */
+     aktivieren + Wochenansicht, damit man möglichst nur die Käsekick-Termine sieht (Vasco 26.07.2026). */
   try{ if(/[?&]cal=kaese(&|#|$)/.test(location.search+location.hash) || /[?&]cal=kaese\b/.test(location.search)){
-    fsel={kaese:true}; renderFilters(); show('month');
+    fsel={kaese:true}; renderFilters(); show('week');
   } }catch(e){}
 })();
 

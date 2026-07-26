@@ -134,7 +134,9 @@ window.TFCZ = window.TFCZ || {};
           { k:'tel', label:'Telefon', type:'tel', opt:true, ph:'optional' },
           { k:'anzahl', label:'Anzahl Personen (ca.)', type:'number', ph:'z. B. 16' },
           { k:'datum', label:'Wunschdatum', type:'text', ph:'z. B. Do 12. Nov' },
-          { k:'zeit', label:'Wunsch-Zeitfenster', type:'select', options:['16:00–18:00','17:00–19:00','18:00–20:00','19:00–21:00','Noch flexibel'] },
+          /* Wunschzeitfenster: Startzeit anklicken, +2 Std. werden automatisch dazugerechnet und als Range gezeigt
+             (Vasco 26.07.2026). Typ „timerange" — Renderer/Logik im Baustein system/components/form.js. */
+          { k:'zeit', label:'Wunschzeitfenster', type:'timerange', opt:true, leerText:'noch offen', from:'09:00', to:'22:00', step:30, dur:120 },
           { k:'msg', label:'Nachricht', type:'textarea', opt:true, full:true, ph:'Anlass, Wünsche, Fragen?' }
         ]
       },
