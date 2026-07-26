@@ -79,7 +79,7 @@
         'overflow:hidden; box-shadow:inset 0 2px 12px rgba(0,0,0,.55)}',
       '.tb-fill{position:absolute; left:0; right:0; bottom:0; height:var(--level); background:linear-gradient(to top,#4a9ad0 0%,#7fc0ea 100%);',
         'transition:height .55s cubic-bezier(.2,.7,.2,1); box-shadow:0 0 26px rgba(127,192,234,.5)}',
-      '.tb-fill::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(180deg,rgba(255,255,255,.12) 0 2px,transparent 2px 20px); opacity:.5}',
+      /* Gauge-Streifen entfernt (Vasco 26.07.2026) — glatte Tube, keine Linien mehr am Icon. */
       '.tb-tube.full .tb-fill{background:linear-gradient(125deg,#5ca7dc,#7fc0ea,#e9c475,#cda857,#4489c7,#5ca7dc); background-size:320% 320%; animation:tbShift 2.8s ease-in-out infinite}',
       '@keyframes tbShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}',
       '.tb-tube.full{box-shadow:inset 0 2px 12px rgba(0,0,0,.4),0 0 34px rgba(233,196,117,.55); animation:tbPop .55s ease}',
