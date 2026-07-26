@@ -645,7 +645,7 @@ h1 .g{color:var(--gold-lt)}
 .kinfo .socials{margin-top:20px; margin-left:108px}
 .socials{display:flex; gap:10px; flex-wrap:wrap}
 /* Runde, animierte Social-Icons (Login-Stil, Vasco 26.07.2026): weisse Kreise → beim Hover Netzwerkfarbe + weisses Icon + Tooltip. Ersetzt die Text-Buttons (und den buggy WhatsApp-Button). */
-.ksoc{display:inline-flex; list-style:none; gap:14px; padding:0; margin:22px 0 0 108px}
+.ksoc{display:flex; justify-content:center; list-style:none; gap:14px; padding:0; margin:24px 0 4px}
 .ksoc-ic{position:relative; background:rgba(255,255,255,.94); border-radius:50%; width:44px; height:44px; flex:none; box-shadow:0 8px 18px rgba(0,0,0,.35); transition:transform .2s cubic-bezier(.68,-.55,.265,1.55), background .2s ease}
 .ksoc-ic>a{display:flex; align-items:center; justify-content:center; width:100%; height:100%; border-radius:50%}
 .ksoc-ic svg{width:20px; height:20px; fill:#0d273d; transition:.2s}
@@ -657,7 +657,6 @@ h1 .g{color:var(--gold-lt)}
 .ksoc-ic.s-ig:hover, .ksoc-ic.s-ig:hover .ksoc-tip{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff}
 .ksoc-ic.s-yt:hover, .ksoc-ic.s-yt:hover .ksoc-tip{background:#ff0000; color:#fff}
 .ksoc-ic.s-wa:hover, .ksoc-ic.s-wa:hover .ksoc-tip{background:#25d366; color:#fff}
-@media(max-width:560px){ .ksoc{margin-left:0} }
 
 
 
@@ -1262,7 +1261,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
           <div class="kbar-bg" data-slot="index.bg-bar"></div><div class="kbar-ov"></div>
           <div class="kbar-tx">
             <h3>An der Bar</h3>
-            <p>Voll ausgestattet · Bier ab CHF 4 · Karte / Twint</p>
+            <p>Voll ausgestattet — vom kühlen Bier bis zum Kaffee, alles direkt vor Ort.</p>
           </div>
         </div>
       </div>

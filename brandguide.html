@@ -20,16 +20,16 @@ a{color:inherit}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; background:rgba(9,21,33,.6); border:1px solid var(--card-brd); border-radius:5px; padding:1px 6px; color:var(--gold-lt)}
 
 /* ===== Sticky Unterseiten-Menü (Logo links · Nav links eingerückt · Zurück rechts · unten abgerundet) ===== */
+/* FESTE Nav-Höhe — exakt dieselben Werte wie system/page.css (der Brand Guide lädt kein page.css).
+   Feste Höhe = auf jeder Seite gleich hoch, egal welche Elemente in der Bar sitzen (Vasco 26.07.2026). */
 .nav{position:sticky; top:0; z-index:90; display:flex; align-items:center; gap:10px;
-  padding:15px max(22px, calc((100% - 1160px)/2 + 22px));
-  background:linear-gradient(155deg, rgba(10,24,38,.93), rgba(6,15,24,.90)); box-shadow:var(--e-2)}
-/* Brand-Linie als Overlay (addiert KEINE Höhe) + Mobile-Override → Höhe exakt wie die anderen Seiten.
-   Der Brand Guide lädt kein system/page.css, darum hier inline (Vasco 26.07.2026). */
+  height:69px; padding:0 max(22px, calc((100% - 1160px)/2 + 22px));
+  background:linear-gradient(155deg, rgba(10,24,38,.92), rgba(6,15,24,.90)); box-shadow:var(--e-2)}
 .nav::before,.nav::after{content:""; position:absolute; left:0; right:0; height:3px; z-index:4; pointer-events:none}
 .nav::before{top:0; background:var(--blue)} .nav::after{bottom:0; background:var(--gold)}
-@media(max-width:600px){ .nav{padding-top:10px; padding-bottom:10px} .nav .logo img{height:35.2px} }
 .nav .logo{display:flex; align-items:center; min-width:0; flex:none}
 .nav .logo img{height:38.8px; width:auto; object-fit:contain; display:block}
+@media(max-width:600px){ .nav{height:61px} .nav .logo img{height:35.2px} }
 .navlinks{display:flex; align-items:center; gap:2px; margin-left:18px; overflow-x:auto; scrollbar-width:none}
 .navlinks::-webkit-scrollbar{display:none}
 .nav a.lnk{position:relative; color:var(--ink-mut); font-size:13px; font-weight:700; padding:8px 11px; border-radius:var(--r-sm); white-space:nowrap; transition:color .18s var(--ease)}
