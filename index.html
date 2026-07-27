@@ -1052,7 +1052,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
         <div class="hc-scroll">Scroll<span class="arw"></span></div>
       </div>
       <div class="hc-body">
-        <div class="hc-ticker reveal" aria-label="TFCZ in Zahlen"><div class="hc-track" id="hcTrack"></div></div>
+        <div class="hc-ticker reveal" role="group" aria-label="TFCZ in Zahlen" tabindex="0"><div class="hc-track" id="hcTrack"></div></div>
       </div>
     </div>
   </div>
@@ -1116,7 +1116,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
         <div class="calfilters" id="calFilters"></div>
       </div>
       <div id="calWeek">
-        <div class="wk-days" id="wkDays"></div>
+        <div class="wk-days" id="wkDays" role="group" aria-label="Woche — Tage zum Blättern" tabindex="0">
         <div class="wk-detail"><div class="wk-dtitle" id="wkTitle"></div><div id="wkList"></div></div>
       </div>
       <div id="calMonth" hidden></div>
@@ -1169,7 +1169,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
       </div>
     </div>
     <div class="pslide" id="pslide">
-      <div class="pdots" id="pdots" role="slider" aria-label="Mitgliedschaften durchblättern" tabindex="0"><b></b><b></b><b></b></div>
+      <div class="pdots" id="pdots" role="slider" aria-label="Mitgliedschaften durchblättern" aria-valuemin="1" aria-valuemax="3" aria-valuenow="2" tabindex="0"><b></b><b></b><b></b></div>
     </div>
     </div>
     <p class="pnote reveal">Du willst unterstützen, ohne selber zu spielen? Als <b>Gönner oder Sponsor</b> bist du dabei.</p>
@@ -1762,7 +1762,9 @@ var CF=(function(){
       c.style.zIndex=String(10+Math.round(f*10));
       if(d<md){md=d;mid=i;}});
     cards.forEach(function(c,i){c.classList.toggle('mid',i===mid);});
-    dotEls.forEach(function(b,i){b.classList.toggle('on',i===mid);});}
+    dotEls.forEach(function(b,i){b.classList.toggle('on',i===mid);});
+    /* Slider-Zustand für Screenreader mitpflegen (aria-required-attr) */
+    if(dots){dots.setAttribute('aria-valuemin','1'); dots.setAttribute('aria-valuemax',String(n)); dots.setAttribute('aria-valuenow',String(mid+1)); dots.setAttribute('aria-valuetext','Mitgliedschaft '+(mid+1)+' von '+n);}}
   function maxScroll(){return g.scrollWidth-g.clientWidth;}
   var raf=false;
   g.addEventListener('scroll',function(){if(raf)return;raf=true;requestAnimationFrame(function(){raf=false;paint();});},{passive:true});

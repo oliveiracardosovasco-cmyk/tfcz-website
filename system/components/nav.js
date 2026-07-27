@@ -258,6 +258,7 @@
     var drawer = document.createElement('aside');
     drawer.className = 'tn-drawer';
     drawer.setAttribute('aria-hidden', 'true');
+    drawer.inert = true;                          /* Startzustand geschlossen: nicht fokussierbar */
     drawer.setAttribute('aria-label', 'Menü');
 
     var seiten = C.seiten || {};
@@ -291,6 +292,7 @@
       scrim.classList.add('on');
       burger.setAttribute('aria-expanded', 'true');
       drawer.setAttribute('aria-hidden', 'false');
+      drawer.inert = false;                      /* Links wieder fokussierbar */
     }
     function zu() {
       if (!drawer.classList.contains('open')) return;
@@ -299,6 +301,7 @@
       scrim.classList.remove('on');
       burger.setAttribute('aria-expanded', 'false');
       drawer.setAttribute('aria-hidden', 'true');
+      drawer.inert = true;                        /* geschlossene Links raus aus Fokus + A11y-Baum (keine Fokusfalle) */
     }
 
     burger.addEventListener('click', function () {

@@ -49,7 +49,7 @@
   --t-fast: .15s;
   --t-base: .3s;
   --t-slow: .6s;
-  --font: 'Nunito Sans',system-ui,-apple-system,sans-serif;
+  --font: 'Nunito Sans','Nunito Sans Fallback',system-ui,-apple-system,sans-serif;
   --sand: #e6e3da;
   --cat-fun: #5ca7dc;
   --cat-comp: #005a94;

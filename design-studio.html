@@ -55,7 +55,7 @@
   --ui-brd:rgba(255,255,255,.13); --ui-brd-2:rgba(255,255,255,.22);
   --ui-tx:#eef4fa; --ui-mut:#c3d2e0; --ui-dim:#94a9bd;
 }
-html{background:#081826}
+html{background:#081826;overflow-x:hidden}  /* Kein horizontaler Seiten-Scroll ins Leere; interne Scroller (.tabs, #pagebar) bleiben (Audit-Fix 27.07.2026) */
 body::before{content:none}
 img{max-width:none}
 a{text-decoration:none}

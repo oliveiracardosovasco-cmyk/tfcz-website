@@ -41,3 +41,14 @@
   font-style:normal;
   font-display:swap;
 }
+/* Metrik-angepasste Fallback-Schrift: belegt (fast) exakt denselben Platz wie Nunito Sans,
+   damit der Nachtausch (swap) den Text NICHT mehr umbricht → Layout-Shift/CLS praktisch 0.
+   Gehört im Font-Stack DIREKT nach 'Nunito Sans' (siehe tokens.css --font). Audit-Fix 27.07.2026. */
+@font-face{
+  font-family:'Nunito Sans Fallback';
+  src:local('Arial'),local('Helvetica Neue'),local('Helvetica'),local('Liberation Sans'),local('Arimo');
+  ascent-override:101.06%;
+  descent-override:35.47%;
+  line-gap-override:0%;
+  size-adjust:103%;   /* empirisch auf minimalen Layout-Shift getunt (regeln/medien CLS 0.18→0.02) */
+}
