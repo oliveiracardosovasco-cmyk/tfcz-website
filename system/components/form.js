@@ -58,9 +58,13 @@
       '.tfcz-tp-opt:hover{border-color:transparent; box-shadow:inset 0 2px 0 var(--blue),inset 0 -2px 0 var(--gold)}',
       '.tfcz-tp-opt.on{border-color:var(--gold); background:rgba(205,168,87,.14)}',
       '.tfcz-tp-opt.on:hover{border-color:transparent}',
+      /* Einheitliche Feldhöhe für ALLE einzeiligen Controls (Text/E-Mail/Tel/Zahl/Datum/Select/Zeit-Picker).
+         Behebt, dass das native Datumsfeld (v. a. Safari/iOS) niedriger rendert als die anderen —
+         und gibt nebenbei ein sauberes 44px-Tap-Ziel (mobil). */
+      '.field input:not([type="checkbox"]):not([type="radio"]), .field select, .field .tfcz-tp-btn{min-height:44px}',
       /* Datumsfeld: native Chrome zähmen, damit es im einheitlichen .field-Stil bleibt (nicht ausbricht) */
-      '.field input[type="date"]{-webkit-appearance:none; appearance:none}',
-      '.field input[type="date"]::-webkit-date-and-time-value{text-align:left; margin:0}',
+      '.field input[type="date"]{-webkit-appearance:none; appearance:none; line-height:1.2}',
+      '.field input[type="date"]::-webkit-date-and-time-value{text-align:left; margin:0; line-height:1.2}',
       '.field input[type="date"]::-webkit-datetime-edit{padding:0; color:#fff}',
       '.field input[type="date"]::-webkit-inner-spin-button,.field input[type="date"]::-webkit-clear-button{display:none; -webkit-appearance:none}',
       '.field input[type="date"]::-webkit-calendar-picker-indicator{margin:0; opacity:.75; cursor:pointer; filter:invert(1) brightness(1.4)}',

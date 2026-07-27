@@ -133,6 +133,20 @@ section.sec,
   scroll-margin-top: calc(var(--tfcz-navh, 69px) + 14px);
 }
 
+/* ---------- Menüleiste: Logo überall EXAKT gleich gross (Single Source) ----------
+   Bisher trieb es auseinander: die .top-Seiten hatten einen Mobile-Shrink, die
+   .nav-Seiten (regeln/geschichte/über-uns) NICHT — dort blieb das Logo gross.
+   Diese eine Regel (mit !important gegen die Seiten-Inline-CSS) macht Schluss:
+   Desktop 38.8px · Mobile 35.2px — auf JEDER Seite, egal ob .nav oder .top. */
+.nav .logo img, .top .logo img {
+  height: 38.8px !important;
+  width: auto !important;
+  object-fit: contain !important;
+}
+@media (max-width: 640px) {
+  .nav .logo img, .top .logo img { height: 35.2px !important; }
+}
+
 /* Sektions-Überschriften: eine Grösse */
 main h2,
 .sec h2,
