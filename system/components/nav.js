@@ -201,10 +201,12 @@
 
   function eintragHTML(e, i) {
     if (e.kinder && e.kinder.length) {
-      return '<div class="tn-group">' +
+      /* Untergruppen standardmässig EINGEKLAPPT — sonst wird das Menü auf kleinen Screens zu hoch.
+         Antippen des Pfeils klappt die jeweilige Gruppe auf (Vasco 27.07.2026). */
+      return '<div class="tn-group tn-collapsed">' +
                '<div class="tn-row">' +
                  '<a class="tn-lnk" href="' + ziel(e.href) + '">' + e.text + '</a>' +
-                 '<button class="tn-tog" type="button" aria-expanded="true" aria-label="Unterseiten">' + CHEV + '</button>' +
+                 '<button class="tn-tog" type="button" aria-expanded="false" aria-label="Unterseiten aufklappen">' + CHEV + '</button>' +
                '</div>' +
                '<div class="tn-sub">' +
                  e.kinder.map(function (k) {

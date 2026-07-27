@@ -215,7 +215,7 @@ section{padding:clamp(18px,3vw,32px) 0}
   <!-- FARBEN -->
   <section id="farben">
     <div class="lbl">Markenfarben</div>
-    <p class="sublead"><b>Klick auf ein Feld</b>, um den Hex-Code zu kopieren. Schrift: <b>Nunito Sans</b> (Google Fonts).</p>
+    <p class="sublead"><b>Klick auf ein Feld</b>, um den Hex-Code zu kopieren. Schrift: <b>Nunito Sans</b>.</p>
     <div class="swgrid" id="swGrid"></div>
     <p class="hint"><b>Brand-Line-Regel:</b> Blau oben, Gold unten — in Print &amp; Social ein harter Schnitt ohne Verläufe.</p>
   </section>
@@ -260,6 +260,16 @@ section{padding:clamp(18px,3vw,32px) 0}
 <script>
 (function(){
   /* Formular = Baustein system/components/form.js (Felder + Mail-Texte: system/forms.js) */
+
+  /* Markenfarben-Kärtchen (klickbar → Hex kopieren → Toast). Gleiche Palette wie im Brand Guide. */
+  var FARBEN=[['Blau Primär','#5ca7dc'],['Blau Sekundär','#4489c7'],['Blau Dunkel','#005a94'],['Navy','#0d273d'],['Gold Primär','#cda857'],['Gold Sekundär','#e9c475'],['Sand / Neutral','#e6e3da'],['Rot','#da2929']];
+  var sg=document.getElementById('swGrid');
+  if(sg){
+    sg.innerHTML=FARBEN.map(function(c){return '<div class="sw" data-hex="'+c[1]+'"><div class="chip" style="background:'+c[1]+'"></div><div class="meta"><div class="nm">'+c[0]+'</div><div class="hx">'+c[1]+'</div></div></div>';}).join('');
+    var _kopiere=function(txt){ if(navigator.clipboard&&navigator.clipboard.writeText){try{navigator.clipboard.writeText(txt);}catch(e){}} else {var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);} };
+    var _toast=function(m){ if(window.TFCZ&&TFCZ.toast){TFCZ.toast(m);return;} var t=document.getElementById('toast'); if(t){t.textContent=m;t.classList.add('on');clearTimeout(t._tt);t._tt=setTimeout(function(){t.classList.remove('on');},1400);} };
+    sg.addEventListener('click',function(e){var s=e.target.closest('.sw');if(!s)return;var hex=s.getAttribute('data-hex');_kopiere(hex);_toast(hex+' kopiert');});
+  }
 
   /* Logo-Press */
   var lg=document.querySelector(".top .logo"); if(lg) lg.addEventListener("click",function(e){ lg.classList.remove("pressed"); void lg.offsetWidth; lg.classList.add("pressed"); var href=lg.getAttribute("href"); if(href&&href.charAt(0)!=="#"){ e.preventDefault(); setTimeout(function(){ location.href=href; },230); } setTimeout(function(){lg.classList.remove("pressed");},440); });

@@ -176,6 +176,17 @@ h1 .g{color:var(--gold-lt)}
 
 /* ===== KALENDER ===== */
 .calbox{background:var(--frost); border:1px solid var(--card-brd); border-radius:var(--r-xl); box-shadow:var(--e-2); padding:clamp(14px,2.4vw,26px)}
+/* Öffnungszeiten-Streifen über dem Kalender — macht klar: fixe Zeiten hier, Events zeigt der Kalender (Vasco/Stefan 27.07.2026) */
+.calhours{display:flex; align-items:flex-start; gap:13px; margin-bottom:14px; padding:13px 16px; background:var(--frost); border:1px solid var(--card-brd); border-left:3px solid var(--blue); border-radius:var(--r-lg); box-shadow:var(--e-1)}
+.calhours-ic{flex:none; width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:rgba(92,167,220,.16); border:1px solid rgba(92,167,220,.4); color:var(--blue-lt,#9fcdf0)}
+.calhours-ic svg{width:19px; height:19px}
+.calhours-tx{min-width:0}
+.calhours-hd{font-size:14px; color:var(--ink-mut); display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 9px}
+.calhours-hd b{color:#fff; font-weight:900; text-transform:uppercase; letter-spacing:.04em; font-size:12px}
+.calhours-hd span{color:var(--gold-lt); font-weight:800}
+.calhours-sub{font-size:12.5px; color:var(--ink-mut); margin-top:3px; line-height:1.5}
+.calhours-sub a{color:var(--gold-lt); font-weight:800; text-decoration:none}
+.calhours-sub a:hover{text-decoration:underline}
 .calhead{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px}
 /* Ansicht-Umschalter = animierter Woche/Monat-Switch (über den Filtern) */
 /* Kopfleiste: wenn Platz da ist, Switcher + Filter auf EINER Zeile (gleiche Höhe); sonst bricht der Filterblock sauber um */
@@ -268,7 +279,7 @@ h1 .g{color:var(--gold-lt)}
 .fbreak{flex-basis:100%; height:0; margin:0; padding:0; border:0; pointer-events:none}
 
 /* Woche · Strip + Detailpanel (Konzept A) */
-.wk-days{display:flex; gap:5px; overflow-x:auto; scroll-snap-type:x proximity; padding:24px 2px 22px; scrollbar-width:none; -webkit-overflow-scrolling:touch}
+.wk-days{display:flex; gap:5px; overflow-x:auto; scroll-snap-type:x proximity; padding:24px 2px 22px; scrollbar-width:none; -webkit-overflow-scrolling:touch; touch-action:pan-x}
 .wk-days::-webkit-scrollbar{display:none}
 .wk-day{position:relative; scroll-snap-align:start; flex:0 0 auto; width:52px; height:66px; text-align:center; padding:8px 5px; border-radius:13px; background:var(--card-soft); border:1px solid var(--card-brd); cursor:pointer; will-change:transform,margin; transform-origin:center bottom; transition:transform .16s ease, margin .16s ease, opacity .16s ease, background var(--t-fast), border-color var(--t-fast)}
 /* Sanfter Monatswechsel-Marker im Wochen-Strip: kleines, blasses Kürzel über dem 1. Tag des neuen Monats */
@@ -1102,6 +1113,13 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
       <h2 class="big reveal" id="calHeading">Deine Woche<br>im Club</h2>
       <p class="lead reveal d1"><span class="live"><i></i>Öffnungen live</span><b>Spontan offen?</b> Der Club öffnet oft auch ausserhalb der fixen Abende. In der WhatsApp-Gruppe siehst du jede Öffnung sofort — und findest Mitspielende vom ersten Tag an. <a class="btn btn-text" href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener">WhatsApp <span class="arr">→</span></a></p>
     </div>
+    <div class="calhours reveal">
+      <span class="calhours-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+      <div class="calhours-tx">
+        <div class="calhours-hd"><b>Fixe Öffnungszeiten</b> <span>Dienstag ab 18:00 · Mittwoch ab 19:00</span></div>
+        <div class="calhours-sub">Der Kalender unten zeigt zusätzlich alle <b>Events &amp; Sondertermine</b> (z. B. Käsekick). Spontane Öffnungen laufen über die <a href="https://chat.whatsapp.com/GNawMZIezc39VRN72BAzJX" target="_blank" rel="noopener">WhatsApp-Gruppe</a>.</div>
+      </div>
+    </div>
     <div class="calbox reveal">
       <div class="calhead">
         <div class="calswitch" id="calseg" data-v="week">
@@ -1610,7 +1628,9 @@ var CF=(function(){
     mdayEl.classList.add('on');}
   /* Klick: Mobile → Tages-Maske; Desktop → Gold-Auswahl EINES Tages (Toggle) */
   monthEl.addEventListener('click',function(e){var c=e.target.closest('.mcell');if(!c||c.classList.contains('out'))return;
-    if(matchMedia('(max-width:640px)').matches){ openMday(new Date(+c.dataset.date)); return; }
+    /* Auf Touch-Geräten (Handy UND Tablet) öffnet der Tag-Klick das Tagesdetail —
+       die Hover-Lupe gibt es dort nicht, sonst „passiert nichts" (Vasco 27.07.2026). */
+    if(matchMedia('(hover:none)').matches || matchMedia('(max-width:640px)').matches){ openMday(new Date(+c.dataset.date)); return; }
     var was=c.classList.contains('msel');
     [].forEach.call(monthEl.querySelectorAll('.mcell.msel'),function(x){x.classList.remove('msel');});
     if(!was)c.classList.add('msel');});

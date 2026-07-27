@@ -204,7 +204,20 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
 .rcs-row mark{background:rgba(205,168,87,.34); color:#fff; border-radius:4px; padding:0 2px}
 .rcs-none{display:none; text-align:center; color:var(--ink-mut); padding:28px 16px; font-size:14.5px}
 .rcs-none.on{display:block} .rcs-none b{color:#fff}
-@media(max-width:600px){ .rcs-list{--rc:minmax(94px,1.4fr) 1fr 1fr} .rcs-row{padding:11px 6px; gap:6px} .rcs-name{font-size:12.5px; gap:7px} .rcs-name .ic{font-size:15px} .rverdict2{font-size:9.5px; padding:4px 7px} .rcs-detail.on{grid-template-columns:1fr} }
+/* Mobile: statt drei enger Spalten (führte zu Überlappen) sauber STAPELN —
+   Regelname oben, darunter „Turnier"/„Bar" mit Label + Urteil (Vasco 27.07.2026). */
+@media(max-width:600px){
+  .rcs-head{display:none}
+  .rcs-row{grid-template-columns:1fr; gap:7px; padding:13px 12px}
+  .rcs-name{font-size:14px; gap:8px}
+  .rcs-name .ic{font-size:16px}
+  .rcs-v{justify-content:flex-start; align-items:center; gap:9px}
+  .rcs-v::before{font-size:10px; font-weight:900; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-mut); flex:none; width:56px}
+  .rcs-row > div:nth-of-type(2)::before{content:"Turnier"}
+  .rcs-row > div:nth-of-type(3)::before{content:"Bar"}
+  .rverdict2{white-space:normal; text-align:center; font-size:11px; padding:5px 11px}
+  .rcs-detail.on{grid-template-columns:1fr}
+}
 .rmore-wrap{display:flex; justify-content:center; margin-top:16px}
 .rmore-btn{display:inline-flex; align-items:center; gap:9px; font-family:var(--font); font-size:12.5px; font-weight:900; letter-spacing:.05em; text-transform:uppercase; color:var(--ink); background:rgba(8,18,29,.5); border:1px solid var(--card-brd); padding:12px 22px; border-radius:var(--r-pill); cursor:pointer; transition:var(--t-fast)}
 .rmore-btn:hover{border-color:rgba(255,255,255,.28); transform:translateY(-1px)}
