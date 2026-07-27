@@ -97,6 +97,11 @@ body{font-family:var(--font);color:var(--ink);min-height:100vh;display:grid;plac
 .social .youtube:hover, .social .youtube:hover .tooltip, .social .youtube:hover .tooltip::before{background:#ff0000; color:#fff}
 .social .whatsapp:hover, .social .whatsapp:hover .tooltip, .social .whatsapp:hover .tooltip::before{background:#25d366; color:#fff}
 .social .linkedin:hover, .social .linkedin:hover .tooltip, .social .linkedin:hover .tooltip::before{background:#0a66c2; color:#fff}
+/* Schliessen-X der Login-Karte (zurück zur Website) */
+.card-x{position:absolute; top:12px; right:12px; z-index:3; width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.08); border:1px solid var(--card-brd); color:#fff; cursor:pointer; transition:.16s var(--ease)}
+.card-x svg{width:16px; height:16px}
+.card-x:hover{background:var(--red); border-color:var(--red)}
+.card-x:active{transform:scale(.9)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
 </style>
 <link rel="stylesheet" href="system/buttons.css">
@@ -105,6 +110,7 @@ body{font-family:var(--font);color:var(--ink);min-height:100vh;display:grid;plac
 <canvas id="bg" aria-hidden="true"></canvas>
 
 <div class="card">
+  <a class="card-x" href="index.html" aria-label="Schliessen — zurück zur Website" title="Zurück zur Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
   <a class="logo" href="index.html"><img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"></a>
 
   <!-- LOGIN / REGISTER -->

@@ -295,6 +295,13 @@
     /* ---- Öffnen / Schliessen ---- */
     function auf() {
       navHoehe(leiste); kanteMessen();
+      /* Der Burger-Drawer ist die Mobile/Tablet-Navigation (auf Desktop gibt es ihn nicht —
+         dort steht die Inline-Nav offen). Darum: Untergruppen bei JEDEM Öffnen eingeklappt
+         (Vasco 27.07.2026: „auf mobile immer eingeklappt"). Antippen des Pfeils klappt auf. */
+      [].forEach.call(drawer.querySelectorAll('.tn-group'), function (g) {
+        g.classList.add('tn-collapsed');
+        var t = g.querySelector('.tn-tog'); if (t) t.setAttribute('aria-expanded', 'false');
+      });
       drawer.classList.add('open');
       scrim.classList.add('on');
       burger.setAttribute('aria-expanded', 'true');
