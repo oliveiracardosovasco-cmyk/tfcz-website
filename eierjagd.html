@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eierjagd · TFCZ — Tischfussball Club Zürich</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d273d">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/css/tfcz-fonts.css">
+<link rel="stylesheet" href="system/tokens.css">
+
+<!-- Login-Gate: Seite nur für angemeldete Mitglieder (Demo-Vorschau erlaubt, wie im Dashboard).
+     Setzt window.TFCZ_USER aus dem Speicher, BEVOR tfcz-fx.js lädt (damit die Funde des Kontos geladen werden). -->
+<script>
+(function(){
+  try{ var raw = localStorage.getItem('tfcz_user') || sessionStorage.getItem('tfcz_user'); if(raw) window.TFCZ_USER = JSON.parse(raw); }catch(e){}
+  var demo=false; try{ demo = sessionStorage.getItem('tfcz_demo')==='1'; }catch(e){}
+  window.__ejDemo = demo && !window.TFCZ_USER;
+  if(!window.TFCZ_USER && !demo){ location.replace('login.html?next=eierjagd.html'); }
+})();
+</script>
+
+<style>
+*{box-sizing:border-box; margin:0; padding:0}
+html{background:#081826; overflow-x:hidden}
+body{font-family:var(--font); color:var(--ink); min-height:100vh; overflow-x:hidden;
+  background:radial-gradient(900px 620px at 12% 0%, rgba(92,167,220,.16), transparent 55%),
+             radial-gradient(1000px 720px at 92% 100%, rgba(205,168,87,.10), transparent 60%),
+             linear-gradient(180deg,#0d273d,#0a1f31 55%,#081826); background-attachment:fixed}
+#bg{position:fixed; inset:0; z-index:0; pointer-events:none}
+a{color:var(--gold-lt); text-decoration:none}
+
+/* Topbar (Brand-Signatur) */
+.ej-top{position:sticky; top:0; z-index:90; display:flex; align-items:center; gap:16px;
+  padding:12px max(22px, calc((100% - 1080px)/2 + 22px));
+  background:linear-gradient(155deg, rgba(13,39,61,.96), rgba(9,21,33,.94));
+  border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-2)}
+.ej-top .logo{flex:none; line-height:0}
+.ej-top .logo img{height:34px; width:auto; display:block; transition:transform .18s var(--ease)}
+.ej-top .logo:active img{transform:scale(.9)}
+.ej-top .back{margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:800; color:var(--ink-mut);
+  padding:8px 13px; border:1px solid var(--card-brd); border-radius:var(--r-sm); transition:var(--t-fast); white-space:nowrap}
+.ej-top .back:hover{color:#fff; border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.ej-top .back svg{width:15px; height:15px}
+
+.wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:clamp(20px,4vw,40px) clamp(14px,4vw,26px) 80px}
+.kick{font-size:12px; font-weight:900; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-lt); margin:0 0 8px}
+h1{font-size:clamp(28px,6vw,44px); font-weight:900; margin:0 0 8px; line-height:1.05; text-transform:uppercase; color:#fff}
+.sub{color:var(--ink-mut); font-size:15px; margin:0 0 22px; max-width:60ch}
+
+/* Demo-Hinweis */
+.ej-demo{display:none; margin:0 0 16px; padding:12px 16px; border-radius:var(--r-md); font-size:13.5px; color:var(--gold-lt);
+  background:rgba(205,168,87,.1); border:1px solid rgba(205,168,87,.35)}
+body.demo .ej-demo{display:block}
+
+/* Fortschritt */
+.prog{background:var(--frost); border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold);
+  border-radius:var(--r-xl); padding:22px; box-shadow:var(--e-2); margin-bottom:16px}
+.prog-top{display:grid; grid-template-columns:1fr auto; gap:16px; align-items:center}
+.prog .big{font-size:36px; font-weight:900; line-height:1; color:#fff}.prog .big span{color:var(--gold-lt)}
+.prog .lbl{font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-mut); margin-top:4px}
+.bar{height:13px; border-radius:99px; background:rgba(8,18,29,.7); border:1px solid rgba(255,255,255,.08); overflow:hidden; margin-top:14px}
+.bar>i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,var(--blue),var(--gold-lt)); transition:width .6s var(--ease)}
+.reward{flex:none; text-align:center; background:linear-gradient(155deg,rgba(205,168,87,.16),rgba(205,168,87,.05)); border:1px solid rgba(205,168,87,.42);
+  border-radius:var(--r-lg); padding:12px 16px; min-width:150px}
+.reward .rc{width:34px; height:44px; margin:0 auto 3px}
+.reward .rt{font-size:12px; font-weight:900; color:var(--gold-lt); text-transform:uppercase; letter-spacing:.04em}
+.reward .rs{font-size:11px; color:var(--ink-mut); margin-top:2px}
+.voucher{margin-top:16px; display:flex; align-items:center; gap:12px; background:linear-gradient(155deg,rgba(205,168,87,.14),rgba(205,168,87,.04));
+  border:1px dashed rgba(205,168,87,.5); border-radius:var(--r-lg); padding:12px 15px}
+.voucher .vic{flex:none; width:30px; height:38px}
+.voucher b{color:var(--gold-lt); font-weight:900}.voucher span{font-size:13px; color:var(--ink-mut)}
+
+/* Freigeschalteter Gutschein-Code */
+.code{display:none; margin-top:16px; text-align:center; background:linear-gradient(155deg, rgba(63,185,132,.16), rgba(63,185,132,.05));
+  border:1px solid rgba(63,185,132,.5); border-radius:var(--r-lg); padding:18px 16px}
+.code.on{display:block; animation:codeIn .4s var(--ease)}
+@keyframes codeIn{from{opacity:0; transform:translateY(6px)}to{opacity:1}}
+.code .ct{font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; color:var(--green); margin-bottom:8px}
+.code .cv{font-family:ui-monospace,Menlo,monospace; font-size:26px; font-weight:900; letter-spacing:.16em; color:#fff; background:rgba(8,18,29,.5);
+  border:1px dashed rgba(255,255,255,.25); border-radius:var(--r-md); padding:12px 18px; display:inline-block}
+.code .cn{font-size:12.5px; color:var(--ink-mut); margin-top:10px}
+
+/* Erklärung */
+.how-it{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin:6px 0 8px}
+.step{background:var(--frost); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:16px}
+.step .n{width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-weight:900; color:var(--navy); background:var(--gold-lt); margin-bottom:9px}
+.step h4{margin:0 0 3px; font-size:14px; color:#fff}.step p{margin:0; font-size:12.5px; color:var(--ink-mut); line-height:1.5}
+h2{font-size:20px; font-weight:900; text-transform:uppercase; margin:30px 0 6px; color:#fff}
+.h2sub{color:var(--ink-mut); font-size:13px; margin:0 0 14px}
+
+/* Raster */
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(148px,1fr)); gap:12px}
+.egg{position:relative; background:var(--card); border:1px solid var(--card-brd); border-radius:var(--r-lg); padding:16px 12px 12px; text-align:center; transition:.16s; overflow:hidden}
+.egg .no{position:absolute; top:8px; left:10px; font-size:11px; font-weight:900; color:var(--ink-dim)}
+.egg .ic{height:64px; display:grid; place-items:center; margin:4px 0 8px}
+.egg .ic svg{height:62px; width:auto}
+.egg .t{font-size:13px; font-weight:900; color:#fff}
+.egg.found{cursor:pointer; border-color:rgba(205,168,87,.45); background:linear-gradient(160deg,rgba(205,168,87,.12),rgba(17,34,51,.6))}
+@media(hover:hover){.egg.found:hover{transform:translateY(-3px); box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}}
+.egg.locked .ic svg{filter:grayscale(1) brightness(.6); opacity:.42}
+.egg.locked .t{color:var(--ink-dim); font-weight:800}
+.egg.locked::after{content:"noch versteckt"; position:absolute; bottom:7px; left:0; right:0; font-size:9px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-dim)}
+.egg.found .t{margin-bottom:2px}
+.egg-i{position:absolute; top:8px; right:8px; z-index:2; width:25px; height:25px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(92,167,220,.18); border:1px solid rgba(92,167,220,.45); color:#9fcdf0; cursor:pointer; transition:.15s}
+.egg-i svg{width:14px; height:14px}
+@media(hover:hover){.egg.found:hover .egg-i{background:var(--blue-mid); color:#fff}}
+
+/* Popup (Portal-Schliessen: X, Esc, Backdrop) */
+.ej-modal{position:fixed; inset:0; z-index:200; display:none; place-items:center; padding:22px; background:rgba(4,10,17,.82)}
+.ej-modal.on{display:grid}
+.ej-modal .box{position:relative; width:min(440px,94vw); background:linear-gradient(155deg,rgba(13,39,61,.98),rgba(8,20,32,.96));
+  border:1px solid var(--card-brd); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); border-radius:var(--r-xl); padding:26px; text-align:center; box-shadow:var(--e-3)}
+.ej-modal .mx{position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(255,255,255,.08); border:1px solid var(--card-brd); color:#fff; cursor:pointer; transition:var(--t-fast)}
+.ej-modal .mx svg{width:16px; height:16px}
+.ej-modal .mx:hover{background:var(--red); border-color:var(--red)}
+.ej-modal .mx:active{transform:scale(.9)}
+.ej-modal .mbig{width:64px; height:82px; margin:0 auto 6px}
+.ej-modal .mno{font-size:11px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:2px}
+.ej-modal h3{margin:2px 0 2px; font-size:20px; font-weight:900; text-transform:uppercase; color:#fff}
+.ej-modal .mhow{font-size:13px; color:var(--gold-lt); font-weight:800; margin-bottom:12px}
+.ej-modal .mverse{font-size:15px; color:#fff; font-style:italic; line-height:1.6}
+
+#toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px); z-index:300; background:var(--navy);
+  border:1px solid var(--gold); color:var(--gold-lt); font-weight:800; font-size:13px; padding:10px 18px; border-radius:var(--r-pill); opacity:0; pointer-events:none; transition:.25s var(--ease)}
+#toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<header class="ej-top">
+  <a class="logo" href="index.html" aria-label="Startseite"><img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"></a>
+  <a class="back" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Zum Dashboard</a>
+</header>
+
+<main class="wrap">
+  <p class="kick">TFCZ · Mitglieder</p>
+  <h1>Die Eierjagd</h1>
+  <p class="sub">Auf der ganzen Seite sind goldene Eier versteckt.</p>
+
+  <div class="ej-demo">Demo-Vorschau — deine Funde werden nicht gespeichert. <a href="login.html?next=eierjagd.html">Melde dich an</a>, um zu sammeln.</div>
+
+  <div class="prog">
+    <div class="prog-top">
+      <div>
+        <div class="big" id="cnt"><span>0</span> / 20</div>
+        <div class="lbl">Eier gefunden</div>
+        <div class="bar"><i id="pbar" style="width:0%"></i></div>
+        <div class="lbl" id="togo" style="margin-top:9px; color:var(--gold-lt)">Noch 10 Eier bis zu deinem Raclette-Gutschein</div>
+      </div>
+      <div class="reward"><div class="rc" id="rEgg"></div><div class="rt">Raclette</div><div class="rs" id="rGoal">ab 10 Eiern</div></div>
+    </div>
+    <div class="voucher">
+      <div class="vic" id="vIc"></div>
+      <span>Ab dem <b id="vGoal">10. Ei</b> bekommst du deinen <b>Raclette-Gutschein</b>. Den Code gibst du direkt an der <b>TFCZ-Bar am Käsekick</b> ein — und dein <b>Gratis-Raclette</b> ist dir sicher.</span>
+    </div>
+    <div class="code" id="codeBox">
+      <div class="ct">Raclette freigeschaltet</div>
+      <div class="cv" id="codeVal">RAC-00000</div>
+      <div class="cn">Diesen Code an der TFCZ-Bar am Käsekick zeigen — einmal einlösbar.</div>
+    </div>
+  </div>
+
+  <div class="how-it">
+    <div class="step"><div class="n">1</div><h4>Augen auf</h4><p>Die Eier stecken überall auf der Seite. Beim Klicken, Scrollen und Herumspielen hüpfen sie heraus — meist genau dann, wenn du gar nicht damit rechnest.</p></div>
+    <div class="step"><div class="n">2</div><h4>Einsacken</h4><p>Angemeldet bleibt jeder Fund gespeichert. Jedes offene Ei verrät dir mit einem kleinen Reim, wie du es erwischt hast.</p></div>
+    <div class="step"><div class="n">3</div><h4>Käse kassieren</h4><p>Ab genug Eiern erscheint dein Raclette-Gutschein. Code an der TFCZ-Bar am Käsekick zeigen — fertig geschmolzen, fertig glücklich.</p></div>
+  </div>
+
+  <h2>Deine Funde</h2>
+  <p class="h2sub">Tipp auf ein offenes Ei (oder den <b>Info-Knopf</b> oben rechts), um Fundort &amp; Spruch zu sehen.</p>
+  <div class="grid" id="grid"></div>
+</main>
+
+<div class="ej-modal" id="modal"><div class="box">
+  <button class="mx" id="mX" aria-label="Schliessen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="mbig" id="mBig"></div>
+  <div class="mno" id="mNo"></div>
+  <h3 id="mT"></h3>
+  <div class="mhow" id="mH"></div>
+  <div class="mverse" id="mS"></div>
+</div></div>
+
+<div id="toast">Kopiert</div>
+
+<script defer src="assets/js/bg-swirl.js"></script>
+<script defer src="assets/js/tfcz-fx.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(window.__ejDemo) document.body.classList.add('demo');
+
+  /* ---- Marken-Ei (aus der Fund-Animation), zwei Zustände ---- */
+  var GRAD='<defs><linearGradient id="eg" x1=".2" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="#f6dfae"/><stop offset=".45" stop-color="#e9c475"/><stop offset="1" stop-color="#a8862f"/></linearGradient><radialGradient id="egh" cx="34%" cy="26%" r="68%"><stop offset="0" stop-color="#fff" stop-opacity=".4"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>';
+  var WHOLE='M50 2 C74 2 92 40 92 62 C92 104 80 128 50 128 C20 128 8 104 8 62 C8 40 26 2 50 2 Z';
+  var BOT='M50 128 C20 128 8 104 8 82 C8 74 12 66 18 60 L82 60 C88 66 92 74 92 82 C92 104 80 128 50 128 Z';
+  var TOPP='M50 2 C74 2 92 40 92 62 L8 62 C8 40 26 2 50 2 Z';
+  function eggClosed(){return '<svg viewBox="0 0 100 130" aria-hidden="true">'+GRAD+'<path d="'+WHOLE+'" fill="url(#eg)"/><path d="'+WHOLE+'" fill="url(#egh)"/><ellipse cx="36" cy="32" rx="8" ry="13" fill="#fff" opacity=".26" transform="rotate(-18 36 32)"/><circle cx="63" cy="30" r="4.4" fill="#4489c7" opacity=".42"/><circle cx="33" cy="62" r="4.8" fill="#8f6f24" opacity=".32"/><circle cx="70" cy="74" r="3.4" fill="#4489c7" opacity=".38"/><circle cx="48" cy="94" r="3.8" fill="#8f6f24" opacity=".3"/></svg>';}
+  function eggOpen(){return '<svg viewBox="0 0 100 130" aria-hidden="true">'+GRAD+'<circle cx="50" cy="60" r="16" fill="#e9c475" opacity=".5"/><circle cx="50" cy="57" r="8.5" fill="#fff" opacity=".72"/><g><path d="'+BOT+'" fill="url(#eg)"/><path d="M18 60 L28 68 L38 60 L48 68 L58 60 L68 68 L78 60 L82 60 L82 65 L18 65 Z" fill="#0d273d" opacity=".5"/><circle cx="28" cy="92" r="4.4" fill="#4489c7" opacity=".4"/><circle cx="62" cy="102" r="4.8" fill="#8f6f24" opacity=".32"/></g><g transform="translate(26 -26) rotate(26 50 32)"><path d="'+TOPP+'" fill="url(#eg)"/><path d="'+TOPP+'" fill="url(#egh)"/><path d="M8 62 L18 55 L28 62 L38 55 L48 62 L58 55 L68 62 L78 55 L92 62 Z" fill="#0d273d" opacity=".42"/></g></svg>';}
+  var INFO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v5"/><circle cx="12" cy="7.6" r=".5" fill="currentColor" stroke="none"/></svg>';
+
+  var fx = window.TFCZ_FX;
+  if(!fx || !fx.items){ document.getElementById('grid').innerHTML='<p style="color:var(--ink-mut)">Die Eierjagd konnte nicht geladen werden. Bitte neu laden.</p>'; return; }
+  var ITEMS = fx.items, TOTAL = fx.total, GOAL = fx.goal;
+
+  document.getElementById('rEgg').innerHTML=eggClosed();
+  document.getElementById('vIc').innerHTML=eggOpen();
+  document.getElementById('rGoal').textContent='ab '+GOAL+' Eiern';
+  document.getElementById('vGoal').textContent=GOAL+'. Ei';
+  document.querySelector('.big').firstChild;
+
+  function found(it){ try{ return fx.isFound(it.i); }catch(e){ return false; } }
+
+  /* Grid */
+  var grid=document.getElementById('grid');
+  grid.innerHTML=ITEMS.map(function(it,idx){
+    var f=found(it), n=idx+1;
+    return '<div class="egg '+(f?'found':'locked')+'" data-i="'+idx+'"><span class="no">Ei '+String(n).padStart(2,'0')+'</span>'
+      +(f?'<button class="egg-i" type="button" aria-label="Info zu diesem Ei">'+INFO+'</button>':'')
+      +'<span class="ic">'+(f?eggOpen():eggClosed())+'</span>'
+      +'<div class="t">'+(f?(it.title||('Ei '+n)):'')+'</div></div>';
+  }).join('');
+
+  /* Fortschritt */
+  var cnt=0; ITEMS.forEach(function(it){ if(found(it)) cnt++; });
+  document.querySelector('#cnt span').textContent=cnt;
+  document.querySelector('#cnt').innerHTML='<span>'+cnt+'</span> / '+TOTAL;
+  document.getElementById('pbar').style.width=Math.min(100,Math.round(cnt/GOAL*100))+'%';
+  var togo=Math.max(0,GOAL-cnt);
+  document.getElementById('togo').textContent = togo>0 ? ('Noch '+togo+' Ei'+(togo===1?'':'er')+' bis zu deinem Raclette-Gutschein') : 'Raclette-Gutschein freigeschaltet!';
+
+  /* Gutschein-Code ab GOAL */
+  function code(){ var seed=(window.TFCZ_USER&&(TFCZ_USER.email||TFCZ_USER.id||TFCZ_USER.vorname))||'demo'; var h=0; for(var i=0;i<seed.length;i++){h=(h*31+seed.charCodeAt(i))>>>0;} var s=('00000'+h.toString(36).toUpperCase()).slice(-5); return 'RAC-'+s; }
+  if(cnt>=GOAL){ var cb=document.getElementById('codeBox'); cb.classList.add('on'); document.getElementById('codeVal').textContent=code(); }
+
+  /* Popup */
+  var m=document.getElementById('modal');
+  function zu(){ var fin=function(){ m.classList.remove('on'); }; if(window.TFCZ&&TFCZ.portal&&TFCZ.portal.close){ TFCZ.portal.close(m.querySelector('.box'), fin); } else fin(); }
+  function auf(idx){ var it=ITEMS[idx]; if(!found(it)) return; var n=idx+1;
+    document.getElementById('mBig').innerHTML=eggOpen();
+    document.getElementById('mNo').textContent='Ei '+String(n).padStart(2,'0')+' von '+TOTAL+' · entdeckt';
+    document.getElementById('mT').textContent=it.title||('Ei '+n);
+    document.getElementById('mH').textContent=it.how||'';
+    document.getElementById('mS').innerHTML=it.s||'';
+    m.classList.add('on');
+  }
+  grid.addEventListener('click',function(e){ var el=e.target.closest('.egg.found'); if(!el) return; auf(+el.dataset.i); });
+  document.getElementById('mX').addEventListener('click',zu);
+  m.addEventListener('click',function(e){ if(e.target===m) zu(); });
+  addEventListener('keydown',function(e){ if(e.key==='Escape'||e.keyCode===27) zu(); });
+});
+</script>
+</body>
+</html>
