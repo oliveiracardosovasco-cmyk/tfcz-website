@@ -30,7 +30,8 @@ body{font-family:var(--font); color:var(--ink); min-height:100vh; overflow-x:hid
 .db-top{position:sticky; top:0; z-index:90; display:flex; align-items:center; gap:16px;
   padding:12px max(22px, calc((100% - 1240px)/2 + 22px));
   background:linear-gradient(155deg, rgba(13,39,61,.96), rgba(9,21,33,.94));
-  border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-2)}
+  border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); box-shadow:var(--e-2);
+  transform:translateZ(0); backface-visibility:hidden}  /* eigene GPU-Ebene → kein Zittern beim Scrollen */
 .db-top .db-logo{flex:none; display:block; line-height:0}
 .db-top .db-logo img{height:34px; width:auto; display:block; transition:transform .18s var(--ease)}
 .db-top .db-logo:active img{transform:scale(.9)}

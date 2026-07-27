@@ -147,6 +147,21 @@ section.sec,
   .nav .logo img, .top .logo img { height: 35.2px !important; }
 }
 
+/* ---------- Menüleiste: eigene GPU-Ebene → kein „Zittern" beim Scrollen ----------
+   Die Sticky-Leisten sind leicht durchscheinend (rgba < 1). OHNE eigene Ebene muss
+   der Browser die Leiste bei JEDEM Scroll-Frame neu über den bewegten Inhalt
+   dahinter zeichnen — sichtbar als Zittern/Flimmern, besonders wenn animierte
+   Elemente (Galerie-Marquee, Parallax-Bild, Puls-Badges) hinter der Leiste
+   durchlaufen. `translateZ(0)` hebt die Leiste auf eine eigene Compositor-Ebene:
+   der Browser blendet sie nur noch auf der GPU darüber, ohne Neuzeichnen.
+   Gilt für ALLE Sticky-Leisten (Single Source). Vasco, 27.07.2026. */
+.nav, .top, .ej-top, .db-top {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 /* Sektions-Überschriften: eine Grösse */
 main h2,
 .sec h2,
