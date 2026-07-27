@@ -162,6 +162,28 @@ section.sec,
   backface-visibility: hidden;
 }
 
+/* ---------- Menüleisten-HÖHE: auf JEDER Seite exakt gleich (Single Source) ----------
+   Gemessen bei 390px: Home 63.6px · ALLE Inhaltsseiten 70.9px — auf Desktop kippte
+   es sogar um (Home 73.6, andere 70.9). Grund: zwei verschiedene Bau-Rezepte.
+   Home steuert die Höhe über Padding + Ränder-als-Overlay; die Inhaltsseiten über
+   echte 3px-Ränder + Innen-Padding (.nav bzw. .top .wrap). Padding pro Seite
+   nachzurechnen ist genau die Endlosschleife, die uns immer wieder eingeholt hat.
+   Lösung: EINE feste Höhe + vertikal zentrierter Inhalt → an jeder Breite identisch.
+   (box-sizing ist projektweit border-box, die 3px-Ränder sind also eingerechnet.)
+   Vasco, 27.07.2026. */
+.nav, header.top {
+  height: 72px !important;
+  min-height: 72px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.top .wrap { padding-top: 0 !important; padding-bottom: 0 !important; }  /* Innen-Padding raus → die Leiste steuert die Höhe */
+@media (max-width: 640px) {
+  .nav, header.top { height: 64px !important; min-height: 64px !important; }
+}
+
 /* Sektions-Überschriften: eine Grösse */
 main h2,
 .sec h2,
