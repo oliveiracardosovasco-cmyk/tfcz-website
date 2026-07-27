@@ -174,14 +174,31 @@ section.sec,
 .nav, header.top {
   height: 72px !important;
   min-height: 72px !important;
-  display: flex !important;
-  align-items: center !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
-.top .wrap { padding-top: 0 !important; padding-bottom: 0 !important; }  /* Innen-Padding raus → die Leiste steuert die Höhe */
+/* .nav IST selbst die Flex-Zeile (Logo ist direktes Kind, links fixiert via margin-right:auto).
+   Bei header.top liegt der Inhalt in einer eigenen .wrap-Spalte (max-width 1160, zentriert) —
+   header.top darf daher NICHT selbst flex werden, sonst schrumpft die .wrap auf Inhaltsbreite
+   und das Logo wandert je nach Textmenge nach innen. Stattdessen füllt die .wrap die Höhe
+   und zentriert vertikal (sie ist bereits display:flex; align-items:center). */
+.nav { display: flex !important; align-items: center !important; }
+.top .wrap {
+  height: 100% !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+/* Logo links fixiert → alles danach (Links, Burger) wird nach rechts geschoben.
+   Auf .top-Seiten übernahm das früher der „Zurück"-Button (margin-left:auto);
+   der ist jetzt entfernt, darum pinnt jetzt das Logo den rechten Block. */
+.nav .logo, .top .logo { margin-right: auto !important; }
 @media (max-width: 640px) {
   .nav, header.top { height: 64px !important; min-height: 64px !important; }
+  /* Der Wallis/Hochdeutsch-Umschalter sitzt nur auf über-uns IN der Leiste und ist
+     mit 227px zu breit fürs Handy → er schob den Burger aus dem Bild. Auf dem Handy
+     ausblenden: Leiste = Logo + Burger wie auf allen anderen Seiten. Auf Desktop
+     bleibt der Umschalter. (Der Umschalter im Inhalt von /regeln ist NICHT betroffen.) */
+  .nav > .langsw { display: none !important; }
 }
 
 /* Sektions-Überschriften: eine Grösse */
