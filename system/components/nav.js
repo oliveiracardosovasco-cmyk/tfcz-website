@@ -229,6 +229,11 @@
     /* Die sticky Leiste selbst (für die Höhe) kann der Eltern-Container sein */
     var leiste = nav.closest('header, nav') || nav;
 
+    /* Haupt-Navigation eindeutig benennen — sonst kollidiert sie mit der Footer-<nav>
+       (axe landmark-unique). Nur auf echte <nav>-Leisten setzen, nicht auf .top-Header. */
+    var navLandmark = document.querySelector('nav.nav');
+    if (navLandmark && !navLandmark.getAttribute('aria-label')) navLandmark.setAttribute('aria-label', 'Hauptmenü');
+
     var C = (window.TFCZ && TFCZ.content) || {};
     var menu = C.menu || [];
 

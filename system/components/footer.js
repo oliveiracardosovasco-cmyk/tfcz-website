@@ -79,7 +79,7 @@
             '<small>' + (C.adresse || '') + '</small>' +
           '</div>' +
         '</div>' +
-        '<nav>' + links + '</nav>' +
+        '<nav aria-label="Footer">' + links + '</nav>' +
         '<div class="copy">© ' + jahr + ' ' + (C.name || '') +
           ' · Mitglied der Swiss Tablesoccer Federation</div>' +
         '<a class="mail" href="mailto:' + (C.mail || '') + '">' + (C.mail || '') + '</a>' +

@@ -316,6 +316,10 @@
   function init() {
     injectCSS();
     initPicker();
+    /* Toast ist eine Statusmeldung → als Live-Region auszeichnen. Behebt zugleich den
+       axe „region"-Hinweis (Inhalt ausserhalb eines Landmarks wird so korrekt eingeordnet). */
+    var _t = el('toast');
+    if (_t) { _t.setAttribute('role', 'status'); _t.setAttribute('aria-live', 'polite'); }
     [].forEach.call(document.querySelectorAll('form[data-tfcz="form"]'), bauen);
   }
 
