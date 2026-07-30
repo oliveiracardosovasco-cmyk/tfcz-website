@@ -24,6 +24,7 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/css/tfcz-fonts.css">
 <link rel="stylesheet" href="system/tokens.css">
+<link rel="stylesheet" href="system/nav.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{ overflow-x:clip; background:linear-gradient(165deg, #5ca7dc 0%, #4489c7 46%, #005a94 100%) #005a94}
@@ -37,17 +38,6 @@ a{color:inherit}
 h1,h2,h3{line-height:1.1; letter-spacing:-.015em}
 img{display:block; max-width:100%}
 
-/* Sticky Nav */
-.top{position:sticky; top:0; z-index:60; background:linear-gradient(180deg,rgba(13,39,61,.94),rgba(10,31,49,.88)); border-top:3px solid var(--blue); border-bottom:3px solid var(--gold); }
-.top .wrap{display:flex; align-items:center; gap:12px; padding:12px 22px}
-.top .logo{display:inline-flex; align-items:center; gap:10px; font-weight:900; color:#fff; text-decoration:none; font-size:15px; flex:none}
-.top .logo img{height:38.8px; width:auto; object-fit:contain; display:block}
-@media(max-width:640px){ .top .logo img{height:35.2px} }
-.top .navlinks{display:flex; align-items:center; gap:2px; margin-left:18px}
-.top .lnk{position:relative; color:var(--ink-mut); font-size:13.5px; font-weight:700; padding:8px 12px; border-radius:var(--r-sm); text-decoration:none; transition:color .18s var(--ease),transform .18s var(--ease)}
- @media(max-width:860px){ .top .navlinks{display:none} }
-.top .back{margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:13.5px; font-weight:800; color:var(--ink-mut); text-decoration:none; padding:8px 13px; border:1px solid var(--card-brd); border-radius:var(--r-sm); transition:var(--t-fast)}
-.top .back:hover{color:#fff; border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
 
 .hero{padding:clamp(30px,6vw,60px) 0 clamp(8px,2vw,16px)}
 .hero .kick{font-size:12px; font-weight:900; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-lt)}
@@ -122,9 +112,6 @@ section{padding:clamp(18px,3vw,32px) 0}
 .foot a{color:var(--gold-lt); font-weight:800; text-decoration:none}
 @media(max-width:640px){ .fgrid{grid-template-columns:1fr} }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-.top .logo:active{transform:scale(.9)}
-.top .logo.pressed{animation:logoPress .42s var(--ease)}
-@keyframes logoPress{0%{transform:scale(1)}35%{transform:scale(.86)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
 </style>
 <link rel="stylesheet" href="system/page.css">
 <link rel="stylesheet" href="system/buttons.css">
@@ -169,16 +156,14 @@ section{padding:clamp(18px,3vw,32px) 0}
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
 
-<header class="top">
-  <div class="wrap">
+<nav class="nav">
     <a class="logo" href="index.html"><img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"></a>
-    <nav class="navlinks">
+    <div class="navlinks">
       <a class="lnk" href="#logos">Logos</a>
       <a class="lnk" href="#farben">Farben</a>
       <a class="lnk" href="#kontakt">Medienanfrage</a>
-    </nav>
-  </div>
-</header>
+    </div>
+  </nav>
 
 <main>
 <div class="wrap">
@@ -271,7 +256,7 @@ section{padding:clamp(18px,3vw,32px) 0}
   }
 
   /* Logo-Press */
-  var lg=document.querySelector(".top .logo"); if(lg) lg.addEventListener("click",function(e){ lg.classList.remove("pressed"); void lg.offsetWidth; lg.classList.add("pressed"); var href=lg.getAttribute("href"); if(href&&href.charAt(0)!=="#"){ e.preventDefault(); setTimeout(function(){ location.href=href; },230); } setTimeout(function(){lg.classList.remove("pressed");},440); });
+  var lg=document.querySelector(".nav .logo"); if(lg) lg.addEventListener("click",function(e){ lg.classList.remove("pressed"); void lg.offsetWidth; lg.classList.add("pressed"); var href=lg.getAttribute("href"); if(href&&href.charAt(0)!=="#"){ e.preventDefault(); setTimeout(function(){ location.href=href; },230); } setTimeout(function(){lg.classList.remove("pressed");},440); });
 })();
 </script>
 <script defer src="system/content.js"></script>

@@ -1,0 +1,69 @@
+/* ============================================================
+   TFCZ · BAUSTEIN: Menüleiste (Single Source)
+
+   EINE Leiste für ALLE Seiten. Vorher gab es zwei parallele Systeme —
+   `.nav` (Home, geschichte, regeln, über-uns) und `.top` (medien, training,
+   firmenevents, mitglied). Sie liefen in Höhe, Logo-Position und Aufbau immer
+   wieder auseinander (Single-Source-Verstoss). Ab jetzt nur noch `.nav`.
+
+   Aufgabenteilung:
+     · Aussehen (Hintergrund, Markenlinien, Logo, Links, CTA)  → HIER.
+     · Masse/Position (Höhe 72/64, Logo links, Burger rechts)   → system/page.css
+       (erzwingt die Gleichheit über ALLE Seiten, egal welcher Inhalt).
+     · Burger/Drawer/Schliess-Verhalten                         → system/components/nav.js
+     · INHALT pro Seite (welche Links, ob ein CTA)              → bleibt frei im HTML
+       der jeweiligen Seite. Genau deshalb kann Home ihren „Komm vorbei"-CTA
+       haben und eine andere Seite eigene Links/CTAs — das Gerüst ist gleich,
+       der Inhalt individuell.
+
+   Einbinden IMMER nach tokens.css:  <link rel="stylesheet" href="system/nav.css">
+   ============================================================ */
+
+.nav{
+  position:sticky; top:0; z-index:90; width:100%;
+  display:flex; align-items:center; gap:10px;
+  /* Inhalt fluchtet mit .wrap (max-width 1160, 22px Rand) → Logo linksbündig zu den Sektionen */
+  padding:12px max(22px, calc((100% - 1160px)/2 + 22px));
+  background:linear-gradient(155deg, rgba(10,24,38,.92), rgba(6,15,24,.90));
+  border-top:3px solid var(--blue); border-bottom:3px solid var(--gold);   /* Markenlinie blau oben / gold unten */
+  box-shadow:var(--e-2);
+}
+
+/* Logo: links fixiert (schiebt Links + Burger nach rechts) */
+.nav .logo{
+  display:flex; align-items:center; gap:10px; min-width:0; margin-right:auto;
+  color:#fff; font-weight:900; font-size:15px; letter-spacing:.02em; text-decoration:none;
+}
+.nav .logo img{ height:38.8px; width:auto; object-fit:contain; display:block; }
+.nav .logo span{ color:var(--gold-lt); }
+.nav .logo:active{ transform:scale(.9); }
+.nav .logo.pressed{ animation:logoPress .42s var(--ease); }
+@keyframes logoPress{ 0%{transform:scale(1)} 35%{transform:scale(.86)} 70%{transform:scale(1.05)} 100%{transform:scale(1)} }
+
+/* Sektions-Links */
+.nav .navlinks{ display:flex; align-items:center; gap:2px; margin-left:18px; }
+.nav a.lnk{
+  position:relative; color:var(--ink-mut); font-size:13.5px; font-weight:700;
+  padding:8px 12px; border-radius:var(--r-sm); text-decoration:none; white-space:nowrap;
+  transition:color .18s var(--ease), transform .18s var(--ease);
+}
+.nav a.lnk:hover{ color:#fff; }
+
+/* Optionaler CTA pro Seite: Form/Farbe kommt aus den Button-Klassen (buttons.css),
+   hier nur das Nav-Verhalten. */
+.nav .cta{ white-space:nowrap; }
+
+/* Sanftes Einschweben der Links (wie auf der Home) — auf allen Seiten gleich */
+.nav .navlinks a.lnk{ animation:navRise .5s cubic-bezier(.34,1.56,.64,1) both; }
+.nav .navlinks a.lnk:nth-child(1){ animation-delay:.06s; }
+.nav .navlinks a.lnk:nth-child(2){ animation-delay:.12s; }
+.nav .navlinks a.lnk:nth-child(3){ animation-delay:.18s; }
+.nav .navlinks a.lnk:nth-child(4){ animation-delay:.24s; }
+.nav .navlinks a.lnk:nth-child(5){ animation-delay:.30s; }
+.nav .navlinks a.lnk:nth-child(6){ animation-delay:.36s; }
+.nav .navlinks a.lnk:nth-child(7){ animation-delay:.42s; }
+.nav .navlinks a.lnk:nth-child(8){ animation-delay:.48s; }
+@keyframes navRise{ from{transform:translateY(12px); opacity:0} to{transform:none; opacity:1} }
+
+@media(max-width:860px){ .nav .navlinks{ display:none; } }
+@media(prefers-reduced-motion:reduce){ .nav .navlinks a.lnk, .nav .cta, .nav .logo.pressed{ animation:none!important; } }
