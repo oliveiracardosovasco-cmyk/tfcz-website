@@ -1,6 +1,6 @@
 {
- "generated": "2026-07-19",
- "count": 243,
+ "generated": "2026-08-14",
+ "count": 287,
  "categories": [
   {
    "key": "turnier",
@@ -4484,6 +4484,710 @@
    "w": 1600,
    "h": 1067,
    "event": "",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-01",
+   "src": "assets/fotos/action/action-01.jpg",
+   "category": "turnier",
+   "tags": [
+    "doppel",
+    "match",
+    "clubdress"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-02",
+   "src": "assets/fotos/action/action-02.jpg",
+   "category": "team",
+   "tags": [
+    "halle",
+    "gruppe",
+    "pause"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-03",
+   "src": "assets/fotos/action/action-03.jpg",
+   "category": "turnier",
+   "tags": [
+    "match",
+    "ruecken",
+    "halle"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-04",
+   "src": "assets/fotos/action/action-04.jpg",
+   "category": "turnier",
+   "tags": [
+    "match",
+    "haende",
+    "konzentration"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-05",
+   "src": "assets/fotos/action/action-05.jpg",
+   "category": "turnier",
+   "tags": [
+    "einzel",
+    "konzentration",
+    "schuss"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-06",
+   "src": "assets/fotos/action/action-06.jpg",
+   "category": "atmo",
+   "tags": [
+    "halle",
+    "zuschauen",
+    "pause"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-07",
+   "src": "assets/fotos/action/action-07.jpg",
+   "category": "turnier",
+   "tags": [
+    "mixed",
+    "match",
+    "halle"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-08",
+   "src": "assets/fotos/action/action-08.jpg",
+   "category": "turnier",
+   "tags": [
+    "doppel",
+    "match",
+    "halle"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-09",
+   "src": "assets/fotos/action/action-09.jpg",
+   "category": "team",
+   "tags": [
+    "jubel",
+    "highfive",
+    "sieg"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-10",
+   "src": "assets/fotos/action/action-10.jpg",
+   "category": "team",
+   "tags": [
+    "jubel",
+    "lachen",
+    "gruppe"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-11",
+   "src": "assets/fotos/action/action-11.jpg",
+   "category": "mannschaft",
+   "tags": [
+    "teamfoto",
+    "draussen",
+    "gruppe"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-12",
+   "src": "assets/fotos/action/action-12.jpg",
+   "category": "mannschaft",
+   "tags": [
+    "teamfoto",
+    "jubel",
+    "draussen"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-13",
+   "src": "assets/fotos/action/action-13.jpg",
+   "category": "turnier",
+   "tags": [
+    "doppel",
+    "ruecken",
+    "halle"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-14",
+   "src": "assets/fotos/action/action-14.jpg",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "kamera",
+    "stream"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-15",
+   "src": "assets/fotos/action/action-15.jpg",
+   "category": "turnier",
+   "tags": [
+    "clublokal",
+    "dunkel",
+    "match"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-16",
+   "src": "assets/fotos/action/action-16.jpg",
+   "category": "team",
+   "tags": [
+    "lachen",
+    "handschlag",
+    "fairplay"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-17",
+   "src": "assets/fotos/action/action-17.jpg",
+   "category": "team",
+   "tags": [
+    "handschlag",
+    "fairplay",
+    "respekt"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-18",
+   "src": "assets/fotos/action/action-18.jpg",
+   "category": "turnier",
+   "tags": [
+    "ball",
+    "spannung",
+    "zuschauen"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-19",
+   "src": "assets/fotos/action/action-19.jpg",
+   "category": "turnier",
+   "tags": [
+    "hochformat",
+    "match",
+    "halle"
+   ],
+   "w": 1200,
+   "h": 1800,
+   "event": "altbestand",
+   "orient": "hoch",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-20",
+   "src": "assets/fotos/action/action-20.jpg",
+   "category": "team",
+   "tags": [
+    "frauen",
+    "gespraech",
+    "clubdress"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-21",
+   "src": "assets/fotos/action/action-21.jpg",
+   "category": "atmo",
+   "tags": [
+    "handy",
+    "frauen",
+    "pause"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-22",
+   "src": "assets/fotos/action/action-22.jpg",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "kamera",
+    "stream"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-23",
+   "src": "assets/fotos/action/action-23.jpg",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "emotion",
+    "spannung"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-24",
+   "src": "assets/fotos/action/action-24.jpg",
+   "category": "team",
+   "tags": [
+    "handschlag",
+    "publikum",
+    "fairplay"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-25",
+   "src": "assets/fotos/action/action-25.jpg",
+   "category": "turnier",
+   "tags": [
+    "fremdclub",
+    "match",
+    "fahne"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-26",
+   "src": "assets/fotos/action/action-26.jpg",
+   "category": "turnier",
+   "tags": [
+    "clublokal",
+    "dunkel",
+    "einzel"
+   ],
+   "w": 1100,
+   "h": 733,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-27",
+   "src": "assets/fotos/action/action-27.jpg",
+   "category": "turnier",
+   "tags": [
+    "fremdclub",
+    "match",
+    "konzentration"
+   ],
+   "w": 1100,
+   "h": 733,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-action-28",
+   "src": "assets/fotos/action/action-28.jpg",
+   "category": "turnier",
+   "tags": [
+    "fremdclub",
+    "match",
+    "fahne"
+   ],
+   "w": 1100,
+   "h": 733,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-bar",
+   "src": "assets/fotos/action/bar.jpg",
+   "category": "location",
+   "tags": [
+    "bar",
+    "getraenke",
+    "clublokal"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-firmenevent-7012",
+   "src": "assets/fotos/action/firmenevent-7012.jpg",
+   "category": "location",
+   "tags": [
+    "firmenevent",
+    "clublokal",
+    "abend"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-firmenevent",
+   "src": "assets/fotos/action/firmenevent.jpg",
+   "category": "location",
+   "tags": [
+    "firmenevent",
+    "clublokal",
+    "abend"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-manifest-777",
+   "src": "assets/fotos/action/manifest-777.jpg",
+   "category": "turnier",
+   "tags": [
+    "match",
+    "halle",
+    "doppel"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-manifest-786",
+   "src": "assets/fotos/action/manifest-786.jpg",
+   "category": "mannschaft",
+   "tags": [
+    "teamfoto",
+    "draussen",
+    "gruppe"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-nachwuchs",
+   "src": "assets/fotos/action/nachwuchs.jpg",
+   "category": "team",
+   "tags": [
+    "nachwuchs",
+    "jugend",
+    "training"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-philipp",
+   "src": "assets/fotos/action/philipp.jpg",
+   "category": "detail",
+   "tags": [
+    "tisch",
+    "baelle",
+    "dunkel"
+   ],
+   "w": 1600,
+   "h": 1067,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-01",
+   "src": "assets/fotos/atmosphaere/atmosphaere-01.jpg",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "kamera",
+    "stream"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-02",
+   "src": "assets/fotos/atmosphaere/atmosphaere-02.jpg",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "halle",
+    "zuschauen"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-03",
+   "src": "assets/fotos/atmosphaere/atmosphaere-03.jpg",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "handy",
+    "zuschauen"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-04",
+   "src": "assets/fotos/atmosphaere/atmosphaere-04.jpg",
+   "category": "atmo",
+   "tags": [
+    "publikum",
+    "spannung",
+    "halle"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-05",
+   "src": "assets/fotos/atmosphaere/atmosphaere-05.jpg",
+   "category": "atmo",
+   "tags": [
+    "handschlag",
+    "publikum",
+    "fairplay"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-06",
+   "src": "assets/fotos/atmosphaere/atmosphaere-06.jpg",
+   "category": "atmo",
+   "tags": [
+    "applaus",
+    "publikum",
+    "halle"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-07",
+   "src": "assets/fotos/atmosphaere/atmosphaere-07.jpg",
+   "category": "team",
+   "tags": [
+    "fremdclub",
+    "umarmung",
+    "emotion"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-08",
+   "src": "assets/fotos/atmosphaere/atmosphaere-08.jpg",
+   "category": "team",
+   "tags": [
+    "jubel",
+    "sieg",
+    "emotion"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
+   "orient": "quer",
+   "turnier": "",
+   "persons": []
+  },
+  {
+   "id": "alt-atmosphaere-09",
+   "src": "assets/fotos/atmosphaere/atmosphaere-09.jpg",
+   "category": "team",
+   "tags": [
+    "fremdclub",
+    "umarmung",
+    "emotion"
+   ],
+   "w": 1800,
+   "h": 1200,
+   "event": "altbestand",
    "orient": "quer",
    "turnier": "",
    "persons": []
