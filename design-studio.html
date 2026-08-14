@@ -2418,42 +2418,41 @@ function buildThumb(){
   const LS=(id,fb)=>{var v=(g(id)&&g(id).ls); return (v!=null?v:fb);};
   const px=v=>Math.round(v*k)+'px';
   const G=THUMB_GEO, DT=G.dxTop, DB=G.dxBot;
-  const poly=pts=>'polygon('+pts.map(function(p){return Math.round(p[0]*k)+'px '+Math.round(p[1]*k)+'px';}).join(',')+')';
   const SKIN=THUMBCAT[_o.cat||'elite']||THUMBCAT.elite;
+  /* Die Diagonale laeuft NICHT ueber clip-path — html2canvas kann das nicht und
+     der PNG-Export verlor dadurch alle Schnitte (Goldflaeche ueber dem ganzen Bild).
+     Stattdessen wie bei den uebrigen Flyern: geschertes Panel LEGT SICH UEBER das Foto
+     und bildet so die Kante. Kein Beschnitt, kein overflow — das exportiert sauber.
+     Neigung: -146px auf 720px Hoehe = -11.47deg, Drehpunkt oben links. */
+  const SKEW='transform:skewX(-11.47deg);transform-origin:0 0;';
   const PHOTO_DEFAULT=(THUMBPRESET[_o.variant||'elite_doppel']||THUMBPRESET.elite_doppel).photo;
-  /* Badge-Grundstil — einmal definiert, von allen vier Badges benutzt. */
   const badgeBox='display:inline-flex;align-items:center;white-space:nowrap;'
     +'font-family:\'Nunito Sans\',system-ui,sans-serif;';
-  /* Zahl vorne wird gold gesetzt (wie im Original), Rest weiss. */
-  function numSplit(t){ var m=String(t).match(/^(\d[\d'’.]*)\s+([\s\S]*)$/);
+  function numSplit(t){ var m=String(t).match(/^(\d[\d'\u2019.]*)\s+([\s\S]*)$/);
     return m ? '<b style="color:'+(C.gold2||'#e9c475')+';font-weight:900">'+e(m[1])+'</b>&nbsp;'+e(m[2]) : e(t); }
   let h='';
-  /* 1) Foto links (tauschbar: Klick aufs Bild oder Datei darauf ziehen) */
+  /* 1) Foto links — ungeschnitten; rechts davon deckt die Flaeche ab */
   if(vis(g('el_photo'))){ const B=g('el_photo');
-    h+='<img class="item" data-id="el_photo" src="'+(B.src||PHOTO_DEFAULT)+'" style="position:absolute;left:0;top:0;max-width:none;'
-      +'width:'+px(660)+';height:'+px(720)+';object-fit:cover;z-index:1;'
-      +'clip-path:'+poly([[0,0],[DT,0],[DB,720],[0,720]])+'">';
+    h+='<img class="item" data-id="el_photo" src="'+(B.src||PHOTO_DEFAULT)+'" style="position:absolute;left:0;top:0;'
+      +'max-width:none;width:'+px(660)+';height:'+px(720)+';object-fit:cover;z-index:1">';
   }
-  /* 2) Abdunklung ueber dem Foto — haelt die Wortmarke lesbar */
+  /* 2) Abdunklung ueber dem Foto */
   if(vis(g('el_scrim')))
-    h+='<div class="item" data-id="el_scrim" style="position:absolute;left:0;top:0;max-width:none;width:'+px(660)+';height:'+px(720)+';z-index:2;'
-      +'clip-path:'+poly([[0,0],[DT,0],[DB,720],[0,720]])+';'
+    h+='<div class="item" data-id="el_scrim" style="position:absolute;left:0;top:0;max-width:none;'
+      +'width:'+px(660)+';height:'+px(720)+';z-index:2;'
       +'background:linear-gradient(180deg,rgba(6,16,26,.62) 0%,rgba(6,16,26,.10) 34%,rgba(6,16,26,.34) 100%)"></div>';
-  /* 3) Farbflaeche rechts — Goldschein aus der oberen rechten Ecke auf Navy */
+  /* 3) Farbflaeche rechts — geschert, beginnt hinter der breiten Goldlinie */
   if(vis(g('el_panel')))
-    h+='<div class="item" data-id="el_panel" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:3;'
-      +'clip-path:'+poly([[DT,0],[1280,0],[1280,720],[DB,720]])+';'
-      +'background:'+SKIN.panel+'"></div>';
-  /* 4) Duenne zweite Goldlinie (Elite-Signatur) */
+    h+='<div class="item" data-id="el_panel" style="position:absolute;left:'+px(635)+';top:0;max-width:none;'
+      +'width:'+px(1200)+';height:'+px(720)+';z-index:5;'+SKEW+'background:'+SKIN.panel+'"></div>';
+  /* 4) Duenne zweite Goldlinie (nur Elite) */
   if(SKIN.edge2 && vis(g('el_edge2')))
-    h+='<div class="item" data-id="el_edge2" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:4;'
-      +'clip-path:'+poly([[DT-G.gap2,0],[DT-G.gap2+G.thin2,0],[DB-G.gap2+G.thin2,720],[DB-G.gap2,720]])+';'
-      +'background:linear-gradient(180deg,#e9c475,#a8863f)"></div>';
+    h+='<div class="item" data-id="el_edge2" style="position:absolute;left:'+px(594)+';top:0;max-width:none;'
+      +'width:'+px(5)+';height:'+px(720)+';z-index:6;'+SKEW+'background:linear-gradient(180deg,#e9c475,#a8863f)"></div>';
   /* 5) Breite Goldlinie */
   if(vis(g('el_edge')))
-    h+='<div class="item" data-id="el_edge" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:5;'
-      +'clip-path:'+poly([[DT,0],[DT+G.edge,0],[DB+G.edge,720],[DB,720]])+';'
-      +'background:'+SKIN.edge+'"></div>';
+    h+='<div class="item" data-id="el_edge" style="position:absolute;left:'+px(620)+';top:0;max-width:none;'
+      +'width:'+px(15)+';height:'+px(720)+';z-index:6;'+SKEW+'background:'+SKIN.edge+'"></div>';
   /* 6) Wortmarke oben links (geteiltes Asset, referenziert) */
   if(vis(g('el_wordmark'))){ const L=g('el_wordmark');
     h+='<img class="item" data-id="el_wordmark" src="'+(L.src||'assets/img/logo-horizontal-white.png')+'" style="position:absolute;left:'+px(44)+';top:'+px(38)+';'
