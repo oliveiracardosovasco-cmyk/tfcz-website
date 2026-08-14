@@ -586,7 +586,7 @@ input[type=range].rng:focus-visible::-webkit-slider-thumb{border-color:var(--gol
 
 <header class="head wrap">
   <span class="kick">TFCZ · Design System</span>
-  <h1>Brand Guide <span class="vchip">v2.3 · 10.07.2026</span></h1>
+  <h1>Brand Guide <span class="vchip">v2.4 · 12.08.2026</span></h1>
   <p>Der teilbare TFCZ Brand Guide: alle Farben, Logos, Regeln und wiederverwendbaren Bausteine — live, kopierbar und in sich geschlossen (Logos eingebettet, funktioniert offline). Klick auf eine Farbe / einen Gradient kopiert den Wert. Boxen bleiben in beiden Hintergrund-Modi dunkel &amp; frosted.</p>
   <div class="ctrls">
     <div class="seg" id="segBg"><button data-bg="navy" class="on">Navy (intern)</button><button data-bg="blue">Hellblau (öffentlich)</button></div>
@@ -12623,6 +12623,101 @@ TFCZ.portal.close(fensterEl, function () {
   </div>
 </section>
 
+<!-- TURNIER-PRÄSENTATIONEN -->
+<section class="cl" id="turnierpresi">
+  <div class="sec-h"><span class="num">18b</span><h2>Turnier-Präsentationen &amp; Tagesablauf</h2></div>
+  <p class="sec-sub">Die <b>Intro-Präsi am Turniermorgen</b> ist ein wiederkehrendes Format: eine self-contained HTML-Datei, die vor Ort am Beamer/TV durchgeklickt wird, während die Halle voll ist. Sie erklärt Ablauf, Modus und Hausregeln in ~3 Minuten. Aufbau, Optik und der grösste Teil des Inhalts sind <b>jedes Mal gleich</b> — nur Datum, Disziplinen, Zeiten und ein paar Tagesangaben ändern sich. Referenz: <code>TFCZ-STS-Zuerich-2026-Intro-Samstag.html</code> im Projekt-Root.</p>
+
+  <div class="demo col">
+    <span class="tag">Format &amp; Technik (verbindlich)</span>
+    <div style="width:100%; overflow-x:auto">
+    <table class="btable">
+      <tr><th>Punkt</th><th>Regel</th></tr>
+      <tr><td>Datei</td><td><b>Eine self-contained HTML-Datei</b>, Fotos und Logos als Base64 eingebettet. Im Clublokal gibt es kein verlässliches Netz — die Präsi muss offline laufen. Ablage: Projekt-Root <code>TFCZ-v3/</code>.</td></tr>
+      <tr><td>Hintergrund</td><td>Navy-Verlauf <code>linear-gradient(180deg,#0d273d,#0a1f31,#081826)</code>. <b>Nie hell/hellblau</b> — dunkel wirkt hochwertiger. Kein Dark-Mode-Umschalter.</td></tr>
+      <tr><td>Brand-Line</td><td>Blaue Linie ganz oben, goldene ganz unten am Viewport (<code>body::before</code> / <code>body::after</code>, ~5px) — die Signatur trägt die ganze Seite, nicht jede Box.</td></tr>
+      <tr><td>Foto-Karussell</td><td>Fotos laufen im Hintergrund durch — <b>eigener Timer (~3 s), unabhängig vom Slide</b>. Bilder vor dem Start per <code>img.decode()</code> dekodieren, sonst flackert der erste Wechsel.</td></tr>
+      <tr><td>Scrim</td><td>Standard eher transparent, damit die Fotos sichtbar bleiben. Für <b>textreiche Folien</b> ein dichteres <code>#scrim.dense</code> zuschalten (Lesbarkeit schlägt Foto).</td></tr>
+      <tr><td>Folienwechsel</td><td><b>Morph</b>: Crossfade + leichtes Scale + kurzer Blur (~.55–.65 s) — nie ein harter Schnitt.</td></tr>
+      <tr><td>Logo</td><td>Wappen weiss (<code>logo-crest-white.png</code>) klein oben links als dezente Dauer-Präsenz. Das horizontale Logo steht <b>nur auf Titel- und Schlussfolie</b> mittig — nicht auf jeder Folie (kollidiert mit der Headline).</td></tr>
+      <tr><td>Typo &amp; Dichte</td><td><b>Grosse Schrift, wenig Whitespace, icon-forward.</b> Stichwörter statt Sätze — die Bildschirme vor Ort sind klein und die Leute stehen weit weg.</td></tr>
+      <tr><td>Icon-Cards</td><td>Frosted Navy mit farbiger Links-Linie: <b style="color:#5ca7dc">blau = Info</b> · <b style="color:#cda857">gold = gilt / bitte so</b> · <b style="color:#da2929">rot = Verbot / kritisch</b>. Icons immer Lucide, nie Emojis.</td></tr>
+      <tr><td>Rot</td><td>Nur <b>ein</b> Rot: Brand-Rot <code>#da2929</code>. Nie zwei Rottöne mischen.</td></tr>
+      <tr><td>Fotos</td><td>Nur Bilder mit <b>mehreren Personen</b> — keine Einzelporträts. Quelle: <code>assets/fotos/galerie/full/*.webp</code>, Auswahl über <code>galerie/persons_by_photo.json</code> (≥3 Personen). Auf ~1600px / JPEG q72 rechnen, dann einbetten (Deck bleibt ~3 MB).</td></tr>
+      <tr><td>Steuerung</td><td><code>← →</code> / Klick links-rechts blättern · <b><code>A</code> = Auto-Lauf</b> mit Fortschrittsbalken (Sekunden je Folie im <code>SEC</code>-Array) · <b><code>N</code> = Sprech-Notizen</b> · <b><code>F</code> = Vollbild</b>. Hinweiszeile unten links immer mitliefern.</td></tr>
+      <tr><td>Sprech-Notizen</td><td>Jede Folie trägt ein <b>ausformuliertes</b> <code>data-note</code> — das ist der Text, den der Moderator vorliest. Nicht Stichwörter, sondern ganze Sätze.</td></tr>
+      <tr><td>Länge</td><td>~12 s pro Folie, ~15 Folien ≈ <b>3 Minuten</b>. Länger hört vor Ort niemand zu.</td></tr>
+      <tr><td>Motion</td><td><code>prefers-reduced-motion</code> respektieren (Übergänge kurz, Zahlen-Counter springen direkt auf den Endwert).</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="demo col">
+    <span class="tag">Standard-Dramaturgie — diese Reihenfolge jedes Mal</span>
+    <div style="width:100%; overflow-x:auto">
+    <table class="btable">
+      <tr><th>#</th><th>Folie</th><th>Was drauf gehört</th></tr>
+      <tr><td>1</td><td>Cover</td><td>Logo, Turniername, Datum/Wochentag, Tages-Typ (Doppel/Einzel), Preisgeld als Pill.</td></tr>
+      <tr><td>2</td><td>Einordnung</td><td>Warum dieser Tag besonders ist — Riesenzahlen mit Count-up (Tische, Teams, Preisgeld). Immer mit <b>Dank an die freiwilligen Helfer</b>.</td></tr>
+      <tr><td>3</td><td>Ablauf</td><td>Zeitstrahl: Halle offen · Anmeldeschluss · Start Quali · ggf. 2. Session. Dazu: <b>15 Minuten vor Disziplin-Start vor Ort sein</b>.</td></tr>
+      <tr><td>4</td><td>Disziplinen</td><td>Gekachelt, plus die Alters-/Zulassungsregel (Senior-Jahrgang, Junior-Jahrgang, Amateur gratis für Open-Spieler).</td></tr>
+      <tr><td>5</td><td>Modus</td><td>Quali-Runden &amp; Satzlänge · KO-Modus · „nach ITSF-Regeln".</td></tr>
+      <tr><td>6</td><td>Ergebnis-Erfassung</td><td><b>Die wichtigste Folie.</b> Resultat sofort selbst eintragen · selbst nachschauen, wann man dran ist · wir rufen die Spiele nicht aus.</td></tr>
+      <tr><td>7</td><td>Tempo</td><td>Selbstständig an den Tisch · max. 2 Min. Einspielen · Nichtantreten = Verwarnung bis Satzverlust · nichts auf den Tischen.</td></tr>
+      <tr><td>8</td><td>Stream-Tisch</td><td>Welcher Tisch gestreamt wird, dort besonders zügig spielen — <b>Kamera läuft, Mikrofone sind an</b>.</td></tr>
+      <tr><td>9</td><td>Hausregeln</td><td>Rauchen · WC · Bar · WLAN/Bälle (siehe Dauerbrenner unten).</td></tr>
+      <tr><td>10</td><td>Kleiderordnung</td><td>Sportkleidung obligatorisch, keine Jeans — Vorgabe STF/ITSF, sonst Ausschluss.</td></tr>
+      <tr><td>11</td><td>Verpflegung</td><td>Wie bestellt wird und bis wann · Bar-Angebot · „fragt uns, wir empfehlen gerne".</td></tr>
+      <tr><td>12</td><td>Fotos &amp; Fairplay</td><td>Foto-/Filmaufnahmen können veröffentlicht werden — wer nicht möchte, sagt Bescheid. Passiver Schiedsrichter, wo angeboten.</td></tr>
+      <tr><td>13</td><td>Chef des Tages</td><td>Ansprechperson für alles — <b>nur Vorname</b>, kein Nachname.</td></tr>
+      <tr><td>14</td><td>Social &amp; Mitglied</td><td><code>@tischfussballclubzuerich</code> (Instagram &amp; YouTube, identischer Handle) · Mitglied werden über <code>tfcz.ch</code>.</td></tr>
+      <tr><td>15</td><td>Schluss</td><td>Logo, „Viel Spass und gutes Spiel", Aufruf bis zum Final zu bleiben.</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="demo col">
+    <span class="tag">Dauerbrenner — gilt an jedem Turnier, muss nicht neu recherchiert werden</span>
+    <ol class="check">
+      <li><b>Der Stream läuft auf Tisch 1 — die Mikrofone sind IMMER an.</b> Kamera läuft durchgehend; auf dem Stream-Tisch besonders zügig spielen, keine Pausen am Tisch.</li>
+      <li><b>Rauchen nur draussen</b> — nie im Lokal.</li>
+      <li><b>WC: den Gang hinten durch, dann rechts.</b></li>
+      <li><b>Hinter die Bar geht nur, wer Barbetrieb macht.</b> Keine Ausnahmen, auch nicht für Mitglieder.</li>
+      <li><b>Kein WLAN im Lokal.</b></li>
+      <li><b>Bälle werden nicht gestellt</b> — es gibt sie an der Bar zu kaufen.</li>
+      <li><b>Keine Getränke oder Esswaren auf den Tischen.</b></li>
+      <li><b>Wir rufen die Spiele nicht aus.</b> Jeder schaut selbst im Turniersystem (Coral / <code>app.tablesoccer.org</code>) nach, wann und wo er spielt, und kommt selbstständig an den Tisch.</li>
+      <li><b>Resultate tragen die Spieler selbst ein — sofort nach dem Spiel</b>, nicht gesammelt später. Nur so kommen wir durch den Tag.</li>
+      <li><b>Maximal 2 Minuten Einspielen</b>, besonders auf den Stream-Tischen.</li>
+      <li><b>Nicht antreten = Verwarnung</b>, die bis zum Satzverlust führen kann.</li>
+      <li><b>Sportkleidung ist Pflicht, keine Jeans</b> (Vorgabe STF/ITSF) — sonst droht der Ausschluss.</li>
+      <li><b>Mindestens 15 Minuten vor Disziplin-Start vor Ort sein.</b></li>
+      <li><b>Foto- und Filmaufnahmen</b> können von Verband und Club verwendet werden — wer das nicht möchte, meldet sich bei der Turnierleitung.</li>
+      <li><b>Der Ort heisst immer „Zürich"</b>, nie „Wipkingen". Adresse: Landenbergstrasse 10 · 8037 Zürich.</li>
+      <li><b>Nie gendern</b>, Du-Form, Deutsch, CHF — wie überall bei uns.</li>
+    </ol>
+  </div>
+
+  <div class="demo col">
+    <span class="tag">Pro Turnier neu setzen — diese Angaben vorher einholen</span>
+    <div style="width:100%; overflow-x:auto">
+    <table class="btable">
+      <tr><th>Angabe</th><th>Woher</th></tr>
+      <tr><td>Turniername, Datum, Wochentag, Tages-Typ</td><td>Ausschreibung / Infopaket des Turniers (PDF auf <code>s3.tablesoccer.org</code>)</td></tr>
+      <tr><td>Disziplinen des Tages, Zulassungs-Jahrgänge</td><td>Infopaket</td></tr>
+      <tr><td>Hallenöffnung, Anmeldeschluss, Start Qualifikation</td><td>Infopaket</td></tr>
+      <tr><td>Modus (Quali-Runden, Satzlänge, KO)</td><td>Infopaket</td></tr>
+      <tr><td>Preisgeld, Anzahl Tische, max. Teams</td><td>Infopaket</td></tr>
+      <tr><td>Chef des Tages (Vorname)</td><td>Vasco / Turnierleitung</td></tr>
+      <tr><td>Essen: wie bestellt wird und bis wann</td><td>Vasco / Bar-Team</td></tr>
+      <tr><td>Welche Tische gestreamt werden</td><td>Vasco / Stream-Team</td></tr>
+      <tr><td>Side Events (z. B. Crazy DYP) und ob dafür pausiert wird</td><td>Vasco</td></tr>
+      <tr><td>Vereinszahlen (Mitglieder, Turniere, Teilnahmen)</td><td>Vault <code>wiki/tfcz/verein.md</code> — nie schätzen</td></tr>
+    </table>
+    </div>
+  </div>
+</section>
+
 <!-- CHECKLISTE -->
 <section class="cl" id="checkliste">
   <div class="sec-h"><span class="num">19</span><h2>Checkliste vor dem Ausliefern</h2></div>
@@ -12755,6 +12850,7 @@ TFCZ.portal.close(fensterEl, function () {
     <div style="width:100%; overflow-x:auto">
     <table class="btable">
       <tr><th>Version</th><th>Datum</th><th>Änderungen</th></tr>
+      <tr><td>v2.4</td><td>12.08.2026</td><td>Neue Sektion <b>18b · Turnier-Präsentationen &amp; Tagesablauf</b>: Format/Technik der Intro-Präsi am Turniermorgen (self-contained HTML, Navy, Foto-Karussell, Morph-Übergänge, Auto-Lauf, Sprech-Notizen), die Standard-Dramaturgie über 15 Folien, die Dauerbrenner-Hausregeln (Stream auf Tisch 1 — Mikrofone immer an, Rauchen draussen, WC hinten rechts, hinter die Bar nur das Bar-Team, kein WLAN, Resultate selbst in Coral) und die Liste der Angaben, die pro Turnier neu eingeholt werden.</td></tr>
       <tr><td>v2.3</td><td>10.07.2026</td><td>Custom-Dropdown <code>.csel</code> als verbindlicher Standard für ALLE Auswahl-Listen (Navy-Liste, Brand-Line, Drop-Cascade, Gold-Haken) inkl. Enhancer <code>tfczEnhanceSelects()</code> — native Browser-Listen verboten. Auf mitglied.html übernommen.</td></tr>
       <tr><td>v2.2</td><td>10.07.2026</td><td>Select-Feld brand-konform: <code>appearance:none</code> + eigener Chevron statt nativer Browser-Pfeile (Fokus = goldener Chevron), dunkle Options — auch auf mitglied.html nachgezogen. Fix: fehlende <code>--bounce</code>-Variable definiert (Level-Up, Sterne-Rating und Emblem-Pop blieben unsichtbar/abgeschnitten, weil ihre Animationen auf <code>var(--bounce)</code> zeigten).</td></tr>
       <tr><td>v2.1</td><td>10.07.2026</td><td>Wirbel-Bug behoben (globales Modul bg-swirl.js statt Inline-Altstand mit Dauer-Idle) · neue Regel „Elevation nur für Schwebendes" (Schatten decken das Punktfeld nie zu) · Element-Galerien: Eingabe-Controls, Navigations-Elemente, Feedback &amp; Status, Daten &amp; Listen · Starter-Template · „HTML kopieren" je Sektion · Tokens-Copy · Versionierung.</td></tr>

@@ -1074,40 +1074,10 @@ const FORMATS={
   reel:{name:"Reel Animiert (HTML 9:16)",grp:"Animiert",w:1080,h:1920,doc:true},
   bg_16_9:{name:"Bildschirm-Hintergrund (16:9)",grp:"Screen",w:1920,h:1080,bgOnly:true},
   stream_1080:{name:"Livestream-Overlay (16:9)",grp:"Stream",w:1920,h:1080,streamOnly:true},
-  stream_fb:{name:"Livestream-Fallback (Thumbnail)",grp:"Stream",w:1280,h:720,streamOnly:true},
-  elite_thumb:{name:"Elite Thumbnail (16:9)",grp:"Elite",w:1280,h:720,eliteOnly:true},
 };
-const TPLNAME={dyp:"Dyp",kase:"KäseKick",profi:"PRO",rank:"Rangliste",events:"Events",yt:"Youtube",elite:"Elite",bg:"Hintergründe",stream:"Stream-Overlay"};
-const ORDER=["dyp","kase","profi","rank","events","yt","elite","bg","stream"];
+const TPLNAME={dyp:"Dyp",kase:"KäseKick",profi:"PRO",rank:"Rangliste",events:"Events",yt:"Youtube",bg:"Hintergründe",stream:"Stream-Overlay"};
+const ORDER=["dyp","kase","profi","rank","events","yt","bg","stream"];
 const DEF={
-/* ===== ELITE (ITSF / STS / SM / WM) — Thumbnail 1280x720 =====
-   1:1-Nachbau der YouTube-Thumbnails fuer den Elite-Turniertag.
-   Raster: Foto links, goldene Doppel-Diagonale, Farbflaeche rechts, Textblock
-   parallel zur Diagonale, Badges darunter, Adresse als Fussleiste.
-   JEDES Teil ist ein eigenes Element (Foto, Scrim, Flaeche, beide Linien, Wortmarke,
-   Kicker-Strich, Kicker, beide Headline-Zeilen, Preisgeld, drei Badges, Fussleiste,
-   Adresse) — nichts ist gruppiert, alles einzeln editier- und verschiebbar.
-   Zwei Varianten ueber das Dropdown: Doppel-Tag und Einzel-Tag. */
- elite:{layout:"elite",variant:"doppel",bg:"navy",dark:0,els:[
-  {id:"el_photo",name:"Foto (links)",type:"image",src:"assets/fotos/elite/doppel.jpg"},
-  {id:"el_scrim",name:"Foto-Abdunklung",type:"shape"},
-  {id:"el_panel",name:"Farbflaeche rechts",type:"shape"},
-  {id:"el_edge2",name:"Goldlinie duenn",type:"shape"},
-  {id:"el_edge",name:"Goldlinie breit",type:"shape"},
-  {id:"el_wordmark",name:"Wortmarke",type:"image"},
-  {id:"el_kickline",name:"Kicker-Strich",type:"shape"},
-  {id:"el_kicker",name:"Kicker",type:"text",text:"STS26",color:"#ffffffc7",weight:900,ls:0.20,size:23},
-  {id:"el_num",name:"Titel Zeile 1",type:"text",text:"ITSF250",color:"white",weight:900,ls:0.005,size:56},
-  {id:"el_city",name:"Titel Zeile 2",type:"text",text:"ZÜRICH",color:"gold2",weight:900,ls:-0.02,size:108},
-  {id:"el_prize",name:"Badge Preisgeld",type:"text",text:"CHF 2'900 Preisgeld",color:"white",weight:900,size:32},
-  {id:"el_b1",name:"Badge 1",type:"text",text:"5 Doppel-Disziplinen",color:"white",weight:900,size:21},
-  {id:"el_b2",name:"Badge 2",type:"text",text:"14 Tische",color:"white",weight:900,size:21},
-  {id:"el_b3",name:"Badge 3",type:"text",text:"60 Teams",color:"white",weight:900,size:21},
-  {id:"el_venuebar",name:"Fussleiste",type:"shape"},
-  {id:"el_linetop",name:"Brand-Line oben (blau)",type:"shape"},
-  {id:"el_linebot",name:"Brand-Line unten (gold)",type:"shape"},
-  {id:"el_venue",name:"Adresse",type:"text",text:"Tischfussball Club Zürich  ·  Landenbergstrasse 10 · 8037 Zürich",color:"#ffffffdb",weight:800,size:20}
- ]},
  dyp:{layout:"dyp",bg:"a",dark:0,els:[
   {id:"logo",name:"Logo",type:"image",size:120},
   {id:"kicker",name:"Kicker",type:"text",color:"white",weight:900,size:19,text:"TISCHFUSSBALL TURNIER"},
@@ -1151,13 +1121,6 @@ const DEF={
  stream:{layout:"stream",v:2,variant:"A",lw:6,rad:30,els:[
   {id:"logo",name:"Logo",type:"image",size:16.5},
   {id:"addr",name:"Adresse",type:"text",text:"LANDENBERGSTRASSE 10  ·  8037 ZÜRICH",color:"white",weight:800,ls:0.02,size:18},
-  /* Fallback-Thumbnail-Elemente (nur sichtbar wenn Format = stream_fb) */
-  {id:"fb_bg",name:"Fallback · Foto",type:"image",size:100},
-  {id:"fb_kicker",name:"Fallback · Kicker",type:"text",text:"LIVE STREAM AUS ZÜRICH",color:"gold2",weight:900,ls:0.22,size:22},
-  {id:"fb_t1",name:"Fallback · Titel Zeile 1",type:"text",text:"WO IN ZÜRICH",color:"white",weight:900,size:84},
-  {id:"fb_t2",name:"Fallback · Titel Zeile 2",type:"text",text:"getöggelt wird.",color:"gold",weight:900,size:84},
-  {id:"fb_addr",name:"Fallback · Adresse",type:"text",text:"Landenbergstrasse 10  ·  8037 Zürich  ·  tfcz.ch",color:"white",weight:900,ls:0.06,size:20},
-  {id:"fb_live",name:"Fallback · Live-Pill",type:"text",text:"LIVESTREAM",color:"navy",weight:900,ls:0.22,size:14,fill:"gold",brad:20},
  ]},
  profi:{layout:"profi",els:[
   {id:"logo",name:"Logo",type:"image",slot:"logo",size:120},
@@ -1311,7 +1274,7 @@ window.addEventListener('beforeunload',function(e){
   e.preventDefault(); e.returnValue='';
   return '';
 });
-var READY={dyp:1,kase:1,profi:1,yt:1,elite:1,bg:1,stream:1};
+var READY={dyp:1,kase:1,profi:1,yt:1,bg:1,stream:1};
 /* ===== Rolle =====
    Läuft der echte Login (backend/), kommt die Rolle vom Server über window.TFCZ_USER —
    dann ist die Admin-Freigabe an ein echtes Konto gebunden, nicht an das im Code sichtbare
@@ -1655,7 +1618,7 @@ function confirmLeaveEdit(next){ var ov=document.getElementById('cleOv'); if(!ov
   ov.onclick=function(e){ if(e.target===ov)ov.style.display='none'; }; }
 function load(){ if(typeof BAKED!=='undefined'&&BAKED){ try{ var _bk=JSON.parse(BAKED); if(_bk&&_bk.tpl){ Object.keys(_bk.tpl).forEach(function(k){ if(DEF[k])DEF[k]=_bk.tpl[k]; }); } }catch(e){} }
   try{const s=rebuildPages(JSON.parse(localStorage.getItem(LSKEY))); if(s&&s.data&&s.data.dyp&&s.data.kase){ if(!s.data.profi||!s.data.profi.els||!s.data.profi.els.some(e=>e.id==='ghost'))s.data.profi=clone(DEF.profi); if(!s.data.profi.aus)s.data.profi.aus=clone(DEF.profi.aus); if(!s.data.yt||!s.data.yt.els||!s.data.yt.els.some(e=>e.id==='eyebrow'))s.data.yt=clone(DEF.yt); if(!s.data.rank)s.data.rank=clone(DEF.rank); (s.data.rank.ranks||[]).forEach((r,ri)=>['p1','p2'].forEach((k,pi)=>{const p=r[k];if(!p)return; if(p.name!==undefined&&p.vorname===undefined){const t=(p.name||'').trim().split(/\s+/);p.vorname=t.shift()||'';p.nachname=t.join(' ');delete p.name;} if(!p.src||/^assets\/players\//.test(p.src))p.src='bg:'+['a','b','c'][(ri*2+pi)%3];})); if(!s.data.events)s.data.events=clone(DEF.events); if(!s.data.kase||s.data.kase.layout!=='kase')s.data.kase=clone(DEF.kase); if(s.data.kase&&s.data.kase.layout==='kase'&&s.data.kase.bg==='a')s.data.kase.bg='navy'; if(s.data.kase&&s.data.kase.els&&!s.data.kase.els.some(function(e){return e.id==='cheese';}))s.data.kase.els.unshift({id:'cheese',name:'K\u00e4se oben',type:'image'}); if(s.data.kase&&s.data.kase.els){var _st=s.data.kase.els.find(function(e){return e.id==='subttl';}); if(_st&&_st.text==='T\u00f6ggele \u00b7 Walliser Raclette \u00b7 gute Leute'){_st.text='Plausch-T\u00f6ggeliturnier f\u00fcr alle'; _st.size=30;}} if(!s.library)s.library=[]; return s;}}catch(e){}
-  return {active:"kase",fmt:"ig_feed",library:[],templates:{},captions:{},data:{dyp:clone(DEF.dyp),kase:clone(DEF.kase),profi:clone(DEF.profi),rank:clone(DEF.rank),events:clone(DEF.events),yt:clone(DEF.yt),elite:clone(DEF.elite),bg:clone(DEF.bg),stream:clone(DEF.stream)}}; }
+  return {active:"kase",fmt:"ig_feed",library:[],templates:{},captions:{},data:{dyp:clone(DEF.dyp),kase:clone(DEF.kase),profi:clone(DEF.profi),rank:clone(DEF.rank),events:clone(DEF.events),yt:clone(DEF.yt),bg:clone(DEF.bg),stream:clone(DEF.stream)}}; }
 function isProfi(){return cur().layout==='profi';}
 function isYt(){return cur().layout==='yt';}
 function isAus(){return state.fmt==='aus';}
@@ -1665,7 +1628,6 @@ function isKase(){return cur().layout==='kase';}
 function isBg(){return cur().layout==='bg';}
 function isDyp(){return cur().layout==='dyp';}
 function isStream(){return cur().layout==='stream';}
-function isElite(){return cur().layout==='elite';}
 function isReel(){return state.fmt==='reel';}
 function isDoc(){const f=FORMATS[state.fmt];return !!(f&&f.doc);}
 var _saveT=null;
@@ -2311,9 +2273,6 @@ function streamOverlaySVG(o){
 }
 function buildStream(){ const P=document.getElementById('profi'); const W=CW(),H=CH(),k=W/1920;
   col.style.display='none'; bgimg.style.display='none'; const sc=document.getElementById('scrim'); if(sc)sc.style.display='none'; darklayer.style.display='none';
-  /* Livestream-Fallback (Thumbnail 1280×720): eigenständiges Layout mit Foto + Text-Bausteinen.
-     Wiederverwendet die bestehende .item + wireItems-Mechanik (Doppelklick = Text, Ziehen = Position). */
-  if(state.fmt==='stream_fb'){ buildStreamFb(); return; }
   /* Transparenz: Canvas + Fläche durchsichtig, feste Marken-Streifen ausblenden */
   canvas.style.background='transparent';
   const _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot'); if(_lt)_lt.style.display='none'; if(_lb)_lb.style.display='none';
@@ -2338,257 +2297,6 @@ function buildStream(){ const P=document.getElementById('profi'); const W=CW(),H
   wireItems(P);
   /* Adresse einzeilig halten (wireItems setzt Text-Items auf pre-line) */
   var _an=P.querySelector('.item[data-id="addr"]'); if(_an)_an.style.whiteSpace='nowrap';
-}
-
-
-/* ===== ELITE-Thumbnail: Renderer =====
-   Alle Masse sind in der Basis 1280x720 notiert und mit k skaliert — so bleibt das
-   Layout identisch, egal in welcher Vorschaugroesse das Studio gerade steht.
-   Die Diagonale laeuft von x=620 (oben) auf x=474 (unten): -146px auf 720px.
-   Der Textblock steht parallel dazu; die Startwerte unten sind am fertigen
-   Thumbnail gemessen, nicht geschaetzt. */
-const ELITE_GEO={dxTop:620,dxBot:474,edge:15,gap2:26,thin2:5};
-const ELITEVAR={
-  doppel:{photo:"assets/fotos/elite/doppel.jpg",kicker:"STS26",num:"ITSF250",city:"ZÜRICH",
-          prize:"CHF 2'900 Preisgeld",b1:"5 Doppel-Disziplinen",b2:"14 Tische",b3:"60 Teams"},
-  einzel:{photo:"assets/fotos/elite/einzel.jpg",kicker:"STS26",num:"ITSF250",city:"ZÜRICH",
-          prize:"CHF 2'900 Preisgeld",b1:"6 Einzel-Disziplinen",b2:"14 Tische",b3:"60 Teilnehmer"}
-};
-function applyEliteVariant(v){
-  var p=ELITEVAR[v]; if(!p)return; var d=state.data.elite; d.variant=v;
-  function set(id,t){ var el=(d.els||[]).find(function(x){return x.id===id;}); if(el)el.text=t; }
-  set('el_kicker',p.kicker); set('el_num',p.num); set('el_city',p.city);
-  set('el_prize',p.prize); set('el_b1',p.b1); set('el_b2',p.b2); set('el_b3',p.b3);
-  var ph=(d.els||[]).find(function(x){return x.id==='el_photo';});
-  /* Ein selbst gewaehltes Foto bleibt stehen — getauscht wird nur der Standard. */
-  if(ph && (!ph.src || /assets\/fotos\/elite\//.test(ph.src))) ph.src=p.photo;
-  save(); rebuild(); if(typeof buildFmtHost==='function')buildFmtHost();
-}
-function buildElite(){
-  const P=document.getElementById('profi'); const W=CW(),H=CH(),k=W/1280;
-  const C=COLORS, NAVY=C.navy||'#0d273d', BLUE=C.blue||'#5ca7dc', GOLD=C.gold||'#cda857';
-  const _o=cur(); _o.els=_o.els||[];
-  /* Sanftes Nachruesten: aeltere gespeicherte Staende bekommen fehlende Teile ergaenzt,
-     ohne dass Text oder Position ueberschrieben werden. */
-  (DEF.elite.els||[]).forEach(function(d){ if(!_o.els.some(function(x){return x.id===d.id;})) _o.els.push(clone(d)); });
-  canvas.style.background=NAVY;
-  const _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot');
-  /* Die globalen Balken bleiben aus: die Brand-Line ist hier ein eigenes, editierbares Element. */
-  if(_lt)_lt.style.display='none';
-  if(_lb)_lb.style.display='none';
-  P.style.display='block'; P.classList.remove('streamlay','streamfblay','ytlay','bglay','kaselay');
-  P.classList.add('elitelay'); P.style.background=NAVY;
-  const g=id=>evEl(getEl(id)), e=esc, vis=el=>el&&el.vis!==false;
-  const FS=(id,fb)=>Math.round((((g(id)&&g(id).size)||fb))*k);
-  const WT=id=>((g(id)&&g(id).weight)||900);
-  const LS=(id,fb)=>{var v=(g(id)&&g(id).ls); return (v!=null?v:fb);};
-  const px=v=>Math.round(v*k)+'px';
-  const G=ELITE_GEO, DT=G.dxTop, DB=G.dxBot;
-  const poly=pts=>'polygon('+pts.map(function(p){return Math.round(p[0]*k)+'px '+Math.round(p[1]*k)+'px';}).join(',')+')';
-  const PHOTO_DEFAULT=(ELITEVAR[_o.variant||'doppel']||ELITEVAR.doppel).photo;
-  /* Badge-Grundstil — einmal definiert, von allen vier Badges benutzt. */
-  const badgeBox='display:inline-flex;align-items:center;white-space:nowrap;'
-    +'font-family:\'Nunito Sans\',system-ui,sans-serif;';
-  /* Zahl vorne wird gold gesetzt (wie im Original), Rest weiss. */
-  function numSplit(t){ var m=String(t).match(/^(\d[\d'’.]*)\s+([\s\S]*)$/);
-    return m ? '<b style="color:'+(C.gold2||'#e9c475')+';font-weight:900">'+e(m[1])+'</b>&nbsp;'+e(m[2]) : e(t); }
-  let h='';
-  /* 1) Foto links (tauschbar: Klick aufs Bild oder Datei darauf ziehen) */
-  if(vis(g('el_photo'))){ const B=g('el_photo');
-    h+='<img class="item" data-id="el_photo" src="'+(B.src||PHOTO_DEFAULT)+'" style="position:absolute;left:0;top:0;max-width:none;'
-      +'width:'+px(660)+';height:'+px(720)+';object-fit:cover;z-index:1;'
-      +'clip-path:'+poly([[0,0],[DT,0],[DB,720],[0,720]])+'">';
-  }
-  /* 2) Abdunklung ueber dem Foto — haelt die Wortmarke lesbar */
-  if(vis(g('el_scrim')))
-    h+='<div class="item" data-id="el_scrim" style="position:absolute;left:0;top:0;max-width:none;width:'+px(660)+';height:'+px(720)+';z-index:2;'
-      +'clip-path:'+poly([[0,0],[DT,0],[DB,720],[0,720]])+';'
-      +'background:linear-gradient(180deg,rgba(6,16,26,.62) 0%,rgba(6,16,26,.10) 34%,rgba(6,16,26,.34) 100%)"></div>';
-  /* 3) Farbflaeche rechts — Goldschein aus der oberen rechten Ecke auf Navy */
-  if(vis(g('el_panel')))
-    h+='<div class="item" data-id="el_panel" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:3;'
-      +'clip-path:'+poly([[DT,0],[1280,0],[1280,720],[DB,720]])+';'
-      +'background:radial-gradient(120% 96% at 100% 0%,rgba(240,207,133,.92) 0%,rgba(205,168,87,.62) 26%,rgba(120,96,48,.30) 48%,rgba(13,39,61,0) 72%),'
-      +'linear-gradient(158deg,#173a56,#0d273d 52%,#081a29)"></div>';
-  /* 4) Duenne zweite Goldlinie (Elite-Signatur) */
-  if(vis(g('el_edge2')))
-    h+='<div class="item" data-id="el_edge2" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:4;'
-      +'clip-path:'+poly([[DT-G.gap2,0],[DT-G.gap2+G.thin2,0],[DB-G.gap2+G.thin2,720],[DB-G.gap2,720]])+';'
-      +'background:linear-gradient(180deg,#e9c475,#a8863f)"></div>';
-  /* 5) Breite Goldlinie */
-  if(vis(g('el_edge')))
-    h+='<div class="item" data-id="el_edge" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:5;'
-      +'clip-path:'+poly([[DT,0],[DT+G.edge,0],[DB+G.edge,720],[DB,720]])+';'
-      +'background:linear-gradient(180deg,#f0cf85,#cda857 50%,#8d6f33)"></div>';
-  /* 6) Wortmarke oben links (geteiltes Asset, referenziert) */
-  if(vis(g('el_wordmark'))){ const L=g('el_wordmark');
-    h+='<img class="item" data-id="el_wordmark" src="'+(L.src||'assets/img/logo-horizontal-white.png')+'" style="position:absolute;left:'+px(44)+';top:'+px(38)+';'
-      +'height:'+px(74)+';width:auto;z-index:20;filter:drop-shadow(0 5px 16px rgba(0,0,0,.70))">';
-  }
-  /* 7) Kicker-Strich (waagrecht, Gold) */
-  if(vis(g('el_kickline')))
-    h+='<div class="item" data-id="el_kickline" style="position:absolute;left:'+px(633)+';top:'+px(188)+';'
-      +'width:'+px(46)+';height:'+px(4)+';background:'+GOLD+';z-index:21"></div>';
-  /* 8) Kicker-Text */
-  if(vis(g('el_kicker'))){ const K=g('el_kicker');
-    h+='<div class="item" data-id="el_kicker" style="position:absolute;left:'+px(693)+';top:'+px(175)+';z-index:21;'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('el_kicker')+';font-size:'+FS('el_kicker',23)+'px;'
-      +'letter-spacing:'+LS('el_kicker',0.20)+'em;text-transform:uppercase;white-space:nowrap;'+txtStyle(K.color)+'">'+e(K.text)+'</div>';
-  }
-  /* 9) Titel Zeile 1 — kursiv geneigt, Drehpunkt Zeilenmitte */
-  if(vis(g('el_num'))){ const T=g('el_num');
-    h+='<div class="item" data-id="el_num" style="position:absolute;left:'+px(621)+';top:'+px(222)+';z-index:21;'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('el_num')+';font-size:'+FS('el_num',56)+'px;line-height:1;'
-      +'letter-spacing:'+LS('el_num',0.005)+'em;white-space:nowrap;transform:skewX(-9deg);transform-origin:left center;'
-      +txtStyle(T.color)+'">'+e(T.text)+'</div>';
-  }
-  /* 10) Titel Zeile 2 */
-  if(vis(g('el_city'))){ const T=g('el_city');
-    h+='<div class="item" data-id="el_city" style="position:absolute;left:'+px(603)+';top:'+px(286)+';z-index:21;'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('el_city')+';font-size:'+FS('el_city',108)+'px;line-height:1;'
-      +'letter-spacing:'+LS('el_city',-0.02)+'em;white-space:nowrap;transform:skewX(-9deg);transform-origin:left center;'
-      +txtStyle(T.color)+'">'+e(T.text)+'</div>';
-  }
-  /* 11) Preisgeld-Badge — fuehrt die Reihe an, deutlich groesser als die anderen.
-         Text "CHF 2'900 Preisgeld": erstes Wort = Waehrung, letztes = Label, Rest = Zahl. */
-  if(vis(g('el_prize'))){ const B=g('el_prize'), fs=FS('el_prize',32);
-    var tk=String(B.text||'').trim().split(/\s+/), cur0=tk.shift()||'', lab=tk.pop()||'', val=tk.join(' ');
-    h+='<div class="item" data-id="el_prize" style="position:absolute;left:'+px(579)+';top:'+px(422)+';z-index:21;'+badgeBox
-      +'gap:'+px(9)+';padding:'+px(13)+' '+px(22)+';border-radius:'+px(12)+';'
-      +'background:linear-gradient(155deg,rgba(233,196,117,.26),rgba(9,21,33,.90));'
-      +'border:'+Math.max(1,Math.round(2*k))+'px solid rgba(205,168,87,.85);box-shadow:0 '+px(12)+' '+px(30)+' rgba(0,0,0,.42);'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('el_prize')+';font-size:'+fs+'px;letter-spacing:-0.015em;'+txtStyle(B.color)+'">'
-      +'<span style="font-size:'+Math.round(fs*0.56)+'px;color:'+(C.gold2||'#e9c475')+'">'+e(cur0)+'</span>'
-      +'<span>'+e(val)+'</span>'
-      +'<span style="font-size:'+Math.round(fs*0.63)+'px;letter-spacing:.09em;text-transform:uppercase;color:'+(C.gold2||'#e9c475')+'">'+e(lab)+'</span>'
-      +'</div>';
-  }
-  /* 12) Die drei kleinen Badges — je ein eigenes Element */
-  [['el_b1',563],['el_b2',848],['el_b3',1004]].forEach(function(b){
-    if(!vis(g(b[0])))return; const B=g(b[0]), fs=FS(b[0],21);
-    h+='<div class="item" data-id="'+b[0]+'" style="position:absolute;left:'+px(b[1])+';top:'+px(509)+';z-index:21;'+badgeBox
-      +'padding:'+px(10)+' '+px(17)+';border-radius:'+px(12)+';background:rgba(9,21,33,.86);'
-      +'border:'+Math.max(1,Math.round(2*k))+'px solid rgba(205,168,87,.42);'
-      +'font-weight:'+WT(b[0])+';font-size:'+fs+'px;letter-spacing:.04em;'+txtStyle(B.color)+'">'+numSplit(B.text)+'</div>';
-  });
-  /* 13) Fussleiste (Verlauf) */
-  if(vis(g('el_venuebar')))
-    h+='<div class="item" data-id="el_venuebar" style="position:absolute;left:0;max-width:none;width:100%;top:'+px(632)+';height:'+px(78)+';z-index:22;'
-      +'background:linear-gradient(90deg,rgba(9,21,33,0) 0%,rgba(9,21,33,.72) 34%,rgba(9,21,33,.92) 100%)"></div>';
-  /* 14) Adresse */
-  if(vis(g('el_venue'))){ const A=g('el_venue'), fs=FS('el_venue',20);
-    h+='<div class="item" data-id="el_venue" style="position:absolute;right:'+px(44)+';top:'+px(658)+';z-index:23;'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('el_venue')+';font-size:'+fs+'px;white-space:nowrap;'
-      +txtStyle(A.color)+'">'+e(A.text)+'</div>';
-  }
-  /* 15) Brand-Line: blau OBEN, gold UNTEN — die Signatur der Marke, je ein eigenes Element */
-  if(vis(g('el_linetop')))
-    h+='<div class="item" data-id="el_linetop" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:'+px(10)+';z-index:40;background:'+BLUE+'"></div>';
-  if(vis(g('el_linebot')))
-    h+='<div class="item" data-id="el_linebot" style="position:absolute;left:0;bottom:0;max-width:none;width:100%;height:'+px(10)+';z-index:40;background:'+GOLD+'"></div>';
-  P.innerHTML=h;
-  wireItems(P);
-  /* Badges und Titel duerfen nicht umbrechen (wireItems setzt Text auf pre-line) */
-  ['el_kicker','el_num','el_city','el_prize','el_b1','el_b2','el_b3','el_venue'].forEach(function(id){
-    var n=P.querySelector('.item[data-id="'+id+'"]'); if(n)n.style.whiteSpace='nowrap'; });
-}
-
-/* ===== Livestream-Fallback (Thumbnail 1280×720) =====
-   Eigenes Layout innerhalb der Kategorie „Stream-Overlay": Foto rechts, dunkler Text-Bereich
-   links, Logo oben links, Kicker + Titel + Adresse. Jeder Baustein ist über die gemeinsame
-   .item + wireItems-Mechanik einzeln editierbar (Doppelklick) und verschiebbar (Ziehen).
-   Brand-Regeln aus DESIGN-SYSTEM.md: Blau #5ca7dc (Rahmen oben), Gold #cda857 (Rahmen unten,
-   Titel-Akzent, Kicker), Navy-Verlauf, Nunito Sans, Kein „Wipkingen" (Regel Vasco 05.08.2026). */
-function buildStreamFb(){
-  const P=document.getElementById('profi'); const W=CW(),H=CH(),k=W/1280;
-  const C=COLORS;
-  /* Sanftes Upgrade: alte gespeicherte Stream-States haben die Fallback-Elemente noch nicht.
-     Ergänzen ohne Positionen/Text zu überschreiben — wie schon für 'addr' oben gehandhabt. */
-  const _o=cur(); _o.els=_o.els||[];
-  const _fbDefaults=[
-    {id:"fb_bg",name:"Fallback · Foto",type:"image",size:100},
-    {id:"fb_kicker",name:"Fallback · Kicker",type:"text",text:"LIVE STREAM AUS ZÜRICH",color:"gold2",weight:900,ls:0.22,size:22},
-    {id:"fb_t1",name:"Fallback · Titel Zeile 1",type:"text",text:"WO IN ZÜRICH",color:"white",weight:900,size:84},
-    {id:"fb_t2",name:"Fallback · Titel Zeile 2",type:"text",text:"getöggelt wird.",color:"gold",weight:900,size:84},
-    {id:"fb_addr",name:"Fallback · Adresse",type:"text",text:"Landenbergstrasse 10  ·  8037 Zürich  ·  tfcz.ch",color:"white",weight:900,ls:0.06,size:20},
-    {id:"fb_live",name:"Fallback · Live-Pill",type:"text",text:"LIVESTREAM",color:"navy",weight:900,ls:0.22,size:14,fill:"gold",brad:20},
-  ];
-  _fbDefaults.forEach(function(dfe){ if(!_o.els.some(function(x){return x.id===dfe.id;})) _o.els.push(dfe); });
-  const NAVY=C.navy||'#0d273d', BLUE=C.blue||'#5ca7dc', GOLD=C.gold||'#cda857', GOLDLT=C.gold2||'#e9c475';
-  /* Canvas dunkel-navy (nicht transparent, das ist ein Thumbnail zum Hochladen) */
-  canvas.style.background=NAVY;
-  /* Brand-Line sichtbar (im Overlay-Modus versteckt) */
-  const _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot');
-  if(_lt){_lt.style.display='';_lt.style.background=BLUE;_lt.style.height=Math.max(4,H*0.008)+'px';}
-  if(_lb){_lb.style.display='';_lb.style.background=GOLD;_lb.style.height=Math.max(4,H*0.008)+'px';}
-  P.style.display='block'; P.classList.remove('streamlay'); P.classList.add('streamfblay'); P.style.background=NAVY;
-  const g=id=>evEl(getEl(id)), e=esc, vis=el=>el&&el.vis!==false;
-  const FS=(id,fb)=>Math.round((((g(id)&&g(id).size)||fb))*k);
-  const WT=id=>((g(id)&&g(id).weight)||900);
-  const LS=(id,fb)=>{var v=(g(id)&&g(id).ls); return (v!=null?v:fb);};
-  const HERO_DEFAULT='assets/fotos/action/action-13.jpg';
-  let h='';
-  /* 1) Foto-Hintergrund (draggable/tauschbar per Klick oder Drop) */
-  if(vis(g('fb_bg'))){
-    const bg=g('fb_bg');
-    h+='<img class="item" data-id="fb_bg" src="'+(bg.src||HERO_DEFAULT)+'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:80% 50%;z-index:1">';
-  }
-  /* 2) Dunkler Text-Bereich links (Overlay, kein .item — Deko) */
-  h+='<div style="position:absolute;left:0;top:0;bottom:0;width:65%;z-index:2;pointer-events:none;'
-    +'background:linear-gradient(95deg,rgba(6,16,26,.97) 0%,rgba(8,20,32,.94) 45%,rgba(13,39,61,.82) 68%,rgba(13,39,61,.35) 85%,rgba(13,39,61,0) 100%)"></div>';
-  /* 3) Fuss-Verlauf für Adress-Lesbarkeit */
-  h+='<div style="position:absolute;left:0;right:0;bottom:0;height:22%;z-index:3;pointer-events:none;'
-    +'background:linear-gradient(180deg,rgba(13,39,61,0) 0%,rgba(6,16,26,.55) 100%)"></div>';
-  /* 4) Logo (Reuse: bestehendes logo-Element) — bündig links, mit Abstand zur Brand-Linie */
-  if(vis(g('logo'))){
-    const L=g('logo');
-    const lw=Math.round(300*k);
-    h+='<img class="item" data-id="logo" src="'+(L.src||logoSrc())+'" style="position:absolute;left:'+Math.round(64*k)+'px;top:'+Math.round(52*k)+'px;width:'+lw+'px;height:auto;z-index:15;filter:drop-shadow(0 4px 14px rgba(0,0,0,.5))">';
-  }
-  /* 5) Kicker (gold uppercase mit Gold-Strich) */
-  if(vis(g('fb_kicker'))){
-    const K=g('fb_kicker'), fs=FS('fb_kicker',22);
-    h+='<div class="item" data-id="fb_kicker" style="position:absolute;left:'+Math.round(64*k)+'px;top:'+Math.round(270*k)+'px;z-index:12;'
-      +'display:inline-flex;align-items:center;gap:'+Math.round(14*k)+'px;'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('fb_kicker')+';font-size:'+fs+'px;letter-spacing:'+LS('fb_kicker',0.22)+'em;text-transform:uppercase;'+txtStyle(K.color)+';white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,.55)">'
-      +'<span style="width:'+Math.round(38*k)+'px;height:'+Math.round(3*k)+'px;background:'+GOLD+';border-radius:2px;display:inline-block"></span>'
-      +e(K.text)+'</div>';
-  }
-  /* 6) Titel Zeile 1 (weiss) */
-  if(vis(g('fb_t1'))){
-    const T=g('fb_t1'), fs=FS('fb_t1',84);
-    h+='<div class="item" data-id="fb_t1" style="position:absolute;left:'+Math.round(64*k)+'px;top:'+Math.round(306*k)+'px;right:'+Math.round(W*0.48)+'px;z-index:12;'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('fb_t1')+';font-size:'+fs+'px;line-height:.88;letter-spacing:-0.03em;'+txtStyle(T.color)+';'
-      +'text-shadow:0 4px 22px rgba(0,0,0,.7),0 2px 6px rgba(0,0,0,.5)">'+e(T.text)+'</div>';
-  }
-  /* 7) Titel Zeile 2 (gold) */
-  if(vis(g('fb_t2'))){
-    const T=g('fb_t2'), fs=FS('fb_t2',84);
-    h+='<div class="item" data-id="fb_t2" style="position:absolute;left:'+Math.round(64*k)+'px;top:'+Math.round((306+fs*0.95)*k)+'px;right:'+Math.round(W*0.48)+'px;z-index:12;'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('fb_t2')+';font-size:'+fs+'px;line-height:.88;letter-spacing:-0.03em;'+txtStyle(T.color)+';'
-      +'text-shadow:0 4px 22px rgba(0,0,0,.7),0 2px 6px rgba(0,0,0,.5)">'+e(T.text)+'</div>';
-  }
-  /* 8) Adresse (fb_addr) — unten links, mit Gold-Pin */
-  if(vis(g('fb_addr'))){
-    const A=g('fb_addr'), fs=FS('fb_addr',20);
-    h+='<div class="item" data-id="fb_addr" style="position:absolute;left:'+Math.round(64*k)+'px;bottom:'+Math.round(56*k)+'px;right:'+Math.round(W*0.44)+'px;z-index:12;'
-      +'display:inline-flex;align-items:center;flex-wrap:wrap;gap:'+Math.round(10*k)+'px '+Math.round(16*k)+'px;'
-      +'font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('fb_addr')+';font-size:'+fs+'px;letter-spacing:'+LS('fb_addr',0.06)+'em;'+txtStyle(A.color)+';text-shadow:0 2px 8px rgba(0,0,0,.55)">'
-      +'<span style="display:inline-block;width:'+Math.round(12*k)+'px;height:'+Math.round(12*k)+'px;border-radius:50%;background:'+GOLD+';box-shadow:0 0 0 '+Math.round(5*k)+'px rgba(233,196,117,.22)"></span>'
-      +e(A.text)+'</div>';
-  }
-  /* 9) Live-Pill (gold auf navy) — oben rechts */
-  if(vis(g('fb_live'))){
-    const LV=g('fb_live'), fs=FS('fb_live',14);
-    h+='<div class="item" data-id="fb_live" style="position:absolute;right:'+Math.round(52*k)+'px;top:'+Math.round(44*k)+'px;z-index:12;'
-      +'display:inline-flex;align-items:center;gap:'+Math.round(9*k)+'px;'
-      +'padding:'+Math.round(8*k)+'px '+Math.round(14*k)+'px;background:'+GOLD+';color:'+NAVY+';'
-      +'border-radius:'+Math.round(20*k)+'px;font-family:\'Nunito Sans\',system-ui,sans-serif;font-weight:'+WT('fb_live')+';font-size:'+fs+'px;letter-spacing:'+LS('fb_live',0.22)+'em;text-transform:uppercase;white-space:nowrap">'
-      +'<span style="width:'+Math.round(9*k)+'px;height:'+Math.round(9*k)+'px;border-radius:50%;background:'+NAVY+';display:inline-block"></span>'
-      +e(LV.text)+'</div>';
-  }
-  P.innerHTML=h;
-  wireItems(P);
 }
 
 /* ===== EIN Baustein für ALLE Flyer: Ebenen verdrahten (Single Source) =====
@@ -2675,9 +2383,8 @@ function wireItems(P){
   markSel();
   if(typeof refreshThumbs==='function')refreshThumbs();
 }
-function rebuild(){ const _pf=document.getElementById('profi'); if(_pf){_pf.classList.remove('kaselay');_pf.classList.remove('ytlay');_pf.classList.remove('bglay');_pf.classList.remove('streamlay');_pf.classList.remove('streamfblay');}
+function rebuild(){ const _pf=document.getElementById('profi'); if(_pf){_pf.classList.remove('kaselay');_pf.classList.remove('ytlay');_pf.classList.remove('bglay');_pf.classList.remove('streamlay');}
   canvas.style.background=''; { var _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot'); if(_lt)_lt.style.display=''; if(_lb)_lb.style.display=''; }
-  if(isElite()){buildElite();return;}
   if(isStream()){buildStream();return;}
   if(isBg()){buildBg();return;}
   if(isKase()){buildKase();return;}
@@ -3099,8 +2806,8 @@ function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
         const W=document.getElementById('wizard'); if(W)W.style.display='none';
         stashEdit(state.active);                 /* Zustand des bisherigen Typs sichern */
         state.active=k; sel=null; selMulti=[];
-        if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080'; else if(k==='elite')state.fmt='elite_thumb';
-        else if(state.fmt==='yt_thumb'||state.fmt==='bg_16_9'||state.fmt==='stream_1080'||state.fmt==='stream_fb'||state.fmt==='elite_thumb')state.fmt='ig_feed';
+        if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080';
+        else if(state.fmt==='yt_thumb'||state.fmt==='bg_16_9'||state.fmt==='stream_1080')state.fmt='ig_feed';
         if(state.fmt==='aus'&&k!=='profi')state.fmt='ig_feed';
         popEdit(k);                              /* Zustand des neuen Typs holen */
         save(); switchAll();
@@ -3114,61 +2821,30 @@ function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
 function positionTabInd(){ const t=document.getElementById('tabs'); if(!t)return; const b=t.querySelector('.tab.on'), ind=document.getElementById('tabInd'); if(!b||!ind)return;
   ind.style.width=b.offsetWidth+'px'; ind.style.transform='translateX('+b.offsetLeft+'px)';
   try{ b.scrollIntoView({inline:'nearest',block:'nearest'}); }catch(e){} }
-const FMTUSE={ig_story:'Instagram/Facebook Story & Reels-Cover · vollflächig 9:16.',ig_feed:'Instagram-Feed Hochformat · bester Platz im Feed.',ig_square:'Feed quadratisch · Instagram & Facebook.',wa_msg:'WhatsApp-Nachricht / Broadcast.',wa_story:'WhatsApp-Status · 9:16.',yt_thumb:'YouTube-Thumbnail · 16:9.',bg_16_9:'Bildschirm-/Desktop-Hintergrund · 1920×1080, randlos & deckend.',stream_1080:'Livestream-Overlay · 1920×1080, transparent (Video scheint durch). Für OBS/YouTube.',stream_fb:'Livestream-Fallback · YT-Thumbnail 1280×720 für Streaming-Tage ohne eigenes Motiv. Foto, Logo, Kicker, Titel, Adresse — alles einzeln editier- und verschiebbar (Doppelklick = Text, Klick + ziehen = Position).',aus:'STF-Ausschreibung als Webseite (A4-artig) zum Teilen & Drucken.',reel:'Animiertes Reel (9:16) · HTML fürs Screen-Recording.'};
+const FMTUSE={ig_story:'Instagram/Facebook Story & Reels-Cover · vollflächig 9:16.',ig_feed:'Instagram-Feed Hochformat · bester Platz im Feed.',ig_square:'Feed quadratisch · Instagram & Facebook.',wa_msg:'WhatsApp-Nachricht / Broadcast.',wa_story:'WhatsApp-Status · 9:16.',yt_thumb:'YouTube-Thumbnail · 16:9.',bg_16_9:'Bildschirm-/Desktop-Hintergrund · 1920×1080, randlos & deckend.',stream_1080:'Livestream-Overlay · 1920×1080, transparent (Video scheint durch). Für OBS/YouTube.',aus:'STF-Ausschreibung als Webseite (A4-artig) zum Teilen & Drucken.',reel:'Animiertes Reel (9:16) · HTML fürs Screen-Recording.'};
 function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)return; h.innerHTML='';
   if(state.active==='stream'){ const o=cur();
-    /* ===== Format-Umschalter (Livestream-Overlay vs. Livestream-Fallback-Thumbnail) ===== */
-    const ft=document.createElement('h3'); ft.textContent='Format'; h.appendChild(ft);
-    const fsl=document.createElement('div'); fsl.className='fmt-list';
-    const _fmts=[['stream_1080','Livestream-Overlay','1920×1080 · transparent'],['stream_fb','Livestream-Fallback','1280×720 · Thumbnail']];
-    _fmts.forEach(function(F){
-      var it=document.createElement('div'); it.className='fmt-item'+(state.fmt===F[0]?' on':'');
-      var _tw=22,_th=(F[0]==='stream_fb'?12:12);
-      it.innerHTML='<span class="fmt-thumb" style="width:'+_tw+'px;height:'+_th+'px"></span>'
-        +'<span class="fmt-nm">'+esc(F[1])+'</span><span class="dim">'+esc(F[2])+'</span>';
-      it.onclick=function(){ if(state.fmt===F[0])return; state.fmt=F[0]; save(); switchAll(); };
-      fsl.appendChild(it);
-    });
-    h.appendChild(fsl);
-
-    /* Overlay-spezifische Steuerung (Rahmen, Linien, Ecken, Adresse) — NUR beim Overlay-Format */
-    if(state.fmt==='stream_1080'){
-      const th=document.createElement('h3'); th.textContent='Rahmen-Variante'; th.style.marginTop='16px'; h.appendChild(th);
-      const sl=document.createElement('div'); sl.className='fmt-list';
-      sl.innerHTML='<div class="fmt-item'+(o.variant!=='B'?' on':'')+'" data-v="A"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">A · nur oben/unten</span></div>'
-        +'<div class="fmt-item'+(o.variant==='B'?' on':'')+'" data-v="B"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">B · umlaufend</span></div>';
-      sl.querySelectorAll('.fmt-item').forEach(function(it){ it.onclick=function(){ cur().variant=it.dataset.v; save(); rebuild(); buildFmtHost(); }; });
-      h.appendChild(sl);
-      function _sctrl(label,val,mn,mx,st,cb){ var b=document.createElement('div'); b.style.margin='12px 0 2px'; b.innerHTML='<label style="display:block;font-size:12px;font-weight:800;color:#9fb2c4;margin-bottom:5px">'+label+': <span class="v">'+val+'</span> px</label>'; var r=document.createElement('input'); r.type='range'; r.min=mn; r.max=mx; r.step=st; r.value=val; r.style.width='100%'; r.oninput=function(){ b.querySelector('.v').textContent=r.value; cb(+r.value); }; b.appendChild(r); h.appendChild(b); }
-      _sctrl('Linienstärke', o.lw||6, 2, 30, 1, function(v){ cur().lw=v; save(); rebuild(); });
-      _sctrl('Ecken-Radius', (o.rad!=null?o.rad:30), 0, 90, 1, function(v){ cur().rad=v; save(); rebuild(); });
-      var _addrEl=function(){ return getEl('addr'); };
-      var ab=document.createElement('div'); ab.style.margin='14px 0 2px';
-      ab.innerHTML='<label style="display:block;font-size:12px;font-weight:800;color:#9fb2c4;margin-bottom:5px">Adresse (links, vertikal)</label>';
-      var arow=document.createElement('label'); arow.style.cssText='display:flex;align-items:center;gap:7px;font-size:12px;color:#9fb2c4;margin-bottom:6px;cursor:pointer';
-      var acb=document.createElement('input'); acb.type='checkbox'; acb.checked=!(_addrEl()&&_addrEl().vis===false); acb.onchange=function(){ var a=_addrEl(); if(a){ a.vis=acb.checked; save(); rebuild(); buildList(); } }; arow.appendChild(acb); arow.appendChild(document.createTextNode('Adresse anzeigen')); ab.appendChild(arow);
-      var ai=document.createElement('input'); ai.type='text'; ai.value=(_addrEl()&&_addrEl().text)||''; ai.style.cssText='width:100%;padding:8px 9px;border-radius:7px;border:1px solid #24435c;background:#0f1c28;color:#eef4fa;font:inherit;font-size:13px'; ai.oninput=function(){ var a=_addrEl(); if(a){ a.text=ai.value; save(); rebuild(); } }; ab.appendChild(ai);
-      h.appendChild(ab);
-      var inf=document.createElement('div'); inf.className='fmt-info'; inf.innerHTML='<b>Livestream-Overlay</b><br>1920×1080 · transparent. Logo &amp; Adresse sind frei verschiebbar (anklicken, Doppelklick = Text ändern). Formen, Brand-Linien &amp; mehr über die Bibliothek links. Export über „PNG herunterladen".'; h.appendChild(inf);
-    } else if(state.fmt==='stream_fb'){
-      /* Fallback-Thumbnail — Info-Box, editieren geschieht direkt auf der Kachel (Doppelklick + Ziehen) */
-      var inf2=document.createElement('div'); inf2.className='fmt-info'; inf2.style.marginTop='12px'; inf2.innerHTML='<b>Livestream-Fallback (Thumbnail)</b><br>1280×720 · generisches YT-Thumbnail für Streaming-Tage ohne eigenes Bild. Foto, Logo, Kicker, Titel &amp; Adresse sind einzeln editierbar (Doppelklick = Text ändern) und verschiebbar (anklicken &amp; ziehen). Foto tauschen: aufs Foto klicken oder ein Bild drauf ziehen. Export über „PNG herunterladen".'; h.appendChild(inf2);
-    }
-    return; }
-  if(state.active==='elite'){ const th=document.createElement('h3'); th.textContent='Turniertag'; h.appendChild(th);
+    const th=document.createElement('h3'); th.textContent='Rahmen-Variante'; h.appendChild(th);
     const sl=document.createElement('div'); sl.className='fmt-list';
-    [['doppel','Doppel-Tag'],['einzel','Einzel-Tag']].forEach(function(o){
-      const it=document.createElement('div'); it.className='fmt-item'+(((cur().variant)||'doppel')===o[0]?' on':'');
-      it.innerHTML='<span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">'+esc(o[1])+'</span>';
-      it.onclick=function(){ applyEliteVariant(o[0]); }; sl.appendChild(it); });
+    sl.innerHTML='<div class="fmt-item'+(o.variant!=='B'?' on':'')+'" data-v="A"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">A · nur oben/unten</span></div>'
+      +'<div class="fmt-item'+(o.variant==='B'?' on':'')+'" data-v="B"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">B · umlaufend</span></div>';
+    sl.querySelectorAll('.fmt-item').forEach(function(it){ it.onclick=function(){ cur().variant=it.dataset.v; save(); rebuild(); buildFmtHost(); }; });
     h.appendChild(sl);
-    const inf=document.createElement('div'); inf.className='fmt-info';
-    inf.innerHTML='<b>Elite-Thumbnail</b><br>1280×720 px · ITSF / STS / SM. Jedes Element ist einzeln editierbar: Doppelklick = Text, Klick + Ziehen = Position, Klick aufs Foto = Bild tauschen.';
-    h.appendChild(inf); return; }
+    function _sctrl(label,val,mn,mx,st,cb){ var b=document.createElement('div'); b.style.margin='12px 0 2px'; b.innerHTML='<label style="display:block;font-size:12px;font-weight:800;color:#9fb2c4;margin-bottom:5px">'+label+': <span class="v">'+val+'</span> px</label>'; var r=document.createElement('input'); r.type='range'; r.min=mn; r.max=mx; r.step=st; r.value=val; r.style.width='100%'; r.oninput=function(){ b.querySelector('.v').textContent=r.value; cb(+r.value); }; b.appendChild(r); h.appendChild(b); }
+    _sctrl('Linienstärke', o.lw||6, 2, 30, 1, function(v){ cur().lw=v; save(); rebuild(); });
+    _sctrl('Ecken-Radius', (o.rad!=null?o.rad:30), 0, 90, 1, function(v){ cur().rad=v; save(); rebuild(); });
+    var _addrEl=function(){ return getEl('addr'); };
+    var ab=document.createElement('div'); ab.style.margin='14px 0 2px';
+    ab.innerHTML='<label style="display:block;font-size:12px;font-weight:800;color:#9fb2c4;margin-bottom:5px">Adresse (links, vertikal)</label>';
+    var arow=document.createElement('label'); arow.style.cssText='display:flex;align-items:center;gap:7px;font-size:12px;color:#9fb2c4;margin-bottom:6px;cursor:pointer';
+    var acb=document.createElement('input'); acb.type='checkbox'; acb.checked=!(_addrEl()&&_addrEl().vis===false); acb.onchange=function(){ var a=_addrEl(); if(a){ a.vis=acb.checked; save(); rebuild(); buildList(); } }; arow.appendChild(acb); arow.appendChild(document.createTextNode('Adresse anzeigen')); ab.appendChild(arow);
+    var ai=document.createElement('input'); ai.type='text'; ai.value=(_addrEl()&&_addrEl().text)||''; ai.style.cssText='width:100%;padding:8px 9px;border-radius:7px;border:1px solid #24435c;background:#0f1c28;color:#eef4fa;font:inherit;font-size:13px'; ai.oninput=function(){ var a=_addrEl(); if(a){ a.text=ai.value; save(); rebuild(); } }; ab.appendChild(ai);
+    h.appendChild(ab);
+    var inf=document.createElement('div'); inf.className='fmt-info'; inf.innerHTML='<b>Livestream-Overlay</b><br>1920×1080 · transparent. Logo &amp; Adresse sind frei verschiebbar (anklicken, Doppelklick = Text ändern). Formen, Brand-Linien &amp; mehr über die Bibliothek links. Export über „PNG herunterladen".'; h.appendChild(inf); return; }
   if(state.active==='yt'){ const th=document.createElement('h3'); th.textContent='Event-Serie'; h.appendChild(th); const sl=document.createElement('div'); sl.className='fmt-list'; [['dyp','Crazy DYP'],['kase','KäseKick'],['profi','PRO'],['rank','Rangliste'],['events','Events']].forEach(function(o){ const it=document.createElement('div'); it.className='fmt-item'+(((state.data.yt.series)||'dyp')===o[0]?' on':''); it.innerHTML='<span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">'+esc(o[1])+'</span>'; it.onclick=function(){ applyYtSeries(o[0]); }; sl.appendChild(it); }); h.appendChild(sl); const inf=document.createElement('div'); inf.className='fmt-info'; inf.innerHTML='<b>YouTube-Thumbnail</b><br>1280×720 px · wähle die Event-Serie, dann Texte/Foto anpassen.'; h.appendChild(inf); return; }
   const t=document.createElement('h3'); t.textContent='Format'; h.appendChild(t);
   const list=document.createElement('div'); list.className='fmt-list';
-  Object.entries(FORMATS).forEach(([k,f])=>{ if(f.proOnly&&state.active!=='profi')return; if(f.ytOnly&&state.active!=='yt')return; if(f.bgOnly&&state.active!=='bg')return; if(state.active==='bg'&&!f.bgOnly)return; if(f.streamOnly&&state.active!=='stream')return; if(state.active==='stream'&&!f.streamOnly)return; if(f.eliteOnly&&state.active!=='elite')return; if(state.active==='elite'&&!f.eliteOnly)return;
+  Object.entries(FORMATS).forEach(([k,f])=>{ if(f.proOnly&&state.active!=='profi')return; if(f.ytOnly&&state.active!=='yt')return; if(f.bgOnly&&state.active!=='bg')return; if(state.active==='bg'&&!f.bgOnly)return; if(f.streamOnly&&state.active!=='stream')return; if(state.active==='stream'&&!f.streamOnly)return;
     const it=document.createElement('div'); it.className='fmt-item'+(k===state.fmt?' on':'')+(editing&&k===editFmt?' editing':''); it.dataset.k=k;
     var _tw,_th; if(f.doc){_tw=16;_th=20;} else { var _r=f.w/f.h; if(_r>=1){_tw=22;_th=Math.max(9,Math.round(22/_r));} else {_th=22;_tw=Math.max(9,Math.round(22*_r));} }
     var _thumb='<span class="fmt-thumb'+(f.doc?' doc':'')+'" style="width:'+_tw+'px;height:'+_th+'px"></span>';
@@ -3388,7 +3064,7 @@ async function exportPages(){
 }
 async function doExport(mode){ if(!exportMoeglich())return;
   const b=document.getElementById('download'), o=b.textContent; b.disabled=true; const prevFmt=state.fmt;
-  const keys = mode==='all' ? Object.keys(FORMATS).filter(k=>!FORMATS[k].doc&&!(FORMATS[k].ytOnly&&state.active!=='yt')&&!(FORMATS[k].bgOnly&&state.active!=='bg')&&!(state.active==='bg'&&!FORMATS[k].bgOnly)&&!(FORMATS[k].streamOnly&&state.active!=='stream')&&!(state.active==='stream'&&!FORMATS[k].streamOnly)&&!(FORMATS[k].eliteOnly&&state.active!=='elite')&&!(state.active==='elite'&&!FORMATS[k].eliteOnly)) : [state.fmt];
+  const keys = mode==='all' ? Object.keys(FORMATS).filter(k=>!FORMATS[k].doc&&!(FORMATS[k].ytOnly&&state.active!=='yt')&&!(FORMATS[k].bgOnly&&state.active!=='bg')&&!(state.active==='bg'&&!FORMATS[k].bgOnly)&&!(FORMATS[k].streamOnly&&state.active!=='stream')&&!(state.active==='stream'&&!FORMATS[k].streamOnly)) : [state.fmt];
   try{ for(let i=0;i<keys.length;i++){ const key=keys[i]; b.textContent = keys.length>1 ? ('Rendering '+(i+1)+'/'+keys.length+'…') : 'Rendering…';
       state.fmt=key; applyCanvasSize(); rebuild(); layoutFit(); await new Promise(r=>setTimeout(r,90));
       const url=await renderCapture(); if(url){ const a=document.createElement('a'); a.download='TFCZ_'+state.active+'_'+key+'_'+CW()+'x'+CH()+'.png'; a.href=url; a.click(); }
@@ -3961,7 +3637,7 @@ function capDefault(cat,fmt){
   }
   return `${d.emoji} ${d.ttl.toUpperCase()} – TFCZ\n${d.hook}\n\n${d.facts.join('\n')}\n\nAlle Infos: ${CAP_IG} · ${CAP_WEB}\nAlle sind willkommen!\n\n${tags}`;
 }
-function capApplicableFormats(){ return Object.keys(FORMATS).filter(k=>{const f=FORMATS[k]; return !f.doc && !(f.ytOnly&&state.active!=='yt') && !(f.proOnly&&state.active!=='profi') && !(f.streamOnly&&state.active!=='stream') && !(state.active==='stream'&&!f.streamOnly) && !(f.eliteOnly&&state.active!=='elite') && !(state.active==='elite'&&!f.eliteOnly);}); }
+function capApplicableFormats(){ return Object.keys(FORMATS).filter(k=>{const f=FORMATS[k]; return !f.doc && !(f.ytOnly&&state.active!=='yt') && !(f.proOnly&&state.active!=='profi') && !(f.streamOnly&&state.active!=='stream') && !(state.active==='stream'&&!f.streamOnly);}); }
 function capKey(cat,fmt){ return cat+'|'+fmt; }
 function capLabel(k){ const f=FORMATS[k]; let n=(f.name||'').replace(f.grp,'').replace(/^[\s\/·-]+/,'').trim(); return esc(f.grp)+(n?' · '+esc(n):''); }
 function openCaption(){
@@ -4263,7 +3939,7 @@ function showStart(force,startK){ var P=document.getElementById('startPopup'); i
   h+='<div class="sp-step"><button class="sp-back" id="spBack">← zurück</button><div class="sp-kick" id="spKick2">TFCZ</div><h2>Noch kurz: Pflichtangaben</h2><div class="sp-sub">Nur das Nötigste — der Rest im Editor.</div><div id="spFields"></div><div class="sp-foot2">'+(isAdmin()?'<button class="sp-skip" id="spSkip2">Überspringen</button>':'')+'<button class="btn primary" id="spGo">Flyer erstellen →</button></div></div>';
   h+='</div></div></div>';
   P.innerHTML=h; P.style.display='flex'; var track=document.getElementById('spTrack'); var chosen=null;
-  function toStep2(k){ chosen=k; state.active=k; if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080'; else if(k==='elite')state.fmt='elite_thumb'; else if(state.fmt==='yt_thumb'||state.fmt==='aus'||state.fmt==='bg_16_9'||state.fmt==='stream_1080'||state.fmt==='elite_thumb')state.fmt='ig_feed';
+  function toStep2(k){ chosen=k; state.active=k; if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080'; else if(state.fmt==='yt_thumb'||state.fmt==='aus'||state.fmt==='bg_16_9'||state.fmt==='stream_1080')state.fmt='ig_feed';
     if(!READY[k]&&!isAdmin()){ showComingSoon(); return; } var fl=mandFields(k); if(!fl.length){ finish(k,{}); return; }
     document.getElementById('spKick2').textContent=(TPLNAME[k]||'').toUpperCase();
     var fh=''; fl.forEach(function(f){ fh+='<div class="sp-f"><label>'+esc(f.label)+' <span class="req">*</span></label><input type="'+(f.type==='date'?'date':'text')+'" data-k="'+f.key+'"'+(f.ph?' placeholder="'+esc(f.ph)+'"':'')+'></div>'; });

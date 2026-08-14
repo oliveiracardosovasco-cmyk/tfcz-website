@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Nav-Demo 1 · Aufräumen — TFCZ</title>
+<link rel="stylesheet" href="assets/css/tfcz-fonts.css">
+<!-- Design-Tokens 1:1 aus system/tokens.css (eingebettet, damit die Datei ueberall laeuft) -->
+<style>
+/* ============================================================
+   TFCZ · DESIGN-TOKENS — die EINE Quelle für Farben, Radien,
+   Schatten, Zeiten und Easing.
+
+   Vorher hatte JEDE Seite ihr eigenes :root — 45 Tokens, davon liefen
+   11 auseinander (4 verschiedene --r-xl, 3 verschiedene --r-lg, 3 Schatten-
+   Varianten, 2 Easings …). Darum sahen dieselben Karten auf zwei Seiten
+   unterschiedlich aus.
+
+   Referenz = die Home (index.html), wie in CLAUDE.md festgelegt.
+
+   Einbinden — IMMER als Erstes im <head>, VOR dem seiten-eigenen <style>:
+       system/tokens.css
+
+   Eine bewusste Ausnahme pro Seite bleibt möglich (die Seite lädt zuletzt),
+   sie muss dort aber explizit stehen — und ist damit sichtbar.
+   ============================================================ */
+:root{
+  --blue: #5ca7dc;
+  --blue-mid: #4489c7;
+  --blue-dk: #005a94;
+  --navy: #0d273d;
+  --navy-2: #0a1f31;
+  --navy-3: #081826;
+  --gold: #cda857;
+  --gold-lt: #e9c475;
+  --red: #da2929;
+  --pink: #e0559b;
+  --ink: #eef4fa;
+  --ink-mut: #c3d2e0;
+  --card: linear-gradient(155deg, rgba(17,34,51,.74), rgba(9,21,33,.60));
+  --card-soft: linear-gradient(155deg, rgba(17,34,51,.52), rgba(9,21,33,.40));
+  --frost: linear-gradient(155deg, rgba(18,36,54,.92), rgba(10,23,36,.88)); /* deckende Karte, ersetzt --card+blur (Option A) */
+  --card-brd: rgba(255,255,255,.13);
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+  /* ---- Buttons (Single Source; siehe system/buttons.css + Brand Guide „CTA-System") ---- */
+  --btn-radius: 12px;   /* Radius ALLER Buttons. Hier ändern = überall (Icon bleibt rund). */
+  --btn-pad-y: 14px;
+  --btn-pad-x: 24px;
+  --btn-font: 14.5px;
+  --e-1: 0 8px 22px rgba(0,0,0,.32);
+  --e-2: 0 16px 40px rgba(0,0,0,.42);
+  --e-3: 0 22px 54px rgba(0,0,0,.5);
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --t-fast: .15s;
+  --t-base: .3s;
+  --t-slow: .6s;
+  --font: 'Nunito Sans','Nunito Sans Fallback',system-ui,-apple-system,sans-serif;
+  --sand: #e6e3da;
+  --cat-fun: #5ca7dc;
+  --cat-comp: #005a94;
+  --cat-elite: #cda857;
+  --green: #67b57d;
+  --green-dk: #3b7657;
+  --orange: #e49b2c;
+  --orange-dk: #db7f27;
+  --red-dk: #bb2025;
+  --cat-pro: #005a94;
+  --cat-event: #3b7657;
+  --r-xs: 4px;
+  --inset: inset 0 1px 0 rgba(255,255,255,.12);
+  --bounce: cubic-bezier(.34,1.56,.64,1);
+  --bg-navy: linear-gradient(180deg,#0d273d,#0a1f31 55%,#081826);
+  --bg-blue: linear-gradient(165deg,#5ca7dc,#4489c7,#005a94);
+  --page-bg: var(--bg-navy);
+
+  /* ---- Seitengerüst: Grössen & Abstände (system/page.css) ----
+     Vorher hatte jede Seite eigene Werte: sechs H1-Grössen, sechs Abstände
+     zur Menüleiste, fünf Sektions-Paddings. Ab jetzt stehen sie hier. */
+  --h1:        clamp(44px, 7.4vw, 76px);   /* Home (Foto-Hero) */
+  --h1-sub:    clamp(38px, 5.2vw, 62px);   /* alle Unterseiten (Text-Hero) */
+  --h2:        clamp(26px, 3.2vw, 40px);
+  --lead:      18px;
+
+  --hero-pad-y: clamp(48px, 7vw, 92px);    /* Abstand Menüleiste -> Titel */
+  --hero-pad-b: clamp(24px, 4vw, 44px);    /* Titelblock -> erste Sektion */
+  --sec-pad:    clamp(48px, 6vw, 84px);    /* Sektions-Rhythmus */
+  --sec-pad-first: clamp(24px, 3vw, 40px); /* erste Sektion nach dem Hero */
+
+  --sp-2: 12px;
+  --sp-3: 16px;
+
+  --wrap:     1160px;
+  --wrap-pad: 22px;
+}
+
+</style>
+<!-- gemeinsames Demo-Geruest -->
+<style>
+/* ============================================================
+   NAV-DEMO · gemeinsame Basis
+   Farben/Radien/Zeiten kommen aus system/tokens.css (verlinkt),
+   Buttons aus system/buttons.css. Hier steht NUR Demo-Gerüst
+   und die jeweils vorgeschlagene Navigation.
+   Kein Wert ist geraten.
+   ============================================================ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;font-family:var(--font);background:var(--page-bg);color:var(--ink);
+  -webkit-font-smoothing:antialiased;min-height:100vh}
+img{max-width:100%}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--wrap-pad)}
+h1,h2,h3,h4{margin:0 0 10px;line-height:1.12;font-weight:900}
+p{margin:0 0 12px}
+.kicker{color:var(--gold-lt);font-weight:900;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:10px}
+.sec{padding:var(--sec-pad) 0;scroll-margin-top:calc(72px + 18px)}
+.sec h2{font-size:var(--h2)}
+.lead{color:var(--ink-mut);font-size:var(--lead);line-height:1.6;max-width:64ch}
+.muted{color:var(--ink-mut);font-size:14.5px;line-height:1.55}
+
+/* Karte mit Brand-Linie: blau OBEN, gold UNTEN (Rahmen, nie übereinander) */
+.card{background:var(--frost);border:1px solid var(--card-brd);
+  border-top:3px solid var(--blue);border-bottom:3px solid var(--gold);
+  border-radius:var(--r-lg);padding:20px;box-shadow:var(--e-1)}
+.grid{display:grid;gap:16px}
+@media(min-width:721px){.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- Menüleiste: Gerüst (Masse 1:1 aus system/nav.css + page.css) ---------- */
+.nav{position:sticky;top:0;z-index:90;display:flex;align-items:center;gap:10px;
+  height:72px;padding:0 max(22px,calc((100% - 1160px)/2 + 22px));
+  background:linear-gradient(155deg,rgba(10,24,38,.92),rgba(6,15,24,.90));
+  border-top:3px solid var(--blue);border-bottom:3px solid var(--gold);
+  box-shadow:var(--e-2)}
+.nav .logo{display:flex;align-items:center;gap:8px;margin-right:auto;min-width:0;
+  text-decoration:none;color:#fff;font-weight:900}
+.nav .logo img{height:38.8px;width:auto;display:block;object-fit:contain}
+.nav .logo .fb{font-size:20px;letter-spacing:.04em}
+.nav .logo:active{transform:scale(.9)}
+.nav .cta{white-space:nowrap}
+@media(max-width:860px){.nav{height:64px}.nav .logo img{height:35.2px}}
+
+.lnk{position:relative;display:inline-flex;align-items:center;gap:6px;
+  color:var(--ink-mut);font-family:var(--font);font-size:13.5px;font-weight:700;
+  padding:10px 12px;min-height:40px;border:0;background:none;border-radius:var(--r-sm);
+  text-decoration:none;white-space:nowrap;cursor:pointer;
+  transition:color .18s var(--ease)}
+.lnk:hover{color:#fff}
+.lnk[aria-current="true"]{color:#fff}
+.lnk[aria-current="true"]::after{content:"";position:absolute;left:12px;right:12px;bottom:2px;
+  height:2px;background:var(--gold);border-radius:2px}
+.lnk svg{width:14px;height:14px;flex:none;transition:transform .18s var(--ease)}
+.lnk[aria-expanded="true"] svg{transform:rotate(180deg)}
+:focus-visible{outline:2px solid var(--gold-lt);outline-offset:2px;border-radius:var(--r-sm)}
+
+/* Burger — nur dort sichtbar, wo die Variante ihn braucht */
+.burger{width:44px;height:44px;flex:none;display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:4px;background:rgba(255,255,255,.08);
+  border:1px solid var(--card-brd);border-radius:var(--btn-radius);cursor:pointer}
+.burger .bl{display:block;width:18px;height:2px;background:#fff;border-radius:2px}
+
+/* Drawer / Overlay — öffnet und schliesst SOFORT (Entscheid 26.07.2026: keine Fenster-Animation) */
+.scrim{position:fixed;inset:0;background:rgba(4,10,17,.66);z-index:110;display:none}
+.scrim.on{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(360px,88vw);z-index:120;display:none;
+  flex-direction:column;overflow-y:auto;padding:16px;
+  background:linear-gradient(155deg,rgba(13,39,61,.98),rgba(8,24,38,.98));
+  border-left:1px solid var(--card-brd);
+  border-top:3px solid var(--blue);border-bottom:3px solid var(--gold);
+  box-shadow:var(--e-3)}
+.drawer.on{display:flex}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:12px;margin-bottom:8px;border-bottom:1px solid var(--card-brd)}
+.drawer-head b{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-lt)}
+.dl{display:block;padding:13px 12px;min-height:44px;color:var(--ink);text-decoration:none;
+  font-weight:800;font-size:15.5px;border-radius:var(--r-sm)}
+.dl:hover{background:rgba(255,255,255,.06);color:#fff}
+.dsub{display:block;padding:11px 12px 11px 26px;min-height:44px;color:var(--ink-mut);
+  text-decoration:none;font-weight:700;font-size:14px;border-radius:var(--r-sm)}
+.dsub:hover{background:rgba(255,255,255,.06);color:#fff}
+
+/* X-Button: Kreis 36px, dezent, Hover rot + Quetschung (einzige verbleibende Animation) */
+.xbtn{width:36px;height:36px;flex:none;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:50%;background:rgba(255,255,255,.08);border:1px solid var(--card-brd);
+  color:#fff;cursor:pointer;transition:background .18s var(--ease),border-color .18s var(--ease)}
+.xbtn svg{width:16px;height:16px}
+.xbtn:hover{background:var(--red);border-color:var(--red);animation:xsquish .32s var(--ease)}
+.xbtn:active{transform:scale(.9)}
+@keyframes xsquish{0%{transform:scale(1)}40%{transform:scale(.86,1.12)}70%{transform:scale(1.06,.94)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.xbtn:hover{animation:none}}
+
+/* ---------- Demo-Leiste (gehört NICHT zum Vorschlag) ---------- */
+.demobar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:200;
+  display:flex;align-items:center;gap:6px;padding:7px 9px;
+  background:linear-gradient(155deg,rgba(13,39,61,.97),rgba(8,24,38,.97));
+  border:1px solid var(--card-brd);border-top:3px solid var(--blue);
+  border-bottom:3px solid var(--gold);border-radius:var(--r-pill);box-shadow:var(--e-2)}
+.demobar span{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold-lt);padding:0 8px}
+.demobar a{display:inline-flex;align-items:center;min-height:40px;font-size:12.5px;font-weight:800;
+  color:var(--ink-mut);text-decoration:none;padding:8px 12px;border-radius:var(--r-pill)}
+.demobar a:hover{background:rgba(255,255,255,.08);color:#fff}
+.demobar a.on{background:rgba(92,167,220,.22);color:#fff}
+body.menuopen .demobar{display:none}   /* Demo-Leiste stoert das offene Menue nicht */
+@media(max-width:560px){.demobar span{display:none}.demobar a{padding:8px}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:var(--hero-pad-y) 0 var(--hero-pad-b)}
+.hero h1{font-size:var(--h1-sub)}
+.hero h1 .g{color:var(--gold-lt)}
+.shot{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:var(--r-md);
+  display:block;background:rgba(255,255,255,.05)}
+footer.ft{padding:34px 0 92px;border-top:1px solid var(--card-brd);color:var(--ink-mut);font-size:13px}
+
+.shot.noimg{display:flex;align-items:center;justify-content:center;color:var(--ink-mut);font-size:12px;letter-spacing:.16em;text-transform:uppercase;border:1px dashed var(--card-brd)}
+
+</style>
+<style>
+/* ===== VARIANTE 1 — „Aufräumen": eine Quelle, Burger nur mobil ===== */
+
+/* Desktop: Links sichtbar, Burger weg. Mobil: Burger, Links weg.
+   Das ist der Kern der Variante — nie beides gleichzeitig. */
+.navlinks{display:flex;align-items:center;gap:2px;margin-left:18px}
+@media(max-width:1040px){.navlinks{display:none}.burger{display:flex}.nav .cta{display:none}}
+
+/* Aufklapp-Menü am Desktop */
+.hasmenu{position:relative}
+.dd{position:absolute;top:calc(100% + 8px);left:0;min-width:232px;z-index:95;display:none;
+  padding:8px;background:linear-gradient(155deg,rgba(13,39,61,.98),rgba(8,24,38,.98));
+  border:1px solid var(--card-brd);border-top:3px solid var(--blue);
+  border-bottom:3px solid var(--gold);border-radius:var(--r-md);box-shadow:var(--e-2)}
+.dd.on{display:block}
+.dd a{display:block;padding:10px 12px;min-height:40px;border-radius:var(--r-sm);
+  color:var(--ink);text-decoration:none;font-size:14px;font-weight:700}
+.dd a:hover{background:rgba(255,255,255,.08);color:#fff}
+.dd a small{display:block;font-weight:600;font-size:12px;color:var(--ink-mut);margin-top:2px}
+
+/* Abschnitts-Anzeige: wo bin ich gerade? */
+.spy{position:sticky;top:72px;z-index:80;display:flex;gap:6px;overflow-x:auto;
+  padding:9px max(22px,calc((100% - 1160px)/2 + 22px));
+  background:rgba(8,24,38,.86);border-bottom:1px solid var(--card-brd);
+  scrollbar-width:none}
+.spy::-webkit-scrollbar{display:none}
+.spy a{flex:none;font-size:12.5px;font-weight:800;color:var(--ink-mut);text-decoration:none;
+  padding:9px 14px;min-height:40px;border-radius:var(--r-pill);border:1px solid transparent}
+.spy a[aria-current="true"]{color:#fff;background:rgba(92,167,220,.18);border-color:rgba(92,167,220,.45)}
+@media(max-width:860px){.spy{top:64px}}
+</style>
+<!-- Buttons 1:1 aus system/buttons.css -->
+<style>
+/* ============================================================
+   TFCZ · BAUSTEIN: Buttons / CTA-System — EINE Quelle für alle Seiten.
+
+   Referenz + Doku: Brand Guide „CTA-System" (brandguide.html).
+   Größen/Radius kommen aus system/tokens.css:
+     --btn-radius (12px) · --btn-pad-y · --btn-pad-x · --btn-font
+   Ändert man --btn-radius im Token, ändern sich ALLE Buttons auf ALLEN
+   Seiten gleichzeitig — der Text bleibt im HTML. (Icon-Button bleibt rund.)
+
+   Einbinden im <head> NACH dem seiten-eigenen <style> (überschreibt alte
+   Inline-.btn-Regeln bei gleicher Spezifität):
+     system/buttons.css
+
+   Sechs Typen + zwei Modifier + Social:
+     .btn            Basis (jeder Button trägt sie)
+     .btn-gold       Conversion / Lead     (gold gefüllt)
+     .btn-blue       Primär-Aktion         (blau gefüllt)
+     .btn-ghost      Navigation / sekundär (outline)
+     .btn-text       leiser Text-Link      (kein Kasten)
+     .btn-danger     Gefahr / Löschen      (rot)
+     .btn-sm         Modifier: kompakter
+     .btn-icon       Modifier: rund, nur Icon  (IMMER rund)
+     .btn-social .s-wa|.s-ig|.s-yt|.s-li
+                     neutral, Markenfarbe erst beim Hover
+   ============================================================ */
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:9px;
+  font-family:var(--font); font-weight:900; font-size:var(--btn-font);
+  padding:var(--btn-pad-y) var(--btn-pad-x);
+  border-radius:var(--btn-radius);            /* <- die eine Stellschraube */
+  border:0; cursor:pointer; text-decoration:none; position:relative; overflow:hidden;
+  transition:transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s, background .18s;
+}
+.btn:active{ transform:scale(.97) }
+
+/* Radius folgt dem Token AUCH bei „nackten" Typklassen (ohne .btn) — damit
+   --btn-radius wirklich ALLE Buttons steuert, egal wie die Seite sie schreibt. */
+.btn, .btn-gold, .btn-blue, .btn-ghost, .btn-danger, .btn-success{ border-radius:var(--btn-radius) }
+.btn-text{ border-radius:0 }
+.btn-icon{ border-radius:50% }   /* Ausnahme: Icon-Button bleibt IMMER rund */
+
+
+/* JEDES Icon im Button hat eine Grösse. Ohne diese Regel quetscht/streckt Flex ein
+   SVG ohne width/height ins Riesenhafte (CLAUDE.md: „SVG braucht IMMER eine Grösse"). */
+.btn svg{ width:1.15em; height:1.15em; flex:none }
+
+/* Pfeil (Lucide arrow-right; von system/components/icons.js gesetzt oder inline) */
+.btn .arw, .btn .tfcz-arw{ width:1.05em; height:1.05em; flex:none; transition:transform .22s var(--ease) }
+.btn:hover .arw, .btn:hover .tfcz-arw{ transform:translateX(3px) }
+
+/* --- Typen --- */
+.btn-gold{ background:linear-gradient(155deg, var(--gold), var(--gold-lt)); color:var(--navy);
+  box-shadow:0 8px 24px rgba(205,168,87,.32) }
+.btn-gold:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(205,168,87,.45) }
+
+.btn-blue{ background:linear-gradient(155deg, var(--blue), var(--blue-mid)); color:#fff;
+  box-shadow:0 8px 22px rgba(68,137,199,.32) }
+.btn-blue:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(68,137,199,.44) }
+
+.btn-ghost{ background:rgba(255,255,255,.08); color:#fff; border:1px solid var(--card-brd) }
+.btn-ghost:hover{ border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold) }
+
+.btn-danger{ background:var(--red); color:#fff }
+.btn-danger:hover{ transform:translateY(-2px); background:var(--red-dk); box-shadow:0 12px 26px rgba(218,41,41,.4) }
+
+/* Grün = Bestätigen / Hinzufügen (nutzt das Brand-Grün --green) */
+.btn-success{ background:linear-gradient(155deg, var(--green), var(--green-dk)); color:#fff;
+  box-shadow:0 8px 22px rgba(103,181,125,.3) }
+.btn-success:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(103,181,125,.44) }
+
+/* Icon-Semantik (verbindlich): Schliessen/X = Rot · Hinzufügen/+ = Grün */
+.btn-icon.i-close{ background:var(--red); color:#fff; border:0 }
+.btn-icon.i-close:hover{ background:var(--red-dk); box-shadow:0 10px 24px rgba(218,41,41,.4) }
+.btn-icon.i-add{ background:linear-gradient(155deg, var(--green), var(--green-dk)); color:#fff; border:0 }
+.btn-icon.i-add:hover{ box-shadow:0 10px 24px rgba(103,181,125,.44) }
+
+/* Text-Link — kein Kasten, nur Wort + Pfeil, Gold-Unterstrich beim Hover */
+.btn-text{ background:none; border:0; padding:6px 2px; color:var(--gold-lt); font-weight:800;
+  border-radius:0; overflow:visible }
+.btn-text::after{ content:""; position:absolute; left:2px; right:24px; bottom:2px; height:2px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform .22s var(--ease) }
+.btn-text:hover{ transform:none }
+.btn-text:hover::after{ transform:scaleX(1) }
+
+/* --- Modifier --- */
+.btn-sm{ --btn-pad-y:9px; --btn-pad-x:16px; --btn-font:13px }
+.btn-icon{ --btn-pad-x:0; width:44px; height:44px; padding:0; border-radius:50% }  /* IMMER rund */
+.btn-icon.btn-sm{ width:36px; height:36px }
+.btn-icon svg{ width:18px; height:18px; display:block; flex:none }
+
+/* --- Social — Grundzustand neutral, Markenfarbe NUR beim Hover --- */
+.btn-social{ background:rgba(255,255,255,.08); color:#fff; border:1px solid var(--card-brd) }
+.btn-social::after{ display:none }
+.btn-social svg{ width:18px; height:18px; fill:currentColor }
+.btn-social:hover{ transform:translateY(-2px); border-color:transparent; color:#fff }
+.btn-social.s-wa:hover{ background:#25d366; color:#08351c; box-shadow:0 12px 28px rgba(37,211,102,.44) }
+.btn-social.s-ig:hover{ background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); box-shadow:0 12px 28px rgba(220,39,67,.44) }
+.btn-social.s-yt:hover{ background:#ff0000; box-shadow:0 12px 28px rgba(255,0,0,.4) }
+.btn-social.s-li:hover{ background:#0a66c2; box-shadow:0 12px 28px rgba(10,102,194,.44) }
+
+@media(prefers-reduced-motion:reduce){
+  .btn, .btn-text::after{ transition:none }
+}
+
+</style>
+</head>
+<body id="top">
+
+<!-- ===================== NAVIGATION ===================== -->
+<nav class="nav">
+  <a class="logo" href="#top" aria-label="Tischfussball Club Zürich — Startseite">
+    <img src="assets/img/logo-horizontal-white.png" alt="Tischfussball Club Zürich"
+         onerror="this.style.display=&#39;none&#39;;this.nextElementSibling.hidden=false">
+    <span class="fb" hidden>TFCZ</span>
+  </a>
+
+  <div class="navlinks">
+    <a class="lnk" href="#formate">Formate</a>
+    <a class="lnk" href="#kalender">Kalender</a>
+
+    <div class="hasmenu">
+      <button class="lnk" aria-expanded="false" aria-controls="dd-mitglied">Mitglied
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="dd" id="dd-mitglied">
+        <a href="#mitglied">Warum Mitglied werden<small>Der Abschnitt auf dieser Seite</small></a>
+        <a href="mitglied.html">Mitglied werden<small>Anmeldeformular</small></a>
+      </div>
+    </div>
+
+    <div class="hasmenu">
+      <button class="lnk" aria-expanded="false" aria-controls="dd-events">Sonderevents
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="dd" id="dd-events">
+        <a href="#sonderevents">Übersicht<small>Der Abschnitt auf dieser Seite</small></a>
+        <a href="tfcz-training.html">Training mit Philipp</a>
+        <a href="tfcz-firmenevents.html">Firmenevents &amp; Vermietung</a>
+      </div>
+    </div>
+
+    <a class="lnk" href="#tische">Tische</a>
+
+    <div class="hasmenu">
+      <button class="lnk" aria-expanded="false" aria-controls="dd-verein">Über uns
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="dd" id="dd-verein">
+        <a href="tfcz-ueber-uns.html">Über uns</a>
+        <a href="tfcz-geschichte.html">Geschichte</a>
+        <a href="tfcz-regeln.html">Regeln</a>
+        <a href="tfcz-medien.html">Medien</a>
+        <a href="#galerie">Galerie</a>
+      </div>
+    </div>
+
+    <a class="lnk" href="#kontakt">Kontakt</a>
+  </div>
+
+  <a class="btn btn-ghost btn-sm cta" href="#kalender">Komm vorbei</a>
+
+  <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer">
+    <span class="bl"></span><span class="bl"></span><span class="bl"></span>
+  </button>
+</nav>
+
+<!-- Abschnitts-Anzeige: markiert, wo man gerade ist -->
+<div class="spy" id="spy" aria-label="Abschnitte dieser Seite">
+  <a href="#formate">Formate</a>
+  <a href="#kalender">Kalender</a>
+  <a href="#mitglied">Mitglied</a>
+  <a href="#sonderevents">Sonderevents</a>
+  <a href="#tische">Tische</a>
+  <a href="#galerie">Galerie</a>
+  <a href="#kontakt">Kontakt</a>
+</div>
+
+<!-- Drawer: EXAKT dieselben Punkte wie oben. Auf Desktop nie sichtbar. -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menü">
+  <div class="drawer-head">
+    <b>Menü</b>
+    <button class="xbtn" id="dclose" aria-label="Menü schliessen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <a class="dl" href="#formate">Formate</a>
+  <a class="dl" href="#kalender">Kalender</a>
+  <a class="dl" href="#mitglied">Mitglied</a>
+  <a class="dsub" href="mitglied.html">Mitglied werden</a>
+  <a class="dl" href="#sonderevents">Sonderevents</a>
+  <a class="dsub" href="tfcz-training.html">Training mit Philipp</a>
+  <a class="dsub" href="tfcz-firmenevents.html">Firmenevents &amp; Vermietung</a>
+  <a class="dl" href="#tische">Tische</a>
+  <a class="dl" href="tfcz-ueber-uns.html">Über uns</a>
+  <a class="dsub" href="tfcz-geschichte.html">Geschichte</a>
+  <a class="dsub" href="tfcz-regeln.html">Regeln</a>
+  <a class="dsub" href="tfcz-medien.html">Medien</a>
+  <a class="dsub" href="#galerie">Galerie</a>
+  <a class="dl" href="#kontakt">Kontakt</a>
+  <div style="margin-top:14px">
+    <a class="btn btn-ghost btn-sm" href="#kalender" style="width:100%">Komm vorbei</a>
+  </div>
+</aside>
+
+<!-- ===================== SEITE ===================== -->
+<main>
+  <header class="hero">
+    <div class="wrap">
+      <div class="kicker">Variante 1 · Aufräumen</div>
+      <h1>Wo Zürich <span class="g">töggelt.</span></h1>
+      <p class="lead">Gleiche Reihenfolge wie heute — aber die Doppelung ist weg: Ab 1041px führt die Leiste,
+      darunter übernimmt der Burger. Nie beides gleichzeitig. Und jeder Menüpunkt heisst exakt so
+      wie die Überschrift, zu der er springt.</p>
+    </div>
+  </header>
+
+  <section class="sec" id="formate">
+    <div class="wrap">
+      <div class="kicker">Formate</div>
+      <h2>Wie viel Wettkampf darf's sein?</h2>
+      <p class="lead">Vom lockeren Clubabend bis zum Ranglistenturnier — hier steht, was es gibt
+      und für wen es passt.</p>
+      <div class="grid g3" style="margin-top:22px">
+        <div class="card"><h3>Plausch</h3><p class="muted">Ohne Anmeldung, ohne Vorwissen.</p></div>
+        <div class="card"><h3>Wettkampf</h3><p class="muted">Turniere mit Rangliste.</p></div>
+        <div class="card"><h3>Elite</h3><p class="muted">Training auf Profi-Niveau.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="kalender">
+    <div class="wrap">
+      <div class="kicker">Kalender</div>
+      <h2>Deine Woche im Club</h2>
+      <p class="lead">Alle Abende auf einen Blick — mit Zeit, Ort und für wen der Abend gedacht ist.</p>
+      <div class="card" style="margin-top:22px">
+        <p class="muted" style="margin:0">Mo · Offenes Töggele — Di · Kindertraining — Mi · Clubabend —
+        Do · Elite — Fr · Plausch-Turnier</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="mitglied">
+    <div class="wrap">
+      <div class="kicker">Mitglied</div>
+      <h2>Werd einer von uns</h2>
+      <p class="lead">Was Mitglieder bekommen, was es kostet, wie man dazukommt.</p>
+      <p style="margin-top:18px"><a class="btn btn-gold" href="mitglied.html">Mitglied werden</a></p>
+    </div>
+  </section>
+
+  <section class="sec" id="sonderevents">
+    <div class="wrap">
+      <div class="kicker">Sonderevents</div>
+      <h2>Training, Kinder, Firmen</h2>
+      <div class="grid g3" style="margin-top:22px">
+        <div class="card"><h3>Training mit Philipp</h3><p class="muted">Einzel- und Gruppentraining.</p>
+          <p style="margin:12px 0 0"><a class="btn btn-text" href="tfcz-training.html">Zur Seite</a></p></div>
+        <div class="card"><h3>Nachwuchsförderung</h3><p class="muted">Kindertraining am Dienstag.</p></div>
+        <div class="card"><h3>Firmenevents</h3><p class="muted">Halle und Tische mieten.</p>
+          <p style="margin:12px 0 0"><a class="btn btn-text" href="tfcz-firmenevents.html">Zur Seite</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="tische">
+    <div class="wrap">
+      <div class="kicker">Tische</div>
+      <h2>Wir sind ein Mehrtisch-Club</h2>
+      <p class="lead">Bonzini, Garlando, Tornado, Roberto — welcher Tisch für welches Spiel.</p>
+      <img class="shot" style="margin-top:22px" loading="lazy" decoding="async"
+           src="assets/fotos/galerie/full/795.webp" alt="Spielszene am Tisch beim TFCZ in Wipkingen"
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'shot noimg',textContent:'Foto'}))">
+    </div>
+  </section>
+
+  <section class="sec" id="galerie">
+    <div class="wrap">
+      <div class="kicker">Galerie</div>
+      <h2>Der Tisch, der Club, die Leute</h2>
+      <p class="lead">Heute im Menü gar nicht auffindbar — hier bekommt sie einen Platz unter „Über uns".</p>
+    </div>
+  </section>
+
+  <section class="sec" id="kontakt">
+    <div class="wrap">
+      <div class="kicker">Kontakt</div>
+      <h2>Mitten in Zürich Wipkingen</h2>
+      <p class="lead">Landenbergstrasse 10, 8037 Zürich · info@tfcz.ch</p>
+    </div>
+  </section>
+</main>
+
+<footer class="ft"><div class="wrap">Demo-Seite · nicht öffentlich · Tischfussball Club Zürich</div></footer>
+
+<nav class="demobar" aria-label="Demo-Auswahl">
+  <span>Nav-Demo</span>
+  <a href="nav-demos.html">Vergleich</a>
+  <a href="nav-demo-1.html" class="on" aria-current="page">1</a>
+  <a href="nav-demo-2.html">2</a>
+  <a href="nav-demo-3.html">3</a>
+</nav>
+
+<script>
+/* ============================================================
+   NAV-DEMO · gemeinsames Verhalten
+   Fenster/Overlays öffnen und schliessen SOFORT — Entscheid 26.07.2026,
+   keine Auf-/Zu-Animation. Einzige Ausnahme bleibt die X-Quetschung.
+   ============================================================ */
+/* In der Vergleichs-Vorschau (im Rahmen) stoert die Demo-Leiste nur — dort ausblenden. */
+if(window.top !== window.self){
+  document.addEventListener('DOMContentLoaded', function(){
+    var d = document.querySelector('.demobar'); if(d) d.hidden = true;
+  });
+}
+
+window.TFCZDemo = (function(){
+
+  /* --- Drawer / Vollbild-Overlay: X, Esc, Backdrop, Klick auf einen Link --- */
+  function drawer(opts){
+    opts = opts || {};
+    var burger = document.getElementById(opts.burger || 'burger');
+    var panel  = document.getElementById(opts.panel  || 'drawer');
+    var scrim  = document.getElementById(opts.scrim  || 'scrim');
+    var close  = document.getElementById(opts.close  || 'dclose');
+    if(!burger || !panel) return;
+    var last = null;
+
+    function open(){
+      last = document.activeElement;
+      panel.classList.add('on');
+      if(scrim) scrim.classList.add('on');
+      burger.setAttribute('aria-expanded','true');
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('menuopen');
+      var first = panel.querySelector('a,button');
+      if(first) first.focus();
+    }
+    function shut(){
+      panel.classList.remove('on');
+      if(scrim) scrim.classList.remove('on');
+      burger.setAttribute('aria-expanded','false');
+      document.body.style.overflow = '';
+      document.body.classList.remove('menuopen');
+      if(last && last.focus) last.focus();
+    }
+
+    burger.addEventListener('click', function(){
+      panel.classList.contains('on') ? shut() : open();
+    });
+    if(close) close.addEventListener('click', shut);
+    if(scrim) scrim.addEventListener('click', shut);
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && panel.classList.contains('on')) shut();
+    });
+    panel.addEventListener('click', function(e){
+      if(e.target.closest('a')) shut();
+    });
+    /* Fokus im offenen Fenster halten */
+    panel.addEventListener('keydown', function(e){
+      if(e.key !== 'Tab') return;
+      var f = panel.querySelectorAll('a[href],button:not([disabled])');
+      if(!f.length) return;
+      var first = f[0], lastEl = f[f.length-1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); lastEl.focus(); }
+      else if(!e.shiftKey && document.activeElement === lastEl){ e.preventDefault(); first.focus(); }
+    });
+    return { open: open, close: shut };
+  }
+
+  /* --- Scrollspy: markiert genau EINEN aktiven Abschnitt in Leiste und Anzeige --- */
+  function spy(ids){
+    var secs = ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    var links = [].slice.call(document.querySelectorAll('.spy a, .nav a.lnk, .paths a'));
+    var ticking = false;
+
+    function mark(){
+      ticking = false;
+      var probe = window.scrollY + window.innerHeight * 0.32;
+      var current = secs[0];
+      secs.forEach(function(s){ if(s.offsetTop <= probe) current = s; });
+      var hash = '#' + (current ? current.id : '');
+      links.forEach(function(a){
+        var on = a.getAttribute('href') === hash;
+        if(on) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
+        if(on && a.closest('.spy')) a.scrollIntoView({block:'nearest', inline:'center'});
+      });
+    }
+    function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(mark); } }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+    mark();
+  }
+
+  return { drawer: drawer, spy: spy };
+})();
+
+</script>
+<script>
+/* Aufklapp-Menüs: Klick öffnet, Esc/Aussenklick schliesst, Hover nur auf echten Zeigergeräten. */
+(function(){
+  var groups = [].slice.call(document.querySelectorAll('.hasmenu'));
+  function closeAll(except){
+    groups.forEach(function(g){
+      if(g===except) return;
+      g.querySelector('.dd').classList.remove('on');
+      g.querySelector('.lnk').setAttribute('aria-expanded','false');
+    });
+  }
+  groups.forEach(function(g){
+    var btn = g.querySelector('.lnk'), dd = g.querySelector('.dd');
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var open = dd.classList.contains('on');
+      closeAll(g);
+      dd.classList.toggle('on', !open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+    if(window.matchMedia('(hover:hover)').matches){
+      g.addEventListener('mouseenter', function(){ closeAll(g); dd.classList.add('on'); btn.setAttribute('aria-expanded','true'); });
+      g.addEventListener('mouseleave', function(){ dd.classList.remove('on'); btn.setAttribute('aria-expanded','false'); });
+    }
+  });
+  document.addEventListener('click', function(){ closeAll(null); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeAll(null); });
+})();
+
+TFCZDemo.drawer();
+TFCZDemo.spy(['formate','kalender','mitglied','sonderevents','tische','galerie','kontakt']);
+</script>
+</body>
+</html>
