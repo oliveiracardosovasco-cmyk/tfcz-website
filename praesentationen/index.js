@@ -23,6 +23,6 @@ window.TFCZ_PRAESI = [
     datei: 'praesentationen/sts-zuerich-2026-samstag.html',
     folien: 14,
     dauer: '≈ 3 Min',
-    text: 'Ansage am Turniermorgen: Disziplinen & Zeiten, Coral, Tempo, Stream auf Tisch 1+3, Hausregeln, Hitze, Bar, Parkieren, Preisgeld.'
+    text: 'Ansage am Turniermorgen: Disziplinen & Zeiten, Coral, Tempo, Stream auf Tisch 1+10, Hausregeln, Hitze, Bar, Parkieren, Preisgeld.'
   }
 ];

@@ -1,6 +1,6 @@
 {
  "generated": "2026-08-14",
- "count": 287,
+ "count": 289,
  "categories": [
   {
    "key": "turnier",
@@ -5191,6 +5191,44 @@
    "orient": "quer",
    "turnier": "",
    "persons": []
+  },
+  {
+   "id": "elite-doppel",
+   "category": "turnier",
+   "tags": [
+    "doppel",
+    "match",
+    "elite",
+    "sts26",
+    "zuschauer"
+   ],
+   "w": 660,
+   "h": 720,
+   "event": "sts26",
+   "orient": "quer",
+   "turnier": "STS Zürich 2026",
+   "persons": [],
+   "src": "assets/fotos/elite/doppel.jpg",
+   "note": "Zuschnitt aus Foto 1068, aufgehellt — Vorlage Elite Doppel"
+  },
+  {
+   "id": "elite-einzel",
+   "category": "turnier",
+   "tags": [
+    "einzel",
+    "match",
+    "elite",
+    "sts26",
+    "konzentration"
+   ],
+   "w": 660,
+   "h": 720,
+   "event": "sts26",
+   "orient": "quer",
+   "turnier": "STS Zürich 2026",
+   "persons": [],
+   "src": "assets/fotos/elite/einzel.jpg",
+   "note": "Zuschnitt aus Foto 1073, aufgehellt — Vorlage Elite Einzel"
   }
  ]
 }

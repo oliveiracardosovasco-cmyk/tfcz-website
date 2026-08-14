@@ -27,6 +27,7 @@ body::after{bottom:0; background:var(--gold)}
 
 #bar{position:fixed; top:6px; left:0; height:3px; width:0; background:var(--gold); z-index:61; pointer-events:none; opacity:0; transition:opacity .3s}
 #bar.on{opacity:1}
+#bar.loop{background:var(--blue)}
 
 
 #carousel{position:fixed; inset:0; z-index:0; overflow:hidden; background:#081826}
@@ -116,6 +117,7 @@ h2{font-weight:900; line-height:1; letter-spacing:-1.2px; font-size:clamp(48px,7
 .prz div{background:var(--card); border:1px solid var(--brd); border-radius:18px; padding:clamp(18px,2.2vw,32px);
   box-shadow:inset 0 4px 0 var(--blue), inset 0 -4px 0 var(--gold)}
 .prz div b{display:block; white-space:nowrap; font-size:clamp(18px,2vw,30px); font-weight:900; letter-spacing:.02em}
+.prz div span i{font-style:normal; font-size:.42em; letter-spacing:0; margin-left:.06em; vertical-align:baseline}
 .prz div span{display:block; margin-top:12px; font-weight:900; white-space:nowrap; font-size:clamp(48px,7vw,116px); color:var(--gold); line-height:1; letter-spacing:-2px}
 .prz div small{display:block; margin-top:8px; font-weight:700; font-size:clamp(15px,1.6vw,22px); color:var(--ink-mut)}
 
@@ -204,20 +206,20 @@ h2{font-weight:900; line-height:1; letter-spacing:-1.2px; font-size:clamp(48px,7
   </section>
 
   <!-- 5 · Tempo -->
-  <section class="slide" data-note="Damit wir durch den Tag kommen: zügig spielen. Maximal zwei Minuten Einspielen auf Tisch eins und drei. Keine Getränke und keine Esswaren auf den Spieltischen — das setzen wir konsequent durch. Und wer nicht antritt, kassiert eine Verwarnung, die zu Satzverlust führen kann.">
+  <section class="slide" data-note="Damit wir durch den Tag kommen: zügig spielen. Maximal zwei Minuten Einspielen auf Tisch eins und zehn. Keine Getränke und keine Esswaren auf den Spieltischen — das setzen wir konsequent durch. Und wer nicht antritt, kassiert eine Verwarnung, die zu Satzverlust führen kann.">
     <div class="kick"><i></i><span>Tempo</span></div>
     <h2>Zügig spielen, <span class="g">zügig eintragen</span></h2>
     <div class="cards c3">
-      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="t">Max. <b>2 Minuten</b> Einspielen<small>auf Tisch 1 und 3</small></div></div>
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="t">Max. <b>2 Minuten</b> Einspielen<small>auf Tisch 1 und 10</small></div></div>
       <div class="card col no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h1a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><div class="t">Nichts <b class="rd">auf den Tischen</b><small>keine Getränke, kein Essen</small></div></div>
       <div class="card col imp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div class="t">Nicht antreten =<br><b class="rd">Verwarnung</b><small>bis zum Satzverlust</small></div></div>
     </div>
   </section>
 
   <!-- 6 · Stream -->
-  <section class="slide" data-note="Der Livestream läuft auf Tisch eins und drei, auf YouTube. Dort bitte besonders zügig spielen. Und denkt daran: die Mikrofone sind an.">
+  <section class="slide" data-note="Der Livestream läuft auf Tisch eins und Tisch zehn, auf YouTube. Dort bitte besonders zügig spielen. Und denkt daran: die Mikrofone sind an.">
     <div class="kick"><i></i><span>Livestream auf YouTube</span></div>
-    <h1>Tisch <span class="g">1 + 3</span></h1>
+    <h1>Tisch <span class="g">1 + 10</span></h1>
     <div class="cards c2" style="max-width:min(1200px,94vw); margin-top:30px">
       <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><div class="t">Kameras laufen<small>dort besonders zügig spielen</small></div></div>
       <div class="card col imp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg><div class="t"><b>Mikrofone sind an.</b></div></div>
@@ -236,14 +238,15 @@ h2{font-weight:900; line-height:1; letter-spacing:-1.2px; font-size:clamp(48px,7
   </section>
 
   <!-- 8 · Im Lokal -->
-  <section class="slide" data-note="Zu den Hausregeln: Rauchen ausschliesslich draussen. Die WCs findet ihr den Gang hinten durch und dann rechts. Hinter die Bar geht nur das Bar-Team, die Turnierleitung und der Chef des Tages. Und wir haben kein WLAN.">
+  <section class="slide" data-note="Zu den Hausregeln: Geraucht wird ausschliesslich draussen, und dort nur in den vorgesehenen Bereichen. Das Frauen-WC ist im ersten Stock, das Männer-WC den Gang hinten durch und dann rechts. Hinter die Bar geht nur das Bar-Team, die Turnierleitung und der Chef des Tages. Und wir haben kein WLAN.">
     <div class="kick"><i></i><span>Bei uns im Clublokal</span></div>
     <div class="cards c2" style="max-width:min(1420px,95vw); margin-top:6px">
-      <div class="card no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg><div class="t">Rauchen <b class="rd">nur draussen</b></div></div>
-      <div class="card do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="m16 6 6 6-6 6"/></svg><div class="t">WC: Gang hinten durch,<br>dann <b>rechts</b></div></div>
+      <div class="card no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg><div class="t">Rauchen nur draussen<small>und dort nur in den vorgesehenen Bereichen</small></div></div>
       <div class="card no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg><div class="t">Hinter die Bar nur<br><b class="rd">Bar-Team &amp; Turnierleitung</b></div></div>
-      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M8.5 16.4a5 5 0 0 1 7 0"/><path d="M5 12.9a10 10 0 0 1 5.2-2.7"/><path d="M2 8.8a15 15 0 0 1 4.2-2.5"/><path d="m2 2 20 20"/><path d="M22 8.8a15 15 0 0 0-8.8-4.2"/></svg><div class="t"><b>Kein WLAN</b></div></div>
+      <div class="card do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2.5"/><path d="M12 9a3.5 3.5 0 0 1 3.4 2.7L16.5 16h-2.3l-.6 6h-3.2l-.6-6H7.5l1.1-4.3A3.5 3.5 0 0 1 12 9z"/></svg><div class="t">Frauen-WC<br><b>im 1. Stock</b></div></div>
+      <div class="card do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="2.5"/><path d="M8.5 9h7a1.5 1.5 0 0 1 1.5 1.5V16h-2v6h-2.5v-6h-1v6H9v-6H7v-5.5A1.5 1.5 0 0 1 8.5 9z"/></svg><div class="t">Männer-WC<br><b>Gang hinten, dann rechts</b></div></div>
     </div>
+    <div class="sub" style="margin-top:22px; max-width:30ch; font-size:clamp(22px,2.8vw,40px)">Und: <b style="color:#eef4fb">kein WLAN</b> im Lokal.</div>
   </section>
 
   <!-- 9 · Bar, Pizza & Bezahlen -->
@@ -253,7 +256,7 @@ h2{font-weight:900; line-height:1; letter-spacing:-1.2px; font-size:clamp(48px,7
     <div class="cards c3">
       <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 11h.01"/><path d="M11 15h.01"/><path d="M16 16h.01"/><path d="m2 16 20 6-6-20A20 20 0 0 0 2 16"/><path d="M5.71 17.11a17.04 17.04 0 0 1 11.4-11.4"/></svg><div class="t">Bestellen <b>bis 15:00</b><small>Lieferung ab 17:00 Uhr</small></div></div>
       <div class="card col imp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg><div class="t"><b>Kein Bargeld</b><small>Karte oder Twint — auch an der Bar</small></div></div>
-      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/></svg><div class="t">Sandwiches &amp; <b>Kuchenbuffet</b><small>dazu Getränke an der Bar</small></div></div>
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01"/><path d="M16 15.5v.01"/><path d="M12 12v.01"/><path d="M11 17v.01"/><path d="M7 14v.01"/></svg><div class="t">Sandwiches &amp; <b>Kuchenbuffet</b><small>dazu Getränke an der Bar</small></div></div>
     </div>
   </section>
 
@@ -272,10 +275,10 @@ h2{font-weight:900; line-height:1; letter-spacing:-1.2px; font-size:clamp(48px,7
   <section class="slide" data-note="Zum Preisgeld: zweitausendneunhundert Franken sind garantiert. Für den Sieg im Open Doppel gibt es vierhundert Franken, im Mixed zweihundert, im Women hundertfünfundzwanzig, im Senior fünfzig. Die volle Verteilung bis Rang acht steht in der Ausschreibung. Und bitte: bleibt zur Siegerehrung am Abend da.">
     <div class="kick"><i></i><span>CHF 2'900 garantiert · Betrag für den Sieg</span></div>
     <div class="prz">
-      <div><b>Open Doppel</b><span>400</span></div>
-      <div><b>Mixed Doppel</b><span>200</span></div>
-      <div><b>Women Doppel</b><span>125</span></div>
-      <div><b>Senior Doppel</b><span>50</span></div>
+      <div><b>Open Doppel</b><span>400<i>.–</i></span></div>
+      <div><b>Mixed Doppel</b><span>200<i>.–</i></span></div>
+      <div><b>Women Doppel</b><span>125<i>.–</i></span></div>
+      <div><b>Senior Doppel</b><span>50<i>.–</i></span></div>
     </div>
     <div class="sub" style="margin-top:26px; max-width:38ch">Bleibt zur Siegerehrung — die volle Verteilung steht in der Ausschreibung.</div>
   </section>
@@ -312,7 +315,7 @@ h2{font-weight:900; line-height:1; letter-spacing:-1.2px; font-size:clamp(48px,7
 <div class="navzone left" id="prevZone"></div>
 <div id="dots"></div>
 <div id="counter"></div>
-<div id="hint">Klick / → weiter · linker Rand zurück · A Auto-Lauf · N Notizen · F Vollbild</div>
+<div id="hint">Klick / → weiter · linker Rand zurück · A Auto-Lauf · L Auto-Loop · N Notizen · F Vollbild</div>
 <div id="notes"><div class="lab">Sprech-Notiz</div><p></p></div>
 
 <script>
@@ -335,7 +338,7 @@ const PREVIEW = /[?&]preview=1/.test(location.search);
 const slides = Array.from(document.querySelectorAll('.slide'));
 const DENSE = new Set([2,3,4,6,7,8,9,10]); // textreiche Folien -> dunkleres Scrim
 const SEC   = [11,12,18,15,15,12,14,14,13,12,13,13,10,7]; // Auto-Lauf, Summe 179s
-let i = 0, auto = false, timer = null, raf = null;
+let i = 0, auto = false, loopMode = false, timer = null, raf = null;
 const dots = document.getElementById('dots');
 const counter = document.getElementById('counter');
 const notes = document.getElementById('notes');
@@ -359,6 +362,14 @@ function countUp(el){
   });
 }
 function stopAutoTimers(){ clearTimeout(timer); cancelAnimationFrame(raf); bar.style.width='0'; }
+/* Zwei Auto-Modi: A laeuft einmal durch und hoert auf, L laeuft endlos im Kreis.
+   Der Fortschrittsbalken ist im Loop blau statt gold, damit man den Modus sieht. */
+function setAuto(on, loop){
+  auto=on; loopMode=on&&loop;
+  bar.classList.toggle('on',auto);
+  bar.classList.toggle('loop',loopMode);
+  if(auto){ runAuto(); } else { stopAutoTimers(); }
+}
 function runAuto(){
   stopAutoTimers();
   if(!auto) return;
@@ -369,7 +380,12 @@ function runAuto(){
     bar.style.width = (p*100)+'%';
     if(p<1 && auto) raf = requestAnimationFrame(tick);
   })(t0);
-  timer = setTimeout(()=>{ if(!auto) return; if(i < slides.length-1){ next(); } else { auto=false; bar.classList.remove('on'); stopAutoTimers(); } }, dur);
+  timer = setTimeout(()=>{
+    if(!auto) return;
+    if(i < slides.length-1){ next(); }
+    else if(loopMode){ go(0); }            /* L: nach der letzten Folie wieder von vorn */
+    else { auto=false; bar.classList.remove('on'); stopAutoTimers(); }
+  }, dur);
 }
 function render(){
   slides.forEach((s,idx)=>s.classList.toggle('on', idx===i));
@@ -391,7 +407,8 @@ document.addEventListener('keydown', e=>{
   else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
   else if(e.key==='Home'){ go(0); } else if(e.key==='End'){ go(slides.length-1); }
   else if(e.key==='n'||e.key==='N'){ notes.classList.toggle('on'); }
-  else if(e.key==='a'||e.key==='A'){ auto=!auto; bar.classList.toggle('on',auto); if(auto){ runAuto(); } else { stopAutoTimers(); } }
+  else if(e.key==='a'||e.key==='A'){ setAuto(!(auto&&!loopMode), false); }
+  else if(e.key==='l'||e.key==='L'){ setAuto(!(auto&&loopMode), true); }
   else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); } else { document.exitFullscreen?.(); } }
 });
 render();
