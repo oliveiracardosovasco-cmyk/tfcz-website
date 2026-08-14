@@ -507,6 +507,16 @@ body.mobile .fb-step .fb-gauge{display:none!important;}
 @media (prefers-reduced-motion:reduce){.fb-bar.full .fb-fill{animation:none}.fb-dancer .d-body,.fb-dancer .arm,.fb-dancer .leg{animation:none}}
 /* ===== Menü-Extras (Persona · Brand Guide) ===== */
 #brandGuideBtn{display:none!important;}
+
+/* Kategorie-Chips im Format-Panel (Ebene 2 der Navigation) */
+.cat-row{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 4px}
+.cat-chip{position:relative;padding-left:26px}
+.cat-chip::before{content:"";position:absolute;left:9px;top:50%;transform:translateY(-50%);
+  width:11px;height:11px;border-radius:3px;background:var(--gold)}
+.cat-chip.cat-fun::before{background:#5ca7dc}
+.cat-chip.cat-pro::before{background:#005a94}
+.cat-chip.cat-elite::before{background:linear-gradient(180deg,#e9c475,#a8863f)}
+.cat-chip.cat-verein::before{background:#0d273d;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .tab-sep{align-self:center;color:#5b6b7c;font-weight:900;font-size:18px;padding:0 3px;pointer-events:none;user-select:none;}
 .tab.tab-extra{opacity:.95;}
 /* ===== Persona-Editor-Modus ===== */
@@ -1075,10 +1085,10 @@ const FORMATS={
   bg_16_9:{name:"Bildschirm-Hintergrund (16:9)",grp:"Screen",w:1920,h:1080,bgOnly:true},
   stream_1080:{name:"Livestream-Overlay (16:9)",grp:"Stream",w:1920,h:1080,streamOnly:true},
   stream_fb:{name:"Livestream-Fallback (Thumbnail)",grp:"Stream",w:1280,h:720,streamOnly:true},
-  elite_thumb:{name:"Elite Thumbnail (16:9)",grp:"Elite",w:1280,h:720,eliteOnly:true},
+  thumb16:{name:"Thumbnail (16:9)",grp:"YouTube",w:1280,h:720,thumbOnly:true},
 };
-const TPLNAME={dyp:"Dyp",kase:"KäseKick",profi:"PRO",rank:"Rangliste",events:"Events",yt:"Youtube",elite:"Elite",bg:"Hintergründe",stream:"Stream-Overlay"};
-const ORDER=["dyp","kase","profi","rank","events","yt","elite","bg","stream"];
+const TPLNAME={dyp:"Crazy DYP",kase:"KäseKick",profi:"PRO",rank:"Rangliste",events:"Events",yt:"Youtube (alt)",thumb:"Thumbnail",bg:"Hintergründe",stream:"Stream-Overlay"};
+const ORDER=["dyp","kase","profi","rank","events","yt","thumb","bg","stream"];
 const DEF={
 /* ===== ELITE (ITSF / STS / SM / WM) — Thumbnail 1280x720 =====
    1:1-Nachbau der YouTube-Thumbnails fuer den Elite-Turniertag.
@@ -1088,7 +1098,7 @@ const DEF={
    Kicker-Strich, Kicker, beide Headline-Zeilen, Preisgeld, drei Badges, Fussleiste,
    Adresse) — nichts ist gruppiert, alles einzeln editier- und verschiebbar.
    Zwei Varianten ueber das Dropdown: Doppel-Tag und Einzel-Tag. */
- elite:{layout:"elite",variant:"doppel",bg:"navy",dark:0,els:[
+ thumb:{layout:"thumb",cat:"elite",variant:"elite_doppel",bg:"navy",dark:0,els:[
   {id:"el_photo",name:"Foto (links)",type:"image",src:"assets/fotos/elite/doppel.jpg"},
   {id:"el_scrim",name:"Foto-Abdunklung",type:"shape"},
   {id:"el_panel",name:"Farbflaeche rechts",type:"shape"},
@@ -1311,7 +1321,7 @@ window.addEventListener('beforeunload',function(e){
   e.preventDefault(); e.returnValue='';
   return '';
 });
-var READY={dyp:1,kase:1,profi:1,yt:1,elite:1,bg:1,stream:1};
+var READY={dyp:1,kase:1,profi:1,yt:1,thumb:1,bg:1,stream:1};
 /* ===== Rolle =====
    Läuft der echte Login (backend/), kommt die Rolle vom Server über window.TFCZ_USER —
    dann ist die Admin-Freigabe an ein echtes Konto gebunden, nicht an das im Code sichtbare
@@ -1655,7 +1665,7 @@ function confirmLeaveEdit(next){ var ov=document.getElementById('cleOv'); if(!ov
   ov.onclick=function(e){ if(e.target===ov)ov.style.display='none'; }; }
 function load(){ if(typeof BAKED!=='undefined'&&BAKED){ try{ var _bk=JSON.parse(BAKED); if(_bk&&_bk.tpl){ Object.keys(_bk.tpl).forEach(function(k){ if(DEF[k])DEF[k]=_bk.tpl[k]; }); } }catch(e){} }
   try{const s=rebuildPages(JSON.parse(localStorage.getItem(LSKEY))); if(s&&s.data&&s.data.dyp&&s.data.kase){ if(!s.data.profi||!s.data.profi.els||!s.data.profi.els.some(e=>e.id==='ghost'))s.data.profi=clone(DEF.profi); if(!s.data.profi.aus)s.data.profi.aus=clone(DEF.profi.aus); if(!s.data.yt||!s.data.yt.els||!s.data.yt.els.some(e=>e.id==='eyebrow'))s.data.yt=clone(DEF.yt); if(!s.data.rank)s.data.rank=clone(DEF.rank); (s.data.rank.ranks||[]).forEach((r,ri)=>['p1','p2'].forEach((k,pi)=>{const p=r[k];if(!p)return; if(p.name!==undefined&&p.vorname===undefined){const t=(p.name||'').trim().split(/\s+/);p.vorname=t.shift()||'';p.nachname=t.join(' ');delete p.name;} if(!p.src||/^assets\/players\//.test(p.src))p.src='bg:'+['a','b','c'][(ri*2+pi)%3];})); if(!s.data.events)s.data.events=clone(DEF.events); if(!s.data.kase||s.data.kase.layout!=='kase')s.data.kase=clone(DEF.kase); if(s.data.kase&&s.data.kase.layout==='kase'&&s.data.kase.bg==='a')s.data.kase.bg='navy'; if(s.data.kase&&s.data.kase.els&&!s.data.kase.els.some(function(e){return e.id==='cheese';}))s.data.kase.els.unshift({id:'cheese',name:'K\u00e4se oben',type:'image'}); if(s.data.kase&&s.data.kase.els){var _st=s.data.kase.els.find(function(e){return e.id==='subttl';}); if(_st&&_st.text==='T\u00f6ggele \u00b7 Walliser Raclette \u00b7 gute Leute'){_st.text='Plausch-T\u00f6ggeliturnier f\u00fcr alle'; _st.size=30;}} if(!s.library)s.library=[]; return s;}}catch(e){}
-  return {active:"kase",fmt:"ig_feed",library:[],templates:{},captions:{},data:{dyp:clone(DEF.dyp),kase:clone(DEF.kase),profi:clone(DEF.profi),rank:clone(DEF.rank),events:clone(DEF.events),yt:clone(DEF.yt),elite:clone(DEF.elite),bg:clone(DEF.bg),stream:clone(DEF.stream)}}; }
+  return {active:"kase",fmt:"ig_feed",library:[],templates:{},captions:{},data:{dyp:clone(DEF.dyp),kase:clone(DEF.kase),profi:clone(DEF.profi),rank:clone(DEF.rank),events:clone(DEF.events),yt:clone(DEF.yt),thumb:clone(DEF.thumb),bg:clone(DEF.bg),stream:clone(DEF.stream)}}; }
 function isProfi(){return cur().layout==='profi';}
 function isYt(){return cur().layout==='yt';}
 function isAus(){return state.fmt==='aus';}
@@ -1665,7 +1675,7 @@ function isKase(){return cur().layout==='kase';}
 function isBg(){return cur().layout==='bg';}
 function isDyp(){return cur().layout==='dyp';}
 function isStream(){return cur().layout==='stream';}
-function isElite(){return cur().layout==='elite';}
+function isThumb(){return cur().layout==='thumb';}
 function isReel(){return state.fmt==='reel';}
 function isDoc(){const f=FORMATS[state.fmt];return !!(f&&f.doc);}
 var _saveT=null;
@@ -2347,30 +2357,54 @@ function buildStream(){ const P=document.getElementById('profi'); const W=CW(),H
    Die Diagonale laeuft von x=620 (oben) auf x=474 (unten): -146px auf 720px.
    Der Textblock steht parallel dazu; die Startwerte unten sind am fertigen
    Thumbnail gemessen, nicht geschaetzt. */
-const ELITE_GEO={dxTop:620,dxBot:474,edge:15,gap2:26,thin2:5};
-const ELITEVAR={
-  doppel:{photo:"assets/fotos/elite/doppel.jpg",kicker:"STS26",num:"ITSF250",city:"ZÜRICH",
-          prize:"CHF 2'900 Preisgeld",b1:"5 Doppel-Disziplinen",b2:"14 Tische",b3:"60 Teams"},
-  einzel:{photo:"assets/fotos/elite/einzel.jpg",kicker:"STS26",num:"ITSF250",city:"ZÜRICH",
-          prize:"CHF 2'900 Preisgeld",b1:"6 Einzel-Disziplinen",b2:"14 Tische",b3:"60 Teilnehmer"}
+const THUMB_GEO={dxTop:620,dxBot:474,edge:15,gap2:26,thin2:5};
+/* ===== Kategorie-Skins: EIN Layout, vier Anstriche =====
+   Die Farbfläche rechts trägt die Turnierstufe (CLAUDE.md Farbsystem):
+   Fun = Hellblau · Pro = DarkNavy #005a94 · Elite = Navy + Goldschein · Verein = Navy.
+   Nur bei Elite läuft die zweite, feine Goldlinie mit. */
+const THUMBCAT={
+  fun:{nm:'Fun',panel:'linear-gradient(160deg,#5ca7dc,#4489c7 60%,#3a7cb4)',
+       edge:'linear-gradient(180deg,#f0cf85,#cda857 55%,#a8863f)',edge2:false},
+  pro:{nm:'Pro',panel:'linear-gradient(160deg,#0a4a78,#005a94 55%,#0d273d)',
+       edge:'linear-gradient(180deg,#f0cf85,#cda857 55%,#a8863f)',edge2:false},
+  elite:{nm:'Elite',panel:'radial-gradient(120% 96% at 100% 0%,rgba(240,207,133,.92) 0%,rgba(205,168,87,.62) 26%,rgba(120,96,48,.30) 48%,rgba(13,39,61,0) 72%),linear-gradient(158deg,#173a56,#0d273d 52%,#081a29)',
+       edge:'linear-gradient(180deg,#f0cf85,#cda857 50%,#8d6f33)',edge2:true},
+  verein:{nm:'Verein',panel:'linear-gradient(160deg,#12324c,#0d273d 55%,#081a29)',
+       edge:'linear-gradient(180deg,#f0cf85,#cda857 55%,#a8863f)',edge2:false}
 };
-function applyEliteVariant(v){
-  var p=ELITEVAR[v]; if(!p)return; var d=state.data.elite; d.variant=v;
+/* Vorlagen je Kategorie. Schluessel = <kategorie>_<vorlage>. */
+const THUMBPRESET={
+  elite_doppel:{cat:'elite',nm:'Doppel-Tag',photo:"assets/fotos/elite/doppel.jpg",kicker:"STS26",num:"ITSF250",city:"ZÜRICH",
+          prize:"CHF 2'900 Preisgeld",b1:"5 Doppel-Disziplinen",b2:"14 Tische",b3:"60 Teams"},
+  elite_einzel:{cat:'elite',nm:'Einzel-Tag',photo:"assets/fotos/elite/einzel.jpg",kicker:"STS26",num:"ITSF250",city:"ZÜRICH",
+          prize:"CHF 2'900 Preisgeld",b1:"6 Einzel-Disziplinen",b2:"14 Tische",b3:"60 Teilnehmer"},
+  fun_dyp:{cat:'fun',nm:'Crazy DYP',photo:"assets/fotos/action/action-13.jpg",kicker:"Jeden Mittwoch",num:"DYP",city:"LIVE",
+          prize:"Start 20:15 Uhr",b1:"Draw Your Partner",b2:"Für alle offen",b3:"Ohne Anmeldung"},
+  fun_kase:{cat:'fun',nm:'KäseKick',photo:"assets/fotos/atmosphaere/atmosphaere-01.jpg",kicker:"Plausch-Turnier",num:"KÄSE",city:"KICK",
+          prize:"Raclette inklusive",b1:"Für alle offen",b2:"10 Tische",b3:"Anmeldung nötig"},
+  pro_strt:{cat:'pro',nm:'STRT / Pro Turnier',photo:"assets/fotos/action/action-05.jpg",kicker:"Pro Turnier",num:"STRT",city:"ZÜRICH",
+          prize:"Quali für die SM",b1:"ITSF-Regeln",b2:"10 Tische",b3:"Anmeldung nötig"},
+  verein_std:{cat:'verein',nm:'Allgemein',photo:"assets/fotos/action/action-09.jpg",kicker:"Tischfussball Club Zürich",num:"TFCZ",city:"LIVE",
+          prize:"Di & Mi ab 19:00",b1:"108 Mitglieder",b2:"10 Tische",b3:"Seit 1990"}
+};
+function applyThumbPreset(v){
+  var p=THUMBPRESET[v]; if(!p)return; var d=state.data.thumb; d.variant=v; d.cat=p.cat;
   function set(id,t){ var el=(d.els||[]).find(function(x){return x.id===id;}); if(el)el.text=t; }
   set('el_kicker',p.kicker); set('el_num',p.num); set('el_city',p.city);
   set('el_prize',p.prize); set('el_b1',p.b1); set('el_b2',p.b2); set('el_b3',p.b3);
   var ph=(d.els||[]).find(function(x){return x.id==='el_photo';});
   /* Ein selbst gewaehltes Foto bleibt stehen — getauscht wird nur der Standard. */
-  if(ph && (!ph.src || /assets\/fotos\/elite\//.test(ph.src))) ph.src=p.photo;
+  var STD=Object.keys(THUMBPRESET).map(function(x){return THUMBPRESET[x].photo;});
+  if(ph && (!ph.src || STD.indexOf(ph.src)>=0)) ph.src=p.photo;
   save(); rebuild(); if(typeof buildFmtHost==='function')buildFmtHost();
 }
-function buildElite(){
+function buildThumb(){
   const P=document.getElementById('profi'); const W=CW(),H=CH(),k=W/1280;
   const C=COLORS, NAVY=C.navy||'#0d273d', BLUE=C.blue||'#5ca7dc', GOLD=C.gold||'#cda857';
   const _o=cur(); _o.els=_o.els||[];
   /* Sanftes Nachruesten: aeltere gespeicherte Staende bekommen fehlende Teile ergaenzt,
      ohne dass Text oder Position ueberschrieben werden. */
-  (DEF.elite.els||[]).forEach(function(d){ if(!_o.els.some(function(x){return x.id===d.id;})) _o.els.push(clone(d)); });
+  (DEF.thumb.els||[]).forEach(function(d){ if(!_o.els.some(function(x){return x.id===d.id;})) _o.els.push(clone(d)); });
   canvas.style.background=NAVY;
   const _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot');
   /* Die globalen Balken bleiben aus: die Brand-Line ist hier ein eigenes, editierbares Element. */
@@ -2383,9 +2417,10 @@ function buildElite(){
   const WT=id=>((g(id)&&g(id).weight)||900);
   const LS=(id,fb)=>{var v=(g(id)&&g(id).ls); return (v!=null?v:fb);};
   const px=v=>Math.round(v*k)+'px';
-  const G=ELITE_GEO, DT=G.dxTop, DB=G.dxBot;
+  const G=THUMB_GEO, DT=G.dxTop, DB=G.dxBot;
   const poly=pts=>'polygon('+pts.map(function(p){return Math.round(p[0]*k)+'px '+Math.round(p[1]*k)+'px';}).join(',')+')';
-  const PHOTO_DEFAULT=(ELITEVAR[_o.variant||'doppel']||ELITEVAR.doppel).photo;
+  const SKIN=THUMBCAT[_o.cat||'elite']||THUMBCAT.elite;
+  const PHOTO_DEFAULT=(THUMBPRESET[_o.variant||'elite_doppel']||THUMBPRESET.elite_doppel).photo;
   /* Badge-Grundstil — einmal definiert, von allen vier Badges benutzt. */
   const badgeBox='display:inline-flex;align-items:center;white-space:nowrap;'
     +'font-family:\'Nunito Sans\',system-ui,sans-serif;';
@@ -2408,10 +2443,9 @@ function buildElite(){
   if(vis(g('el_panel')))
     h+='<div class="item" data-id="el_panel" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:3;'
       +'clip-path:'+poly([[DT,0],[1280,0],[1280,720],[DB,720]])+';'
-      +'background:radial-gradient(120% 96% at 100% 0%,rgba(240,207,133,.92) 0%,rgba(205,168,87,.62) 26%,rgba(120,96,48,.30) 48%,rgba(13,39,61,0) 72%),'
-      +'linear-gradient(158deg,#173a56,#0d273d 52%,#081a29)"></div>';
+      +'background:'+SKIN.panel+'"></div>';
   /* 4) Duenne zweite Goldlinie (Elite-Signatur) */
-  if(vis(g('el_edge2')))
+  if(SKIN.edge2 && vis(g('el_edge2')))
     h+='<div class="item" data-id="el_edge2" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:4;'
       +'clip-path:'+poly([[DT-G.gap2,0],[DT-G.gap2+G.thin2,0],[DB-G.gap2+G.thin2,720],[DB-G.gap2,720]])+';'
       +'background:linear-gradient(180deg,#e9c475,#a8863f)"></div>';
@@ -2419,7 +2453,7 @@ function buildElite(){
   if(vis(g('el_edge')))
     h+='<div class="item" data-id="el_edge" style="position:absolute;left:0;top:0;max-width:none;width:100%;height:100%;z-index:5;'
       +'clip-path:'+poly([[DT,0],[DT+G.edge,0],[DB+G.edge,720],[DB,720]])+';'
-      +'background:linear-gradient(180deg,#f0cf85,#cda857 50%,#8d6f33)"></div>';
+      +'background:'+SKIN.edge+'"></div>';
   /* 6) Wortmarke oben links (geteiltes Asset, referenziert) */
   if(vis(g('el_wordmark'))){ const L=g('el_wordmark');
     h+='<img class="item" data-id="el_wordmark" src="'+(L.src||'assets/img/logo-horizontal-white.png')+'" style="position:absolute;left:'+px(44)+';top:'+px(38)+';'
@@ -2452,7 +2486,10 @@ function buildElite(){
   /* 11) Preisgeld-Badge — fuehrt die Reihe an, deutlich groesser als die anderen.
          Text "CHF 2'900 Preisgeld": erstes Wort = Waehrung, letztes = Label, Rest = Zahl. */
   if(vis(g('el_prize'))){ const B=g('el_prize'), fs=FS('el_prize',32);
-    var tk=String(B.text||'').trim().split(/\s+/), cur0=tk.shift()||'', lab=tk.pop()||'', val=tk.join(' ');
+    /* Nur wenn vorne eine Waehrung steht, wird dreigeteilt (klein · gross · Label).
+       Sonst stuende bei „Quali für die SM" das „für die" riesig in der Mitte. */
+    var _t=String(B.text||'').trim(), _isCur=/^(CHF|EUR|USD)\b/i.test(_t);
+    var tk=_t.split(/\s+/), cur0=_isCur?(tk.shift()||''):'', lab=_isCur?(tk.pop()||''):'', val=_isCur?tk.join(' '):_t;
     h+='<div class="item" data-id="el_prize" style="position:absolute;left:'+px(579)+';top:'+px(422)+';z-index:21;'+badgeBox
       +'gap:'+px(9)+';padding:'+px(13)+' '+px(22)+';border-radius:'+px(12)+';'
       +'background:linear-gradient(155deg,rgba(233,196,117,.26),rgba(9,21,33,.90));'
@@ -2491,6 +2528,17 @@ function buildElite(){
   /* Badges und Titel duerfen nicht umbrechen (wireItems setzt Text auf pre-line) */
   ['el_kicker','el_num','el_city','el_prize','el_b1','el_b2','el_b3','el_venue'].forEach(function(id){
     var n=P.querySelector('.item[data-id="'+id+'"]'); if(n)n.style.whiteSpace='nowrap'; });
+  /* Die drei kleinen Badges fliessen: b2 und b3 setzen dort an, wo der Vorgaenger
+     endet. Feste x-Werte haben bei laengeren Texten (Fun/Pro) ueberlappt. */
+  (function(){ var gap=Math.round(12*k), x=null;
+    ['el_b1','el_b2','el_b3'].forEach(function(id){
+      var n=P.querySelector('.item[data-id="'+id+'"]'); if(!n)return;
+      var e=evEl(getEl(id));
+      if(e.dx||e.dy){ x=null; return; }      /* selbst verschoben? ab da nicht mehr fliessen */
+      if(x!==null) n.style.left=Math.round(x)+'px';
+      x=n.offsetLeft+n.offsetWidth+gap;
+    });
+  })();
 }
 
 /* ===== Livestream-Fallback (Thumbnail 1280×720) =====
@@ -2677,7 +2725,7 @@ function wireItems(P){
 }
 function rebuild(){ const _pf=document.getElementById('profi'); if(_pf){_pf.classList.remove('kaselay');_pf.classList.remove('ytlay');_pf.classList.remove('bglay');_pf.classList.remove('streamlay');_pf.classList.remove('streamfblay');}
   canvas.style.background=''; { var _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot'); if(_lt)_lt.style.display=''; if(_lb)_lb.style.display=''; }
-  if(isElite()){buildElite();return;}
+  if(isThumb()){buildThumb();return;}
   if(isStream()){buildStream();return;}
   if(isBg()){buildBg();return;}
   if(isKase()){buildKase();return;}
@@ -3086,26 +3134,101 @@ function wizCreate(){ const W=document.getElementById("wizard"); let ok=true;
   W.querySelectorAll("[data-t]").forEach(inp=>{ const t=inp.dataset.t; let v=inp.value.trim(); if(inp.type==="date"){ if(!v)return; v=fmtDate(v);} else if(!v){return;} tsetVal(t,v); });
   save(); closeOverlay("wizard",".wiz",switchAll);
 }
+
+/* ================= NAVIGATION: ZWEI ACHSEN =================
+   Bis 14.08.2026 mischte die Reiterleiste zwei Fragen: „für welchen Anlass?"
+   (Dyp, KäseKick, PRO …) und „was für ein Ding?" (Youtube, Hintergründe, Stream).
+   Dadurch wuchs sie mit jeder neuen Turnierstufe in die Breite, und „Elite" stand
+   sinnwidrig neben „Youtube" — obwohl Elite ein Youtube-Thumbnail IST.
+
+   Neu, drei Ebenen:
+     1. Reiter oben     = MEDIUM    (was lädst du am Ende hoch)
+     2. Chips im Panel  = KATEGORIE (Fun · Pro · Elite · Verein — trägt die Farbe)
+     3. Liste darunter  = VORLAGE   (die konkrete Ausprägung)
+   Die internen Vorlagen-Schlüssel (dyp, kase, profi, thumb, …) bleiben unverändert —
+   umgebaut wird nur die Navigation, damit gespeicherte Stände weiterleben. */
+const MEDIA=[['social','Flyer & Social'],['yt','YouTube'],['stream','Stream'],
+             ['bg','Hintergrund'],['praesi','Präsentationen']];
+const CATNM={fun:'Fun',pro:'Pro',elite:'Elite',verein:'Verein'};
+const NAVTREE={
+  social:{fun:[['kase','KäseKick'],['dyp','Crazy DYP']],
+          pro:[['profi','PRO / STRT']],
+          verein:[['events','Events'],['rank','Rangliste']]},
+  yt:{fun:[['thumb:fun_dyp','Crazy DYP'],['thumb:fun_kase','KäseKick']],
+      pro:[['thumb:pro_strt','STRT / Pro Turnier']],
+      elite:[['thumb:elite_doppel','Doppel-Tag'],['thumb:elite_einzel','Einzel-Tag']],
+      verein:[['thumb:verein_std','Allgemein']]},
+  stream:{verein:[['stream','Overlay & Fallback']]},
+  bg:{verein:[['bg','Bildschirm-Hintergrund']]},
+  praesi:{}
+};
+function medOf(k){ k=k||state.active;
+  if(k==='thumb'||k==='yt')return 'yt';
+  if(k==='stream')return 'stream';
+  if(k==='bg')return 'bg';
+  return 'social'; }
+function catOf(){ if(state.active==='thumb')return cur().cat||'elite';
+  if(state.active==='profi')return 'pro';
+  if(state.active==='kase'||state.active==='dyp')return 'fun';
+  return 'verein'; }
+/* Eintrag waehlen: „thumb:elite_doppel" setzt Vorlage UND Preset, sonst nur die Vorlage. */
+function navGo(id){
+  var W=document.getElementById('wizard'); if(W)W.style.display='none';
+  stashEdit(state.active); sel=null; selMulti=[];
+  if(id.indexOf('thumb:')===0){
+    state.active='thumb'; state.fmt='thumb16'; popEdit('thumb');
+    applyThumbPreset(id.slice(6)); switchAll();
+  } else {
+    state.active=id;
+    if(id==='bg')state.fmt='bg_16_9'; else if(id==='stream')state.fmt='stream_1080';
+    else if(state.fmt==='thumb16'||state.fmt==='bg_16_9'||state.fmt==='stream_1080'||state.fmt==='stream_fb')state.fmt='ig_feed';
+    popEdit(id); save(); switchAll();
+  }
+}
+function navFirst(m){ var t=NAVTREE[m]||{}, cats=Object.keys(t);
+  for(var i=0;i<cats.length;i++){ var e=t[cats[i]]; if(e&&e.length)return e[0][0]; }
+  return null; }
+
+
+/* ===== Reiter „Präsentationen" =====
+   Erste Stufe: die Decks liegen noch ausserhalb des Web-Ordners. Bis sie nach
+   `praesentationen/` (hinter dem Login) umgezogen sind, sagt der Reiter ehrlich,
+   was fehlt — statt still nichts zu tun. Übersicht, Vollbild-Präsentation und
+   „neue Präsi" folgen im nächsten Schritt. */
+function openPraesi(){
+  var ov=document.getElementById('praesiOv');
+  if(!ov){ ov=document.createElement('div'); ov.id='praesiOv';
+    ov.style.cssText='position:fixed;inset:0;z-index:900;display:grid;place-items:center;'
+      +'background:rgba(4,12,20,.72);backdrop-filter:blur(6px)';
+    ov.innerHTML='<div style="max-width:560px;background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.92));'
+      +'border:1px solid rgba(255,255,255,.12);border-top:3px solid #5ca7dc;border-bottom:3px solid #cda857;'
+      +'border-radius:14px;padding:26px 28px;color:#fff;font-family:\'Nunito Sans\',system-ui,sans-serif">'
+      +'<div style="font-weight:900;font-size:22px">Präsentationen</div>'
+      +'<div style="margin-top:10px;color:#9fb6cc;font-weight:600;line-height:1.5">Hier kommen deine Decks rein — '
+      +'Übersicht mit Vorschaubild, nach Anlass gruppiert, Vollbild-Präsentation und „neue Präsi anlegen".<br><br>'
+      +'Dafür müssen die vier bestehenden Decks zuerst nach <b style="color:#e9c475">praesentationen/</b> '
+      +'umziehen — hinter den Login, damit die Sponsoring-Unterlagen nicht öffentlich werden.</div>'
+      +'<div style="margin-top:18px;text-align:right"><button class="btn blue" id="praesiX">Verstanden</button></div>'
+      +'</div>';
+    document.body.appendChild(ov);
+    ov.addEventListener('click',function(e){ if(e.target===ov)ov.remove(); });
+  }
+  ov.style.display='grid';
+  var x=document.getElementById('praesiX'); if(x)x.onclick=function(){ ov.remove(); };
+}
+
 function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
   const ind=document.createElement('div'); ind.className='tab-ind'; ind.id='tabInd'; t.appendChild(ind);
-  ORDER.forEach(k=>{ const b=document.createElement('button');
-    /* Rot = dieser Flyer hat offene, ungespeicherte Änderungen (auch wenn man gerade woanders ist) */
-    var _dirty = (k===state.active) ? editing : !!(EDITSTATE[k]&&EDITSTATE[k].editing);
-    b.className='tab'+((k===state.active&&!personaMode)?' on':'')+(!READY[k]?' soon':'')+(_dirty?' dirty':''); b.dataset.k=k; b.innerHTML=esc(TPLNAME[k])+(!READY[k]?'<span class="soon">Bald</span>':'');
-    b.onclick=()=>{ if(!READY[k]&&!isAdmin()){ showComingSoon(); return; } if(!personaMode&&state.active===k)return;
-      /* Wechsel ohne Rückfrage: der Zustand des alten Typs wird weggelegt, der des neuen geholt.
-         Beide bleiben parallel „in Bearbeitung". */
-      var go=function(){
-        const W=document.getElementById('wizard'); if(W)W.style.display='none';
-        stashEdit(state.active);                 /* Zustand des bisherigen Typs sichern */
-        state.active=k; sel=null; selMulti=[];
-        if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080'; else if(k==='elite')state.fmt='elite_thumb';
-        else if(state.fmt==='yt_thumb'||state.fmt==='bg_16_9'||state.fmt==='stream_1080'||state.fmt==='stream_fb'||state.fmt==='elite_thumb')state.fmt='ig_feed';
-        if(state.fmt==='aus'&&k!=='profi')state.fmt='ig_feed';
-        popEdit(k);                              /* Zustand des neuen Typs holen */
-        save(); switchAll();
-      };
-      go();                                      /* kein confirmLeaveEdit mehr — parallel arbeiten */
+  const _med=medOf();
+  MEDIA.forEach(m=>{ const k=m[0]; const b=document.createElement('button');
+    /* Rot = irgendeine Vorlage dieses Mediums hat offene Änderungen */
+    var _keys=[]; Object.keys(NAVTREE[k]||{}).forEach(function(c){ (NAVTREE[k][c]||[]).forEach(function(e){
+      _keys.push(e[0].indexOf('thumb:')===0?'thumb':e[0]); }); });
+    var _dirty=_keys.some(function(x){ return (x===state.active)?editing:!!(EDITSTATE[x]&&EDITSTATE[x].editing); });
+    b.className='tab'+((k===_med&&!personaMode)?' on':'')+(_dirty?' dirty':''); b.dataset.k=k; b.innerHTML=esc(m[1]);
+    b.onclick=()=>{ if(k==='praesi'){ if(typeof openPraesi==='function')openPraesi(); return; }
+      if(k===_med&&!personaMode)return;
+      var first=navFirst(k); if(first)navGo(first);
     }; t.appendChild(b); });
   const sep=document.createElement('span'); sep.className='tab-sep'; sep.textContent='·'; t.appendChild(sep);
   const ptab=document.createElement('button'); ptab.className='tab tab-extra'+(personaMode?' on':''); ptab.id='tabPersona'; ptab.textContent='Persona'; ptab.onclick=()=>{ if(personaMode)return; stashEdit(state.active); enterPersona(); }; t.appendChild(ptab);
@@ -3116,6 +3239,34 @@ function positionTabInd(){ const t=document.getElementById('tabs'); if(!t)return
   try{ b.scrollIntoView({inline:'nearest',block:'nearest'}); }catch(e){} }
 const FMTUSE={ig_story:'Instagram/Facebook Story & Reels-Cover · vollflächig 9:16.',ig_feed:'Instagram-Feed Hochformat · bester Platz im Feed.',ig_square:'Feed quadratisch · Instagram & Facebook.',wa_msg:'WhatsApp-Nachricht / Broadcast.',wa_story:'WhatsApp-Status · 9:16.',yt_thumb:'YouTube-Thumbnail · 16:9.',bg_16_9:'Bildschirm-/Desktop-Hintergrund · 1920×1080, randlos & deckend.',stream_1080:'Livestream-Overlay · 1920×1080, transparent (Video scheint durch). Für OBS/YouTube.',stream_fb:'Livestream-Fallback · YT-Thumbnail 1280×720 für Streaming-Tage ohne eigenes Motiv. Foto, Logo, Kicker, Titel, Adresse — alles einzeln editier- und verschiebbar (Doppelklick = Text, Klick + ziehen = Position).',aus:'STF-Ausschreibung als Webseite (A4-artig) zum Teilen & Drucken.',reel:'Animiertes Reel (9:16) · HTML fürs Screen-Recording.'};
 function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)return; h.innerHTML='';
+  /* ---- Ebene 2 + 3: Kategorie-Chips, darunter die Vorlagen des Mediums ---- */
+  (function(){
+    var med=medOf(), tree=NAVTREE[med]||{}, cats=Object.keys(tree).filter(function(c){return (tree[c]||[]).length;});
+    if(!cats.length)return;
+    var aktiv=catOf(); if(cats.indexOf(aktiv)<0)aktiv=cats[0];
+    var th=document.createElement('h3'); th.textContent='Kategorie'; h.appendChild(th);
+    var cb=document.createElement('div'); cb.className='cat-row';
+    cats.forEach(function(c){ var b=document.createElement('button');
+      b.className='chip-f cat-chip cat-'+c+(c===aktiv?' on':''); b.textContent=CATNM[c]||c;
+      b.onclick=function(){ var e=(tree[c]||[])[0]; if(e)navGo(e[0]); };
+      cb.appendChild(b); });
+    h.appendChild(cb);
+    var tv=document.createElement('h3'); tv.textContent='Vorlage'; h.appendChild(tv);
+    var sl=document.createElement('div'); sl.className='fmt-list';
+    (tree[aktiv]||[]).forEach(function(e){
+      var akt=(e[0].indexOf('thumb:')===0) ? (state.active==='thumb'&&cur().variant===e[0].slice(6))
+                                           : (state.active===e[0]);
+      var it=document.createElement('div'); it.className='fmt-item'+(akt?' on':'');
+      it.innerHTML='<span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">'+esc(e[1])+'</span>';
+      it.onclick=function(){ navGo(e[0]); };
+      sl.appendChild(it); });
+    h.appendChild(sl);
+  })();
+  if(state.active==='thumb'){
+    var inf=document.createElement('div'); inf.className='fmt-info';
+    inf.innerHTML='<b>Thumbnail</b><br>1280×720 px · ein Layout für alle Stufen. Die Kategorie bestimmt die Farbfläche rechts. Jedes Element ist einzeln editierbar: Doppelklick = Text, Klick + Ziehen = Position, Klick aufs Foto = Bild tauschen.';
+    h.appendChild(inf); return; }
+
   if(state.active==='stream'){ const o=cur();
     /* ===== Format-Umschalter (Livestream-Overlay vs. Livestream-Fallback-Thumbnail) ===== */
     const ft=document.createElement('h3'); ft.textContent='Format'; h.appendChild(ft);
@@ -3155,20 +3306,11 @@ function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)retur
       var inf2=document.createElement('div'); inf2.className='fmt-info'; inf2.style.marginTop='12px'; inf2.innerHTML='<b>Livestream-Fallback (Thumbnail)</b><br>1280×720 · generisches YT-Thumbnail für Streaming-Tage ohne eigenes Bild. Foto, Logo, Kicker, Titel &amp; Adresse sind einzeln editierbar (Doppelklick = Text ändern) und verschiebbar (anklicken &amp; ziehen). Foto tauschen: aufs Foto klicken oder ein Bild drauf ziehen. Export über „PNG herunterladen".'; h.appendChild(inf2);
     }
     return; }
-  if(state.active==='elite'){ const th=document.createElement('h3'); th.textContent='Turniertag'; h.appendChild(th);
-    const sl=document.createElement('div'); sl.className='fmt-list';
-    [['doppel','Doppel-Tag'],['einzel','Einzel-Tag']].forEach(function(o){
-      const it=document.createElement('div'); it.className='fmt-item'+(((cur().variant)||'doppel')===o[0]?' on':'');
-      it.innerHTML='<span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">'+esc(o[1])+'</span>';
-      it.onclick=function(){ applyEliteVariant(o[0]); }; sl.appendChild(it); });
-    h.appendChild(sl);
-    const inf=document.createElement('div'); inf.className='fmt-info';
-    inf.innerHTML='<b>Elite-Thumbnail</b><br>1280×720 px · ITSF / STS / SM. Jedes Element ist einzeln editierbar: Doppelklick = Text, Klick + Ziehen = Position, Klick aufs Foto = Bild tauschen.';
-    h.appendChild(inf); return; }
-  if(state.active==='yt'){ const th=document.createElement('h3'); th.textContent='Event-Serie'; h.appendChild(th); const sl=document.createElement('div'); sl.className='fmt-list'; [['dyp','Crazy DYP'],['kase','KäseKick'],['profi','PRO'],['rank','Rangliste'],['events','Events']].forEach(function(o){ const it=document.createElement('div'); it.className='fmt-item'+(((state.data.yt.series)||'dyp')===o[0]?' on':''); it.innerHTML='<span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">'+esc(o[1])+'</span>'; it.onclick=function(){ applyYtSeries(o[0]); }; sl.appendChild(it); }); h.appendChild(sl); const inf=document.createElement('div'); inf.className='fmt-info'; inf.innerHTML='<b>YouTube-Thumbnail</b><br>1280×720 px · wähle die Event-Serie, dann Texte/Foto anpassen.'; h.appendChild(inf); return; }
+
+
   const t=document.createElement('h3'); t.textContent='Format'; h.appendChild(t);
   const list=document.createElement('div'); list.className='fmt-list';
-  Object.entries(FORMATS).forEach(([k,f])=>{ if(f.proOnly&&state.active!=='profi')return; if(f.ytOnly&&state.active!=='yt')return; if(f.bgOnly&&state.active!=='bg')return; if(state.active==='bg'&&!f.bgOnly)return; if(f.streamOnly&&state.active!=='stream')return; if(state.active==='stream'&&!f.streamOnly)return; if(f.eliteOnly&&state.active!=='elite')return; if(state.active==='elite'&&!f.eliteOnly)return;
+  Object.entries(FORMATS).forEach(([k,f])=>{ if(f.proOnly&&state.active!=='profi')return; if(f.ytOnly&&state.active!=='yt')return; if(f.bgOnly&&state.active!=='bg')return; if(state.active==='bg'&&!f.bgOnly)return; if(f.streamOnly&&state.active!=='stream')return; if(state.active==='stream'&&!f.streamOnly)return; if(f.thumbOnly&&state.active!=='thumb')return; if(state.active==='thumb'&&!f.thumbOnly)return;
     const it=document.createElement('div'); it.className='fmt-item'+(k===state.fmt?' on':'')+(editing&&k===editFmt?' editing':''); it.dataset.k=k;
     var _tw,_th; if(f.doc){_tw=16;_th=20;} else { var _r=f.w/f.h; if(_r>=1){_tw=22;_th=Math.max(9,Math.round(22/_r));} else {_th=22;_tw=Math.max(9,Math.round(22*_r));} }
     var _thumb='<span class="fmt-thumb'+(f.doc?' doc':'')+'" style="width:'+_tw+'px;height:'+_th+'px"></span>';
@@ -3388,7 +3530,7 @@ async function exportPages(){
 }
 async function doExport(mode){ if(!exportMoeglich())return;
   const b=document.getElementById('download'), o=b.textContent; b.disabled=true; const prevFmt=state.fmt;
-  const keys = mode==='all' ? Object.keys(FORMATS).filter(k=>!FORMATS[k].doc&&!(FORMATS[k].ytOnly&&state.active!=='yt')&&!(FORMATS[k].bgOnly&&state.active!=='bg')&&!(state.active==='bg'&&!FORMATS[k].bgOnly)&&!(FORMATS[k].streamOnly&&state.active!=='stream')&&!(state.active==='stream'&&!FORMATS[k].streamOnly)&&!(FORMATS[k].eliteOnly&&state.active!=='elite')&&!(state.active==='elite'&&!FORMATS[k].eliteOnly)) : [state.fmt];
+  const keys = mode==='all' ? Object.keys(FORMATS).filter(k=>!FORMATS[k].doc&&!(FORMATS[k].ytOnly&&state.active!=='yt')&&!(FORMATS[k].bgOnly&&state.active!=='bg')&&!(state.active==='bg'&&!FORMATS[k].bgOnly)&&!(FORMATS[k].streamOnly&&state.active!=='stream')&&!(state.active==='stream'&&!FORMATS[k].streamOnly)&&!(FORMATS[k].thumbOnly&&state.active!=='thumb')&&!(state.active==='thumb'&&!FORMATS[k].thumbOnly)) : [state.fmt];
   try{ for(let i=0;i<keys.length;i++){ const key=keys[i]; b.textContent = keys.length>1 ? ('Rendering '+(i+1)+'/'+keys.length+'…') : 'Rendering…';
       state.fmt=key; applyCanvasSize(); rebuild(); layoutFit(); await new Promise(r=>setTimeout(r,90));
       const url=await renderCapture(); if(url){ const a=document.createElement('a'); a.download='TFCZ_'+state.active+'_'+key+'_'+CW()+'x'+CH()+'.png'; a.href=url; a.click(); }
@@ -3961,7 +4103,7 @@ function capDefault(cat,fmt){
   }
   return `${d.emoji} ${d.ttl.toUpperCase()} – TFCZ\n${d.hook}\n\n${d.facts.join('\n')}\n\nAlle Infos: ${CAP_IG} · ${CAP_WEB}\nAlle sind willkommen!\n\n${tags}`;
 }
-function capApplicableFormats(){ return Object.keys(FORMATS).filter(k=>{const f=FORMATS[k]; return !f.doc && !(f.ytOnly&&state.active!=='yt') && !(f.proOnly&&state.active!=='profi') && !(f.streamOnly&&state.active!=='stream') && !(state.active==='stream'&&!f.streamOnly) && !(f.eliteOnly&&state.active!=='elite') && !(state.active==='elite'&&!f.eliteOnly);}); }
+function capApplicableFormats(){ return Object.keys(FORMATS).filter(k=>{const f=FORMATS[k]; return !f.doc && !(f.ytOnly&&state.active!=='yt') && !(f.proOnly&&state.active!=='profi') && !(f.streamOnly&&state.active!=='stream') && !(state.active==='stream'&&!f.streamOnly) && !(f.thumbOnly&&state.active!=='thumb') && !(state.active==='thumb'&&!f.thumbOnly);}); }
 function capKey(cat,fmt){ return cat+'|'+fmt; }
 function capLabel(k){ const f=FORMATS[k]; let n=(f.name||'').replace(f.grp,'').replace(/^[\s\/·-]+/,'').trim(); return esc(f.grp)+(n?' · '+esc(n):''); }
 function openCaption(){
@@ -4263,7 +4405,7 @@ function showStart(force,startK){ var P=document.getElementById('startPopup'); i
   h+='<div class="sp-step"><button class="sp-back" id="spBack">← zurück</button><div class="sp-kick" id="spKick2">TFCZ</div><h2>Noch kurz: Pflichtangaben</h2><div class="sp-sub">Nur das Nötigste — der Rest im Editor.</div><div id="spFields"></div><div class="sp-foot2">'+(isAdmin()?'<button class="sp-skip" id="spSkip2">Überspringen</button>':'')+'<button class="btn primary" id="spGo">Flyer erstellen →</button></div></div>';
   h+='</div></div></div>';
   P.innerHTML=h; P.style.display='flex'; var track=document.getElementById('spTrack'); var chosen=null;
-  function toStep2(k){ chosen=k; state.active=k; if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080'; else if(k==='elite')state.fmt='elite_thumb'; else if(state.fmt==='yt_thumb'||state.fmt==='aus'||state.fmt==='bg_16_9'||state.fmt==='stream_1080'||state.fmt==='elite_thumb')state.fmt='ig_feed';
+  function toStep2(k){ chosen=k; state.active=k; if(k==='yt')state.fmt='yt_thumb'; else if(k==='bg')state.fmt='bg_16_9'; else if(k==='stream')state.fmt='stream_1080'; else if(k==='thumb')state.fmt='thumb16'; else if(state.fmt==='yt_thumb'||state.fmt==='aus'||state.fmt==='bg_16_9'||state.fmt==='stream_1080'||state.fmt==='thumb16')state.fmt='ig_feed';
     if(!READY[k]&&!isAdmin()){ showComingSoon(); return; } var fl=mandFields(k); if(!fl.length){ finish(k,{}); return; }
     document.getElementById('spKick2').textContent=(TPLNAME[k]||'').toUpperCase();
     var fh=''; fl.forEach(function(f){ fh+='<div class="sp-f"><label>'+esc(f.label)+' <span class="req">*</span></label><input type="'+(f.type==='date'?'date':'text')+'" data-k="'+f.key+'"'+(f.ph?' placeholder="'+esc(f.ph)+'"':'')+'></div>'; });
