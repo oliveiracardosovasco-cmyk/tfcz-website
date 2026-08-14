@@ -317,13 +317,19 @@ h2{font-weight:900; line-height:1; letter-spacing:-1.2px; font-size:clamp(48px,7
 
 <script>
 const PHOTOS = ["../assets/fotos/galerie/full/dsc_6857.webp", "../assets/fotos/galerie/full/1064.webp", "../assets/fotos/galerie/full/dsc_7432.webp", "../assets/fotos/galerie/full/1096.webp", "../assets/fotos/galerie/full/dsc_6830.webp", "../assets/fotos/galerie/full/1077.webp", "../assets/fotos/galerie/full/dsc_7295.webp", "../assets/fotos/galerie/full/1056.webp", "../assets/fotos/galerie/full/dsc_7326.webp", "../assets/fotos/galerie/full/1065.webp", "../assets/fotos/galerie/full/dsc_6815.webp", "../assets/fotos/galerie/full/1082.webp", "../assets/fotos/galerie/full/dsc_7342.webp", "../assets/fotos/galerie/full/1052.webp"];
+/* Vorschau-Modus: mit ?preview=1 laedt das Deck nur das erste Foto und wechselt
+   nicht durch. Das Design Studio zeigt die erste Folie in einem kleinen iframe —
+   ohne diesen Schalter wuerde jede Vorschaukachel alle Fotos herunterladen und
+   waere sekundenlang schwarz. */
+const PREVIEW = /[?&]preview=1/.test(location.search);
 (function(){
   const car = document.getElementById('carousel');
-  const els = PHOTOS.map(src=>{ const d=document.createElement('div'); d.className='cs'; d.style.backgroundImage='url("'+src+'")'; car.appendChild(d); return d; });
+  const SRCS = PREVIEW ? PHOTOS.slice(0,1) : PHOTOS;
+  const els = SRCS.map(src=>{ const d=document.createElement('div'); d.className='cs'; d.style.backgroundImage='url("'+src+'")'; car.appendChild(d); return d; });
   let c=0;
-  Promise.all(PHOTOS.map(src=>{ const im=new Image(); im.src=src; return im.decode?im.decode().catch(()=>{}):Promise.resolve(); }))
+  Promise.all(SRCS.map(src=>{ const im=new Image(); im.src=src; return im.decode?im.decode().catch(()=>{}):Promise.resolve(); }))
    .then(()=>{ if(els[0]) els[0].classList.add('on');
-     if(els.length>1) setInterval(()=>{ els[c].classList.remove('on'); c=(c+1)%els.length; els[c].classList.add('on'); }, 3200); });
+     if(els.length>1 && !PREVIEW) setInterval(()=>{ els[c].classList.remove('on'); c=(c+1)%els.length; els[c].classList.add('on'); }, 3200); });
 })();
 
 const slides = Array.from(document.querySelectorAll('.slide'));

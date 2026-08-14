@@ -3192,7 +3192,10 @@ function navFirst(m){ var t=NAVTREE[m]||{}, cats=Object.keys(t);
 
 /* ===== Reiter „Präsentationen" =====
    Übersicht aller Decks aus `praesentationen/index.js` (dort steht das Register),
-   nach Anlass gruppiert, mit Vorschaubild aus der Galerie und Start-Knopf.
+   nach Anlass gruppiert, mit Start-Knopf. Das Vorschaubild ist KEIN gepflegtes Foto,
+   sondern die ECHTE erste Folie des Decks: `_tools/praesi-cover.mjs` rendert sie nach
+   `praesentationen/covers/<id>.jpg`. Dateiname = id aus dem Register, darum bekommt
+   jedes neue Deck sein Cover automatisch, ohne dass es jemand einträgt.
    Die Decks liegen als eigenständige HTML-Dateien in `praesentationen/` und
    referenzieren ihre Fotos aus `assets/fotos/galerie/full/` — nichts eingebettet,
    damit ein Bildwechsel in der Galerie sofort auch in der Präsi ankommt. */
@@ -3201,7 +3204,7 @@ function praesiCSS(){
   var s=document.createElement('style'); s.id='praesiCSS';
   s.textContent=
    '#praesiOv{position:fixed;inset:0;z-index:900;display:none;place-items:center;padding:24px;'
-  +'background:rgba(4,12,20,.72);backdrop-filter:blur(6px)}'
+  +'background:rgba(4,12,20,.86)}'
   +'#praesiOv .prz-card{width:min(1120px,96vw);max-height:90vh;overflow:auto;'
   +'background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.92));'
   +'border:1px solid rgba(255,255,255,.12);border-top:3px solid #5ca7dc;border-bottom:3px solid #cda857;'
@@ -3219,7 +3222,10 @@ function praesiCSS(){
   +'#praesiOv .prz-it{background:linear-gradient(155deg,rgba(17,34,51,.74),rgba(9,21,33,.60));'
   +'border:1px solid rgba(255,255,255,.13);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}'
   +'#praesiOv .prz-it:hover{box-shadow:inset 0 3px 0 #5ca7dc,inset 0 -3px 0 #cda857}'
-  +'#praesiOv .prz-cov{aspect-ratio:16/9;width:100%;object-fit:cover;background:#0b1c2b;display:block}'
+  +'#praesiOv .prz-cov{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0b1c2b;display:block}'
+  +'#praesiOv .prz-cov img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}'
+  +'#praesiOv .prz-cov b{position:absolute;left:10px;bottom:8px;font-size:10px;font-weight:900;letter-spacing:.14em;'
+  +'text-transform:uppercase;color:rgba(238,244,250,.72);background:rgba(4,12,20,.6);border-radius:6px;padding:3px 8px}'
   +'#praesiOv .prz-b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}'
   +'#praesiOv .prz-t{font-weight:900;font-size:16px;line-height:1.22}'
   +'#praesiOv .prz-m{display:flex;gap:6px;flex-wrap:wrap}'
@@ -3248,8 +3254,8 @@ function openPraesi(){
   var html='<div class="prz-head"><div>'
     +'<h3>Präsentationen</h3>'
     +'<p>Fertige Decks zum Vorführen — Vollbild, mit Sprech-Notizen und Auto-Lauf. '
-    +'Sie liegen in <b style="color:#e9c475">praesentationen/</b> und holen ihre Fotos direkt aus der Galerie, '
-    +'darum wirkt jeder Bildwechsel im Foto-Manager sofort auch hier.</p></div>'
+    +'Sie liegen in <b style="color:#e9c475">praesentationen/</b> und holen ihre Fotos direkt aus der Galerie. '
+    +'Das Vorschaubild ist die erste Folie des Decks.</p></div>'
     +'<button class="prz-x" id="praesiX" aria-label="Schliessen">'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">'
     +'<path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
@@ -3265,7 +3271,8 @@ function openPraesi(){
       html+='<div class="prz-grp">'+esc(a)+'</div><div class="prz-grid">';
       grp[a].forEach(function(p){
         html+='<div class="prz-it">'
-          +(p.cover?'<img class="prz-cov" src="'+esc(p.cover)+'" alt="" loading="lazy" decoding="async">':'')
+          +'<div class="prz-cov"><img src="praesentationen/covers/'+esc(p.id)+'.jpg" alt="" '
+          +'loading="lazy" decoding="async" onerror="this.style.display=\'none\'"><b>Folie 1</b></div>'
           +'<div class="prz-b">'
           +'<div class="prz-t">'+esc(p.titel||p.id)+'</div>'
           +'<div class="prz-m">'
@@ -3285,7 +3292,8 @@ function openPraesi(){
     +'<div class="prz-it prz-new">Deck als eigenständige HTML-Datei nach <b style="color:#e9c475">praesentationen/</b> '
     +'legen, Fotos über <b style="color:#e9c475">../assets/fotos/galerie/full/…</b> referenzieren '
     +'und in <b style="color:#e9c475">praesentationen/index.js</b> einen Eintrag ergänzen. '
-    +'Aufbau &amp; Regeln: Brand Guide, Sektion 18b.</div></div>';
+    +'Danach <b style="color:#e9c475">node _tools/praesi-cover.mjs</b> laufen lassen — das rendert das '
+    +'Vorschaubild aus der ersten Folie. Aufbau &amp; Regeln: Brand Guide, Sektion 18b.</div></div>';
   html+='<div class="prz-key">In der Präsentation: <b>Klick</b> oder <b>→</b> weiter · '
     +'<b>linker Rand</b> zurück · <b>A</b> Auto-Lauf · <b>N</b> Sprech-Notizen · <b>F</b> Vollbild</div>';
   card.innerHTML=html;
