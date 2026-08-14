@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TFCZ · Swiss Tablesoccer Series Zürich 2026 — Ansage Samstag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#5ca7dc; --blue2:#4489c7; --blue3:#005a94; --navy:#0d273d;
+  --gold:#cda857; --gold2:#e9c475; --silver:#e6e3da; --red:#da2929;
+  --ink:#eef4fb; --ink-mut:#c0d3e6;
+  --card:linear-gradient(155deg, rgba(18,37,56,.84), rgba(9,21,33,.68));
+  --brd:rgba(255,255,255,.13);
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html,body{height:100%}
+body{font-family:"Nunito Sans", system-ui, -apple-system, sans-serif; color:var(--ink);
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+  background:linear-gradient(180deg,#0d273d,#0a1f31,#081826)}
+body::before,body::after{content:""; position:fixed; left:0; right:0; height:6px; z-index:60; pointer-events:none}
+body::before{top:0; background:var(--blue)}
+body::after{bottom:0; background:var(--gold)}
+
+#bar{position:fixed; top:6px; left:0; height:3px; width:0; background:var(--gold); z-index:61; pointer-events:none; opacity:0; transition:opacity .3s}
+#bar.on{opacity:1}
+
+
+#carousel{position:fixed; inset:0; z-index:0; overflow:hidden; background:#081826}
+#carousel .cs{position:absolute; inset:0; background-size:cover; background-position:center;
+  opacity:0; transition:opacity 1s ease-in-out}
+#carousel .cs.on{opacity:1}
+#scrim{position:fixed; inset:0; z-index:1; pointer-events:none; transition:background .5s ease;
+  background:
+    radial-gradient(125% 115% at 50% 0%, rgba(8,20,30,.14), rgba(8,20,30,.56) 74%),
+    linear-gradient(180deg, rgba(8,20,30,.44), rgba(8,20,30,.36))}
+#scrim.dense{background:
+    radial-gradient(125% 115% at 50% 0%, rgba(8,20,30,.46), rgba(8,20,30,.84) 74%),
+    linear-gradient(180deg, rgba(8,20,30,.72), rgba(8,20,30,.66))}
+@media(prefers-reduced-motion:reduce){#carousel .cs{transition:opacity .4s}}
+
+#stage{position:fixed; inset:0; z-index:2}
+.slide{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:5vh 4vw; text-align:center;
+  opacity:0; visibility:hidden; transform:scale(1.045); filter:blur(9px);
+  transition:opacity .55s ease, transform .65s cubic-bezier(.2,.72,.2,1), filter .5s ease; z-index:1}
+.slide.on{opacity:1; visibility:visible; transform:none; filter:none; z-index:2}
+@media(prefers-reduced-motion:reduce){.slide{transition:opacity .3s; transform:none; filter:none}}
+
+/* ---- Typo: bewusst SEHR gross, damit es aus der Halle lesbar ist ---- */
+.kick{display:inline-flex; align-items:center; gap:15px; margin-bottom:18px}
+.kick i{width:44px; height:5px; background:var(--gold); display:block}
+.kick span{color:var(--gold); font-weight:900; letter-spacing:.18em; text-transform:uppercase; font-size:clamp(17px,2.1vw,28px)}
+
+h1{font-weight:900; line-height:.95; letter-spacing:-2px; font-size:clamp(64px,11vw,176px)}
+h2{font-weight:900; line-height:1; letter-spacing:-1.2px; font-size:clamp(48px,7.4vw,116px)}
+.g{color:var(--gold)} .rd{color:var(--red)} .bl{color:var(--blue)}
+.sub{margin-top:22px; color:var(--ink-mut); font-weight:700; font-size:clamp(26px,3.7vw,54px); line-height:1.22; max-width:22ch}
+.logo{height:clamp(66px,10vh,124px); width:auto; margin-bottom:28px; filter:drop-shadow(0 8px 26px rgba(0,0,0,.55))}
+.meta{margin-top:28px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center}
+.pill{background:var(--card); border:1px solid var(--brd);
+  border-radius:999px; padding:14px 32px; font-weight:800; font-size:clamp(21px,2.5vw,36px)}
+.pill.gold{color:var(--gold); border-color:rgba(205,168,87,.45)}
+
+/* Riesenzahlen */
+.vs{display:flex; align-items:center; justify-content:center; gap:clamp(30px,6vw,110px); margin:10px 0; flex-wrap:wrap}
+.vs .v{font-weight:900; line-height:.82; font-size:clamp(92px,16vw,280px)}
+.vs .v.gold{color:var(--gold)}
+.vs .v small{display:block; margin-top:16px; font-size:clamp(17px,2vw,30px); font-weight:800; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-mut)}
+
+/* Icon-Cards — grosse Icons, grosser Text */
+.cards{display:grid; gap:clamp(14px,1.8vw,26px); width:min(1500px,95vw); margin-top:28px}
+.cards.c2{grid-template-columns:repeat(2,1fr)}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.card{display:flex; align-items:center; gap:clamp(18px,2.2vw,32px); text-align:left;
+  background:var(--card); border:1px solid var(--brd); border-left:8px solid var(--blue);
+  border-radius:18px; padding:clamp(18px,2.4vw,34px) clamp(22px,2.7vw,40px)}
+.card svg{flex:none; width:clamp(44px,4.8vw,78px); height:clamp(44px,4.8vw,78px); color:var(--blue); stroke-width:2}
+.card .t{font-weight:800; font-size:clamp(24px,2.85vw,46px); line-height:1.14; min-width:0}
+.card .t b{font-weight:900}
+.card .t .g{color:var(--gold)} .card .t .rd{color:var(--red)}
+.card .t small{display:block; margin-top:6px; font-weight:700; font-size:.72em; color:var(--ink-mut); line-height:1.2}
+.card.no{border-left-color:var(--red)} .card.no svg{color:var(--red)}
+.card.do{border-left-color:var(--gold)} .card.do svg{color:var(--gold)}
+.card.imp{border-left-color:var(--red); background:linear-gradient(155deg, rgba(78,22,22,.66), rgba(32,13,15,.58))}
+.card.imp svg{color:var(--red)}
+.card.col{flex-direction:column; text-align:center; gap:16px; justify-content:center}
+.card.col svg{width:clamp(58px,6.2vw,100px); height:clamp(58px,6.2vw,100px)}
+.card.wide{grid-column:1/-1}
+
+/* Zeitstrahl */
+.tl{display:flex; align-items:stretch; gap:clamp(14px,1.8vw,26px); width:min(1500px,95vw); margin-top:34px; flex-wrap:wrap}
+.tl .st{flex:1 1 0; min-width:250px; background:var(--card); border:1px solid var(--brd); border-radius:18px;
+  padding:clamp(20px,2.6vw,38px); box-shadow:inset 0 4px 0 var(--blue), inset 0 -4px 0 var(--gold)}
+.tl .st .hh{font-weight:900; color:var(--gold); font-size:clamp(48px,6.6vw,104px); line-height:1; letter-spacing:-2px}
+.tl .st .ll{margin-top:12px; font-weight:800; font-size:clamp(22px,2.5vw,38px); line-height:1.16}
+
+/* Disziplinen-Tabelle */
+.dtab{border-collapse:separate; border-spacing:0; width:min(1420px,95vw); margin-top:26px;
+  background:var(--card); border:1px solid var(--brd); border-radius:20px; overflow:hidden;
+  box-shadow:inset 0 4px 0 var(--blue), inset 0 -4px 0 var(--gold)}
+.dtab th,.dtab td{padding:clamp(12px,1.7vw,24px) clamp(10px,1.4vw,22px); text-align:center; line-height:1.14}
+.dtab th{font-weight:900; color:var(--gold); font-size:clamp(19px,2.2vw,34px); letter-spacing:.01em;
+  border-bottom:2px solid rgba(255,255,255,.16)}
+.dtab tr td:first-child,.dtab tr th:first-child{text-align:left; font-weight:800; color:var(--ink-mut);
+  font-size:clamp(17px,1.9vw,29px); padding-left:clamp(16px,2vw,32px)}
+.dtab td{font-weight:900; font-size:clamp(26px,3.2vw,52px)}
+.dtab tr+tr td{border-top:1px solid rgba(255,255,255,.09)}
+.dtab .ast{color:var(--ink-mut)}
+
+/* Preisgeld-Reihe */
+.prz{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(12px,1.6vw,24px); width:min(1420px,95vw); margin-top:28px}
+.prz div{background:var(--card); border:1px solid var(--brd); border-radius:18px; padding:clamp(18px,2.2vw,32px);
+  box-shadow:inset 0 4px 0 var(--blue), inset 0 -4px 0 var(--gold)}
+.prz div b{display:block; white-space:nowrap; font-size:clamp(18px,2vw,30px); font-weight:900; letter-spacing:.02em}
+.prz div span{display:block; margin-top:12px; font-weight:900; white-space:nowrap; font-size:clamp(48px,7vw,116px); color:var(--gold); line-height:1; letter-spacing:-2px}
+.prz div small{display:block; margin-top:8px; font-weight:700; font-size:clamp(15px,1.6vw,22px); color:var(--ink-mut)}
+
+#dots{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:9px; z-index:70; max-width:56vw; flex-wrap:wrap; justify-content:center}
+#dots b{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.24); cursor:pointer; transition:.25s}
+#dots b.on{background:var(--gold); width:30px; border-radius:6px}
+#counter{position:fixed; bottom:22px; right:26px; z-index:70; font-weight:800; font-size:16px; color:var(--ink-mut)}
+#hint{position:fixed; bottom:22px; left:26px; z-index:70; font-weight:700; font-size:13px; color:rgba(183,203,223,.5)}
+#notes{position:fixed; left:0; right:0; bottom:0; z-index:80; display:none;
+  background:linear-gradient(0deg,rgba(6,16,26,.98),rgba(6,16,26,.9)); border-top:3px solid var(--gold); padding:18px 30px 22px; text-align:left}
+#notes.on{display:block}
+#notes .lab{color:var(--gold); font-weight:900; font-size:12px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:7px}
+#notes p{font-size:clamp(16px,1.9vw,22px); font-weight:500; line-height:1.4; max-width:96ch}
+.navzone{position:fixed; top:0; bottom:0; width:16%; z-index:40; cursor:pointer}
+.navzone.left{left:0} .navzone.right{right:0}
+@media (max-height:820px){
+  h1{font-size:clamp(52px,8.6vw,124px)}
+  h2{font-size:clamp(38px,5.6vw,82px)}
+  .sub{font-size:clamp(21px,2.8vw,38px); margin-top:16px}
+  .kick{margin-bottom:12px}
+  .cards,.prz{margin-top:18px}
+  .tl{margin-top:22px}
+  .card.col svg{width:clamp(46px,4.8vw,70px); height:clamp(46px,4.8vw,70px)}
+  .card .t{font-size:clamp(21px,2.4vw,36px)}
+  .logo{height:clamp(56px,8vh,96px); margin-bottom:20px}
+}
+@media (max-width:900px){
+  .cards.c2,.cards.c3{grid-template-columns:1fr}
+  .dtab th,.dtab td{padding:9px 6px}
+  .prz{grid-template-columns:1fr}
+  .card{gap:16px; padding:16px 20px}
+  .card svg{width:44px; height:44px}
+}
+</style>
+</head>
+<body>
+
+<div id="carousel"></div>
+<div id="scrim"></div>
+<div id="bar"></div>
+
+<div id="stage">
+
+  <!-- 1 · Cover -->
+  <section class="slide on" data-note="Kurze Ansage. Herzlich willkommen an der Swiss Tablesoccer Series hier in Zürich — ITSF-250, vierzehn Leonhart-Tische, zweitausendneunhundert Franken garantiertes Preisgeld. Das ist das grösste Turnier, das wir je bei uns im Club durchgeführt haben. Schön, seid ihr da.">
+    <img class="logo" alt="Tischfussballclub Zürich" src="../assets/img/logo-horizontal-white.png">
+    <div class="kick"><i></i><span>Samstag · 15. August 2026 · ITSF-250</span><i></i></div>
+    <h1>Swiss Tablesoccer<br>Series <span class="g">Zürich</span></h1>
+    <div class="meta">
+      <span class="pill">14× Leonhart</span>
+      <span class="pill gold">CHF 2'900 Preisgeld</span>
+    </div>
+  </section>
+
+  <!-- 2 · Grösstes Turnier -->
+  <section class="slide" data-note="Zwei Tage, vierzehn Tische, heute fünf Disziplinen. So gross war es bei uns noch nie. Das läuft nur, weil so viele TFCZ-Mitglieder freiwillig mit anpacken — vom Aufbau am Freitag bis zum Abbau am Sonntagabend. Danke euch allen.">
+    <div class="kick"><i></i><span>Unser grösstes Turnier bisher</span></div>
+    <div class="vs">
+      <div class="v gold"><span class="count" data-to="14">14</span><small>Tische</small></div>
+      <div class="v"><span class="count" data-to="5">5</span><small>Disziplinen heute</small></div>
+      <div class="v gold"><span class="count" data-to="2">2</span><small>Tage</small></div>
+    </div>
+    <div class="sub">Danke an alle, die freiwillig mit anpacken.</div>
+  </section>
+
+  <!-- 3 · Disziplinen & Zeiten -->
+  <section class="slide" data-note="Hier die Übersicht über alle Disziplinen von heute. Mixed Doppel ist um Viertel vor neun geschlossen und um neun gestartet. Open, Women und Senior um halb zehn beziehungsweise zehn Uhr. Und am Nachmittag läuft das Amateur Doppel als Side-Event: Anmeldeschluss um vier, Start um Viertel nach vier.">
+    <div class="kick"><i></i><span>Alle Disziplinen heute</span></div>
+    <table class="dtab">
+      <tr><th></th><th>Mixed<br>Doppel</th><th>Open · Women<br>Senior Doppel</th><th>Amateur<br>Doppel</th></tr>
+      <tr><td>Anmeldeschluss</td><td>08:45</td><td>09:30</td><td>16:00</td></tr>
+      <tr><td>Start Qualifikation</td><td>09:00</td><td>10:00</td><td>16:15</td></tr>
+    </table>
+    <div class="sub" style="max-width:46ch; margin-top:24px; font-size:clamp(21px,2.5vw,36px)">Amateur Doppel läuft heute Nachmittag als Side-Event.</div>
+  </section>
+
+  <!-- 4 · Coral -->
+  <section class="slide" data-note="Das Wichtigste: Alles läuft über Coral. Ihr tragt eure Resultate selbst ein, sofort nach dem Spiel. Eure Spiele seht ihr auf den Bildschirmen — wir rufen die Spiele nicht aus. Kommt selbstständig an den Tisch.">
+    <div class="kick"><i></i><span>Das Wichtigste</span></div>
+    <h2>Alles läuft über <span class="g">Coral</span></h2>
+    <div class="cards c3">
+      <div class="card col imp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg><div class="t">Resultat <b>selbst</b> eintragen<small>sofort nach dem Spiel</small></div></div>
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg><div class="t">Spiele auf den <b>Bildschirmen</b><small>selbst nachschauen</small></div></div>
+      <div class="card col no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m2 2 20 20"/><path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2"/><path d="M5 10v2a7 7 0 0 0 12 5"/><path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12"/><path d="M12 19v3"/></svg><div class="t"><b>Keine</b> Spielaufrufe<small>kommt selbst an den Tisch</small></div></div>
+    </div>
+  </section>
+
+  <!-- 5 · Tempo -->
+  <section class="slide" data-note="Damit wir durch den Tag kommen: zügig spielen. Maximal zwei Minuten Einspielen auf Tisch eins und zwei. Keine Getränke und keine Esswaren auf den Spieltischen — das setzen wir konsequent durch. Und wer nicht antritt, kassiert eine Verwarnung, die zu Satzverlust führen kann.">
+    <div class="kick"><i></i><span>Tempo</span></div>
+    <h2>Zügig spielen, <span class="g">zügig eintragen</span></h2>
+    <div class="cards c3">
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="t">Max. <b>2 Minuten</b> Einspielen<small>auf Tisch 1 und 2</small></div></div>
+      <div class="card col no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h1a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><div class="t">Nichts <b class="rd">auf den Tischen</b><small>keine Getränke, kein Essen</small></div></div>
+      <div class="card col imp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div class="t">Nicht antreten =<br><b class="rd">Verwarnung</b><small>bis zum Satzverlust</small></div></div>
+    </div>
+  </section>
+
+  <!-- 6 · Stream -->
+  <section class="slide" data-note="Der Livestream läuft auf Tisch eins und zwei, auf YouTube. Dort bitte besonders zügig spielen. Und denkt daran: die Mikrofone sind an.">
+    <div class="kick"><i></i><span>Livestream auf YouTube</span></div>
+    <h1>Tisch <span class="g">1 + 2</span></h1>
+    <div class="cards c2" style="max-width:min(1200px,94vw); margin-top:30px">
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><div class="t">Kameras laufen<small>dort besonders zügig spielen</small></div></div>
+      <div class="card col imp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg><div class="t"><b>Mikrofone sind an.</b></div></div>
+    </div>
+  </section>
+
+  <!-- 7 · Hitze -->
+  <section class="slide" data-note="Ein wichtiger Punkt heute: Es sind über fünfunddreissig Grad gemeldet. Wir tun unser Bestes, den Raum kühl zu halten — Lüftung und Klimaanlage laufen den ganzen Tag. Trinkt trotzdem genug, Wasser gibt es an der Bar, und draussen habt ihr Schattenplätze. Passt aufeinander auf.">
+    <div class="kick"><i></i><span>Über 35 Grad heute</span></div>
+    <h2>Trinkt <span class="g">genug.</span></h2>
+    <div class="cards c3">
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg><div class="t">Wasser gibt's<br><b>an der Bar</b></div></div>
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12.8 19.6A2 2 0 1 0 14 16H2"/><path d="M17.5 8a2.5 2.5 0 1 1 2 4H2"/><path d="M9.8 4.4A2 2 0 1 1 11 8H2"/></svg><div class="t">Wir kühlen, so gut es geht<small>Lüftung &amp; Klima laufen den ganzen Tag</small></div></div>
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg><div class="t">Schattenplätze<br><b>draussen</b></div></div>
+    </div>
+  </section>
+
+  <!-- 8 · Im Lokal -->
+  <section class="slide" data-note="Zu den Hausregeln: Rauchen ausschliesslich draussen. Die WCs findet ihr den Gang hinten durch und dann rechts. Hinter die Bar geht nur das Bar-Team, die Turnierleitung und der Chef des Tages. Und wir haben kein WLAN.">
+    <div class="kick"><i></i><span>Bei uns im Clublokal</span></div>
+    <div class="cards c2" style="max-width:min(1420px,95vw); margin-top:6px">
+      <div class="card no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg><div class="t">Rauchen <b class="rd">nur draussen</b></div></div>
+      <div class="card do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="m16 6 6 6-6 6"/></svg><div class="t">WC: Gang hinten durch,<br>dann <b>rechts</b></div></div>
+      <div class="card no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg><div class="t">Hinter die Bar nur<br><b class="rd">Bar-Team &amp; Turnierleitung</b></div></div>
+      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M8.5 16.4a5 5 0 0 1 7 0"/><path d="M5 12.9a10 10 0 0 1 5.2-2.7"/><path d="M2 8.8a15 15 0 0 1 4.2-2.5"/><path d="m2 2 20 20"/><path d="M22 8.8a15 15 0 0 0-8.8-4.2"/></svg><div class="t"><b>Kein WLAN</b></div></div>
+    </div>
+  </section>
+
+  <!-- 9 · Bar & Bezahlen -->
+  <section class="slide" data-note="An der Bar gibt es Getränke, frische Sandwiches vom Bar-Team und ein Kuchenbuffet. Ganz wichtig: Wir nehmen kein Bargeld. Bezahlt mit Karte, im Notfall mit Twint.">
+    <div class="kick"><i></i><span>Bar &amp; Verpflegung</span></div>
+    <h2>Kein <span class="rd">Bargeld</span></h2>
+    <div class="cards c3">
+      <div class="card col imp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg><div class="t"><b>Karte</b> oder Twint<small>kein Bargeld — auch nicht an der Bar</small></div></div>
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h1a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><div class="t">Frische <b>Sandwiches</b><small>vom Bar-Team gemacht</small></div></div>
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/></svg><div class="t"><b>Kuchenbuffet</b><small>und Getränke an der Bar</small></div></div>
+    </div>
+  </section>
+
+  <!-- 10 · Parkplatz -->
+  <section class="slide" data-note="Zum Parkieren: Wir haben keine eigenen Plätze. Nutzt bitte das Parkhaus Wipkingen — offen bis halb sechs —, das Parkhaus beim Coop bis neun Uhr abends, oder die blaue Zone.">
+    <div class="kick"><i></i><span>Parkieren</span></div>
+    <h2>Wir haben <span class="rd">keine eigenen Plätze</span></h2>
+    <div class="cards c3">
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg><div class="t">Parkhaus Wipkingen<small>bis 17:30 Uhr</small></div></div>
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg><div class="t">Parkhaus Coop<small>bis 21:00 Uhr</small></div></div>
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><div class="t">Blaue Zone<small>in der Umgebung</small></div></div>
+    </div>
+  </section>
+
+  <!-- 11 · Preisgeld & Siegerehrung -->
+  <section class="slide" data-note="Zum Preisgeld: zweitausendneunhundert Franken sind garantiert. Für den Sieg im Open Doppel gibt es vierhundert Franken, im Mixed zweihundert, im Women hundertfünfundzwanzig, im Senior fünfzig. Die volle Verteilung bis Rang acht steht in der Ausschreibung. Und bitte: bleibt zur Siegerehrung am Abend da.">
+    <div class="kick"><i></i><span>CHF 2'900 garantiert · Betrag für den Sieg</span></div>
+    <div class="prz">
+      <div><b>Open Doppel</b><span>400</span></div>
+      <div><b>Mixed Doppel</b><span>200</span></div>
+      <div><b>Women Doppel</b><span>125</span></div>
+      <div><b>Senior Doppel</b><span>50</span></div>
+    </div>
+    <div class="sub" style="margin-top:26px; max-width:38ch">Bleibt zur Siegerehrung — die volle Verteilung steht in der Ausschreibung.</div>
+  </section>
+
+  <!-- 12 · Team -->
+  <section class="slide" data-note="Und wer hält den Tag zusammen: Chef des Tages ist Kian, Stellvertretung Nina. Die Turnierleitung machen Philipp, Zimmi und ich. Am Check-in stehen Yann und Silvan, an der Bar Yara, und den Stream macht Mirco mit seinem Team. Bei Fragen kommt einfach zu uns.">
+    <div class="kick"><i></i><span>Wer heute für euch da ist</span></div>
+    <div class="cards c3" style="margin-top:6px">
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><div class="t">Chef des Tages<br><b class="g">Kian</b><small>Stv. Nina</small></div></div>
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><div class="t">Turnierleitung<br><b>Philipp · Zimmi · Stefan</b></div></div>
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><div class="t">Stream<br><b>Mirco &amp; Team</b></div></div>
+    </div>
+    <div class="sub" style="margin-top:26px; max-width:32ch">Fragen? Kommt zu Kian oder zur Turnierleitung.</div>
+  </section>
+
+  <!-- 13 · Social -->
+  <section class="slide" data-note="Wenn ihr uns unterstützen wollt: folgt uns auf Instagram und YouTube, beide unter tischfussballclubzuerich. Und noch besser: werdet Mitglied.">
+    <div class="kick"><i></i><span>Unterstützt uns</span></div>
+    <h2>Folg uns — <span class="g">jeder zählt.</span></h2>
+    <div class="cards c2" style="max-width:min(1200px,94vw)">
+      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg><div class="t"><b>@tischfussballclubzuerich</b><small>Instagram &amp; YouTube</small></div></div>
+      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><div class="t"><b>Mitglied werden</b><small>tfcz.ch</small></div></div>
+    </div>
+  </section>
+
+  <!-- 14 · Schluss -->
+  <section class="slide" data-note="Das war's. Viel Spass und gutes Spiel!">
+    <img class="logo" alt="Tischfussballclub Zürich" src="../assets/img/logo-horizontal-white.png">
+    <h1>Viel Spass<br>und <span class="g">gutes Spiel.</span></h1>
+  </section>
+
+</div>
+
+<div class="navzone left" id="prevZone"></div>
+<div id="dots"></div>
+<div id="counter"></div>
+<div id="hint">Klick / → weiter · linker Rand zurück · A Auto-Lauf · N Notizen · F Vollbild</div>
+<div id="notes"><div class="lab">Sprech-Notiz</div><p></p></div>
+
+<script>
+const PHOTOS = ["../assets/fotos/galerie/full/dsc_6857.webp","../assets/fotos/galerie/full/1064.webp","../assets/fotos/galerie/full/dsc_7432.webp","../assets/fotos/galerie/full/1096.webp","../assets/fotos/galerie/full/dsc_6830.webp","../assets/fotos/galerie/full/1077.webp","../assets/fotos/galerie/full/dsc_7295.webp","../assets/fotos/galerie/full/1056.webp","../assets/fotos/galerie/full/dsc_7326.webp","../assets/fotos/galerie/full/1065.webp","../assets/fotos/galerie/full/dsc_6815.webp","../assets/fotos/galerie/full/1082.webp","../assets/fotos/galerie/full/dsc_7342.webp","../assets/fotos/galerie/full/1052.webp"];
+(function(){
+  const car = document.getElementById('carousel');
+  const els = PHOTOS.map(src=>{ const d=document.createElement('div'); d.className='cs'; d.style.backgroundImage='url("'+src+'")'; car.appendChild(d); return d; });
+  let c=0;
+  Promise.all(PHOTOS.map(src=>{ const im=new Image(); im.src=src; return im.decode?im.decode().catch(()=>{}):Promise.resolve(); }))
+   .then(()=>{ if(els[0]) els[0].classList.add('on');
+     if(els.length>1) setInterval(()=>{ els[c].classList.remove('on'); c=(c+1)%els.length; els[c].classList.add('on'); }, 3200); });
+})();
+
+const slides = Array.from(document.querySelectorAll('.slide'));
+const DENSE = new Set([2,3,4,6,7,8,9,10]); // textreiche Folien -> dunkleres Scrim
+const SEC   = [11,12,18,15,15,12,14,14,13,12,13,13,10,7]; // Auto-Lauf, Summe 179s
+let i = 0, auto = false, timer = null, raf = null;
+const dots = document.getElementById('dots');
+const counter = document.getElementById('counter');
+const notes = document.getElementById('notes');
+const noteP = notes.querySelector('p');
+const scrim = document.getElementById('scrim');
+const bar = document.getElementById('bar');
+slides.forEach((s,idx)=>{ const b=document.createElement('b'); b.addEventListener('click',()=>go(idx)); dots.appendChild(b); });
+const dotEls = Array.from(dots.children);
+const reduceMotion = matchMedia('(prefers-reduced-motion:reduce)').matches;
+function easeOut(t){ return 1 - Math.pow(1-t, 3); }
+function countUp(el){
+  const to = +el.dataset.to;
+  if(reduceMotion){ el.textContent = to; return; }
+  const dur = 1100; let start = null;
+  el.textContent = '0';
+  requestAnimationFrame(function step(ts){
+    if(start === null) start = ts;
+    const p = Math.min(1, (ts-start)/dur);
+    el.textContent = Math.round(easeOut(p) * to);
+    if(p < 1) requestAnimationFrame(step);
+  });
+}
+function stopAutoTimers(){ clearTimeout(timer); cancelAnimationFrame(raf); bar.style.width='0'; }
+function runAuto(){
+  stopAutoTimers();
+  if(!auto) return;
+  const dur = (SEC[i] || 12) * 1000;
+  const t0 = performance.now();
+  (function tick(ts){
+    const p = Math.min(1,(ts-t0)/dur);
+    bar.style.width = (p*100)+'%';
+    if(p<1 && auto) raf = requestAnimationFrame(tick);
+  })(t0);
+  timer = setTimeout(()=>{ if(!auto) return; if(i < slides.length-1){ next(); } else { auto=false; bar.classList.remove('on'); stopAutoTimers(); } }, dur);
+}
+function render(){
+  slides.forEach((s,idx)=>s.classList.toggle('on', idx===i));
+  dotEls.forEach((d,idx)=>d.classList.toggle('on', idx===i));
+  counter.textContent = (i+1)+' / '+slides.length;
+  noteP.textContent = slides[i].dataset.note || '';
+  scrim.classList.toggle('dense', DENSE.has(i));
+  slides[i].querySelectorAll('.count').forEach(countUp);
+  runAuto();
+}
+function go(n){ i=Math.max(0,Math.min(slides.length-1,n)); render(); }
+function next(){ go(i+1); } function prev(){ go(i-1); }
+// Klick irgendwo auf der Folie = eine Folie vorwaerts; nur der linke Rand geht zurueck
+document.getElementById('prevZone').addEventListener('click', e=>{ e.stopPropagation(); prev(); });
+dots.addEventListener('click', e=>e.stopPropagation());
+document.addEventListener('click', next);
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); next(); }
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+  else if(e.key==='Home'){ go(0); } else if(e.key==='End'){ go(slides.length-1); }
+  else if(e.key==='n'||e.key==='N'){ notes.classList.toggle('on'); }
+  else if(e.key==='a'||e.key==='A'){ auto=!auto; bar.classList.toggle('on',auto); if(auto){ runAuto(); } else { stopAutoTimers(); } }
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); } else { document.exitFullscreen?.(); } }
+});
+render();
+</script>
+</body>
+</html>

@@ -904,6 +904,7 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
 .pm-tbtn svg,.tb-btn svg,.tb-mitem svg,.mr-dl svg,.mr-x svg,.lh-x svg,.lh-close svg,.wiz-x svg,.cap-x svg,.pk-x svg,.okmark svg{width:15px; height:15px; display:inline-block; flex:none; vertical-align:middle}
 .pm-tbtn,.tb-btn,.mr-x,.lh-x,.wiz-x,.cap-x,.pk-x{display:inline-flex; align-items:center; justify-content:center; gap:6px}
 </style><script defer src="system/components/portal.js"></script>
+<script defer src="praesentationen/index.js"></script>
 </head>
 <body>
 <canvas id="bgfx"></canvas>
@@ -3190,30 +3191,116 @@ function navFirst(m){ var t=NAVTREE[m]||{}, cats=Object.keys(t);
 
 
 /* ===== Reiter „Präsentationen" =====
-   Erste Stufe: die Decks liegen noch ausserhalb des Web-Ordners. Bis sie nach
-   `praesentationen/` (hinter dem Login) umgezogen sind, sagt der Reiter ehrlich,
-   was fehlt — statt still nichts zu tun. Übersicht, Vollbild-Präsentation und
-   „neue Präsi" folgen im nächsten Schritt. */
+   Übersicht aller Decks aus `praesentationen/index.js` (dort steht das Register),
+   nach Anlass gruppiert, mit Vorschaubild aus der Galerie und Start-Knopf.
+   Die Decks liegen als eigenständige HTML-Dateien in `praesentationen/` und
+   referenzieren ihre Fotos aus `assets/fotos/galerie/full/` — nichts eingebettet,
+   damit ein Bildwechsel in der Galerie sofort auch in der Präsi ankommt. */
+function praesiCSS(){
+  if(document.getElementById('praesiCSS'))return;
+  var s=document.createElement('style'); s.id='praesiCSS';
+  s.textContent=
+   '#praesiOv{position:fixed;inset:0;z-index:900;display:none;place-items:center;padding:24px;'
+  +'background:rgba(4,12,20,.72);backdrop-filter:blur(6px)}'
+  +'#praesiOv .prz-card{width:min(1120px,96vw);max-height:90vh;overflow:auto;'
+  +'background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.92));'
+  +'border:1px solid rgba(255,255,255,.12);border-top:3px solid #5ca7dc;border-bottom:3px solid #cda857;'
+  +'border-radius:14px;padding:24px 26px 28px;color:#eef4fa;font-family:"Nunito Sans",system-ui,sans-serif}'
+  +'#praesiOv .prz-head{display:flex;align-items:flex-start;gap:16px;justify-content:space-between}'
+  +'#praesiOv .prz-head h3{font-size:22px;font-weight:900;margin:0}'
+  +'#praesiOv .prz-head p{margin:6px 0 0;color:#9fb6cc;font-weight:600;font-size:14px;line-height:1.5;max-width:70ch}'
+  +'#praesiOv .prz-x{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;'
+  +'background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#fff;transition:.18s}'
+  +'#praesiOv .prz-x svg{width:17px;height:17px;display:block;flex:none}'
+  +'#praesiOv .prz-x:hover{background:#da2929;border-color:#da2929;animation:xsquish .3s}'
+  +'#praesiOv .prz-x:active{transform:scale(.9)}'
+  +'#praesiOv .prz-grp{margin-top:22px;color:#cda857;font-weight:900;font-size:12px;letter-spacing:.16em;text-transform:uppercase}'
+  +'#praesiOv .prz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:10px}'
+  +'#praesiOv .prz-it{background:linear-gradient(155deg,rgba(17,34,51,.74),rgba(9,21,33,.60));'
+  +'border:1px solid rgba(255,255,255,.13);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}'
+  +'#praesiOv .prz-it:hover{box-shadow:inset 0 3px 0 #5ca7dc,inset 0 -3px 0 #cda857}'
+  +'#praesiOv .prz-cov{aspect-ratio:16/9;width:100%;object-fit:cover;background:#0b1c2b;display:block}'
+  +'#praesiOv .prz-b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}'
+  +'#praesiOv .prz-t{font-weight:900;font-size:16px;line-height:1.22}'
+  +'#praesiOv .prz-m{display:flex;gap:6px;flex-wrap:wrap}'
+  +'#praesiOv .prz-m span{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);'
+  +'border-radius:999px;padding:3px 10px;font-size:11px;font-weight:800;color:#c3d2e0}'
+  +'#praesiOv .prz-d{color:#9fb6cc;font-weight:600;font-size:13px;line-height:1.45;flex:1}'
+  +'#praesiOv .prz-act{display:flex;gap:8px;margin-top:2px}'
+  +'#praesiOv .prz-new{border-style:dashed;display:grid;place-items:start;text-align:left;padding:20px 18px;'
+  +'color:#9fb6cc;font-weight:700;font-size:13px;line-height:1.5}'
+  +'#praesiOv .prz-key{margin-top:20px;color:#8fa6bc;font-weight:700;font-size:12px;line-height:1.6;'
+  +'border-top:1px solid rgba(255,255,255,.1);padding-top:14px}'
+  +'#praesiOv .prz-key b{color:#e9c475}'
+  +'#praesiOv .prz-empty{margin-top:18px;color:#9fb6cc;font-weight:600;line-height:1.5}';
+  document.head.appendChild(s);
+}
 function openPraesi(){
+  praesiCSS();
   var ov=document.getElementById('praesiOv');
   if(!ov){ ov=document.createElement('div'); ov.id='praesiOv';
-    ov.style.cssText='position:fixed;inset:0;z-index:900;display:grid;place-items:center;'
-      +'background:rgba(4,12,20,.72);backdrop-filter:blur(6px)';
-    ov.innerHTML='<div style="max-width:560px;background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.92));'
-      +'border:1px solid rgba(255,255,255,.12);border-top:3px solid #5ca7dc;border-bottom:3px solid #cda857;'
-      +'border-radius:14px;padding:26px 28px;color:#fff;font-family:\'Nunito Sans\',system-ui,sans-serif">'
-      +'<div style="font-weight:900;font-size:22px">Präsentationen</div>'
-      +'<div style="margin-top:10px;color:#9fb6cc;font-weight:600;line-height:1.5">Hier kommen deine Decks rein — '
-      +'Übersicht mit Vorschaubild, nach Anlass gruppiert, Vollbild-Präsentation und „neue Präsi anlegen".<br><br>'
-      +'Dafür müssen die vier bestehenden Decks zuerst nach <b style="color:#e9c475">praesentationen/</b> '
-      +'umziehen — hinter den Login, damit die Sponsoring-Unterlagen nicht öffentlich werden.</div>'
-      +'<div style="margin-top:18px;text-align:right"><button class="btn blue" id="praesiX">Verstanden</button></div>'
-      +'</div>';
+    ov.innerHTML='<div class="prz-card"></div>';
     document.body.appendChild(ov);
-    ov.addEventListener('click',function(e){ if(e.target===ov)ov.remove(); });
+    ov.addEventListener('click',function(e){ if(e.target===ov)praesiClose(); });
   }
+  var card=ov.querySelector('.prz-card');
+  var list=(window.TFCZ_PRAESI||[]).slice();
+  var html='<div class="prz-head"><div>'
+    +'<h3>Präsentationen</h3>'
+    +'<p>Fertige Decks zum Vorführen — Vollbild, mit Sprech-Notizen und Auto-Lauf. '
+    +'Sie liegen in <b style="color:#e9c475">praesentationen/</b> und holen ihre Fotos direkt aus der Galerie, '
+    +'darum wirkt jeder Bildwechsel im Foto-Manager sofort auch hier.</p></div>'
+    +'<button class="prz-x" id="praesiX" aria-label="Schliessen">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">'
+    +'<path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+
+  if(!list.length){
+    html+='<div class="prz-empty">Noch keine Präsentation erfasst. Deck nach <b>praesentationen/</b> legen '
+      +'und in <b>praesentationen/index.js</b> einen Eintrag ergänzen.</div>';
+  } else {
+    var grp={}, order=[];
+    list.forEach(function(p){ var a=p.anlass||'Weitere';
+      if(!grp[a]){ grp[a]=[]; order.push(a); } grp[a].push(p); });
+    order.forEach(function(a){
+      html+='<div class="prz-grp">'+esc(a)+'</div><div class="prz-grid">';
+      grp[a].forEach(function(p){
+        html+='<div class="prz-it">'
+          +(p.cover?'<img class="prz-cov" src="'+esc(p.cover)+'" alt="" loading="lazy" decoding="async">':'')
+          +'<div class="prz-b">'
+          +'<div class="prz-t">'+esc(p.titel||p.id)+'</div>'
+          +'<div class="prz-m">'
+          +(p.datum?'<span>'+esc(p.datum)+'</span>':'')
+          +(p.folien?'<span>'+p.folien+' Folien</span>':'')
+          +(p.dauer?'<span>'+esc(p.dauer)+'</span>':'')
+          +'</div>'
+          +'<div class="prz-d">'+esc(p.text||'')+'</div>'
+          +'<div class="prz-act">'
+          +'<button class="btn blue" data-praesi="'+esc(p.datei)+'">Präsentieren</button>'
+          +'</div></div></div>';
+      });
+      html+='</div>';
+    });
+  }
+  html+='<div class="prz-grp">Neue Präsentation</div><div class="prz-grid">'
+    +'<div class="prz-it prz-new">Deck als eigenständige HTML-Datei nach <b style="color:#e9c475">praesentationen/</b> '
+    +'legen, Fotos über <b style="color:#e9c475">../assets/fotos/galerie/full/…</b> referenzieren '
+    +'und in <b style="color:#e9c475">praesentationen/index.js</b> einen Eintrag ergänzen. '
+    +'Aufbau &amp; Regeln: Brand Guide, Sektion 18b.</div></div>';
+  html+='<div class="prz-key">In der Präsentation: <b>Klick</b> oder <b>→</b> weiter · '
+    +'<b>linker Rand</b> zurück · <b>A</b> Auto-Lauf · <b>N</b> Sprech-Notizen · <b>F</b> Vollbild</div>';
+  card.innerHTML=html;
+
+  card.querySelectorAll('[data-praesi]').forEach(function(b){
+    b.onclick=function(){ window.open(b.dataset.praesi,'_blank','noopener'); };
+  });
+  document.getElementById('praesiX').onclick=praesiClose;
+  document.addEventListener('keydown',praesiEsc);
   ov.style.display='grid';
-  var x=document.getElementById('praesiX'); if(x)x.onclick=function(){ ov.remove(); };
+}
+function praesiEsc(e){ if(e.key==='Escape')praesiClose(); }
+function praesiClose(){
+  document.removeEventListener('keydown',praesiEsc);
+  closeOverlay('praesiOv','.prz-card');
 }
 
 function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
