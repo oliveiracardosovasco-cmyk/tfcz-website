@@ -453,23 +453,8 @@ body.role-guest #rotHandle,body.role-guest .rszh{display:none!important;}
 .pk-h{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #12304a;position:sticky;top:0;background:#0a1f31;}
 .pk-h .t{font-weight:900;font-size:16px;}.pk-x{background:#222c38;border:0;color:#eef4fa;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;}
 .pk-tabs{display:flex;gap:6px;padding:12px 18px 0;flex-wrap:wrap;}
-.pk-tab{background:#0d273d;border:1px solid #163854;color:#c3d2e0;padding:7px 14px;border-radius:12px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;}
+.pk-tab{background:#0d273d;border:1px solid #163854;color:#c3d2e0;padding:7px 14px;border-radius:20px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;}
 .pk-tab.on{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d;border-color:transparent;}
-/* ---------- Galerie-Reiter: Filterzeilen wie im Foto-Manager ----------
-   Der Bildwaehler liest denselben Katalog (assets/fotos/galerie/galerie.json),
-   den auch der Foto-Manager benutzt. Eine Quelle, zwei Oberflaechen. */
-.pk-search{width:100%;background:#0f1620;border:1px solid #273241;border-radius:12px;color:#eef4fa;padding:10px 12px;font:inherit;font-size:13px;margin-bottom:10px;}
-.pk-frow{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:7px;}
-.pk-flab{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#7f95ab;flex:none;width:74px;}
-.pk-chip{background:#0d273d;border:1px solid #163854;color:#c3d2e0;padding:5px 11px;border-radius:12px;font:inherit;font-size:11.5px;font-weight:800;cursor:pointer;}
-.pk-chip:hover{border-color:#5ca7dc;}
-.pk-chip.on{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d;border-color:transparent;}
-.pk-chip i{font-style:normal;opacity:.6;margin-left:5px;font-weight:700;}
-.pk-count{color:#94a9bd;font-size:12px;margin:10px 0 8px;}
-/* Die Galerie braucht mehr Breite als Upload/URL — sieben Kacheln pro Zeile
-   statt vier. Kacheln bleiben quadratisch, sonst reisst ein Hochformat die
-   Zeile auf; ob ein Foto hoch oder quer ist, sagt die Filterzeile „Format". */
-.pk.wide{max-width:860px;}
 .pk-body{padding:16px 18px 20px;}
 .pk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;}
 .pk-thumb{aspect-ratio:1;border-radius:10px;background:#0f1620 center/cover no-repeat;border:2px solid #163854;cursor:pointer;position:relative;overflow:hidden;}
@@ -919,6 +904,7 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
 .pm-tbtn svg,.tb-btn svg,.tb-mitem svg,.mr-dl svg,.mr-x svg,.lh-x svg,.lh-close svg,.wiz-x svg,.cap-x svg,.pk-x svg,.okmark svg{width:15px; height:15px; display:inline-block; flex:none; vertical-align:middle}
 .pm-tbtn,.tb-btn,.mr-x,.lh-x,.wiz-x,.cap-x,.pk-x{display:inline-flex; align-items:center; justify-content:center; gap:6px}
 </style><script defer src="system/components/portal.js"></script>
+<script defer src="praesentationen/index.js"></script>
 </head>
 <body>
 <canvas id="bgfx"></canvas>
@@ -990,7 +976,7 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
           <div class="rw"><label>Sättigung</label><input type="range" class="range" id="i-fs" min="0" max="2.5" step="0.02"><button class="rwr" data-fk="s"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
           <div class="rw"><label>Graustufen</label><input type="range" class="range" id="i-fg" min="0" max="1" step="0.05"><button class="rwr" data-fk="g"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
         </div>
-        <div class="rw" id="r-gal"><label>Galerie</label><button class="btn blue" id="i-gal" style="width:100%;justify-content:center"><span data-ic="image" data-icsz="15"></span> Foto aus der Galerie wählen</button></div>
+        <div class="rw" id="r-gal"><label>Galerie</label><button class="btn blue" id="i-gal" style="width:100%;justify-content:center"><span data-ic="image" data-icsz="15"></span> Foto aus Action / Atmosphäre wählen</button></div>
         <div class="rw" id="r-img"><label for="i-img">Bild</label><input type="file" id="i-img" accept="image/*" style="font-size:11px;color:#9fb2c4"></div>
         <div class="rw" id="r-imgurl"><label for="i-iurl">Bild-URL</label><input type="text" id="i-iurl" placeholder="https://…  ·  oder Foto per Drag&Drop"><button class="rwr" data-k="src" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
       </div>
@@ -1894,43 +1880,6 @@ const FOTO_BASE={action:'assets/fotos/action/', atmo:'assets/fotos/atmosphaere/'
 (async function(){ try{ const r=await fetch('assets/fotos/index.json',{cache:'no-store'}); if(!r.ok)return;
   const j=await r.json(); if(j&&j.action)FOTOS={action:j.action||[], atmosphaere:j.atmosphaere||[]};
 }catch(e){} })();
-
-/* ===== Foto-Katalog — die EINZIGE Bildquelle =====
-   assets/fotos/galerie/galerie.json ist dieselbe Datei, aus der der Foto-Manager
-   liest. Wer dort ein Foto kategorisiert oder taggt, sieht es hier sofort im
-   Bildwaehler. Kein zweiter Index, keine Handpflege im Code.
-
-   Pfade im Katalog sind ab Site-Wurzel geschrieben. Diese Datei LIEGT in der
-   Wurzel, also stimmen sie hier unveraendert — im Foto-Manager (drei Ebenen
-   tiefer) setzt dessen RES() den Sprung nach oben davor.
-
-   Zwei Sorten Eintraege:
-     - Galerie-Fotos: Bilddatei unter galerie/thumb/<id>.webp bzw. galerie/full/<id>.webp
-     - Altbestand (action/, atmosphaere/) und Vorlagen-Zuschnitte (elite/):
-       tragen ein Feld `src` mit dem echten Pfad und werden direkt von dort geladen.
-   Deshalb galFull() vor jedem Einsetzen — nie den Pfad selbst zusammenbauen. */
-var GAL={photos:[],categories:[],loaded:false};
-const GAL_THUMB='assets/fotos/galerie/thumb/', GAL_FULL='assets/fotos/galerie/full/';
-function galThumb(p){ return (p&&p.src) ? p.src : (GAL_THUMB+(p&&p.id)+'.webp'); }
-function galFull(p){  return (p&&p.src) ? p.src : (GAL_FULL +(p&&p.id)+'.webp'); }
-function galCatName(k){ const c=(GAL.categories||[]).find(function(x){return x.key===k;}); return c?(c.label||c.name||k):k; }
-(async function(){ try{ const r=await fetch('assets/fotos/galerie/galerie.json',{cache:'no-store'}); if(!r.ok)return;
-  const j=await r.json(); if(j&&j.photos){ GAL.photos=j.photos; GAL.categories=j.categories||[]; GAL.loaded=true; }
-}catch(e){} })();
-
-/* Filtern passiert in einer Funktion, damit Zaehler und Raster garantiert
-   dieselbe Menge sehen — sonst steht ueber dem Raster eine Zahl, die nicht stimmt. */
-function galFilter(f){
-  var q=(f.q||'').trim().toLowerCase();
-  return (GAL.photos||[]).filter(function(p){
-    if(f.cat && (p.category||p.cat)!==f.cat) return false;
-    if(f.turnier && (p.turnier||'')!==f.turnier) return false;
-    if(f.orient && (p.orient||'')!==f.orient) return false;
-    if(!q) return true;
-    var hay=[p.id,p.event,p.turnier,(p.tags||[]).join(' '),galCatName(p.category||p.cat)].join(' ').toLowerCase();
-    return q.split(/\s+/).every(function(w){ return hay.indexOf(w)>=0; });
-  });
-}
 /* Repo-Foto in eine Data-URL wandeln — sonst „taintet" es beim PNG-Export das Canvas.
    Klappt nur über Server; bei file:// wird der Pfad direkt genommen (Vorschau ok, Export ggf. nicht). */
 /* ===== Galerie-Fotos: NUR bei file:// in eine Data-URL wandeln =====
@@ -1986,10 +1935,6 @@ function renderBg(){ const s=bgSrc(cur().bg); if(s){bgimg.style.display="block";
 function applyDark(){ darklayer.style.opacity=cur().dark; const d=document.getElementById('dark'); if(d)d.value=cur().dark; }
 function applyCanvasSize(){ canvas.style.width=CW()+'px'; canvas.style.height=CH()+'px'; }
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-/* esc() reicht fuer Textknoten, nicht fuer Attribute: ein Apostroph in einem Tag
-   („grosse's Spiel") wuerde sonst aus style="…url('…')" ausbrechen. Ueberall dort,
-   wo Katalog-Text in ein Attribut geht, escA() statt esc(). */
-function escA(s){return esc(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
 function btnStyle(el){ const base=el.fill||'gold'; const blueish=['blue','blue2','blue3','navy'].includes(base);
   if(el.bstyle==='outline')return {bg:'transparent',color:COLORS[base],border:'0.08em solid '+COLORS[base],sh:'none'};
@@ -2993,7 +2938,7 @@ document.getElementById('i-img').addEventListener('change',e=>{ if(!sel)return; 
   var lk=document.getElementById('i-lock'); if(lk)lk.addEventListener('click',toggleLock);
 })();
 document.getElementById('i-gal').addEventListener('click',function(){ if(!sel)return; var el=getEl(sel);
-  openPicker({title:'Foto wählen · Vereinsgalerie'},function(src){ if(!src)return; beginEdit(); el.src=src; addToLibrary(src); save(); rebuild(); syncInspector(); }); });
+  openPicker({title:'Foto wählen · Action / Atmosphäre'},function(src){ if(!src)return; beginEdit(); el.src=src; addToLibrary(src); save(); rebuild(); syncInspector(); }); });
 document.getElementById('i-iurl').addEventListener('change',e=>{ if(!sel)return; const u=e.target.value.trim(); beginEdit(); getEl(sel).src=u||null; save(); rebuild(); });
 document.getElementById('i-weight').addEventListener('change',e=>{if(!sel)return;beginEdit();getEl(sel).weight=parseInt(e.target.value);save();rebuild();});
 document.getElementById('i-bstyle').addEventListener('change',e=>{if(!sel)return;beginEdit();getEl(sel).bstyle=e.target.value;save();rebuild();});
@@ -3246,30 +3191,262 @@ function navFirst(m){ var t=NAVTREE[m]||{}, cats=Object.keys(t);
 
 
 /* ===== Reiter „Präsentationen" =====
-   Erste Stufe: die Decks liegen noch ausserhalb des Web-Ordners. Bis sie nach
-   `praesentationen/` (hinter dem Login) umgezogen sind, sagt der Reiter ehrlich,
-   was fehlt — statt still nichts zu tun. Übersicht, Vollbild-Präsentation und
-   „neue Präsi" folgen im nächsten Schritt. */
+   Übersicht aller Decks aus `praesentationen/index.js` (dort steht das Register).
+   Die Liste ist FLACH und standardmässig nach Datum sortiert (neueste zuerst) —
+   keine Gruppierung, sonst sucht man am Turniertag in Überschriften statt in Decks.
+   Eingegrenzt wird über die Werkzeugleiste: Namenssuche, Anlass-Chips, Jahr-Chips
+   und die Sortier-Umschaltung.
+   Das Vorschaubild ist KEIN gepflegtes Foto, sondern die ECHTE erste Folie:
+   `_tools/praesi-cover.mjs` rendert sie nach `praesentationen/covers/<id>.jpg`.
+   Dateiname = id aus dem Register, darum bekommt jedes neue Deck sein Cover
+   automatisch, ohne dass es jemand einträgt. */
+
+var PRAESI_UI = { q:'', anlass:'Alle', jahr:'Alle', sort:'datum-neu' };
+
+function praesiCSS(){
+  if(document.getElementById('praesiCSS'))return;
+  var s=document.createElement('style'); s.id='praesiCSS';
+  s.textContent=
+   '#praesiOv{position:fixed;inset:0;z-index:900;display:none;place-items:center;padding:24px;'
+  +'background:rgba(4,12,20,.86)}'
+  +'#praesiOv .prz-card{width:min(1120px,96vw);max-height:90vh;overflow:auto;'
+  +'background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.92));'
+  +'border:1px solid rgba(255,255,255,.12);border-top:3px solid #5ca7dc;border-bottom:3px solid #cda857;'
+  +'border-radius:14px;padding:24px 26px 28px;color:#eef4fa;font-family:"Nunito Sans",system-ui,sans-serif}'
+  +'#praesiOv .prz-head{display:flex;align-items:flex-start;gap:16px;justify-content:space-between}'
+  +'#praesiOv .prz-head h3{font-size:22px;font-weight:900;margin:0}'
+  +'#praesiOv .prz-head p{margin:6px 0 0;color:#9fb6cc;font-weight:600;font-size:14px;line-height:1.5;max-width:70ch}'
+  +'#praesiOv .prz-x{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;'
+  +'background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#fff;transition:.18s}'
+  +'#praesiOv .prz-x svg{width:17px;height:17px;display:block;flex:none}'
+  +'#praesiOv .prz-x:hover{background:#da2929;border-color:#da2929;animation:xsquish .3s}'
+  +'#praesiOv .prz-x:active{transform:scale(.9)}'
+  /* ---- Werkzeugleiste: Suche · Anlass · Jahr · Sortierung ---- */
+  +'#praesiOv .prz-bar{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);'
+  +'display:flex;flex-direction:column;gap:12px}'
+  +'#praesiOv .prz-search{position:relative;max-width:420px}'
+  +'#praesiOv .prz-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);'
+  +'width:16px;height:16px;color:#7d97b0;pointer-events:none}'
+  +'#praesiOv .prz-search input{width:100%;background:rgba(255,255,255,.05);color:#eef4fa;'
+  +'border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:9px 34px 9px 36px;'
+  +'font:inherit;font-weight:700;font-size:14px;outline:none;transition:.18s}'
+  +'#praesiOv .prz-search input:focus{border-color:#cda857;box-shadow:0 0 0 2px rgba(205,168,87,.18)}'
+  +'#praesiOv .prz-search input::placeholder{color:#7d97b0;font-weight:600}'
+  +'#praesiOv .prz-clr{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:22px;height:22px;'
+  +'border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#c3d2e0;cursor:pointer;display:none;'
+  +'align-items:center;justify-content:center;padding:0}'
+  +'#praesiOv .prz-clr svg{position:static;transform:none;width:11px;height:11px;color:inherit}'
+  +'#praesiOv .prz-clr.on{display:flex}'
+  +'#praesiOv .prz-clr:hover{background:#da2929;color:#fff}'
+  +'#praesiOv .prz-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}'
+  +'#praesiOv .prz-lab{color:#7d97b0;font-weight:900;font-size:10px;letter-spacing:.14em;text-transform:uppercase}'
+  +'#praesiOv .prz-chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.13);color:#c3d2e0;'
+  +'border-radius:999px;padding:5px 14px;font:inherit;font-weight:800;font-size:12px;cursor:pointer;transition:.18s}'
+  +'#praesiOv .prz-chip:hover:not(.on){box-shadow:inset 0 2px 0 #5ca7dc,inset 0 -2px 0 #cda857}'
+  +'#praesiOv .prz-chip.on{border-color:#cda857;color:#e9c475;background:rgba(205,168,87,.13)}'
+  +'#praesiOv .prz-sort{margin-left:auto;display:flex;gap:4px;background:rgba(255,255,255,.05);'
+  +'border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:3px}'
+  +'#praesiOv .prz-sort button{background:none;border:0;color:#9fb6cc;border-radius:7px;padding:5px 11px;'
+  +'font:inherit;font-weight:800;font-size:12px;cursor:pointer;transition:.18s}'
+  +'#praesiOv .prz-sort button.on{background:rgba(205,168,87,.16);color:#e9c475}'
+  /* ---- Liste ---- */
+  +'#praesiOv .prz-grp{margin-top:22px;color:#cda857;font-weight:900;font-size:12px;letter-spacing:.16em;text-transform:uppercase}'
+  +'#praesiOv .prz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:10px}'
+  +'#praesiOv .prz-it{background:linear-gradient(155deg,rgba(17,34,51,.74),rgba(9,21,33,.60));'
+  +'border:1px solid rgba(255,255,255,.13);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}'
+  +'#praesiOv .prz-it:hover{box-shadow:inset 0 3px 0 #5ca7dc,inset 0 -3px 0 #cda857}'
+  +'#praesiOv .prz-cov{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0b1c2b;display:block}'
+  +'#praesiOv .prz-cov img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}'
+  +'#praesiOv .prz-cov b{position:absolute;left:10px;bottom:8px;font-size:10px;font-weight:900;letter-spacing:.14em;'
+  +'text-transform:uppercase;color:rgba(238,244,250,.72);background:rgba(4,12,20,.6);border-radius:6px;padding:3px 8px}'
+  +'#praesiOv .prz-b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}'
+  +'#praesiOv .prz-t{font-weight:900;font-size:16px;line-height:1.22}'
+  +'#praesiOv .prz-t mark{background:rgba(205,168,87,.28);color:#e9c475;border-radius:3px;padding:0 1px}'
+  +'#praesiOv .prz-m{display:flex;gap:6px;flex-wrap:wrap}'
+  +'#praesiOv .prz-m span{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);'
+  +'border-radius:999px;padding:3px 10px;font-size:11px;font-weight:800;color:#c3d2e0}'
+  +'#praesiOv .prz-m span.anl{color:#e9c475;border-color:rgba(205,168,87,.35)}'
+  +'#praesiOv .prz-d{color:#9fb6cc;font-weight:600;font-size:13px;line-height:1.45;flex:1}'
+  +'#praesiOv .prz-act{display:flex;gap:8px;margin-top:2px}'
+  +'#praesiOv .prz-new{border-style:dashed;display:grid;place-items:start;text-align:left;padding:20px 18px;'
+  +'color:#9fb6cc;font-weight:700;font-size:13px;line-height:1.5}'
+  +'#praesiOv .prz-key{margin-top:20px;color:#8fa6bc;font-weight:700;font-size:12px;line-height:1.6;'
+  +'border-top:1px solid rgba(255,255,255,.1);padding-top:14px}'
+  +'#praesiOv .prz-key b{color:#e9c475}'
+  +'#praesiOv .prz-empty{margin-top:18px;color:#9fb6cc;font-weight:600;line-height:1.5}';
+  document.head.appendChild(s);
+}
+
+/* „15.08.2026" -> 20260815, damit sich Datumsangaben vergleichen lassen.
+   Ohne Datum ans Ende sortieren (0), damit zeitlose Decks nicht oben kleben. */
+function praesiDateKey(d){
+  var m=/^(\d{2})\.(\d{2})\.(\d{4})$/.exec((d||'').trim());
+  return m ? (+(m[3]+m[2]+m[1])) : 0;
+}
+function praesiJahr(d){ var m=/(\d{4})\s*$/.exec((d||'').trim()); return m?m[1]:null; }
+
+function praesiFiltered(){
+  var list=(window.TFCZ_PRAESI||[]).slice();
+  var q=PRAESI_UI.q.trim().toLowerCase();
+  var out=list.filter(function(p){
+    if(PRAESI_UI.anlass!=='Alle' && (p.anlass||'Weitere')!==PRAESI_UI.anlass) return false;
+    if(PRAESI_UI.jahr!=='Alle' && praesiJahr(p.datum)!==PRAESI_UI.jahr) return false;
+    if(!q) return true;
+    return ((p.titel||'')+' '+(p.text||'')+' '+(p.anlass||'')+' '+(p.datum||'')).toLowerCase().indexOf(q)>=0;
+  });
+  out.sort(function(a,b){
+    if(PRAESI_UI.sort==='titel') return (a.titel||'').localeCompare(b.titel||'','de');
+    var d=praesiDateKey(a.datum)-praesiDateKey(b.datum);
+    return PRAESI_UI.sort==='datum-alt' ? d : -d;
+  });
+  return out;
+}
+
+/* Suchtreffer im Titel hervorheben — erst escapen, dann markieren, nie umgekehrt. */
+function praesiMark(txt){
+  var e=esc(txt||''), q=PRAESI_UI.q.trim();
+  if(!q) return e;
+  var eq=esc(q).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  try{ return e.replace(new RegExp(eq,'gi'), function(m){ return '<mark>'+m+'</mark>'; }); }
+  catch(err){ return e; }
+}
+
+function praesiRender(){
+  var host=document.getElementById('praesiList'); if(!host)return;
+  var list=praesiFiltered(), html='';
+  if(!list.length){
+    html='<div class="prz-empty">Keine Präsentation gefunden. Suche leeren oder Filter zurücksetzen.</div>';
+  } else {
+    html='<div class="prz-grid">';
+    list.forEach(function(p){
+      html+='<div class="prz-it">'
+        +'<div class="prz-cov"><img src="praesentationen/covers/'+esc(p.id)+'.jpg" alt="" '
+        +'loading="lazy" decoding="async" onerror="this.style.display=\'none\'"><b>Folie 1</b></div>'
+        +'<div class="prz-b">'
+        +'<div class="prz-t">'+praesiMark(p.titel||p.id)+'</div>'
+        +'<div class="prz-m">'
+        +(p.anlass?'<span class="anl">'+esc(p.anlass)+'</span>':'')
+        +(p.datum?'<span>'+esc(p.datum)+'</span>':'')
+        +(p.folien?'<span>'+p.folien+' Folien</span>':'')
+        +(p.dauer?'<span>'+esc(p.dauer)+'</span>':'')
+        +'</div>'
+        +'<div class="prz-d">'+esc(p.text||'')+'</div>'
+        +'<div class="prz-act">'
+        +'<button class="btn blue" data-praesi="'+esc(p.datei)+'">Präsentieren</button>'
+        +'</div></div></div>';
+    });
+    html+='</div>';
+  }
+  host.innerHTML=html;
+  host.querySelectorAll('[data-praesi]').forEach(function(b){
+    b.onclick=function(){ window.open(b.dataset.praesi,'_blank','noopener'); };
+  });
+  /* Chips und Zähler mitziehen */
+  document.querySelectorAll('#praesiOv .prz-chip').forEach(function(c){
+    c.classList.toggle('on', PRAESI_UI[c.dataset.k]===c.dataset.v);
+  });
+  document.querySelectorAll('#praesiOv .prz-sort button').forEach(function(b){
+    b.classList.toggle('on', PRAESI_UI.sort===b.dataset.s);
+  });
+  var cnt=document.getElementById('praesiCount');
+  if(cnt){ var all=(window.TFCZ_PRAESI||[]).length;
+    cnt.textContent = list.length===all ? (all+(all===1?' Deck':' Decks')) : (list.length+' von '+all); }
+  var clr=document.getElementById('praesiClr'); if(clr)clr.classList.toggle('on', !!PRAESI_UI.q);
+}
+
 function openPraesi(){
+  praesiCSS();
   var ov=document.getElementById('praesiOv');
   if(!ov){ ov=document.createElement('div'); ov.id='praesiOv';
-    ov.style.cssText='position:fixed;inset:0;z-index:900;display:grid;place-items:center;'
-      +'background:rgba(4,12,20,.72);backdrop-filter:blur(6px)';
-    ov.innerHTML='<div style="max-width:560px;background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.92));'
-      +'border:1px solid rgba(255,255,255,.12);border-top:3px solid #5ca7dc;border-bottom:3px solid #cda857;'
-      +'border-radius:14px;padding:26px 28px;color:#fff;font-family:\'Nunito Sans\',system-ui,sans-serif">'
-      +'<div style="font-weight:900;font-size:22px">Präsentationen</div>'
-      +'<div style="margin-top:10px;color:#9fb6cc;font-weight:600;line-height:1.5">Hier kommen deine Decks rein — '
-      +'Übersicht mit Vorschaubild, nach Anlass gruppiert, Vollbild-Präsentation und „neue Präsi anlegen".<br><br>'
-      +'Dafür müssen die vier bestehenden Decks zuerst nach <b style="color:#e9c475">praesentationen/</b> '
-      +'umziehen — hinter den Login, damit die Sponsoring-Unterlagen nicht öffentlich werden.</div>'
-      +'<div style="margin-top:18px;text-align:right"><button class="btn blue" id="praesiX">Verstanden</button></div>'
-      +'</div>';
+    ov.innerHTML='<div class="prz-card"></div>';
     document.body.appendChild(ov);
-    ov.addEventListener('click',function(e){ if(e.target===ov)ov.remove(); });
+    ov.addEventListener('click',function(e){ if(e.target===ov)praesiClose(); });
   }
+  var card=ov.querySelector('.prz-card');
+  var list=(window.TFCZ_PRAESI||[]);
+
+  /* Filterwerte aus dem Register ableiten — nie fest verdrahten, sonst fehlt
+     ein Anlass, sobald jemand einen neuen einträgt. „Alle" steht immer zuerst. */
+  var anl=['Alle'], jah=['Alle'];
+  list.forEach(function(p){
+    var a=p.anlass||'Weitere'; if(anl.indexOf(a)<0)anl.push(a);
+    var j=praesiJahr(p.datum); if(j&&jah.indexOf(j)<0)jah.push(j);
+  });
+  jah=[jah[0]].concat(jah.slice(1).sort().reverse());
+  if(anl.indexOf(PRAESI_UI.anlass)<0)PRAESI_UI.anlass='Alle';
+  if(jah.indexOf(PRAESI_UI.jahr)<0)PRAESI_UI.jahr='Alle';
+
+  var html='<div class="prz-head"><div>'
+    +'<h3>Präsentationen</h3>'
+    +'<p>Fertige Decks zum Vorführen — Vollbild, mit Sprech-Notizen und Auto-Lauf. '
+    +'Sie liegen in <b style="color:#e9c475">praesentationen/</b>. '
+    +'Das Vorschaubild ist die erste Folie des Decks.</p></div>'
+    +'<button class="prz-x" id="praesiX" aria-label="Schliessen">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">'
+    +'<path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+
+  html+='<div class="prz-bar">'
+    +'<div class="prz-search">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">'
+    +'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>'
+    +'<input id="praesiQ" type="search" autocomplete="off" placeholder="Präsentation suchen — Name, Anlass, Datum">'
+    +'<button class="prz-clr" id="praesiClr" aria-label="Suche leeren">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">'
+    +'<path d="M6 6l12 12M18 6L6 18"/></svg></button>'
+    +'</div>'
+    +'<div class="prz-row"><span class="prz-lab">Anlass</span>';
+  anl.forEach(function(a){ html+='<button class="prz-chip" data-k="anlass" data-v="'+esc(a)+'">'+esc(a)+'</button>'; });
+  html+='</div>';
+  if(jah.length>1){
+    html+='<div class="prz-row"><span class="prz-lab">Jahr</span>';
+    jah.forEach(function(j){ html+='<button class="prz-chip" data-k="jahr" data-v="'+esc(j)+'">'+esc(j)+'</button>'; });
+    html+='</div>';
+  }
+  html+='<div class="prz-row"><span class="prz-lab" id="praesiCount"></span>'
+    +'<div class="prz-sort">'
+    +'<button data-s="datum-neu">Neueste zuerst</button>'
+    +'<button data-s="datum-alt">Älteste zuerst</button>'
+    +'<button data-s="titel">Name A–Z</button>'
+    +'</div></div></div>';
+
+  html+='<div id="praesiList"></div>';
+
+  html+='<div class="prz-grp">Neue Präsentation</div><div class="prz-grid">'
+    +'<div class="prz-it prz-new">Deck als eigenständige HTML-Datei nach <b style="color:#e9c475">praesentationen/</b> '
+    +'legen, Fotos über <b style="color:#e9c475">../assets/fotos/galerie/full/…</b> referenzieren '
+    +'und in <b style="color:#e9c475">praesentationen/index.js</b> einen Eintrag ergänzen. '
+    +'Danach <b style="color:#e9c475">node _tools/praesi-cover.mjs</b> laufen lassen — das rendert das '
+    +'Vorschaubild aus der ersten Folie. Aufbau &amp; Regeln: Brand Guide, Sektion 18b.</div></div>';
+  html+='<div class="prz-key">In der Präsentation: <b>Klick</b> oder <b>→</b> weiter · '
+    +'<b>linker Rand</b> zurück · <b>A</b> Auto-Lauf · <b>L</b> Auto-Loop · <b>N</b> Sprech-Notizen · <b>F</b> Vollbild</div>';
+  card.innerHTML=html;
+
+  card.querySelectorAll('.prz-chip').forEach(function(c){
+    c.onclick=function(){ PRAESI_UI[c.dataset.k]=c.dataset.v; praesiRender(); };
+  });
+  card.querySelectorAll('.prz-sort button').forEach(function(b){
+    b.onclick=function(){ PRAESI_UI.sort=b.dataset.s; praesiRender(); };
+  });
+  var q=document.getElementById('praesiQ');
+  q.value=PRAESI_UI.q;
+  q.oninput=function(){ PRAESI_UI.q=q.value; praesiRender(); };
+  document.getElementById('praesiClr').onclick=function(){ PRAESI_UI.q=''; q.value=''; q.focus(); praesiRender(); };
+
+  document.getElementById('praesiX').onclick=praesiClose;
+  document.addEventListener('keydown',praesiEsc);
   ov.style.display='grid';
-  var x=document.getElementById('praesiX'); if(x)x.onclick=function(){ ov.remove(); };
+  praesiRender();
+}
+/* Esc leert zuerst die Suche und schliesst erst dann — sonst ist ein Tippfehler
+   gleich das Ende des Fensters. */
+function praesiEsc(e){
+  if(e.key!=='Escape')return;
+  if(PRAESI_UI.q){ PRAESI_UI.q=''; var q=document.getElementById('praesiQ'); if(q)q.value=''; praesiRender(); return; }
+  praesiClose();
+}
+function praesiClose(){
+  document.removeEventListener('keydown',praesiEsc);
+  closeOverlay('praesiOv','.prz-card');
 }
 
 function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
@@ -3995,7 +4172,7 @@ function buildEvent(){ const P=document.getElementById('profi'),C=COLORS; const 
   P.querySelectorAll('.edrop').forEach(n=>{
     const setSrc=src=>{ beginEdit(); const el=getEl('photo'); if(el)el.src=src||null; save(); rebuild(); };
     const doFile=fl=>fileToSrc(fl,function(src){ addToLibrary(src); setSrc(src); });
-    n.addEventListener('dblclick',ev=>{ev.stopPropagation();openPicker({title:'Foto wählen · Vereinsgalerie'},setSrc);});
+    n.addEventListener('dblclick',ev=>{ev.stopPropagation();openPicker({title:'Foto wählen · Action / Atmosphäre'},setSrc);});
     n.addEventListener('dragover',ev=>{ev.preventDefault();n.classList.add('dragover');});
     n.addEventListener('dragleave',()=>n.classList.remove('dragover'));
     n.addEventListener('drop',ev=>{ev.preventDefault();n.classList.remove('dragover');const fl=ev.dataTransfer&&ev.dataTransfer.files&&ev.dataTransfer.files[0];if(fl)doFile(fl);});
@@ -4033,49 +4210,12 @@ function buildEventPanel(){ const p=document.getElementById('eventPanel'); if(!p
 }
 function openPicker(opts,cb){ opts=opts||{}; const kind=opts.kind||'image'; const P=document.getElementById('picker');
   const repo=(kind==='logo'?ASSETS.logo:ASSETS.img)||[]; const base=kind==='logo'?'assets/logo/':'assets/img/';
-  /* Galerie ist der Standard. Nur wenn der Katalog nicht geladen werden konnte
-     (file:// ohne Server), faellt der Waehler auf die alten Ordner-Reiter zurueck —
-     dann steht wenigstens der Altbestand zur Verfuegung statt einer leeren Flaeche. */
-  let tab=(kind==='logo')?((state.library&&state.library.length)?'lib':'upload'):(GAL.loaded?'gal':'action');
-  let flt={cat:'',turnier:'',orient:'',q:''};
+  let tab=(kind==='logo')?((state.library&&state.library.length)?'lib':'upload'):'action';
   function close(){ TFCZ_PORTAL.close(P.firstElementChild,function(){ P.style.display='none'; P.innerHTML=''; }); }
   function pick(src){ close(); cb(src); }
   function render(){
     let body='';
-    if(tab==='gal'){
-      /* Chips zeigen ihre Trefferzahl unter den JEWEILS anderen Filtern —
-         so sieht man vorher, ob ein Klick ins Leere fuehrt. */
-      function chips(label,key,opts){
-        var h='<div class="pk-frow"><span class="pk-flab">'+label+'</span>';
-        h+='<button class="pk-chip'+(flt[key]?'':' on')+'" data-f="'+key+'" data-v="">Alle</button>';
-        opts.forEach(function(o){
-          var probe=Object.assign({},flt); probe[key]=o.v;
-          var n=galFilter(probe).length; if(!n && flt[key]!==o.v) return;
-          h+='<button class="pk-chip'+(flt[key]===o.v?' on':'')+'" data-f="'+key+'" data-v="'+escA(o.v)+'">'+esc(o.l)+'<i>'+n+'</i></button>';
-        });
-        return h+'</div>';
-      }
-      var cats=(GAL.categories||[]).map(function(c){return {v:c.key,l:c.label||c.name||c.key};});
-      if(!cats.length){ var seen={}; (GAL.photos||[]).forEach(function(p){var k=p.category||p.cat; if(k)seen[k]=1;});
-        cats=Object.keys(seen).map(function(k){return {v:k,l:k};}); }
-      var turn={}; (GAL.photos||[]).forEach(function(p){ if(p.turnier)turn[p.turnier]=1; });
-      var turnOpts=Object.keys(turn).sort().map(function(t){return {v:t,l:t};});
-
-      var hits=galFilter(flt);
-      body ='<input class="pk-search" id="pkQ" placeholder="Suchen: Tag, Kategorie, ID … z. B. jubel, pokal, doppel" value="'+escA(flt.q)+'">';
-      body+=chips('Kategorie','cat',cats);
-      if(turnOpts.length) body+=chips('Turnier','turnier',turnOpts);
-      body+=chips('Format','orient',[{v:'quer',l:'Quer'},{v:'hoch',l:'Hoch'}]);
-      body+='<div class="pk-count"><b>'+hits.length+'</b> von '+(GAL.photos||[]).length+' Fotos</div>';
-      body+= hits.length
-        ? '<div class="pk-grid">'+hits.map(function(p){
-            var t=galThumb(p), f=galFull(p);
-            var ti=[p.id,galCatName(p.category||p.cat),(p.tags||[]).join(', ')].filter(Boolean).join(' · ');
-            return '<div class="pk-thumb" data-repo="'+escA(f)+'" '
-                 + 'style="background-image:url(\''+escA(t)+'\'),url(\''+escA(f)+'\')" title="'+escA(ti)+'"></div>'; }).join('')+'</div>'
-        : '<div class="pk-empty">Kein Foto passt zu dieser Auswahl. Filter zurücksetzen oder im Foto-Manager taggen.</div>';
-    }
-    else if(tab==='action'||tab==='atmo'){
+    if(tab==='action'||tab==='atmo'){
       const list=(tab==='action'?FOTOS.action:FOTOS.atmosphaere)||[], b=FOTO_BASE[tab];
       body=list.length
         ? '<div class="pk-grid">'+list.map(function(fn){ const u=b+fn;
@@ -4086,23 +4226,13 @@ function openPicker(opts,cb){ opts=opts||{}; const kind=opts.kind||'image'; cons
     else if(tab==='repo'){ body=repo.length?'<div class="pk-grid">'+repo.map(fn=>{const u=base+fn;return '<div class="pk-thumb" data-src="'+u+'" style="background-image:url('+u+')" title="'+esc(fn)+'"></div>';}).join('')+'</div>':'<div class="pk-empty">Keine Repo-Bilder hinterlegt. Lege Dateien in <b>'+base+'</b> ab und trage die Dateinamen im Code unter <b>ASSETS</b> ein.</div>'; }
     else if(tab==='url'){ body='<div class="pk-row"><input type="url" id="pkUrl" placeholder="https://…/bild.jpg"><button class="btn primary" id="pkUrlGo">Übernehmen</button></div><div class="pk-empty">Öffentlich erreichbare Bild-URL einfügen.</div>'; }
     else { body='<div class="pk-row"><input type="file" id="pkFile" accept="image/*"></div><div class="pk-empty">Bild von deinem Gerät wählen – es wird auch in der Bibliothek gespeichert.</div>'; }
-    /* Ein Reiter „Galerie" statt zweier Ordner-Reiter. Die alten bleiben nur als
-       Notnagel sichtbar, wenn der Katalog nicht geladen werden konnte. */
-    const tabs=(kind==='logo')
-      ? [['lib','Bibliothek'],['upload','Upload'],['url','URL']]
-      : (GAL.loaded ? [['gal','Galerie'],['lib','Bibliothek'],['upload','Upload'],['url','URL']]
-                    : [['action','Action'],['atmo','Atmosphäre'],['lib','Bibliothek'],['upload','Upload'],['url','URL']]);
-    if(repo.length)tabs.push(['repo','Repo-Galerie']);
-    let h='<div class="pk'+(tab==='gal'?' wide':'')+'"><div class="pk-h"><div class="t">'+esc(opts.title||'Bild wählen')+'</div><button class="xbtn pk-x" id="pkX">'+IC('x',17)+'</button></div>';
+    const tabs=(kind==='logo')?[['lib','Bibliothek'],['upload','Upload'],['url','URL']]:[['action','Action'],['atmo','Atmosphäre'],['lib','Bibliothek'],['upload','Upload'],['url','URL']]; if(repo.length)tabs.push(['repo','Repo-Galerie']);
+    let h='<div class="pk"><div class="pk-h"><div class="t">'+esc(opts.title||'Bild wählen')+'</div><button class="xbtn pk-x" id="pkX">'+IC('x',17)+'</button></div>';
     h+='<div class="pk-tabs">'+tabs.map(t=>'<button class="pk-tab'+(t[0]===tab?' on':'')+'" data-tab="'+t[0]+'">'+t[1]+'</button>').join('')+((kind==='logo'&&state.logoSrc)?'<button class="pk-tab" data-tab="__reset">'+IC('rotate-ccw',13)+' Standard-Logo</button>':'')+'</div>';
     h+='<div class="pk-body">'+body+'</div></div>';
     P.innerHTML=h;
     document.getElementById('pkX').onclick=close;
     P.querySelectorAll('.pk-tab').forEach(b=>b.onclick=()=>{ if(b.dataset.tab==='__reset'){pick(null);return;} tab=b.dataset.tab; render(); });
-    P.querySelectorAll('.pk-chip').forEach(b=>b.onclick=()=>{ flt[b.dataset.f]=b.dataset.v; render(); });
-    const q=document.getElementById('pkQ');
-    if(q){ q.oninput=function(){ flt.q=q.value; render(); const n=document.getElementById('pkQ');
-             if(n){ n.focus(); n.setSelectionRange(n.value.length,n.value.length); } }; }
     P.querySelectorAll('.pk-thumb').forEach(t=>t.onclick=async ()=>{
       if(t.dataset.repo){ const d=await fotoSrc(t.dataset.repo); addToLibrary(d); pick(d); }
       else pick(t.dataset.src); });
@@ -4117,7 +4247,7 @@ var _lb=document.getElementById('logoBtn'); if(_lb)_lb.onclick=()=>openPicker({t
 const CAP_IG='@tischfussballclubzuerich', CAP_YT='@tischfussballclubzuerich', CAP_WEB='tfcz.ch';
 /* Wer wir sind — eine Quelle, gilt für jede Beschreibung. Tone of Voice: Du-Form, kurz, konkret,
    einladend, nie gendern, keine Corporate-Floskeln. Zahlen/Adresse nur aus dem Steckbrief. */
-const CAP_ABOUT='Der Tischfussball Club Zürich ist der grösste Tischfussballverein der Schweiz — seit 1990 in derselben Halle in Zürich. Bei uns trainieren Weltmeister, und am Tisch daneben spielt jemand seine erste Partie. Alle sind willkommen.';
+const CAP_ABOUT='Der Tischfussball Club Zürich ist der grösste Tischfussballverein der Schweiz — seit 1990 in derselben Halle in Wipkingen. Bei uns trainieren Weltmeister, und am Tisch daneben spielt jemand seine erste Partie. Alle sind willkommen.';
 const CAP_ORT='Landenbergstrasse 10, 8037 Zürich';
 /* Zeiten — EINE Quelle. Freigegeben Vasco 14.07.2026: DYP Türöffnung 19:00, Start 20:15.
    Dienstag = offenes Training (Lokal ab 18:00 offen). Nie eine zweite Zeit irgendwo hinschreiben. */
@@ -4182,7 +4312,7 @@ function capDefault(cat,fmt){
       `${d.ttl} LIVE | Tischfussball Club Zürich`,
       '',
       'BESCHREIBUNG',
-      `Wir streamen den ganzen ${d.ttl} aus unserem Lokal in Zürich — von der ersten Auslosung bis zum Final.`,
+      `Wir streamen den ganzen ${d.ttl} aus unserem Lokal in Zürich Wipkingen — von der ersten Auslosung bis zum Final.`,
       '',
       d.hook,
       '',
@@ -5189,7 +5319,7 @@ function addText(stil){ addComp('text'); var el=getEl(sel); if(el){ el.props={st
 (function(){
   document.querySelectorAll('.add-btn[data-add]').forEach(function(b){ b.onclick=function(){ var a=b.dataset.add;
     if(a==='h1'||a==='h2'||a==='body')addText(a);
-    else if(a==='photo'){ addComp('foto'); openPicker&&openPicker({title:'Foto wählen · Vereinsgalerie'},function(src){ if(!src||!sel)return; var el=getEl(sel); if(el){ el.props=el.props||{}; el.props.src=src; save(); rebuild(); syncInspector(); } }); }
+    else if(a==='photo'){ addComp('foto'); openPicker&&openPicker({title:'Foto wählen · Action / Atmosphäre'},function(src){ if(!src||!sel)return; var el=getEl(sel); if(el){ el.props=el.props||{}; el.props.src=src; save(); rebuild(); syncInspector(); } }); }
     else if(a==='cta')addComp('cta');
   }; });
   var me=document.getElementById('addMoreEls'); if(me)me.onclick=function(){ document.body.classList.remove('layers-hidden'); var lb=document.getElementById('rpLib'); if(lb)lb.scrollIntoView({behavior:'smooth',block:'start'}); };
