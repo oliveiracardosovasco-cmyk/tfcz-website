@@ -905,6 +905,7 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
 .pm-tbtn,.tb-btn,.mr-x,.lh-x,.wiz-x,.cap-x,.pk-x{display:inline-flex; align-items:center; justify-content:center; gap:6px}
 </style><script defer src="system/components/portal.js"></script>
 <script defer src="praesentationen/index.js"></script>
+<script defer src="praesentationen/prompt.js"></script>
 </head>
 <body>
 <canvas id="bgfx"></canvas>
@@ -3194,14 +3195,15 @@ function navFirst(m){ var t=NAVTREE[m]||{}, cats=Object.keys(t);
    Übersicht aller Decks aus `praesentationen/index.js` (dort steht das Register).
    Die Liste ist FLACH und standardmässig nach Datum sortiert (neueste zuerst) —
    keine Gruppierung, sonst sucht man am Turniertag in Überschriften statt in Decks.
-   Eingegrenzt wird über die Werkzeugleiste: Namenssuche, Anlass-Chips, Jahr-Chips
-   und die Sortier-Umschaltung.
+   Eingegrenzt wird über die Werkzeugleiste: Namenssuche, Anlass-, Jahr- und
+   Monats-Chips und die Sortier-Umschaltung.
    Das Vorschaubild ist KEIN gepflegtes Foto, sondern die ECHTE erste Folie:
    `_tools/praesi-cover.mjs` rendert sie nach `praesentationen/covers/<id>.jpg`.
    Dateiname = id aus dem Register, darum bekommt jedes neue Deck sein Cover
    automatisch, ohne dass es jemand einträgt. */
 
-var PRAESI_UI = { q:'', anlass:'Alle', jahr:'Alle', sort:'datum-neu' };
+var PRAESI_UI = { q:'', anlass:'Alle', jahr:'Alle', monat:'Alle', sort:'datum-neu' };
+var PRAESI_MON = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
 
 function praesiCSS(){
   if(document.getElementById('praesiCSS'))return;
@@ -3216,11 +3218,11 @@ function praesiCSS(){
   +'#praesiOv .prz-head{display:flex;align-items:flex-start;gap:16px;justify-content:space-between}'
   +'#praesiOv .prz-head h3{font-size:22px;font-weight:900;margin:0}'
   +'#praesiOv .prz-head p{margin:6px 0 0;color:#9fb6cc;font-weight:600;font-size:14px;line-height:1.5;max-width:70ch}'
-  +'#praesiOv .prz-x{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;'
+  +'#praesiOv .prz-x,#przPromptOv .prz-x{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;'
   +'background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#fff;transition:.18s}'
-  +'#praesiOv .prz-x svg{width:17px;height:17px;display:block;flex:none}'
-  +'#praesiOv .prz-x:hover{background:#da2929;border-color:#da2929;animation:xsquish .3s}'
-  +'#praesiOv .prz-x:active{transform:scale(.9)}'
+  +'#praesiOv .prz-x svg,#przPromptOv .prz-x svg{width:17px;height:17px;display:block;flex:none}'
+  +'#praesiOv .prz-x:hover,#przPromptOv .prz-x:hover{background:#da2929;border-color:#da2929;animation:xsquish .3s}'
+  +'#praesiOv .prz-x:active,#przPromptOv .prz-x:active{transform:scale(.9)}'
   /* ---- Werkzeugleiste: Suche · Anlass · Jahr · Sortierung ---- */
   +'#praesiOv .prz-bar{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);'
   +'display:flex;flex-direction:column;gap:12px}'
@@ -3268,6 +3270,28 @@ function praesiCSS(){
   +'#praesiOv .prz-m span.anl{color:#e9c475;border-color:rgba(205,168,87,.35)}'
   +'#praesiOv .prz-d{color:#9fb6cc;font-weight:600;font-size:13px;line-height:1.45;flex:1}'
   +'#praesiOv .prz-act{display:flex;gap:8px;margin-top:2px}'
+  +'#praesiOv .prz-cta{margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;'
+  +'background:linear-gradient(155deg,rgba(17,34,51,.62),rgba(9,21,33,.5));'
+  +'border:1px dashed rgba(255,255,255,.18);border-radius:12px;padding:14px 16px}'
+  +'#praesiOv .prz-cta .ct{flex:1;min-width:220px}'
+  +'#praesiOv .prz-cta .ct b{display:block;font-weight:900;font-size:14px}'
+  +'#praesiOv .prz-cta .ct span{display:block;margin-top:3px;color:#9fb6cc;font-weight:600;font-size:12px;line-height:1.45}'
+  +'#praesiOv .prz-cta .btn{white-space:nowrap}'
+  +'#przPromptOv{position:fixed;inset:0;z-index:920;display:none;place-items:center;padding:24px;'
+  +'background:rgba(4,12,20,.9)}'
+  +'#przPromptOv .pp-card{width:min(860px,94vw);max-height:88vh;display:flex;flex-direction:column;'
+  +'background:linear-gradient(155deg,rgba(17,34,51,.97),rgba(9,21,33,.94));'
+  +'border:1px solid rgba(255,255,255,.12);border-top:3px solid #5ca7dc;border-bottom:3px solid #cda857;'
+  +'border-radius:14px;padding:22px 24px 24px;color:#eef4fa;font-family:"Nunito Sans",system-ui,sans-serif}'
+  +'#przPromptOv .pp-head{display:flex;align-items:flex-start;gap:14px;justify-content:space-between}'
+  +'#przPromptOv .pp-head h4{margin:0;font-size:19px;font-weight:900}'
+  +'#przPromptOv .pp-head p{margin:5px 0 0;color:#9fb6cc;font-weight:600;font-size:13px;line-height:1.5;max-width:66ch}'
+  +'#przPromptOv .pp-head a{color:#e9c475}'
+    +'#przPromptOv pre{flex:1;overflow:auto;margin:16px 0 0;background:rgba(4,12,20,.55);'
+  +'border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 18px;'
+  +'font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.62;'
+  +'color:#d6e3f0;white-space:pre-wrap;word-break:break-word}'
+  +'#przPromptOv .pp-act{margin-top:14px;display:flex;gap:8px;justify-content:flex-end}'
   +'#praesiOv .prz-new{border-style:dashed;display:grid;place-items:start;text-align:left;padding:20px 18px;'
   +'color:#9fb6cc;font-weight:700;font-size:13px;line-height:1.5}'
   +'#praesiOv .prz-key{margin-top:20px;color:#8fa6bc;font-weight:700;font-size:12px;line-height:1.6;'
@@ -3284,6 +3308,7 @@ function praesiDateKey(d){
   return m ? (+(m[3]+m[2]+m[1])) : 0;
 }
 function praesiJahr(d){ var m=/(\d{4})\s*$/.exec((d||'').trim()); return m?m[1]:null; }
+function praesiMonat(d){ var m=/^(\d{2})\.(\d{2})\./.exec((d||'').trim()); return m?m[2]:null; }
 
 function praesiFiltered(){
   var list=(window.TFCZ_PRAESI||[]).slice();
@@ -3291,6 +3316,7 @@ function praesiFiltered(){
   var out=list.filter(function(p){
     if(PRAESI_UI.anlass!=='Alle' && (p.anlass||'Weitere')!==PRAESI_UI.anlass) return false;
     if(PRAESI_UI.jahr!=='Alle' && praesiJahr(p.datum)!==PRAESI_UI.jahr) return false;
+    if(PRAESI_UI.monat!=='Alle' && praesiMonat(p.datum)!==PRAESI_UI.monat) return false;
     if(!q) return true;
     return ((p.titel||'')+' '+(p.text||'')+' '+(p.anlass||'')+' '+(p.datum||'')).toLowerCase().indexOf(q)>=0;
   });
@@ -3348,10 +3374,38 @@ function praesiRender(){
   document.querySelectorAll('#praesiOv .prz-sort button').forEach(function(b){
     b.classList.toggle('on', PRAESI_UI.sort===b.dataset.s);
   });
+  praesiMonRow();
   var cnt=document.getElementById('praesiCount');
   if(cnt){ var all=(window.TFCZ_PRAESI||[]).length;
     cnt.textContent = list.length===all ? (all+(all===1?' Deck':' Decks')) : (list.length+' von '+all); }
   var clr=document.getElementById('praesiClr'); if(clr)clr.classList.toggle('on', !!PRAESI_UI.q);
+}
+
+/* Monats-Chips zeigen nur Monate, die im gewaehlten Jahr vorkommen — zwoelf Chips
+   fuer zwei Decks waeren Ballast. Faellt der gewaehlte Monat weg, springt der
+   Filter auf „Alle" zurueck, sonst zeigt die Liste stumm nichts an. */
+function praesiMonRow(){
+  var row=document.getElementById('praesiMonRow'); if(!row)return;
+  var mon=[];
+  (window.TFCZ_PRAESI||[]).forEach(function(p){
+    if(PRAESI_UI.jahr!=='Alle' && praesiJahr(p.datum)!==PRAESI_UI.jahr) return;
+    var m=praesiMonat(p.datum); if(m&&mon.indexOf(m)<0)mon.push(m);
+  });
+  mon.sort();
+  if(mon.length<2){ row.innerHTML=''; row.style.display='none';
+    if(PRAESI_UI.monat!=='Alle'){ PRAESI_UI.monat='Alle'; } return; }
+  row.style.display='';
+  if(PRAESI_UI.monat!=='Alle' && mon.indexOf(PRAESI_UI.monat)<0) PRAESI_UI.monat='Alle';
+  var html='<span class="prz-lab">Monat</span>'
+    +'<button class="prz-chip'+(PRAESI_UI.monat==='Alle'?' on':'')+'" data-k="monat" data-v="Alle">Alle</button>';
+  mon.forEach(function(m){
+    html+='<button class="prz-chip'+(PRAESI_UI.monat===m?' on':'')+'" data-k="monat" data-v="'+m+'">'
+      +PRAESI_MON[(+m)-1]+'</button>';
+  });
+  row.innerHTML=html;
+  row.querySelectorAll('.prz-chip').forEach(function(c){
+    c.onclick=function(){ PRAESI_UI.monat=c.dataset.v; praesiRender(); };
+  });
 }
 
 function openPraesi(){
@@ -3402,6 +3456,7 @@ function openPraesi(){
     jah.forEach(function(j){ html+='<button class="prz-chip" data-k="jahr" data-v="'+esc(j)+'">'+esc(j)+'</button>'; });
     html+='</div>';
   }
+  html+='<div class="prz-row" id="praesiMonRow"></div>';
   html+='<div class="prz-row"><span class="prz-lab" id="praesiCount"></span>'
     +'<div class="prz-sort">'
     +'<button data-s="datum-neu">Neueste zuerst</button>'
@@ -3411,12 +3466,12 @@ function openPraesi(){
 
   html+='<div id="praesiList"></div>';
 
-  html+='<div class="prz-grp">Neue Präsentation</div><div class="prz-grid">'
-    +'<div class="prz-it prz-new">Deck als eigenständige HTML-Datei nach <b style="color:#e9c475">praesentationen/</b> '
-    +'legen, Fotos über <b style="color:#e9c475">../assets/fotos/galerie/full/…</b> referenzieren '
-    +'und in <b style="color:#e9c475">praesentationen/index.js</b> einen Eintrag ergänzen. '
-    +'Danach <b style="color:#e9c475">node _tools/praesi-cover.mjs</b> laufen lassen — das rendert das '
-    +'Vorschaubild aus der ersten Folie. Aufbau &amp; Regeln: Brand Guide, Sektion 18b.</div></div>';
+  html+='<div class="prz-cta">'
+    +'<div class="ct"><b>Neue Präsentation</b>'
+    +'<span>Prompt kopieren, Platzhalter ausfüllen, einer KI geben — sie baut das Deck nach Brand Guide 18b.</span></div>'
+    +'<button class="btn ghost" id="praesiPromptRead">Prompt lesen</button>'
+    +'<button class="btn blue" id="praesiPromptCopy">Prompt kopieren</button>'
+    +'</div>';
   html+='<div class="prz-key">In der Präsentation: <b>Klick</b> oder <b>→</b> weiter · '
     +'<b>linker Rand</b> zurück · <b>A</b> Auto-Lauf · <b>L</b> Auto-Loop · <b>N</b> Sprech-Notizen · <b>F</b> Vollbild</div>';
   card.innerHTML=html;
@@ -3432,6 +3487,8 @@ function openPraesi(){
   q.oninput=function(){ PRAESI_UI.q=q.value; praesiRender(); };
   document.getElementById('praesiClr').onclick=function(){ PRAESI_UI.q=''; q.value=''; q.focus(); praesiRender(); };
 
+  document.getElementById('praesiPromptRead').onclick=praesiPromptOpen;
+  document.getElementById('praesiPromptCopy').onclick=function(){ praesiCopyPrompt(this); };
   document.getElementById('praesiX').onclick=praesiClose;
   document.addEventListener('keydown',praesiEsc);
   ov.style.display='grid';
@@ -3441,12 +3498,69 @@ function openPraesi(){
    gleich das Ende des Fensters. */
 function praesiEsc(e){
   if(e.key!=='Escape')return;
+  var pp=document.getElementById('przPromptOv');
+  if(pp && getComputedStyle(pp).display!=='none') return;   /* Prompt-Fenster hat Vorrang */
   if(PRAESI_UI.q){ PRAESI_UI.q=''; var q=document.getElementById('praesiQ'); if(q)q.value=''; praesiRender(); return; }
   praesiClose();
 }
 function praesiClose(){
   document.removeEventListener('keydown',praesiEsc);
   closeOverlay('praesiOv','.prz-card');
+}
+
+/* Kopieren muss auch über file:// gehen — dort gibt es kein navigator.clipboard
+   (kein sicherer Kontext). Darum immer mit textarea-Fallback. */
+function praesiCopyPrompt(btn){
+  var txt=window.TFCZ_PRAESI_PROMPT||'';
+  function done(ok){
+    if(!btn)return;
+    var alt=btn.dataset.alt||btn.textContent; btn.dataset.alt=alt;
+    btn.textContent = ok?'Kopiert':'Kopieren ging nicht';
+    setTimeout(function(){ btn.textContent=alt; }, 1600);
+  }
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(function(){done(true);},function(){done(praesiCopyFallback(txt));});
+  } else { done(praesiCopyFallback(txt)); }
+}
+function praesiCopyFallback(txt){
+  try{
+    var ta=document.createElement('textarea');
+    ta.value=txt; ta.setAttribute('readonly','');
+    ta.style.cssText='position:fixed;top:-1000px;opacity:0';
+    document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0,txt.length);
+    var ok=document.execCommand('copy'); ta.remove(); return ok;
+  }catch(e){ return false; }
+}
+function praesiPromptOpen(){
+  var ov=document.getElementById('przPromptOv');
+  if(!ov){ ov=document.createElement('div'); ov.id='przPromptOv';
+    ov.innerHTML='<div class="pp-card"></div>';
+    document.body.appendChild(ov);
+    ov.addEventListener('click',function(e){ if(e.target===ov)praesiPromptClose(); });
+  }
+  ov.querySelector('.pp-card').innerHTML=
+     '<div class="pp-head"><div><h4>Prompt für eine neue Präsentation</h4>'
+    +'<p>Platzhalter in eckigen Klammern ausfüllen und den Text einer KI geben. '
+    +'Verbindliche Quelle bleibt der Brand Guide, Sektion 18b — '
+    +'<a href="https://tfcz.ch/brandguide.html#turnierpresi" target="_blank" rel="noopener">'
+    +'tfcz.ch/brandguide.html#turnierpresi</a></p></div>'
+    +'<button class="prz-x" id="przPromptX" aria-label="Schliessen">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">'
+    +'<path d="M6 6l12 12M18 6L6 18"/></svg></button></div>'
+    +'<pre id="przPromptText"></pre>'
+    +'<div class="pp-act"><button class="btn blue" id="przPromptCopy2">Prompt kopieren</button></div>';
+  document.getElementById('przPromptText').textContent =
+    window.TFCZ_PRAESI_PROMPT || '(Prompt nicht geladen — praesentationen/prompt.js fehlt.)';
+  document.getElementById('przPromptX').onclick=praesiPromptClose;
+  document.getElementById('przPromptCopy2').onclick=function(){ praesiCopyPrompt(this); };
+  document.addEventListener('keydown',praesiPromptEsc);
+  ov.style.display='grid';
+}
+/* Esc im Prompt-Fenster schliesst NUR dieses Fenster — die Übersicht bleibt offen. */
+function praesiPromptEsc(e){ if(e.key==='Escape'){ e.stopPropagation(); praesiPromptClose(); } }
+function praesiPromptClose(){
+  document.removeEventListener('keydown',praesiPromptEsc);
+  closeOverlay('przPromptOv','.pp-card');
 }
 
 function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
