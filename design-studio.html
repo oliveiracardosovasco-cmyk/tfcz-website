@@ -506,7 +506,7 @@ body.mobile .fb-step .fb-gauge{display:none!important;}
 .fb-cf{position:absolute;width:8px;height:12px;border-radius:2px;pointer-events:none;z-index:150;}
 @media (prefers-reduced-motion:reduce){.fb-bar.full .fb-fill{animation:none}.fb-dancer .d-body,.fb-dancer .arm,.fb-dancer .leg{animation:none}}
 /* ===== Menü-Extras (Persona · Brand Guide) ===== */
-#brandGuideBtn{display:none!important;}
+/* Der Brand-Guide-Knopf war ausgeblendet — er steht jetzt im ⋯ Mehr-Menü und ist dort sichtbar. */
 
 /* Kategorie-Chips im Format-Panel (Ebene 2 der Navigation) */
 .cat-row{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 4px}
@@ -648,8 +648,11 @@ body.mobile .pm-left,body.mobile .pm-right{display:none;}
 .wiz-d.on::after{content:"";position:absolute;top:7px;right:10px;color:var(--gold);font-weight:900;font-size:14px;}
 .wiz-foot{padding:13px 20px;border-top:1px solid #12304a;display:flex;gap:10px;justify-content:space-between;align-items:center;position:sticky;bottom:0;background:#0a1f31;}
 .wiz-skip{background:none;border:0;color:#94a9bd;cursor:pointer;font-size:13px;text-decoration:underline;}
-.mobtoggle{display:none;}
-@media(max-width:880px){.sidebar{position:absolute;z-index:20;left:0;top:0;bottom:0;transform:translateX(-100%);transition:.25s;width:88%;max-width:350px;}.sidebar.open{transform:none;}.mobtoggle{display:inline-block;}.ttl{display:none;}}
+/* Der Burger ist bewusst IMMER sichtbar — er ist das ⋯ Mehr-Menue (nicht mehr der
+   Seitenspalten-Schalter). Auf schmalen Fenstern steht die Bearbeiten-Spalte als
+   erster Eintrag IM Menue. */
+.mobtoggle{display:inline-grid;}
+@media(max-width:880px){.sidebar{position:absolute;z-index:20;left:0;top:0;bottom:0;transform:translateX(-100%);transition:.25s;width:88%;max-width:350px;}.sidebar.open{transform:none;}.ttl{display:none;}}
 
 /* ===== MOBILE FLOW (kein Editor/Spiel; Los geht's → Abfrage → Download) ===== */
 body.mobile #lhBg,body.mobile .lh-goals,body.mobile .lh-hud,body.mobile .lh-set,body.mobile .lh-game,body.mobile .lh-detect,body.mobile #lhGWin{display:none!important;}
@@ -836,13 +839,11 @@ button .ic{pointer-events:none}
   background:rgba(218,41,41,.14);border:1px solid rgba(218,41,41,.5);color:#ffc9c9}
 #compProps select,#compProps input[type=text],#compProps input[type=number]{width:100%}
 .item.comp{cursor:move}
-/* Format-Popover (statt permanenter Liste rechts — Canva-Modell) */
-#fmtPop{position:fixed;z-index:99998;display:none;width:300px;max-height:70vh;overflow:auto;padding:12px;
-  background:linear-gradient(155deg,rgba(17,34,51,.97),rgba(9,21,33,.96));
-  border:1px solid var(--ui-brd);border-top:3px solid var(--blue);border-bottom:3px solid var(--gold);
-  border-radius:var(--r-md);box-shadow:var(--e-3)}
-#fmtPop.on{display:block}
-.fmtpop-h{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:8px}
+/* Das Format-Popover „Groesse" ist am 16.08.2026 weggefallen. Es enthielt drei Dinge
+   gleichzeitig (Kategorie, Vorlage, Format) — jetzt: Motiv-Galerie + Ausgaben-Leiste.
+   Was davon bleibt, ist der Block #fmtHost in der Seitenspalte mit den Format-Extras
+   (Overlay-Rahmen, Thumbnail-Hinweis). */
+#fmtHost:not(:empty){margin-top:14px}
 /* ===== Schwebende Kontext-Leiste (Canva-Modell) =====
    Erscheint über dem angewählten Objekt und zeigt NUR die passenden Aktionen.
    So braucht der Nutzer den grossen Inspector im Alltag nicht. */
@@ -903,6 +904,109 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
    quetschen Flex-Buttons sie auf 0 (unsichtbar). Eine Regel für alle betroffenen Buttons. */
 .pm-tbtn svg,.tb-btn svg,.tb-mitem svg,.mr-dl svg,.mr-x svg,.lh-x svg,.lh-close svg,.wiz-x svg,.cap-x svg,.pk-x svg,.okmark svg{width:15px; height:15px; display:inline-block; flex:none; vertical-align:middle}
 .pm-tbtn,.tb-btn,.mr-x,.lh-x,.wiz-x,.cap-x,.pk-x{display:inline-flex; align-items:center; justify-content:center; gap:6px}
+
+/* ============================================================
+   KOPFZEILE „Motiv & Ausgaben" (Variante 5, 16.08.2026)
+   Vorher standen in der Kopfzeile fuenf Medien-Reiter, ein Knopf „Groesse"
+   (der in Wahrheit Kategorie + Vorlage + Format enthielt), „Profi", „Dark"
+   und ein Burger ohne Funktion. Jetzt: WAS wird gestaltet (Motiv) und WAS
+   kommt raus (Ausgaben) — mehr steht dort nicht.
+   ============================================================ */
+/* Die Kopfzeile muss ueber der Bibliothek/den Ebenen liegen, sonst faengt deren
+   Kopf die Klicks des ⋯ Menues ab (gemessen: .lib-head schluckte den Klick). */
+header{z-index:200;}
+#tabs{background:none;box-shadow:none;padding:0;gap:10px;align-items:center;overflow:visible;flex:1 1 auto;}
+/* --- Motiv-Knopf: oeffnet die Vorlagen-Galerie --- */
+.motiv{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--ui-brd,rgba(255,255,255,.14));
+  background:rgba(255,255,255,.05);color:#fff;font-family:inherit;font-weight:800;font-size:13px;
+  padding:6px 12px;border-radius:11px;cursor:pointer;white-space:nowrap;flex:none;transition:.16s;}
+.motiv:hover{border-color:transparent;box-shadow:inset 0 2px 0 var(--blue),inset 0 -2px 0 var(--gold);}
+.motiv:active{transform:scale(.97);}
+.motiv .mv-tx{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2;min-width:0;}
+.motiv .mv-lv{font-size:9.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#7d97b0;}
+.motiv .mv-nm{font-size:13px;font-weight:900;}
+.motiv.dirty .mv-lv{color:#da2929;}
+/* --- Ausgaben: mehrere Formate gleichzeitig --- */
+.outs{display:flex;align-items:center;gap:7px;min-width:0;flex:1 1 auto;overflow-x:auto;scrollbar-width:none;}
+.outs::-webkit-scrollbar{display:none;}
+.outs-lab{font-size:9.5px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#7d97b0;flex:none;padding-right:2px;}
+.out{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ui-brd,rgba(255,255,255,.14));
+  background:rgba(255,255,255,.04);color:#9fb2c4;font-family:inherit;font-weight:800;font-size:12.5px;
+  padding:6px 11px;border-radius:11px;cursor:pointer;white-space:nowrap;flex:none;transition:.16s;}
+.out:hover{color:#fff;border-color:transparent;box-shadow:inset 0 2px 0 var(--blue),inset 0 -2px 0 var(--gold);}
+.out.sel{background:rgba(92,167,220,.14);border-color:rgba(92,167,220,.55);color:#fff;}
+.out.view{box-shadow:inset 0 0 0 1px var(--gold);}
+.out.view:hover{box-shadow:inset 0 2px 0 var(--blue),inset 0 -2px 0 var(--gold);}
+.out .obox{width:14px;height:14px;border-radius:4px;border:1.6px solid currentColor;display:grid;place-items:center;
+  flex:none;opacity:.6;transition:.16s;}
+.out.sel .obox{opacity:1;background:var(--blue);border-color:var(--blue);color:#fff;}
+.out .obox svg{width:10px;height:10px;display:none;}
+.out.sel .obox svg{display:block;}
+.out .odim{opacity:.62;font-weight:800;}
+.out .otag{font-size:9.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2,#e9c475);
+  border:1px solid rgba(205,168,87,.45);border-radius:5px;padding:1px 5px;}
+/* --- Download in der Kopfzeile --- */
+#download.dlmain{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:11px;padding:9px 14px;
+  font-family:inherit;font-weight:900;font-size:13px;cursor:pointer;white-space:nowrap;flex:none;color:#fff;
+  background:linear-gradient(155deg,var(--blue),var(--blue2,#4489c7));box-shadow:0 6px 16px rgba(68,137,199,.3);
+  transition:transform .12s cubic-bezier(.34,1.56,.64,1),box-shadow .18s;}
+#download.dlmain:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(68,137,199,.44);}
+#download.dlmain:active{transform:scale(.97);}
+#download.dlmain[disabled]{opacity:.6;cursor:default;transform:none;}
+/* --- ⋯ Mehr-Menue (der Burger hat endlich eine Aufgabe) --- */
+#moreMenu{position:absolute;top:calc(100% + 8px);right:12px;z-index:120;min-width:236px;display:none;padding:8px;
+  background:linear-gradient(155deg,rgba(18,36,54,.98),rgba(10,23,36,.96));border:1px solid var(--ui-brd,rgba(255,255,255,.14));
+  border-top:3px solid var(--blue);border-bottom:3px solid var(--gold);border-radius:12px;box-shadow:0 16px 40px rgba(0,0,0,.42);}
+#moreMenu.on{display:block;}
+#moreMenu .mm-h{font-size:9.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#7d97b0;padding:7px 9px 5px;}
+#moreMenu .mm-i,#moreMenu #modeToggle,#moreMenu #proToggle,#moreMenu #brandGuideBtn{display:flex!important;align-items:center;gap:10px;width:100%;
+  text-align:left;background:none;border:0;color:#eef4fa;font-family:inherit;font-weight:800;font-size:13.5px;
+  padding:9px 10px;border-radius:9px;cursor:pointer;transition:.14s;}
+#moreMenu .mm-i:hover,#moreMenu #modeToggle:hover,#moreMenu #proToggle:hover,#moreMenu #brandGuideBtn:hover{background:rgba(255,255,255,.07);}
+#moreMenu .mm-sep{height:1px;background:rgba(255,255,255,.1);margin:6px 4px;}
+#moreMenu #mmSide{display:none!important;}
+@media(max-width:880px){#moreMenu #mmSide{display:flex!important;}}
+/* --- Motiv-Galerie --- */
+#motivOv{position:fixed;inset:0;z-index:900;display:none;place-items:start center;padding:82px 18px 26px;
+  background:rgba(4,12,20,.86);overflow:auto;}
+#motivOv.on{display:grid;}
+#motivOv .mo-card{width:min(1000px,96vw);background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.94));
+  border:1px solid var(--ui-brd,rgba(255,255,255,.14));border-top:3px solid var(--blue);border-bottom:3px solid var(--gold);
+  border-radius:14px;padding:22px 24px 26px;color:#eef4fa;}
+#motivOv .mo-head{display:flex;align-items:flex-start;gap:16px;}
+#motivOv .mo-head h3{margin:0;font-size:21px;font-weight:900;}
+#motivOv .mo-head p{margin:5px 0 0;color:#9fb2c4;font-weight:600;font-size:13.5px;max-width:66ch;}
+#motivOv .mo-x{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  background:rgba(255,255,255,.08);border:1px solid var(--ui-brd,rgba(255,255,255,.14));color:#fff;transition:.18s;}
+#motivOv .mo-x svg{width:17px;height:17px;display:block;flex:none;}
+#motivOv .mo-x:hover{background:#da2929;border-color:#da2929;animation:xsquish .3s;}
+#motivOv .mo-x:active{transform:scale(.9);}
+#motivOv .mo-s{position:relative;max-width:400px;margin:16px 0 4px;}
+#motivOv .mo-s svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#7d97b0;}
+#motivOv .mo-s input{width:100%;background:rgba(255,255,255,.05);color:#eef4fa;border:1px solid var(--ui-brd,rgba(255,255,255,.14));
+  border-radius:10px;padding:9px 12px 9px 35px;font:inherit;font-weight:700;font-size:13.5px;outline:none;}
+#motivOv .mo-s input:focus{border-color:#cda857;box-shadow:0 0 0 2px rgba(205,168,87,.18);}
+#motivOv .mo-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;}
+#motivOv .mo-lab{font-size:9.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#7d97b0;}
+#motivOv .mo-chip{background:rgba(255,255,255,.05);border:1px solid var(--ui-brd,rgba(255,255,255,.14));color:#c3d2e0;
+  border-radius:999px;padding:6px 14px;font:inherit;font-weight:800;font-size:12.5px;cursor:pointer;transition:.16s;}
+#motivOv .mo-chip:hover:not(.on){box-shadow:inset 0 2px 0 #5ca7dc,inset 0 -2px 0 #cda857;}
+#motivOv .mo-chip.on{border-color:#cda857;color:#e9c475;background:rgba(205,168,87,.13);}
+#motivOv .mo-ser{margin-top:20px;}
+#motivOv .mo-sh{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:900;letter-spacing:.12em;
+  text-transform:uppercase;color:#cda857;}
+#motivOv .mo-sh i{width:9px;height:9px;border-radius:50%;flex:none;font-style:normal;}
+#motivOv .mo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:12px;margin-top:10px;}
+#motivOv .mo-it{background:linear-gradient(155deg,rgba(17,34,51,.74),rgba(9,21,33,.60));border:1px solid var(--ui-brd,rgba(255,255,255,.14));
+  border-radius:12px;padding:10px;cursor:pointer;text-align:left;font-family:inherit;color:#eef4fa;transition:.16s;}
+#motivOv .mo-it:hover{box-shadow:inset 0 3px 0 #5ca7dc,inset 0 -3px 0 #cda857;}
+#motivOv .mo-it.on{border-color:#cda857;}
+#motivOv .mo-pv{height:74px;border-radius:8px;background:linear-gradient(135deg,#12324b,#0a1c2b);
+  border:1px solid rgba(255,255,255,.12);margin-bottom:8px;display:grid;place-items:center;color:#5f7c96;}
+#motivOv .mo-pv svg{width:22px;height:22px;}
+#motivOv .mo-it b{display:block;font-size:13px;font-weight:900;}
+#motivOv .mo-it span{font-size:11.5px;font-weight:800;color:#7d97b0;}
+#motivOv .mo-leer{padding:26px 4px;color:#7d97b0;font-weight:800;font-size:14px;}
 </style><script defer src="system/components/portal.js"></script>
 <script defer src="praesentationen/index.js"></script>
 <script defer src="praesentationen/prompt.js"></script>
@@ -911,16 +1015,23 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
 <canvas id="bgfx"></canvas>
 <header>
   <button class="ttl" id="homeBtn" title="Zur Startseite"><img class="ttl-logo" src="assets/img/logo-horizontal-white.png" alt="TFCZ"><span class="ttl-sep"></span><span class="ttl-tx">Design Studio</span></button>
-  <div class="spacer"></div>
   <div class="tabs" id="tabs"></div>
-  <div class="spacer"></div>
-  <button class="btn ghost" id="proToggle" style="flex:none" title="Profi-Modus: exakte Werte, Verankerung, Objekt-Details"><span data-ic="sliders-horizontal"></span> Profi</button>
-  <button class="btn ghost" id="fmtBtn" style="flex:none" title="Grösse / Format des Flyers"><span data-ic="crop"></span> Grösse</button>
-  <button class="btn ghost" id="modeToggle" title="Hintergrund: Normal (hellblau) / Dark (navy)" style="flex:none"><span data-ic="moon"></span> Dark</button>
-  <button class="btn ghost" id="brandGuideBtn" title="TFCZ Brand Guide & Design-System" style="flex:none"><span data-ic="book-open"></span> Brand Guide</button>
-  <button class="burger mobtoggle" id="mob" title="Menü" style="margin-left:4px"><span class="bl a"></span><span class="bl b"></span><span class="bl c"></span></button>
+  <button class="dlmain" id="download" title="Lädt genau die angekreuzten Ausgaben herunter"><span data-ic="download"></span> <span id="dlLbl">Herunterladen</span></button>
+  <button class="burger mobtoggle" id="mob" title="Mehr" style="margin-left:2px"><span class="bl a"></span><span class="bl b"></span><span class="bl c"></span></button>
+  <div id="moreMenu">
+    <div class="mm-h">Studio</div>
+    <button class="mm-i" id="mmSide"><span data-ic="layers" data-icsz="16"></span> Bearbeiten-Spalte</button>
+    <button class="mm-i" id="mmMotiv"><span data-ic="layout-grid" data-icsz="16"></span> Alle Vorlagen</button>
+    <button class="mm-i" id="mmPraesi"><span data-ic="monitor" data-icsz="16"></span> Präsentationen</button>
+    <button class="mm-i" id="mmPersona"><span data-ic="user-round" data-icsz="16"></span> Persona-Editor</button>
+    <div class="mm-sep"></div>
+    <div class="mm-h">Ansicht</div>
+    <button id="modeToggle" title="Hintergrund: Normal (hellblau) / Dark (navy)"><span data-ic="moon" data-icsz="16"></span> Dark</button>
+    <button id="proToggle" title="Detailgrad: exakte Werte, Verankerung, Objekt-Details"><span data-ic="sliders-horizontal" data-icsz="16"></span> Detailgrad: Profi</button>
+    <button id="brandGuideBtn" title="TFCZ Brand Guide & Design-System"><span data-ic="book-open" data-icsz="16"></span> Brand Guide</button>
+  </div>
 </header>
-<div id="toolbar"><div class="tb-group" id="tbDL"><div class="tb-dd" id="ddDownload"><button class="tb-btn tb-primary" id="ddBtn"><span data-ic="download"></span> Download <span data-ic="chevron-down" data-icsz="14"></span></button><div class="tb-menu" id="ddMenu"><div id="ddWarn" class="dd-warn"></div><div class="tb-mcat">Bild</div><button class="tb-mitem" id="download"><span data-ic="download"></span> PNG herunterladen</button><button class="tb-mitem" id="copyImg"><span data-ic="copy"></span> Bild kopieren</button><button class="tb-mitem" id="downloadPages"><span data-ic="copy"></span> Alle Seiten (PNG)</button><button class="tb-mitem" id="downloadAll"><span data-ic="images"></span> Alle Formate (PNG)</button><div class="tb-mcat">Web / HTML</div><button class="tb-mitem" id="landingPrev"><span data-ic="external-link"></span> Landing-Vorschau</button><button class="tb-mitem" id="landingDl"><span data-ic="file-code"></span> Landing HTML</button></div></div></div><div class="tb-sep"></div><div class="tb-group"><button class="tb-btn" id="tbCaption" title="Post-Text zum Kopieren (Instagram, WhatsApp …)"><span data-ic="file-text"></span> Text</button></div><div class="tb-sep"></div><div class="tb-group"><button class="tb-btn" id="tbRuler" title="Lineal ein/aus"><span data-ic="ruler"></span> Lineal</button><button class="tb-btn on" id="tbSnap" title="Magnetisches Einrasten"><span data-ic="magnet"></span> Snap</button><button class="tb-btn on" id="tbRatio" title="Seitenverhältnis beim Skalieren beibehalten (verhindert Verzerren)"><span data-ic="lock"></span> Ratio</button></div><div class="tb-sep"></div><div class="tb-group"><span class="tb-lab">Stil</span><button class="tb-btn ico" id="tbCopyStyle" title="Stil kopieren"><span data-ic="copy"></span></button><button class="tb-btn ico" id="tbPasteStyle" title="Stil einsetzen (auf Auswahl)"><span data-ic="paintbrush" data-icsz="16"></span></button></div><div class="tbcond" id="condAlign"><div class="tb-sep"></div><div class="tb-group" id="tbAlign"><span class="tb-lab">Ausrichten</span><button class="tb-btn ico" data-al="l" title="Links"><span data-ic="align-start-vertical"></span></button><button class="tb-btn ico" data-al="cx" title="Horizontal zentrieren"><span data-ic="align-center-vertical"></span></button><button class="tb-btn ico" data-al="r" title="Rechts"><span data-ic="align-end-vertical"></span></button><span class="tb-sep"></span><button class="tb-btn ico" data-al="t" title="Oben"><span data-ic="align-start-horizontal"></span></button><button class="tb-btn ico" data-al="cy" title="Vertikal zentrieren"><span data-ic="align-center-horizontal"></span></button><button class="tb-btn ico" data-al="b" title="Unten"><span data-ic="align-end-horizontal"></span></button></div></div><div class="tbcond" id="condSelect"><div class="tb-sep"></div><div class="tb-group"><span class="tb-lab">Auswahl</span><button class="tb-btn ico" id="laDel" title="Ausgewählte ausblenden"><span data-ic="trash-2"></span></button><button class="tb-btn ico" id="laShow" title="Alle einblenden"><span data-ic="eye"></span></button></div></div></div>
+<div id="toolbar"><div class="tb-group" id="tbDL"><div class="tb-dd" id="ddDownload"><button class="tb-btn tb-primary" id="ddBtn"><span data-ic="download"></span> Weiteres <span data-ic="chevron-down" data-icsz="14"></span></button><div class="tb-menu" id="ddMenu"><div id="ddWarn" class="dd-warn"></div><div class="tb-mcat">Bild</div><button class="tb-mitem" id="copyImg"><span data-ic="copy"></span> Bild kopieren</button><button class="tb-mitem" id="downloadPages"><span data-ic="copy"></span> Alle Seiten (PNG)</button><button class="tb-mitem" id="downloadAll"><span data-ic="images"></span> Alle Formate (PNG)</button><div class="tb-mcat">Web / HTML</div><button class="tb-mitem" id="landingPrev"><span data-ic="external-link"></span> Landing-Vorschau</button><button class="tb-mitem" id="landingDl"><span data-ic="file-code"></span> Landing HTML</button></div></div></div><div class="tb-sep"></div><div class="tb-group"><button class="tb-btn" id="tbCaption" title="Post-Text zum Kopieren (Instagram, WhatsApp …)"><span data-ic="file-text"></span> Text</button></div><div class="tb-sep"></div><div class="tb-group"><button class="tb-btn" id="tbRuler" title="Lineal ein/aus"><span data-ic="ruler"></span> Lineal</button><button class="tb-btn on" id="tbSnap" title="Magnetisches Einrasten"><span data-ic="magnet"></span> Snap</button><button class="tb-btn on" id="tbRatio" title="Seitenverhältnis beim Skalieren beibehalten (verhindert Verzerren)"><span data-ic="lock"></span> Ratio</button></div><div class="tb-sep"></div><div class="tb-group"><span class="tb-lab">Stil</span><button class="tb-btn ico" id="tbCopyStyle" title="Stil kopieren"><span data-ic="copy"></span></button><button class="tb-btn ico" id="tbPasteStyle" title="Stil einsetzen (auf Auswahl)"><span data-ic="paintbrush" data-icsz="16"></span></button></div><div class="tbcond" id="condAlign"><div class="tb-sep"></div><div class="tb-group" id="tbAlign"><span class="tb-lab">Ausrichten</span><button class="tb-btn ico" data-al="l" title="Links"><span data-ic="align-start-vertical"></span></button><button class="tb-btn ico" data-al="cx" title="Horizontal zentrieren"><span data-ic="align-center-vertical"></span></button><button class="tb-btn ico" data-al="r" title="Rechts"><span data-ic="align-end-vertical"></span></button><span class="tb-sep"></span><button class="tb-btn ico" data-al="t" title="Oben"><span data-ic="align-start-horizontal"></span></button><button class="tb-btn ico" data-al="cy" title="Vertikal zentrieren"><span data-ic="align-center-horizontal"></span></button><button class="tb-btn ico" data-al="b" title="Unten"><span data-ic="align-end-horizontal"></span></button></div></div><div class="tbcond" id="condSelect"><div class="tb-sep"></div><div class="tb-group"><span class="tb-lab">Auswahl</span><button class="tb-btn ico" id="laDel" title="Ausgewählte ausblenden"><span data-ic="trash-2"></span></button><button class="tb-btn ico" id="laShow" title="Alle einblenden"><span data-ic="eye"></span></button></div></div></div>
 <div id="editbar"><span class="eb-txt"><span data-ic="square-pen"></span> <span id="ebWhich">Ungespeicherte Änderungen</span></span><span class="eb-act"><button class="btn ghost" id="ebCancel">Verwerfen</button><button class="btn blue" id="ebThis">Dieses Format</button><button class="btn blue" id="ebAll">Alle · nur Text</button></span></div>
 <main>
   <aside class="sidebar" id="sidebar">
@@ -939,6 +1050,8 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
     <div id="rankPanel" class="epanel editblk" style="display:none"></div>
     <div id="eventPanel" class="epanel editblk" style="display:none"></div>
     <div id="reelPanel" class="epanel editblk" style="display:none"></div>
+    <!-- Format-Extras (Overlay-Rahmen, Thumbnail-Hinweis) — früher im Popup „Grösse", jetzt fest in der Spalte -->
+    <div id="fmtHost" class="editblk"></div>
     <div id="genericEdit" class="editblk">
     <div id="addBlock"><h3>Hinzufügen</h3>
       <div class="add-row">
@@ -1043,7 +1156,6 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
   </aside>
   <button class="layers-toggle" id="layersToggle" title="Objekte &amp; Bibliothek"><span data-ic="layers" data-icsz="15"></span> Objekte</button>
   <div id="ctxbar" aria-hidden="true"></div>
-<div id="fmtPop"><div class="fmtpop-h">Format wählen</div><div id="fmtHost"></div></div>
 <div id="personaMode">
     <aside class="pm-left" id="pmLeft"></aside>
     <div class="pm-stage"><div class="pm-col"><div class="pm-toolbar" id="pmToolbar"><button class="pm-tbtn" data-cmd="bold" title="Fett"><b>B</b></button><button class="pm-tbtn" data-cmd="italic" title="Kursiv"><i>I</i></button><button class="pm-tbtn" data-cmd="underline" title="Unterstrichen"><u>U</u></button><span class="pm-tsep"></span><button class="pm-tbtn" data-cmd="justifyLeft" title="Linksbuendig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 12H3M17 18H3M21 6H3"/></svg></button><button class="pm-tbtn" data-cmd="justifyCenter" title="Zentriert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 12H7M19 18H5M21 6H3"/></svg></button><button class="pm-tbtn" data-cmd="justifyRight" title="Rechtsbuendig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12H9M21 18H7M21 6H3"/></svg></button><button class="pm-tbtn" data-cmd="justifyFull" title="Blocksatz"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 12h18M3 18h18M3 6h18"/></svg></button><span class="pm-tsep"></span><button class="pm-tbtn" data-cmd="insertUnorderedList" title="Aufzaehlung">&bull;</button><button class="pm-tbtn" data-cmd="insertOrderedList" title="Nummeriert">1.</button><button class="pm-tbtn" data-cmd="outdent" title="Einzug kleiner">&#8676;</button><button class="pm-tbtn" data-cmd="indent" title="Einzug groesser">&#8677;</button></div><div class="pm-page" id="pmPage"></div></div></div>
@@ -1063,7 +1175,7 @@ const BGLOGO="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABQUAAAFuCAMAAAAPoo64
 /* ===== Lucide-Icons (ISC) — Brand Guide 7c: KEINE Emojis im UI =====
    Inline-SVGs mit stroke:currentColor, damit sie die Textfarbe erben.
    Quelle: assets/icons/lucide/*.svg — hier eingebettet, damit html2canvas/Export sicher sind. */
-const LU={"sliders-horizontal":'<path d="M10 5H3" /> <path d="M12 19H3" /> <path d="M14 3v4" /> <path d="M16 17v4" /> <path d="M21 12h-9" /> <path d="M21 19h-5" /> <path d="M21 5h-7" /> <path d="M8 10v4" /> <path d="M8 12H3" />',"paintbrush":'<path d="m14.622 17.897-10.68-2.913" /> <path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z" /> <path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15" />',"crop":'<path d="M6 2v14a2 2 0 0 0 2 2h14" /> <path d="M18 22V8a2 2 0 0 0-2-2H2" />',"contrast":'<circle cx="12" cy="12" r="10" /> <path d="M12 18a6 6 0 0 0 0-12v12z" />',"droplet":'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />',"pipette":'<path d="m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12" /> <path d="m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z" /> <path d="m2 22 .414-.414" />',"copy-plus":'<line x1="15" x2="15" y1="12" y2="18" /> <line x1="12" x2="18" y1="15" y2="15" /> <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />',"lock":'<rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" />',"unlock":'<rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 9.9-1" />',"sun":'<circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" />',"file-down":'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M12 18v-6" /> <path d="m9 15 3 3 3-3" />',"download":'<path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" />',"copy":'<rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />',"images":'<path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16" /> <path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2" /> <circle cx="13" cy="7" r="1" fill="currentColor" /> <rect x="8" y="2" width="14" height="14" rx="2" />',"external-link":'<path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />',"file-code":'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 12.5 8 15l2 2.5" /> <path d="m14 12.5 2 2.5-2 2.5" />',"file-text":'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" />',"ruler":'<path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" /> <path d="m14.5 12.5 2-2" /> <path d="m11.5 9.5 2-2" /> <path d="m8.5 6.5 2-2" /> <path d="m17.5 15.5 2-2" />',"magnet":'<path d="m12 15 4 4" /> <path d="M2.352 10.648a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l6.029-6.029a1 1 0 1 1 3 3l-6.029 6.029a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l6.365-6.367A1 1 0 0 0 8.716 4.282z" /> <path d="m5 8 4 4" />',"link":'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />',"unlink":'<path d="m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71" /> <path d="m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71" /> <line x1="8" x2="8" y1="2" y2="5" /> <line x1="2" x2="5" y1="8" y2="8" /> <line x1="16" x2="16" y1="19" y2="22" /> <line x1="19" x2="22" y1="16" y2="16" />',"trash-2":'<path d="M10 11v6" /> <path d="M14 11v6" /> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /> <path d="M3 6h18" /> <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />',"eye":'<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" />',"plus":'<path d="M5 12h14" /> <path d="M12 5v14" />',"x":'<path d="M18 6 6 18" /> <path d="m6 6 12 12" />',"menu":'<path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" />',"moon":'<path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />',"book-open":'<path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />',"user-round":'<circle cx="12" cy="8" r="5" /> <path d="M20 21a8 8 0 0 0-16 0" />',"key-round":'<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" /> <circle cx="16.5" cy="7.5" r=".5" fill="currentColor" />',"rotate-ccw":'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" />',"chevron-up":'<path d="m18 15-6-6-6 6" />',"chevron-down":'<path d="m6 9 6 6 6-6" />',"arrow-right":'<path d="M5 12h14" /> <path d="m12 5 7 7-7 7" />',"star":'<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />',"check":'<path d="M20 6 9 17l-5-5" />',"bell":'<path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" />',"sparkles":'<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" />',"party-popper":'<path d="M5.8 11.3 2 22l10.7-3.79" /> <path d="M4 3h.01" /> <path d="M22 8h.01" /> <path d="M15 2h.01" /> <path d="M22 20h.01" /> <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" /> <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" /> <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" /> <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" />',"trophy":'<path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978" /> <path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978" /> <path d="M18 9h1.5a1 1 0 0 0 0-5H18" /> <path d="M4 22h16" /> <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" /> <path d="M6 9H4.5a1 1 0 0 1 0-5H6" />',"dices":'<rect width="12" height="12" x="2" y="10" rx="2" ry="2" /> <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6" /> <path d="M6 18h.01" /> <path d="M10 14h.01" /> <path d="M15 6h.01" /> <path d="M18 9h.01" />',"medal":'<path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15" /> <path d="M11 12 5.12 2.2" /> <path d="m13 12 5.88-9.8" /> <path d="M8 7h8" /> <circle cx="12" cy="17" r="5" /> <path d="M12 18v-2h-.5" />',"monitor":'<rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" />',"utensils":'<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /> <path d="M7 2v20" /> <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />',"flag":'<path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528" />',"globe":'<circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" />',"swords":'<polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" /> <line x1="13" x2="19" y1="19" y2="13" /> <line x1="16" x2="20" y1="16" y2="20" /> <line x1="19" x2="21" y1="21" y2="19" /> <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5" /> <line x1="5" x2="9" y1="14" y2="18" /> <line x1="7" x2="4" y1="17" y2="20" /> <line x1="3" x2="5" y1="19" y2="21" />',"hard-hat":'<path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5" /> <path d="M14 6a6 6 0 0 1 6 6v3" /> <path d="M4 15v-3a6 6 0 0 1 6-6" /> <rect x="2" y="15" width="20" height="4" rx="1" />',"save":'<path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" /> <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" /> <path d="M7 3v4a1 1 0 0 0 1 1h7" />',"align-start-horizontal":'<rect width="6" height="16" x="4" y="6" rx="2" /> <rect width="6" height="9" x="14" y="6" rx="2" /> <path d="M22 2H2" />',"align-center-horizontal":'<path d="M2 12h20" /> <path d="M10 16v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4" /> <path d="M10 8V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4" /> <path d="M20 16v1a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-1" /> <path d="M14 8V7c0-1.1.9-2 2-2h2a2 2 0 0 1 2 2v1" />',"align-end-horizontal":'<rect width="6" height="16" x="4" y="2" rx="2" /> <rect width="6" height="9" x="14" y="9" rx="2" /> <path d="M22 22H2" />',"align-start-vertical":'<rect width="9" height="6" x="6" y="14" rx="2" /> <rect width="16" height="6" x="6" y="4" rx="2" /> <path d="M2 2v20" />',"align-center-vertical":'<path d="M12 2v20" /> <path d="M8 10H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h4" /> <path d="M16 10h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4" /> <path d="M8 20H7a2 2 0 0 1-2-2v-2c0-1.1.9-2 2-2h1" /> <path d="M16 14h1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1" />',"align-end-vertical":'<rect width="16" height="6" x="2" y="4" rx="2" /> <rect width="9" height="6" x="9" y="14" rx="2" /> <path d="M22 22V2" />',"layers":'<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" />',"palette":'<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />',"type":'<path d="M12 4v16" /> <path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2" /> <path d="M9 20h6" />',"image":'<rect width="18" height="18" x="3" y="3" rx="2" ry="2" /> <circle cx="9" cy="9" r="2" /> <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />',"play":'<path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />',"square-pen":'<path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /> <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />',"circle-help":'<circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" />'};
+const LU={"search":'<circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" />',"layout-grid":'<rect width="7" height="7" x="3" y="3" rx="1" /> <rect width="7" height="7" x="14" y="3" rx="1" /> <rect width="7" height="7" x="14" y="14" rx="1" /> <rect width="7" height="7" x="3" y="14" rx="1" />',"sliders-horizontal":'<path d="M10 5H3" /> <path d="M12 19H3" /> <path d="M14 3v4" /> <path d="M16 17v4" /> <path d="M21 12h-9" /> <path d="M21 19h-5" /> <path d="M21 5h-7" /> <path d="M8 10v4" /> <path d="M8 12H3" />',"paintbrush":'<path d="m14.622 17.897-10.68-2.913" /> <path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z" /> <path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15" />',"crop":'<path d="M6 2v14a2 2 0 0 0 2 2h14" /> <path d="M18 22V8a2 2 0 0 0-2-2H2" />',"contrast":'<circle cx="12" cy="12" r="10" /> <path d="M12 18a6 6 0 0 0 0-12v12z" />',"droplet":'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />',"pipette":'<path d="m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12" /> <path d="m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z" /> <path d="m2 22 .414-.414" />',"copy-plus":'<line x1="15" x2="15" y1="12" y2="18" /> <line x1="12" x2="18" y1="15" y2="15" /> <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />',"lock":'<rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" />',"unlock":'<rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 9.9-1" />',"sun":'<circle cx="12" cy="12" r="4" /> <path d="M12 2v2" /> <path d="M12 20v2" /> <path d="m4.93 4.93 1.41 1.41" /> <path d="m17.66 17.66 1.41 1.41" /> <path d="M2 12h2" /> <path d="M20 12h2" /> <path d="m6.34 17.66-1.41 1.41" /> <path d="m19.07 4.93-1.41 1.41" />',"file-down":'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M12 18v-6" /> <path d="m9 15 3 3 3-3" />',"download":'<path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" />',"copy":'<rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />',"images":'<path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16" /> <path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2" /> <circle cx="13" cy="7" r="1" fill="currentColor" /> <rect x="8" y="2" width="14" height="14" rx="2" />',"external-link":'<path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />',"file-code":'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 12.5 8 15l2 2.5" /> <path d="m14 12.5 2 2.5-2 2.5" />',"file-text":'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" />',"ruler":'<path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" /> <path d="m14.5 12.5 2-2" /> <path d="m11.5 9.5 2-2" /> <path d="m8.5 6.5 2-2" /> <path d="m17.5 15.5 2-2" />',"magnet":'<path d="m12 15 4 4" /> <path d="M2.352 10.648a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l6.029-6.029a1 1 0 1 1 3 3l-6.029 6.029a1.205 1.205 0 0 0 0 1.704l2.296 2.296a1.205 1.205 0 0 0 1.704 0l6.365-6.367A1 1 0 0 0 8.716 4.282z" /> <path d="m5 8 4 4" />',"link":'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />',"unlink":'<path d="m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71" /> <path d="m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71" /> <line x1="8" x2="8" y1="2" y2="5" /> <line x1="2" x2="5" y1="8" y2="8" /> <line x1="16" x2="16" y1="19" y2="22" /> <line x1="19" x2="22" y1="16" y2="16" />',"trash-2":'<path d="M10 11v6" /> <path d="M14 11v6" /> <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /> <path d="M3 6h18" /> <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />',"eye":'<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" />',"plus":'<path d="M5 12h14" /> <path d="M12 5v14" />',"x":'<path d="M18 6 6 18" /> <path d="m6 6 12 12" />',"menu":'<path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" />',"moon":'<path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />',"book-open":'<path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />',"user-round":'<circle cx="12" cy="8" r="5" /> <path d="M20 21a8 8 0 0 0-16 0" />',"key-round":'<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" /> <circle cx="16.5" cy="7.5" r=".5" fill="currentColor" />',"rotate-ccw":'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" />',"chevron-up":'<path d="m18 15-6-6-6 6" />',"chevron-down":'<path d="m6 9 6 6 6-6" />',"arrow-right":'<path d="M5 12h14" /> <path d="m12 5 7 7-7 7" />',"star":'<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />',"check":'<path d="M20 6 9 17l-5-5" />',"bell":'<path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" />',"sparkles":'<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" />',"party-popper":'<path d="M5.8 11.3 2 22l10.7-3.79" /> <path d="M4 3h.01" /> <path d="M22 8h.01" /> <path d="M15 2h.01" /> <path d="M22 20h.01" /> <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" /> <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" /> <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" /> <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" />',"trophy":'<path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978" /> <path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978" /> <path d="M18 9h1.5a1 1 0 0 0 0-5H18" /> <path d="M4 22h16" /> <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" /> <path d="M6 9H4.5a1 1 0 0 1 0-5H6" />',"dices":'<rect width="12" height="12" x="2" y="10" rx="2" ry="2" /> <path d="m17.92 14 3.5-3.5a2.24 2.24 0 0 0 0-3l-5-4.92a2.24 2.24 0 0 0-3 0L10 6" /> <path d="M6 18h.01" /> <path d="M10 14h.01" /> <path d="M15 6h.01" /> <path d="M18 9h.01" />',"medal":'<path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15" /> <path d="M11 12 5.12 2.2" /> <path d="m13 12 5.88-9.8" /> <path d="M8 7h8" /> <circle cx="12" cy="17" r="5" /> <path d="M12 18v-2h-.5" />',"monitor":'<rect width="20" height="14" x="2" y="3" rx="2" /> <line x1="8" x2="16" y1="21" y2="21" /> <line x1="12" x2="12" y1="17" y2="21" />',"utensils":'<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /> <path d="M7 2v20" /> <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />',"flag":'<path d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528" />',"globe":'<circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" />',"swords":'<polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" /> <line x1="13" x2="19" y1="19" y2="13" /> <line x1="16" x2="20" y1="16" y2="20" /> <line x1="19" x2="21" y1="21" y2="19" /> <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5" /> <line x1="5" x2="9" y1="14" y2="18" /> <line x1="7" x2="4" y1="17" y2="20" /> <line x1="3" x2="5" y1="19" y2="21" />',"hard-hat":'<path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5" /> <path d="M14 6a6 6 0 0 1 6 6v3" /> <path d="M4 15v-3a6 6 0 0 1 6-6" /> <rect x="2" y="15" width="20" height="4" rx="1" />',"save":'<path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" /> <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" /> <path d="M7 3v4a1 1 0 0 0 1 1h7" />',"align-start-horizontal":'<rect width="6" height="16" x="4" y="6" rx="2" /> <rect width="6" height="9" x="14" y="6" rx="2" /> <path d="M22 2H2" />',"align-center-horizontal":'<path d="M2 12h20" /> <path d="M10 16v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4" /> <path d="M10 8V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4" /> <path d="M20 16v1a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-1" /> <path d="M14 8V7c0-1.1.9-2 2-2h2a2 2 0 0 1 2 2v1" />',"align-end-horizontal":'<rect width="6" height="16" x="4" y="2" rx="2" /> <rect width="6" height="9" x="14" y="9" rx="2" /> <path d="M22 22H2" />',"align-start-vertical":'<rect width="9" height="6" x="6" y="14" rx="2" /> <rect width="16" height="6" x="6" y="4" rx="2" /> <path d="M2 2v20" />',"align-center-vertical":'<path d="M12 2v20" /> <path d="M8 10H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h4" /> <path d="M16 10h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4" /> <path d="M8 20H7a2 2 0 0 1-2-2v-2c0-1.1.9-2 2-2h1" /> <path d="M16 14h1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1" />',"align-end-vertical":'<rect width="16" height="6" x="2" y="4" rx="2" /> <rect width="9" height="6" x="9" y="14" rx="2" /> <path d="M22 22V2" />',"layers":'<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" /> <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" /> <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" />',"palette":'<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />',"type":'<path d="M12 4v16" /> <path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2" /> <path d="M9 20h6" />',"image":'<rect width="18" height="18" x="3" y="3" rx="2" ry="2" /> <circle cx="9" cy="9" r="2" /> <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />',"play":'<path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />',"square-pen":'<path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /> <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />',"circle-help":'<circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" />'};
 function IC(n,sz){ var s=sz||16; return '<svg class="ic" viewBox="0 0 24 24" width="'+s+'" height="'+s+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(LU[n]||'')+'</svg>'; }
 const COLORS={white:"#ffffff",black:"#1a1a1a",navy:"#0d273d",blue:"#5ca7dc",blue2:"#4489c7",blue3:"#005a94",gold:"#cda857",gold2:"#e9c475",cream:"#e6e3da",green:"#67b57d",green2:"#3b7657",amber:"#e49b2c",amber2:"#db7f27",red:"#da2929",red2:"#bb2025"};
 const SWATCH=["white","black","navy","blue","blue2","blue3","gold","gold2","cream","green","green2","amber","amber2","red","red2"];
@@ -3151,18 +3263,51 @@ function wizCreate(){ const W=document.getElementById("wizard"); let ok=true;
 const MEDIA=[['social','Flyer & Social'],['yt','YouTube'],['stream','Stream'],
              ['bg','Hintergrund'],['praesi','Präsentationen']];
 const CATNM={fun:'Fun',pro:'Pro',elite:'Elite',verein:'Verein'};
-const NAVTREE={
-  social:{fun:[['kase','KäseKick'],['dyp','Crazy DYP']],
-          pro:[['profi','PRO / STRT']],
-          verein:[['events','Events'],['rank','Rangliste']]},
-  yt:{fun:[['thumb:fun_dyp','Crazy DYP'],['thumb:fun_kase','KäseKick']],
-      pro:[['thumb:pro_strt','STRT / Pro Turnier']],
-      elite:[['thumb:elite_doppel','Doppel-Tag'],['thumb:elite_einzel','Einzel-Tag']],
-      verein:[['thumb:verein_std','Allgemein']]},
-  stream:{verein:[['stream','Overlay & Fallback']]},
-  bg:{verein:[['bg','Bildschirm-Hintergrund']]},
+/* ===== Die Navigation hat jetzt VIER Ebenen (16.08.2026) =====
+   Medium  ->  Kategorie  ->  SERIE  ->  Vorlage
+   Die Serie ist die Ebene, die waechst: Elite bekommt neben „STS Zuerich" spaeter
+   „ITSF World Cup", „Schweizermeisterschaft" usw., Pro weitere STRT-Stationen.
+   Vorher fehlte sie ganz — darum musste jede neue Serie irgendwo in die Vorlagen-Liste
+   gequetscht werden. Die internen Schluessel (kase, dyp, profi, thumb:…) bleiben
+   UNVERAENDERT, damit gespeicherte Staende weiterleben.
+   Eine neue Serie anlegen = EIN Eintrag hier. Sonst nichts. */
+const SERIEN={
+  social:{
+    fun:[{k:'kase',n:'KäseKick',v:[['kase','Ankündigung']]},
+         {k:'dyp',n:'Crazy DYP',v:[['dyp','Ankündigung']]}],
+    pro:[{k:'strt',n:'STRT · Züri Tour',v:[['profi','Ausschreibung & Flyer']]}],
+    verein:[{k:'events',n:'Events & Firmen',v:[['events','Event-Flyer']]},
+            {k:'rang',n:'Ranglisten',v:[['rank','Podium 1–3']]}]},
+  yt:{
+    fun:[{k:'dyp',n:'Crazy DYP',v:[['thumb:fun_dyp','Thumbnail']]},
+         {k:'kase',n:'KäseKick',v:[['thumb:fun_kase','Thumbnail']]}],
+    pro:[{k:'strt',n:'STRT · Züri Tour',v:[['thumb:pro_strt','Thumbnail']]}],
+    elite:[{k:'sts',n:'STS Zürich',v:[['thumb:elite_doppel','Doppel-Tag'],['thumb:elite_einzel','Einzel-Tag']]}],
+    verein:[{k:'std',n:'Allgemein',v:[['thumb:verein_std','Thumbnail']]}]},
+  stream:{verein:[{k:'ovl',n:'Overlay & Fallback',v:[['stream','Livestream-Overlay']]}]},
+  bg:{verein:[{k:'bg',n:'Bildschirm-Hintergrund',v:[['bg','16:9 Hintergrund']]}]},
   praesi:{}
 };
+/* NAVTREE bleibt bestehen — aber ABGELEITET aus SERIEN, damit es nur EINE Quelle gibt.
+   Alter Code (navFirst, „hat offene Aenderungen"-Pruefung) liest unveraendert weiter. */
+const NAVTREE=(function(){ var o={};
+  Object.keys(SERIEN).forEach(function(m){ o[m]={};
+    Object.keys(SERIEN[m]).forEach(function(k){ var a=[];
+      SERIEN[m][k].forEach(function(se){ se.v.forEach(function(e){ a.push(e); }); });
+      o[m][k]=a; }); });
+  return o; })();
+/* Zu welcher Serie gehoert ein Vorlagen-Schluessel? (fuer die Anzeige im Kopf) */
+function serieVon(id){
+  var r=null;
+  Object.keys(SERIEN).forEach(function(m){ Object.keys(SERIEN[m]).forEach(function(k){
+    SERIEN[m][k].forEach(function(se){ se.v.forEach(function(e){ if(e[0]===id&&!r)r={med:m,kat:k,serie:se,vorlage:e[1]}; }); }); }); });
+  return r;
+}
+/* Der Schluessel des aktuellen Motivs — „thumb" traegt seine Variante im Preset. */
+function motivId(){
+  if(state.active==='thumb'){ var v=(cur()&&cur().variant)||'elite_doppel'; return 'thumb:'+v; }
+  return state.active;
+}
 function medOf(k){ k=k||state.active;
   if(k==='thumb'||k==='yt')return 'yt';
   if(k==='stream')return 'stream';
@@ -3563,71 +3708,173 @@ function praesiPromptClose(){
   closeOverlay('przPromptOv','.pp-card');
 }
 
-function buildTabs(){ const t=document.getElementById('tabs'); t.innerHTML='';
-  const ind=document.createElement('div'); ind.className='tab-ind'; ind.id='tabInd'; t.appendChild(ind);
-  const _med=medOf();
-  MEDIA.forEach(m=>{ const k=m[0]; const b=document.createElement('button');
-    /* Rot = irgendeine Vorlage dieses Mediums hat offene Änderungen */
-    var _keys=[]; Object.keys(NAVTREE[k]||{}).forEach(function(c){ (NAVTREE[k][c]||[]).forEach(function(e){
-      _keys.push(e[0].indexOf('thumb:')===0?'thumb':e[0]); }); });
-    var _dirty=_keys.some(function(x){ return (x===state.active)?editing:!!(EDITSTATE[x]&&EDITSTATE[x].editing); });
-    b.className='tab'+((k===_med&&!personaMode)?' on':'')+(_dirty?' dirty':''); b.dataset.k=k; b.innerHTML=esc(m[1]);
-    b.onclick=()=>{ if(k==='praesi'){ if(typeof openPraesi==='function')openPraesi(); return; }
-      if(k===_med&&!personaMode)return;
-      var first=navFirst(k); if(first)navGo(first);
-    }; t.appendChild(b); });
-  const sep=document.createElement('span'); sep.className='tab-sep'; sep.textContent='·'; t.appendChild(sep);
-  const ptab=document.createElement('button'); ptab.className='tab tab-extra'+(personaMode?' on':''); ptab.id='tabPersona'; ptab.textContent='Persona'; ptab.onclick=()=>{ if(personaMode)return; stashEdit(state.active); enterPersona(); }; t.appendChild(ptab);
-  
-  positionTabInd(); setTimeout(positionTabInd,60); }
-function positionTabInd(){ const t=document.getElementById('tabs'); if(!t)return; const b=t.querySelector('.tab.on'), ind=document.getElementById('tabInd'); if(!b||!ind)return;
-  ind.style.width=b.offsetWidth+'px'; ind.style.transform='translateX('+b.offsetLeft+'px)';
-  try{ b.scrollIntoView({inline:'nearest',block:'nearest'}); }catch(e){} }
+/* ============================================================
+   KOPFZEILE: Motiv (was gestalte ich) + Ausgaben (was kommt raus)
+   Ersetzt die Medien-Reiter und den Knopf „Groesse". Die Funktion heisst
+   weiter buildTabs(), weil sie an mehreren Stellen aufgerufen wird — sie baut
+   jetzt aber den neuen Kopf.
+   ============================================================ */
+function fmtsFor(){ return Object.keys(FORMATS).filter(function(k){ var f=FORMATS[k];
+  if(f.proOnly&&state.active!=='profi')return false;
+  if(f.ytOnly&&state.active!=='yt')return false;
+  if(f.bgOnly&&state.active!=='bg')return false;
+  if(state.active==='bg'&&!f.bgOnly)return false;
+  if(f.streamOnly&&state.active!=='stream')return false;
+  if(state.active==='stream'&&!f.streamOnly)return false;
+  if(f.thumbOnly&&state.active!=='thumb')return false;
+  if(state.active==='thumb'&&!f.thumbOnly)return false;
+  return true; }); }
+/* Die angekreuzten PNG-Ausgaben der aktuellen Vorlage. Wird je Vorlage gespeichert. */
+function outsOf(){ var k=state.active; if(!state.outs)state.outs={};
+  var gueltig=fmtsFor().filter(function(x){ return !FORMATS[x].doc; });
+  var a=(state.outs[k]||[]).filter(function(x){ return gueltig.indexOf(x)>=0; });
+  if(!a.length){ var start=(gueltig.indexOf(state.fmt)>=0)?state.fmt:gueltig[0]; a=start?[start]:[]; }
+  state.outs[k]=a; return a; }
+function outToggle(k){ var a=outsOf().slice(), i=a.indexOf(k);
+  if(i>=0){ if(a.length<2){ toast('Mindestens eine Ausgabe muss angekreuzt bleiben.'); return; } a.splice(i,1); }
+  else a.push(k);
+  state.outs[state.active]=a; save();
+  if(a.indexOf(state.fmt)<0){ outView(a[0]); return; }
+  buildTabs(); }
+/* Ansicht wechseln = dieses Format auf der Leinwand bearbeiten. */
+function outView(k){ if(state.fmt===k){ buildTabs(); return; }
+  var go=function(){ state.fmt=k;
+    if(!FORMATS[k].doc){ var a=outsOf().slice(); if(a.indexOf(k)<0){ a.push(k); state.outs[state.active]=a; } }
+    save(); switchAll(); };
+  if(editing)confirmLeaveEdit(go); else go(); }
+/* Kurznamen fuer die Ausgaben-Leiste — die vollen Namen stehen im Tooltip.
+   Grund: mit „Instagram Story / Reel 1080×1920" passen keine fuenf Chips in den Kopf,
+   und ein Chip, der aus dem Bild scrollt, wird nie angekreuzt. */
+var FMTKURZ={ig_story:'Story',ig_feed:'Feed hoch',ig_square:'Feed quadratisch',wa_msg:'WhatsApp',
+  wa_story:'WA Status',yt_thumb:'Thumbnail',thumb16:'Thumbnail',bg_16_9:'Bildschirm',
+  stream_1080:'Overlay',stream_fb:'Fallback',aus:'Ausschreibung',reel:'Reel'};
+function dlLabel(){ var l=document.getElementById('dlLbl'); if(!l)return;
+  var f=FORMATS[state.fmt]||{};
+  if(f.doc){ l.textContent='HTML herunterladen'; return; }
+  /* Kurz halten: „3 Ausgaben herunterladen" frisst so viel Breite, dass der letzte
+     Ausgaben-Chip aus dem Kopf scrollt. Was der Knopf tut, steht im Tooltip. */
+  var n=outsOf().length; l.textContent=(n>1)?(n+' Ausgaben'):'Herunterladen'; }
+function buildTabs(){ const t=document.getElementById('tabs'); if(!t)return; t.innerHTML='';
+  if(typeof personaMode!=='undefined'&&personaMode){
+    var zur=document.createElement('button'); zur.className='motiv';
+    zur.innerHTML=IC('arrow-right',15)+'<span class="mv-tx"><span class="mv-lv">Persona-Editor</span><span class="mv-nm">Zurück zum Studio</span></span>';
+    zur.onclick=function(){ exitPersona(); switchAll(); }; t.appendChild(zur); dlLabel(); return; }
+  /* 1 · Motiv */
+  var inf=serieVon(motivId());
+  var nm=inf?(inf.serie.n+' · '+inf.vorlage):(TPLNAME[state.active]||'Vorlage wählen');
+  var mb=document.createElement('button'); mb.className='motiv'+(anyEditing()?' dirty':'');
+  mb.title='Motiv wechseln — Kategorie, Serie und Vorlage';
+  mb.innerHTML=IC('layout-grid',16)+'<span class="mv-tx"><span class="mv-lv">'+(anyEditing()?'Motiv · ungespeichert':'Motiv')+'</span><span class="mv-nm">'+esc(nm)+'</span></span>'+IC('chevron-down',14);
+  mb.onclick=function(e){ e.stopPropagation(); openMotiv(); };
+  t.appendChild(mb);
+  /* 2 · Ausgaben — Kaestchen = mitexportieren, Name = ansehen/bearbeiten */
+  var box=document.createElement('div'); box.className='outs';
+  var lab=document.createElement('span'); lab.className='outs-lab'; lab.textContent='Ausgaben'; box.appendChild(lab);
+  var sel=outsOf(), alle=fmtsFor(), zeigMasse=(alle.length<=3);
+  alle.forEach(function(k){ var f=FORMATS[k], doc=!!f.doc, an=sel.indexOf(k)>=0;
+    var b=document.createElement('button');
+    b.className='out'+(an?' sel':'')+(state.fmt===k?' view':'');
+    b.title=doc ? (f.name+' — HTML-Ausgabe, wird einzeln erzeugt')
+                : (f.name+' · '+f.w+'×'+f.h+' — Kästchen: mitexportieren · Name: ansehen');
+    b.innerHTML=(doc?'':'<span class="obox" data-box="1">'+IC('check',10)+'</span>')
+      +'<span class="onm">'+esc(FMTKURZ[k]||f.name.replace(/\s*\(.*\)$/,''))+'</span>'
+      +(doc?'<span class="otag">HTML</span>':(zeigMasse?'<span class="odim">'+f.w+'×'+f.h+'</span>':''));
+    b.onclick=function(e){ if(!doc && e.target.closest('[data-box]')){ outToggle(k); return; } outView(k); };
+    box.appendChild(b); });
+  t.appendChild(box);
+  dlLabel(); }
+/* Die Reiter-Unterstreichung gibt es nicht mehr — die Funktion bleibt, weil sie
+   beim Fenster-Resize aufgerufen wird. */
+function positionTabInd(){ }
+
+/* ============================================================
+   MOTIV-GALERIE — hier wird navigiert (Medium · Kategorie · Serie · Vorlage)
+   Sie ersetzt die Reiterleiste UND den Kategorie/Vorlagen-Teil des alten
+   „Groesse"-Popups. Schliesst per X, Esc, Klick auf den Hintergrund.
+   ============================================================ */
+var MOTIV={med:null,kat:null,q:''};
+var MEDNM={social:'Flyer & Social',yt:'YouTube',stream:'Stream',bg:'Hintergrund',praesi:'Präsentationen'};
+var KATFARBE={fun:'#5ca7dc',pro:'#005a94',elite:'#cda857',verein:'#0d273d'};
+function motivErlaubt(id){ if(_role!=='guest')return true;
+  var basis=(id.indexOf('thumb:')===0)?'thumb':id; return !!READY[basis]; }
+function openMotiv(){ var ov=document.getElementById('motivOv'); if(!ov)return;
+  MOTIV.med=medOf(); MOTIV.kat=catOf(); MOTIV.q='';
+  ov.classList.add('on'); drawMotiv();
+  var i=ov.querySelector('.mo-s input'); if(i)i.focus(); }
+function closeMotiv(){ var ov=document.getElementById('motivOv'); if(ov)ov.classList.remove('on'); }
+function drawMotiv(){
+  var ov=document.getElementById('motivOv'), c=document.getElementById('motivCard'); if(!ov||!c)return;
+  var q=(MOTIV.q||'').trim().toLowerCase();
+  var med=MOTIV.med||'social', baum=SERIEN[med]||{};
+  var kats=Object.keys(baum).filter(function(k){ return (baum[k]||[]).length; });
+  if(kats.indexOf(MOTIV.kat)<0)MOTIV.kat=kats[0]||null;
+  var h='<div class="mo-head"><div><h3>Motiv wählen</h3>'
+    +'<p>Erst das Medium, dann die Kategorie, dann die Serie. Die Ausgabe-Formate stehen oben in der Kopfzeile — hier geht es nur um das Motiv.</p></div>'
+    +'<button class="mo-x" id="motivX" title="Schliessen">'+IC('x',17)+'</button></div>';
+  h+='<div class="mo-s">'+IC('search',16)+'<input id="motivQ" placeholder="Vorlage oder Serie suchen…" value="'+esc(MOTIV.q)+'"></div>';
+  h+='<div class="mo-row"><span class="mo-lab">Medium</span>';
+  Object.keys(MEDNM).forEach(function(m){
+    h+='<button class="mo-chip'+(m===med&&!q?' on':'')+'" data-med="'+m+'">'+esc(MEDNM[m])+'</button>'; });
+  h+='</div>';
+  if(!q && kats.length){
+    h+='<div class="mo-row"><span class="mo-lab">Kategorie</span>';
+    kats.forEach(function(k){ h+='<button class="mo-chip'+(k===MOTIV.kat?' on':'')+'" data-kat="'+k+'">'+esc(CATNM[k]||k)+'</button>'; });
+    h+='</div>';
+  }
+  /* Treffer sammeln: ohne Suche = gewaehltes Medium + Kategorie, mit Suche = alles */
+  var gruppen=[];
+  Object.keys(SERIEN).forEach(function(m){ Object.keys(SERIEN[m]).forEach(function(k){
+    if(!q && (m!==med||k!==MOTIV.kat))return;
+    (SERIEN[m][k]||[]).forEach(function(se){
+      var eintr=se.v.filter(function(e){
+        if(!motivErlaubt(e[0]))return false;
+        if(!q)return true;
+        return (se.n+' '+e[1]+' '+MEDNM[m]+' '+(CATNM[k]||k)).toLowerCase().indexOf(q)>=0; });
+      if(eintr.length)gruppen.push({med:m,kat:k,se:se,eintr:eintr}); }); }); });
+  if(med==='praesi'&&!q){
+    h+='<div class="mo-ser"><div class="mo-sh"><i style="background:#3b7657"></i>Präsentationen</div>'
+      +'<div class="mo-grid"><button class="mo-it" data-praesi="1"><div class="mo-pv">'+IC('monitor',22)+'</div>'
+      +'<b>Alle Decks</b><span>Übersicht öffnen</span></button></div></div>';
+  } else if(!gruppen.length){
+    h+='<div class="mo-leer">Nichts gefunden.</div>';
+  } else {
+    gruppen.forEach(function(g){
+      h+='<div class="mo-ser"><div class="mo-sh"><i style="background:'+(KATFARBE[g.kat]||'#5ca7dc')+'"></i>'
+        +esc(g.se.n)+(q?' · '+esc(MEDNM[g.med]):'')+'</div><div class="mo-grid">';
+      g.eintr.forEach(function(e){
+        var aktiv=(motivId()===e[0]);
+        h+='<button class="mo-it'+(aktiv?' on':'')+'" data-go="'+esc(e[0])+'">'
+          +'<div class="mo-pv">'+IC(g.med==='yt'?'play':(g.med==='stream'?'monitor':'image'),22)+'</div>'
+          +'<b>'+esc(e[1])+'</b><span>'+esc(g.se.n)+'</span></button>'; });
+      h+='</div></div>'; });
+  }
+  c.innerHTML=h;
+  c.querySelector('#motivX').onclick=closeMotiv;
+  var inp=c.querySelector('#motivQ');
+  inp.oninput=function(){ MOTIV.q=inp.value; drawMotiv();
+    var n=document.querySelector('#motivQ'); if(n){ n.focus(); n.setSelectionRange(n.value.length,n.value.length); } };
+  c.querySelectorAll('[data-med]').forEach(function(b){ b.onclick=function(){ MOTIV.med=b.dataset.med; MOTIV.q='';
+    var ks=Object.keys(SERIEN[MOTIV.med]||{}); MOTIV.kat=ks[0]||null; drawMotiv(); }; });
+  c.querySelectorAll('[data-kat]').forEach(function(b){ b.onclick=function(){ MOTIV.kat=b.dataset.kat; drawMotiv(); }; });
+  c.querySelectorAll('[data-go]').forEach(function(b){ b.onclick=function(){ closeMotiv(); navGo(b.dataset.go); }; });
+  var pr=c.querySelector('[data-praesi]'); if(pr)pr.onclick=function(){ closeMotiv(); if(typeof openPraesi==='function')openPraesi(); };
+}
+document.addEventListener('click',function(e){ var ov=document.getElementById('motivOv');
+  if(ov&&ov.classList.contains('on')&&e.target===ov)closeMotiv(); });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape')closeMotiv(); });
 const FMTUSE={ig_story:'Instagram/Facebook Story & Reels-Cover · vollflächig 9:16.',ig_feed:'Instagram-Feed Hochformat · bester Platz im Feed.',ig_square:'Feed quadratisch · Instagram & Facebook.',wa_msg:'WhatsApp-Nachricht / Broadcast.',wa_story:'WhatsApp-Status · 9:16.',yt_thumb:'YouTube-Thumbnail · 16:9.',bg_16_9:'Bildschirm-/Desktop-Hintergrund · 1920×1080, randlos & deckend.',stream_1080:'Livestream-Overlay · 1920×1080, transparent (Video scheint durch). Für OBS/YouTube.',stream_fb:'Livestream-Fallback · YT-Thumbnail 1280×720 für Streaming-Tage ohne eigenes Motiv. Foto, Logo, Kicker, Titel, Adresse — alles einzeln editier- und verschiebbar (Doppelklick = Text, Klick + ziehen = Position).',aus:'STF-Ausschreibung als Webseite (A4-artig) zum Teilen & Drucken.',reel:'Animiertes Reel (9:16) · HTML fürs Screen-Recording.'};
-function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)return; h.innerHTML='';
-  /* ---- Ebene 2 + 3: Kategorie-Chips, darunter die Vorlagen des Mediums ---- */
-  (function(){
-    var med=medOf(), tree=NAVTREE[med]||{}, cats=Object.keys(tree).filter(function(c){return (tree[c]||[]).length;});
-    if(!cats.length)return;
-    var aktiv=catOf(); if(cats.indexOf(aktiv)<0)aktiv=cats[0];
-    var th=document.createElement('h3'); th.textContent='Kategorie'; h.appendChild(th);
-    var cb=document.createElement('div'); cb.className='cat-row';
-    cats.forEach(function(c){ var b=document.createElement('button');
-      b.className='chip-f cat-chip cat-'+c+(c===aktiv?' on':''); b.textContent=CATNM[c]||c;
-      b.onclick=function(){ var e=(tree[c]||[])[0]; if(e)navGo(e[0]); };
-      cb.appendChild(b); });
-    h.appendChild(cb);
-    var tv=document.createElement('h3'); tv.textContent='Vorlage'; h.appendChild(tv);
-    var sl=document.createElement('div'); sl.className='fmt-list';
-    (tree[aktiv]||[]).forEach(function(e){
-      var akt=(e[0].indexOf('thumb:')===0) ? (state.active==='thumb'&&cur().variant===e[0].slice(6))
-                                           : (state.active===e[0]);
-      var it=document.createElement('div'); it.className='fmt-item'+(akt?' on':'');
-      it.innerHTML='<span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">'+esc(e[1])+'</span>';
-      it.onclick=function(){ navGo(e[0]); };
-      sl.appendChild(it); });
-    h.appendChild(sl);
-  })();
+function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)return; h.innerHTML=''; h.style.display='';
+  /* Hier stehen nur noch die FORMAT-EXTRAS (Overlay-Rahmen, Thumbnail-Hinweis).
+     Kategorie, Serie und Vorlage sind in die Motiv-Galerie gewandert, die Formate
+     in die Ausgaben-Leiste der Kopfzeile — beides ist keine Sache der Seitenspalte. */
   if(state.active==='thumb'){
     var inf=document.createElement('div'); inf.className='fmt-info';
     inf.innerHTML='<b>Thumbnail</b><br>1280×720 px · ein Layout für alle Stufen. Die Kategorie bestimmt die Farbfläche rechts. Jedes Element ist einzeln editierbar: Doppelklick = Text, Klick + Ziehen = Position, Klick aufs Foto = Bild tauschen.';
     h.appendChild(inf); return; }
 
   if(state.active==='stream'){ const o=cur();
-    /* ===== Format-Umschalter (Livestream-Overlay vs. Livestream-Fallback-Thumbnail) ===== */
-    const ft=document.createElement('h3'); ft.textContent='Format'; h.appendChild(ft);
-    const fsl=document.createElement('div'); fsl.className='fmt-list';
-    const _fmts=[['stream_1080','Livestream-Overlay','1920×1080 · transparent'],['stream_fb','Livestream-Fallback','1280×720 · Thumbnail']];
-    _fmts.forEach(function(F){
-      var it=document.createElement('div'); it.className='fmt-item'+(state.fmt===F[0]?' on':'');
-      var _tw=22,_th=(F[0]==='stream_fb'?12:12);
-      it.innerHTML='<span class="fmt-thumb" style="width:'+_tw+'px;height:'+_th+'px"></span>'
-        +'<span class="fmt-nm">'+esc(F[1])+'</span><span class="dim">'+esc(F[2])+'</span>';
-      it.onclick=function(){ if(state.fmt===F[0])return; state.fmt=F[0]; save(); switchAll(); };
-      fsl.appendChild(it);
-    });
-    h.appendChild(fsl);
-
+    /* Der Umschalter Overlay/Fallback stand frueher hier — er ist jetzt oben in der
+       Ausgaben-Leiste (zwei Chips). Doppelt waere er nur verwirrend. */
     /* Overlay-spezifische Steuerung (Rahmen, Linien, Ecken, Adresse) — NUR beim Overlay-Format */
     if(state.fmt==='stream_1080'){
       const th=document.createElement('h3'); th.textContent='Rahmen-Variante'; th.style.marginTop='16px'; h.appendChild(th);
@@ -3654,18 +3901,8 @@ function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)retur
     return; }
 
 
-  const t=document.createElement('h3'); t.textContent='Format'; h.appendChild(t);
-  const list=document.createElement('div'); list.className='fmt-list';
-  Object.entries(FORMATS).forEach(([k,f])=>{ if(f.proOnly&&state.active!=='profi')return; if(f.ytOnly&&state.active!=='yt')return; if(f.bgOnly&&state.active!=='bg')return; if(state.active==='bg'&&!f.bgOnly)return; if(f.streamOnly&&state.active!=='stream')return; if(state.active==='stream'&&!f.streamOnly)return; if(f.thumbOnly&&state.active!=='thumb')return; if(state.active==='thumb'&&!f.thumbOnly)return;
-    const it=document.createElement('div'); it.className='fmt-item'+(k===state.fmt?' on':'')+(editing&&k===editFmt?' editing':''); it.dataset.k=k;
-    var _tw,_th; if(f.doc){_tw=16;_th=20;} else { var _r=f.w/f.h; if(_r>=1){_tw=22;_th=Math.max(9,Math.round(22/_r));} else {_th=22;_tw=Math.max(9,Math.round(22*_r));} }
-    var _thumb='<span class="fmt-thumb'+(f.doc?' doc':'')+'" style="width:'+_tw+'px;height:'+_th+'px"></span>';
-    var _meta=(editing&&k===editFmt)?'<span class="fmt-edit">● in Bearbeitung</span>':(f.doc?'<span class="dim">HTML</span>':'<span class="dim">'+f.w+'×'+f.h+'</span>');
-    it.innerHTML=_thumb+'<span class="fmt-nm">'+esc(f.name.replace(/\s*\(.*\)$/,''))+'</span>'+_meta;
-    it.onclick=()=>{ if(state.fmt===k)return; var go=function(){ state.fmt=k; save(); switchAll(); }; if(editing)confirmLeaveEdit(go); else go(); };
-    list.appendChild(it); });
-  h.appendChild(list);
-  const f=FORMATS[state.fmt]; if(f){ const info=document.createElement('div'); info.className='fmt-info'; info.innerHTML='<b>'+esc(f.name)+'</b><br>'+(f.doc?'':(f.w+'×'+f.h+' px'))+esc(FMTUSE[state.fmt]||''); h.appendChild(info); } }
+  h.style.display=h.innerHTML?'':'none';
+}
 function refreshSidebar(){
   /* ===== Bedienelemente stehen auf JEDEM Flyer am gleichen Ort =====
      Vorher ersetzten die Spezial-Panels (Rangliste, Events, Ausschreibung, Reel) die normale
@@ -3739,7 +3976,27 @@ document.addEventListener('keydown',function(e){
 document.addEventListener('keydown',function(e){ var mod=e.metaKey||e.ctrlKey; if(!mod)return; var k=(e.key||'').toLowerCase(); var tg=(e.target&&e.target.tagName)||''; if(k==='z'){ if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT')return; e.preventDefault(); if(e.shiftKey)redo(); else undo(); } else if(k==='y'){ e.preventDefault(); redo(); } });
 document.addEventListener('keydown',function(e){ if(!selMulti.length)return; var tg=(e.target&&e.target.tagName)||''; if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT')return; if((e.key||'').indexOf('Arrow')!==0)return; e.preventDefault(); var st=e.shiftKey?10:1; var ax=e.key==='ArrowLeft'?-st:e.key==='ArrowRight'?st:0; var ay=e.key==='ArrowUp'?-st:e.key==='ArrowDown'?st:0; beginEdit(); selMulti.forEach(function(id){var el=getEl(id); if(el){el.dx=(el.dx||0)+ax; el.dy=(el.dy||0)+ay;}}); save(); rebuild(); });
 document.addEventListener('keydown',function(e){ var tg=(e.target&&e.target.tagName)||''; if(tg==='INPUT'||tg==='TEXTAREA'||tg==='SELECT')return; var mod=e.metaKey||e.ctrlKey; if(mod&&(e.key||'').toLowerCase()==='d'){ e.preventDefault(); duplicateSel(); return; } if((e.key==='Delete'||e.key==='Backspace')&&selMulti.length){ e.preventDefault(); delSel(); } });
-document.getElementById('mob').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
+/* ===== Der Burger hat endlich eine Aufgabe (16.08.2026) =====
+   Vorher: er war IMMER sichtbar (die .burger-Regel ueberschrieb .mobtoggle{display:none})
+   und schaltete `.sidebar.open` um — eine Klasse, die es nur unter 880px gibt. Am Desktop
+   passierte also nichts. Jetzt oeffnet er das ⋯ Mehr-Menue; die Bearbeiten-Spalte steht
+   als erster Eintrag darin und ist nur auf schmalen Fenstern sichtbar. */
+document.getElementById('mob').onclick=function(e){ e.stopPropagation();
+  var m=document.getElementById('moreMenu'); if(m)m.classList.toggle('on'); };
+document.addEventListener('click',function(e){
+  var m=document.getElementById('moreMenu'); if(!m||!m.classList.contains('on'))return;
+  if(!m.contains(e.target)&&e.target.id!=='mob')m.classList.remove('on'); });
+document.addEventListener('keydown',function(e){ if(e.key!=='Escape')return;
+  var m=document.getElementById('moreMenu'); if(m)m.classList.remove('on'); });
+(function(){
+  var z=function(id,fn){ var b=document.getElementById(id); if(b)b.addEventListener('click',function(){
+    var m=document.getElementById('moreMenu'); if(m)m.classList.remove('on'); fn(); }); };
+  z('mmSide',function(){ document.getElementById('sidebar').classList.toggle('open'); });
+  z('mmMotiv',function(){ openMotiv(); });
+  z('mmPraesi',function(){ if(typeof openPraesi==='function')openPraesi(); });
+  z('mmPersona',function(){ if(typeof personaMode!=='undefined'&&personaMode)return;
+    stashEdit(state.active); enterPersona(); });
+})();
 var _lc=document.getElementById('layClose'); if(_lc)_lc.onclick=()=>document.body.classList.add('layers-hidden');
 document.getElementById('layersToggle').onclick=()=>document.body.classList.remove('layers-hidden');
 var _nt=document.getElementById('newTop'); if(_nt)_nt.onclick=()=>showStart(true); document.getElementById('homeBtn').onclick=()=>showHome();
@@ -3875,14 +4132,21 @@ async function exportPages(){
   toast(ps.length+' Seiten exportiert');
 }
 async function doExport(mode){ if(!exportMoeglich())return;
-  const b=document.getElementById('download'), o=b.textContent; b.disabled=true; const prevFmt=state.fmt;
-  const keys = mode==='all' ? Object.keys(FORMATS).filter(k=>!FORMATS[k].doc&&!(FORMATS[k].ytOnly&&state.active!=='yt')&&!(FORMATS[k].bgOnly&&state.active!=='bg')&&!(state.active==='bg'&&!FORMATS[k].bgOnly)&&!(FORMATS[k].streamOnly&&state.active!=='stream')&&!(state.active==='stream'&&!FORMATS[k].streamOnly)&&!(FORMATS[k].thumbOnly&&state.active!=='thumb')&&!(state.active==='thumb'&&!FORMATS[k].thumbOnly)) : [state.fmt];
-  try{ for(let i=0;i<keys.length;i++){ const key=keys[i]; b.textContent = keys.length>1 ? ('Rendering '+(i+1)+'/'+keys.length+'…') : 'Rendering…';
+  const b=document.getElementById('download'), L=document.getElementById('dlLbl');
+  const o=L?L.textContent:b.textContent, setL=function(x){ if(L)L.textContent=x; else b.textContent=x; };
+  b.disabled=true; const prevFmt=state.fmt;
+  const keys = mode==='sel' ? outsOf().slice() : mode==='all' ? Object.keys(FORMATS).filter(k=>!FORMATS[k].doc&&!(FORMATS[k].ytOnly&&state.active!=='yt')&&!(FORMATS[k].bgOnly&&state.active!=='bg')&&!(state.active==='bg'&&!FORMATS[k].bgOnly)&&!(FORMATS[k].streamOnly&&state.active!=='stream')&&!(state.active==='stream'&&!FORMATS[k].streamOnly)&&!(FORMATS[k].thumbOnly&&state.active!=='thumb')&&!(state.active==='thumb'&&!FORMATS[k].thumbOnly)) : [state.fmt];
+  try{ for(let i=0;i<keys.length;i++){ const key=keys[i]; setL(keys.length>1 ? ('Rendering '+(i+1)+'/'+keys.length+'…') : 'Rendering…');
       state.fmt=key; applyCanvasSize(); rebuild(); layoutFit(); await new Promise(r=>setTimeout(r,90));
       const url=await renderCapture(); if(url){ const a=document.createElement('a'); a.download='TFCZ_'+state.active+'_'+key+'_'+CW()+'x'+CH()+'.png'; a.href=url; a.click(); }
       await new Promise(r=>setTimeout(r,320)); }
-  } finally { state.fmt=prevFmt; applyCanvasSize(); rebuild(); layoutFit(); fitStage(); b.textContent=o; b.disabled=false; } }
-document.getElementById('download').onclick=()=>doExport('current');
+  } finally { state.fmt=prevFmt; applyCanvasSize(); rebuild(); layoutFit(); fitStage(); setL(o); b.disabled=false; if(typeof dlLabel==='function')dlLabel(); toast(keys.length>1?(keys.length+' Ausgaben heruntergeladen'):'Ausgabe heruntergeladen'); } }
+/* Der Kopf-Knopf laedt GENAU die angekreuzten Ausgaben. Steht die Ansicht auf einer
+   HTML-Ausgabe (Ausschreibung, Reel), laedt er stattdessen deren HTML. */
+document.getElementById('download').onclick=function(){
+  var f=FORMATS[state.fmt]||{};
+  if(f.doc){ var dl=document.getElementById('landingDl'); if(dl){ dl.click(); return; } }
+  doExport('sel'); };
 document.getElementById('downloadAll').onclick=()=>doExport('all');
 var _dp=document.getElementById('downloadPages'); if(_dp)_dp.onclick=exportPages;
 document.getElementById('copyImg').onclick=async()=>{ const b=document.getElementById('copyImg'),o=b.textContent;
@@ -5505,6 +5769,9 @@ try{hydrate();}catch(e){}
     <iframe id="bgFrame" title="Brand Guide" style="flex:1;width:100%;border:0;background:#0d273d"></iframe>
   </div>
 </div>
+<!-- Motiv-Galerie: MUSS direkt im <body> stehen. Lag sie in <main>, gewann die Kopfzeile
+     den Stapel (z-index wirkt nur innerhalb des eigenen Kontexts) und deckte den Titel zu. -->
+<div id="motivOv"><div class="mo-card" id="motivCard"></div></div>
 <script>(function(){var b=document.getElementById('brandGuideBtn'),m=document.getElementById('bgModal'),f=document.getElementById('bgFrame'),x=document.getElementById('bgModalX');
 if(b&&m){b.addEventListener('click',function(){ if(!f.getAttribute('src'))f.setAttribute('src','brand-guide-design-system.html'); m.style.display='block'; });
 x.addEventListener('click',function(){ m.style.display='none'; });
