@@ -205,6 +205,24 @@ main{flex:1;display:flex;min-height:0;position:relative;}
 .bgs .bgo{aspect-ratio:1;border-radius:8px;border:2px solid #163854;background-size:cover;background-position:center;cursor:pointer;}
 .bgs .bgo.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold);}
 .bgs .bgo.navy{background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:10px;color:#94a9bd;}
+/* ---------- Bild-Ablage ----------
+   Eine Handvoll Bilder, die zu DIESEM Flyer in DIESEM Format gehoeren. Gedacht
+   zum Durchprobieren: Bild im Flyer anklicken, dann hier klicken, fertig.
+   Gespeichert wird nur der Pfad, nicht das Bild — sonst laeuft der lokale
+   Speicher voll (ein Foto als Base64 kostet ein Drittel mehr als die Datei). */
+.shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:2px;}
+.shf{position:relative;aspect-ratio:1;border-radius:8px;border:2px solid #163854;
+  background:#0f1620 center/cover no-repeat;cursor:pointer;}
+.shf.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold);}
+.shf .x{position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;
+  border:1px solid #26313f;background:#0a1f31;color:#c3d2e0;font-size:11px;line-height:16px;
+  text-align:center;cursor:pointer;padding:0;opacity:0;transition:opacity .15s,background .2s,border-color .2s;}
+.shf:hover .x{opacity:1;}
+.shf .x:hover{background:#da2929;border-color:#da2929;color:#fff;}
+.shf-add{aspect-ratio:1;border-radius:8px;border:2px dashed #26415c;background:transparent;
+  color:#7f95ab;font-size:20px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.shf-add:hover{border-color:#cda857;color:#e9c475;}
+.shf-note{font-size:10.5px;color:#94a9bd;line-height:1.5;margin-top:8px;}
 .ellist{display:flex;flex-direction:column;gap:4px;}
 .el{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#071722;border:1px solid #12304a;border-radius:8px;cursor:pointer;font-size:13px;}
 .el.sel{border-color:var(--gold);background:#1a2430;box-shadow:inset 0 0 0 1px var(--gold)}
@@ -364,7 +382,7 @@ body.rulers #rulerTop,body.rulers #rulerLeft{display:block;pointer-events:auto;}
 .sp-opt .soon{font-size:9px;font-weight:900;background:var(--gold);color:var(--navy);padding:1px 6px;border-radius:6px;margin-left:6px;}
 body.role-guest #toolbar{justify-content:flex-end;}
 body.role-guest #toolbar > :not(#tbDL){display:none!important;}
-body.role-guest #genericEdit > h3,body.role-guest #bgs,body.role-guest #genericEdit > .rw,body.role-guest #reset{display:none;}
+body.role-guest #genericEdit > h3,body.role-guest #bgs,body.role-guest #genericEdit > .rw,body.role-guest #reset,body.role-guest #shelf,body.role-guest #shelfNote{display:none;}
 body.role-guest #inspector .igrp{display:none;}
 body.role-guest #inspector #grp-content{display:block;}
 body.role-guest #inspector #grp-content > :not(#r-text):not(#r-text2):not(.isec){display:none!important;}
@@ -1109,6 +1127,10 @@ header{z-index:200;}
     <div class="bgs" id="bgs"><div class="bgo" data-bg="a"></div><div class="bgo" data-bg="b"></div><div class="bgo" data-bg="c"></div><div class="bgo navy" data-bg="navy">Navy</div></div>
     <div class="rw" style="margin-top:8px"><label for="upl">Eigenes</label><input type="file" id="upl" accept="image/*" style="font-size:11px;color:#9fb2c4"></div>
     <div class="rw"><label for="dark">Dunkel</label><input type="range" class="range" id="dark" min="0" max="0.8" step="0.01"></div>
+
+    <h3>Bild-Ablage</h3>
+    <div class="shelf" id="shelf"></div>
+    <div class="shf-note" id="shelfNote"></div>
 
     <button class="btn ghost" id="reset" style="margin-top:10px;width:100%">Template zurücksetzen</button>
 
@@ -1911,7 +1933,7 @@ function save(){ saveLocal();
   if(_saveT)clearTimeout(_saveT); _saveT=setTimeout(function(){ _saveT=null;
     try{ fetch(API_BASE+'/api/state',{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(stateToStore())}).catch(function(){}); }catch(e){}
   },600); }
-function hydrate(){ try{ fetch(API_BASE+'/api/state').then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(s){ if(!s||typeof s!=='object')return; rebuildPages(s); if(s.pages)state.pages=s.pages; if(s.pageIx)state.pageIx=s.pageIx; if(s.active)state.active=s.active; if(s.fmt)state.fmt=s.fmt; if(s.logoSrc)state.logoSrc=s.logoSrc; if(Array.isArray(s.library))state.library=s.library; if(s.data&&Object.keys(s.data).length){Object.keys(s.data).forEach(function(k){ if(s.data[k])state.data[k]=s.data[k]; });} if(s.templates)state.templates=s.templates; if(s.captions)state.captions=s.captions; if(Array.isArray(s.personas)&&s.personas.length)state.personas=s.personas; if(Array.isArray(s.tournaments)&&s.tournaments.length)state.tournaments=s.tournaments; if(s.perMatrix&&Object.keys(s.perMatrix).length)state.perMatrix=s.perMatrix; if(s.personaLayout&&Object.keys(s.personaLayout).length)state.personaLayout=s.personaLayout; if(typeof switchAll==='function')switchAll(); }).catch(function(){ if(typeof toast==='function')toast('Backend nicht erreichbar – nur lokal, kein Speichern'); }); }catch(e){} }
+function hydrate(){ try{ fetch(API_BASE+'/api/state').then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(s){ if(!s||typeof s!=='object')return; rebuildPages(s); if(s.pages)state.pages=s.pages; if(s.pageIx)state.pageIx=s.pageIx; if(s.active)state.active=s.active; if(s.fmt)state.fmt=s.fmt; if(s.logoSrc)state.logoSrc=s.logoSrc; if(Array.isArray(s.library))state.library=s.library; if(s.shelf&&typeof s.shelf==='object')state.shelf=s.shelf; if(s.data&&Object.keys(s.data).length){Object.keys(s.data).forEach(function(k){ if(s.data[k])state.data[k]=s.data[k]; });} if(s.templates)state.templates=s.templates; if(s.captions)state.captions=s.captions; if(Array.isArray(s.personas)&&s.personas.length)state.personas=s.personas; if(Array.isArray(s.tournaments)&&s.tournaments.length)state.tournaments=s.tournaments; if(s.perMatrix&&Object.keys(s.perMatrix).length)state.perMatrix=s.perMatrix; if(s.personaLayout&&Object.keys(s.personaLayout).length)state.personaLayout=s.personaLayout; if(typeof switchAll==='function')switchAll(); }).catch(function(){ if(typeof toast==='function')toast('Backend nicht erreichbar – nur lokal, kein Speichern'); }); }catch(e){} }
 
 /* ============================================================================
    SEITEN (Versionen) je Flyer-Typ — wie die Seiten in Canva
@@ -2121,7 +2143,14 @@ const canvas=document.getElementById('canvas'),bgimg=document.getElementById('bg
 
 function bgSrc(key){ if(key==="custom")return customBg[state.active]; if(key==="navy")return ""; return "data:image/jpeg;base64,"+BG[key]; }
 function renderBg(){ const s=bgSrc(cur().bg); if(s){bgimg.style.display="block";bgimg.src=s;}else{bgimg.style.display="none";}
-  document.querySelectorAll('.bgo').forEach(o=>o.classList.toggle('on',o.dataset.bg===cur().bg)); }
+  /* Die drei Kaestchen trugen im CSS zwar background-size:cover, aber es hat ihnen
+     nie jemand ein Bild zugewiesen — deshalb waren sie seit jeher leer. */
+  document.querySelectorAll('.bgo').forEach(function(o){
+    o.classList.toggle('on',o.dataset.bg===cur().bg);
+    if(o.dataset.bg==='navy')return;
+    var u=bgSrc(o.dataset.bg);
+    o.style.backgroundImage = u ? 'url("'+u+'")' : '';
+  }); }
 function applyDark(){ darklayer.style.opacity=cur().dark; const d=document.getElementById('dark'); if(d)d.value=cur().dark; }
 function applyCanvasSize(){ canvas.style.width=CW()+'px'; canvas.style.height=CH()+'px'; }
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -3023,7 +3052,7 @@ function elIsFill(el){ return (el.type==='pill'||el.type==='button'||el.type==='
 function setGradType(t){ if(!sel)return; var el=getEl(sel); var prop=elIsFill(el)?'fill':'color'; var v=el[prop]; if(!isGrad(v))return; var key=String(v).split(':')[1]; beginEdit(); el[prop]='grad:'+key+(t==='rad'?':rad':''); save(); rebuild(); syncInspector(); }
 function resetProp(keys){ if(!sel)return; var d=defEl(sel); if(!d)return; beginEdit(); var el=getEl(sel); keys.split(',').forEach(function(k){ if(k in d)el[k]=clone(d[k]); else delete el[k]; }); save(); rebuild(); syncInspector(); }
 function resetAllProps(){ if(!sel)return; var d=defEl(sel); if(!d)return; beginEdit(); var el=getEl(sel); EDITKEYS.forEach(function(k){ if(k in d)el[k]=clone(d[k]); else delete el[k]; }); save(); rebuild(); syncInspector(); }
-function syncInspector(){ const el=sel?getEl(sel):null; insp.style.display=el?'block':'none'; var _rb=document.getElementById('reqBox'); if(_rb)_rb.style.display=(el&&isAdmin())?'block':'none'; var _rc=document.getElementById('reqEl'); if(_rc&&el)_rc.checked=!!el.req; if(!el)return; const ev=evEl(el);
+function syncInspector(){ try{renderShelf();}catch(e){} const el=sel?getEl(sel):null; insp.style.display=el?'block':'none'; var _rb=document.getElementById('reqBox'); if(_rb)_rb.style.display=(el&&isAdmin())?'block':'none'; var _rc=document.getElementById('reqEl'); if(_rc&&el)_rc.checked=!!el.req; if(!el)return; const ev=evEl(el);
   document.getElementById('selname').textContent=el.name;
   const isBtn=el.type==='pill'||el.type==='button';
   const isFill=(isBtn||el.type==='kv')&&((CAPS[state.active]||{}).fill!==false);
@@ -3231,6 +3260,53 @@ function buildList(){ const h=document.getElementById('ellist'); h.innerHTML='';
 function move(idx,dir){ beginEdit(); const a=cur().els; const j=idx+dir; if(j<0||j>=a.length)return; const t=a[idx];a[idx]=a[j];a[j]=t; save(); buildList(); rebuild(); }
 
 document.getElementById('bgs').addEventListener('click',e=>{const o=e.target.closest('.bgo');if(!o)return;beginEdit();cur().bg=o.dataset.bg;renderBg();save();rebuild();});
+
+/* ===== Bild-Ablage — pro Flyer-Typ UND Format =====
+   Freigegeben Vasco 16.08.2026. Zweck: mit mehreren Bildern experimentieren,
+   ohne jedes Mal durch den Bildwaehler zu laufen.
+
+   Ablauf: Bild im Flyer anklicken -> Kachel in der Ablage klicken -> drin.
+   Ohne Auswahl passiert bewusst NICHTS ausser einem Hinweis; ein Klick, der
+   mal das eine und mal das andere tut, ist schlimmer als einer, der wartet.
+
+   Schluessel ist Typ|Format, nicht die Seite: dieselben Kandidaten sollen ueber
+   alle Seiten eines Formats verfuegbar bleiben.
+   Gespeichert wird der PFAD, nicht das Bild — Base64 sprengt den lokalen Speicher. */
+const SHELF_MAX=12;
+function shelfKey(){ return state.active+'|'+state.fmt; }
+function shelfList(){ state.shelf=state.shelf||{}; var k=shelfKey();
+  if(!Array.isArray(state.shelf[k]))state.shelf[k]=[]; return state.shelf[k]; }
+/* Ist das angewaehlte Element ein austauschbares Foto? Das Logo zaehlt nicht —
+   das haengt am Baustein und wird ueber „Vereinslogo waehlen" getauscht. */
+function shelfTarget(){ if(!sel)return null; var el=(typeof getEl==='function')?getEl(sel):null;
+  return (el&&el.type==='image'&&el.slot!=='logo') ? el : null; }
+function renderShelf(){
+  var host=document.getElementById('shelf'); if(!host)return;
+  var note=document.getElementById('shelfNote');
+  var list=shelfList(), tgt=shelfTarget(), aktiv=tgt?evEl(tgt).src:null;
+  host.innerHTML = list.map(function(src,i){
+      return '<div class="shf'+(src===aktiv?' on':'')+'" data-i="'+i+'" title="'+escA(src)+'" '
+           + 'style="background-image:url(\''+escA(src)+'\')">'
+           + '<button class="x" data-del="'+i+'" title="Aus der Ablage entfernen">&times;</button></div>'; }).join('')
+    + (list.length<SHELF_MAX ? '<button class="shf-add" id="shfAdd" title="Bild aus der Galerie hinzufügen">+</button>' : '');
+  if(note) note.textContent = !list.length
+      ? 'Leer. Leg hier die Bilder ab, die du für diesen Flyer durchprobieren willst.'
+      : (tgt ? 'Klick setzt das Bild in „'+tgt.name+'".'
+             : 'Erst ein Bild im Flyer anklicken — dann setzt ein Klick hier es dort ein.');
+  var add=document.getElementById('shfAdd');
+  if(add)add.onclick=function(){ openPicker({title:'Bild in die Ablage legen'},function(src){
+      if(!src)return; var l=shelfList();
+      if(l.indexOf(src)<0){ l.push(src); save(); } else toast('Das Bild liegt schon in der Ablage.');
+      renderShelf(); }); };
+  [].forEach.call(host.querySelectorAll('.shf'),function(n){
+    n.onclick=function(ev){
+      if(ev.target&&ev.target.dataset&&ev.target.dataset.del!==undefined){ ev.stopPropagation();
+        shelfList().splice(+ev.target.dataset.del,1); save(); renderShelf(); return; }
+      var t=shelfTarget();
+      if(!t){ toast('Zuerst im Flyer das Bild anklicken, das du tauschen willst.'); return; }
+      beginEdit(); t.src=shelfList()[+n.dataset.i]; save(); rebuild(); syncInspector(); };
+  });
+}
 document.getElementById('upl').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;fileToSrc(f,function(src){ beginEdit(); customBg[state.active]=src; cur().bg="custom"; renderBg(); save(); rebuild(); });});
 document.getElementById('dark').addEventListener('input',e=>{beginEdit();cur().dark=parseFloat(e.target.value);applyDark();save();rebuild();});
 
@@ -4013,7 +4089,7 @@ function refreshSidebar(){
   const nf=document.getElementById('nfHost'); if(nf)nf.style.display=INTAKE[state.active]?'block':'none';
   buildFmtHost(); }
 function sanitizeImgs(){ try{ var TP='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='; document.querySelectorAll('#profi img,#canvas img').forEach(function(i){ if(!(i.getAttribute('src')||'').length)i.setAttribute('src',TP); }); }catch(e){} }
-function switchAll(){ if(typeof buildLibrary==='function')buildLibrary(); if(typeof buildPagebar==='function')buildPagebar(); if(typeof personaMode!=='undefined'&&personaMode)exitPersona(); buildTabs(); applyCanvasSize(); renderBg(); applyDark(); buildList(); rebuild(); sanitizeImgs(); if(typeof buildStack==='function')buildStack(); fitStage(); insp.style.display='none'; refreshSidebar(); applyView(); if(window.buildRuler)buildRuler(); }
+function switchAll(){ if(typeof buildLibrary==='function')buildLibrary(); if(typeof buildPagebar==='function')buildPagebar(); if(typeof personaMode!=='undefined'&&personaMode)exitPersona(); buildTabs(); applyCanvasSize(); renderBg(); applyDark(); try{renderShelf();}catch(e){} buildList(); rebuild(); sanitizeImgs(); if(typeof buildStack==='function')buildStack(); fitStage(); insp.style.display='none'; refreshSidebar(); applyView(); if(window.buildRuler)buildRuler(); }
 document.getElementById('reset').onclick=()=>{ if(sel){ resetAllProps(); return; }
   var go=function(){
     askConfirm({titel:'„'+TPLNAME[state.active]+'" zurücksetzen?',
@@ -4209,7 +4285,7 @@ async function exportPages(){
   if(ps.length<2){ doExport('one'); return; }
   for(var i=0;i<ps.length;i++){
     state.pageIx[k]=i;
-    applyCanvasSize(); renderBg(); applyDark(); rebuild(); layoutFit();
+    applyCanvasSize(); renderBg(); applyDark(); try{renderShelf();}catch(e){} rebuild(); layoutFit();
     await new Promise(function(r){ setTimeout(r,120); });
     var url=await renderCapture();
     if(url){ var a=document.createElement('a');
@@ -4217,7 +4293,7 @@ async function exportPages(){
     await new Promise(function(r){ setTimeout(r,320); });
   }
   state.pageIx[k]=start;
-  applyCanvasSize(); renderBg(); applyDark(); rebuild(); layoutFit(); buildStack(); fitStage();
+  applyCanvasSize(); renderBg(); applyDark(); try{renderShelf();}catch(e){} rebuild(); layoutFit(); buildStack(); fitStage();
   toast(ps.length+' Seiten exportiert');
 }
 async function doExport(mode){ if(!exportMoeglich())return;
@@ -5354,12 +5430,12 @@ function snapshotPage(i){
   var k=state.active, old=state.pageIx[k];
   try{
     state.pageIx[k]=i;
-    applyCanvasSize(); renderBg(); applyDark(); rebuild();
+    applyCanvasSize(); renderBg(); applyDark(); try{renderShelf();}catch(e){} rebuild();
     var out={ html:canvas.innerHTML, w:CW(), h:CH(), bg:getComputedStyle(canvas).background };
     return out;
   } finally {
     state.pageIx[k]=old;
-    applyCanvasSize(); renderBg(); applyDark(); rebuild();
+    applyCanvasSize(); renderBg(); applyDark(); try{renderShelf();}catch(e){} rebuild();
   }
 }
 /* Baut den Seiten-Stapel: aktive Seite = das echte, bearbeitbare Canvas; alle anderen als
@@ -5821,7 +5897,7 @@ function buildCompInspector(el){
 /* Statische [data-ic]-Platzhalter mit dem Lucide-SVG füllen (keine Emojis im UI) */
 function hydrateIcons(root){ (root||document).querySelectorAll('[data-ic]').forEach(function(n){
   if(n.firstChild)return; n.innerHTML=IC(n.getAttribute('data-ic'), parseInt(n.getAttribute('data-icsz')||'16',10)); }); }
-function init(){ hydrateIcons(); initEditorUpgrade(); autoPutzen(); var _ttl=document.getElementById('homeBtn'); if(_ttl)_ttl.addEventListener('click',function(){ this.classList.remove('pressed'); void this.offsetWidth; this.classList.add('pressed'); }); loadBrandAssets(); if(window.innerWidth<1024)document.body.classList.add('layers-hidden'); buildTabs(); applyCanvasSize(); renderBg(); applyDark(); buildList(); rebuild(); sanitizeImgs&&sanitizeImgs(); fitStage(); layoutFit(); sel=null; insp.style.display='none'; refreshSidebar(); applyView(); initSplitters(); setTimeout(positionTabInd,120); buildStack(); buildPagebar(); wireRole();
+function init(){ hydrateIcons(); initEditorUpgrade(); autoPutzen(); var _ttl=document.getElementById('homeBtn'); if(_ttl)_ttl.addEventListener('click',function(){ this.classList.remove('pressed'); void this.offsetWidth; this.classList.add('pressed'); }); loadBrandAssets(); if(window.innerWidth<1024)document.body.classList.add('layers-hidden'); buildTabs(); applyCanvasSize(); renderBg(); applyDark(); try{renderShelf();}catch(e){} buildList(); rebuild(); sanitizeImgs&&sanitizeImgs(); fitStage(); layoutFit(); sel=null; insp.style.display='none'; refreshSidebar(); applyView(); initSplitters(); setTimeout(positionTabInd,120); buildStack(); buildPagebar(); wireRole();
   if(serverUser()){ _role=isAdmin()?'admin':'guest'; }   /* Rolle kommt vom eingeloggten Konto */
   applyRole(); if(typeof sanitizeImgs==='function')sanitizeImgs(); setMobile(); applyMode(); (function(){ var b=document.getElementById('fmtBtn'), p=document.getElementById('fmtPop'); if(!b||!p)return;
   function place(){ var r=b.getBoundingClientRect(); p.style.top=(r.bottom+6)+'px'; p.style.right=Math.max(8,window.innerWidth-r.right)+'px'; p.style.left='auto'; }
