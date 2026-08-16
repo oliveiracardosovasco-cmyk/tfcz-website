@@ -1,0 +1,296 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design Studio · Start</title>
+<link rel="stylesheet" href="system/tokens.css">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   STARTSEITE DESIGN STUDIO — Entwurf „Mauerwerk", zwei Ansichten
+   Kopfzeile schaltet zwischen STUDIO (Motive) und GALERIE (Vereinsfotos).
+   Farben, Radien und Zeiten kommen ausschliesslich aus system/tokens.css.
+   Keine Emojis (pruefen.mjs bricht darauf ab).
+   ============================================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--navy-3);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+::selection{background:var(--gold);color:var(--navy)}
+a{color:inherit}
+/* ---------- Kopfzeile ---------- */
+header{position:sticky;top:0;z-index:70;background:rgba(8,24,38,.9);backdrop-filter:blur(14px);
+ border-bottom:1px solid var(--card-brd);padding:11px 26px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--blue)}
+.mark{display:flex;align-items:center;gap:10px;flex:none}
+.mark img{height:30px;width:auto;display:block}
+.mark .nm{font-weight:900;font-size:14px;letter-spacing:-.01em;white-space:nowrap}
+/* Umschalter Studio | Galerie */
+.tog{display:flex;background:var(--navy);border:1px solid var(--card-brd);border-radius:var(--btn-radius);padding:3px;gap:3px}
+.tog button{border-radius:calc(var(--btn-radius) - 3px);padding:7px 18px;font-size:13px;font-weight:900;
+ color:var(--ink-mut);transition:background var(--t-fast) var(--ease),color var(--t-fast) var(--ease)}
+.tog button:hover{color:var(--ink)}
+.tog button.on{background:var(--gold-lt);color:var(--navy)}
+.hspace{flex:1}
+.hbtn{border:1px solid var(--card-brd);border-radius:var(--btn-radius);padding:9px 16px;font-size:13px;font-weight:900;
+ color:var(--ink-mut);transition:border-color var(--t-fast) var(--ease),color var(--t-fast) var(--ease)}
+.hbtn:hover{border-color:var(--blue);color:var(--ink)}
+.hbtn.gold{background:var(--gold-lt);color:var(--navy);border-color:transparent}
+.wrap{max-width:1560px;margin:0 auto;padding:0 26px}
+@media(max-width:640px){.wrap{padding:0 16px}header{padding:10px 16px;gap:10px}}
+/* ---------- Mast ---------- */
+.mast{padding:58px 0 30px}
+.eyebrow{font-size:10.5px;font-weight:900;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:15px}
+h1{font-size:clamp(36px,6.6vw,92px);font-weight:900;letter-spacing:-.045em;line-height:.92}
+h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--gold);paint-order:stroke fill}
+.sub{max-width:540px;margin-top:20px;color:var(--ink-mut);font-size:clamp(14px,1.5vw,17px)}
+.mastrow{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap}
+.stats{display:flex;gap:28px;flex-wrap:wrap}
+.stats b{display:block;font-size:29px;font-weight:900;line-height:1;letter-spacing:-.02em}
+.stats span{font-size:10.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mut)}
+/* ---------- Filter ---------- */
+.bar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:15px 0 24px;
+ border-top:1px solid var(--card-brd);border-bottom:1px solid var(--card-brd);margin-bottom:30px}
+.lb{font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mut);opacity:.72;margin-right:5px}
+.f{border:1px solid var(--card-brd);border-radius:var(--btn-radius);padding:6px 14px;font-size:12.5px;font-weight:800;
+ color:var(--ink-mut);transition:all var(--t-fast) var(--ease)}
+.f:hover{border-color:var(--blue);color:var(--ink)}
+.f.on{background:var(--ink);color:var(--navy);border-color:transparent}
+.f i{font-style:normal;opacity:.55;margin-left:6px;font-weight:700}
+.sp{flex:1}
+.count{font-size:12.5px;color:var(--ink-mut);margin-bottom:16px}
+.count b{color:var(--gold-lt)}
+/* ---------- Mauerwerk ---------- */
+.mason{columns:4;column-gap:16px;padding-bottom:80px}
+.mason > *{break-inside:avoid;margin-bottom:16px;display:block;width:100%}
+@media(max-width:1280px){.mason{columns:3}}
+@media(max-width:860px){.mason{columns:2}}
+@media(max-width:520px){.mason{columns:1}}
+.tile{position:relative;overflow:hidden;background:var(--navy-2);border-radius:var(--r-lg);text-align:left;
+ transition:transform var(--t-base) var(--ease)}
+.tile:hover{transform:scale(1.012)}
+.tile img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.tile .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,24,38,0) 34%,rgba(8,24,38,.62) 64%,rgba(8,24,38,.95) 100%);
+ opacity:.8;transition:opacity var(--t-base) var(--ease)}
+.tile:hover .veil{opacity:.97}
+.tile .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;z-index:3}
+.tile .fmt{display:inline-flex;align-items:center;gap:7px;font-size:9.5px;font-weight:900;letter-spacing:.16em;
+ text-transform:uppercase;color:var(--gold-lt);margin-bottom:6px}
+.tile .fmt i{width:5px;height:5px;border-radius:50%;background:var(--gold);font-style:normal}
+.tile h3{font-size:clamp(15px,1.5vw,22px);font-weight:900;letter-spacing:-.02em;line-height:1.08}
+.tile .meta{font-size:11.5px;color:var(--ink-mut);margin-top:3px}
+.tile .go{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;
+ background:rgba(238,244,250,.1);border:1px solid rgba(238,244,250,.2);backdrop-filter:blur(6px);
+ display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(-5px);
+ transition:all var(--t-base) var(--ease);z-index:3;font-size:13px}
+.tile:hover .go{opacity:1;transform:none}
+.tile .ph{position:absolute;inset:0;background:var(--card)}
+/* Mini-Flyer (Studio-Ansicht) */
+.mf{position:absolute;inset:0;overflow:hidden}
+.mf .bgp{position:absolute;inset:0;background:linear-gradient(140deg,var(--blue-dk),var(--navy-3) 64%)}
+.mf .pan{position:absolute;transform:skewX(-11.5deg);transform-origin:0 0}
+.mf .edge{position:absolute;background:var(--gold-lt);transform:skewX(-11.5deg);transform-origin:0 0}
+.mf.quer .pan{left:46%;top:0;width:74%;height:100%}.mf.quer .edge{left:44.6%;top:0;width:.9%;height:100%}
+.mf.hoch .pan{left:-6%;top:52%;width:120%;height:60%;transform:skewY(-7deg)}
+.mf.hoch .edge{left:-6%;top:51%;width:120%;height:.7%;transform:skewY(-7deg)}
+.mf.quad .pan{left:40%;top:0;width:82%;height:100%}.mf.quad .edge{left:38.6%;top:0;width:1.1%;height:100%}
+.mf .tx{position:absolute;z-index:3}
+.mf.quer .tx,.mf.quad .tx{right:7%;top:36%;transform:translateY(-50%);text-align:right}
+.mf.hoch .tx{left:8%;right:8%;bottom:34%;text-align:left}
+.mf .k{font-size:.6em;font-weight:900;letter-spacing:.22em;color:rgba(255,255,255,.82)}
+.mf .a{font-size:1.3em;font-weight:900;color:#fff;line-height:1}
+.mf .b{font-size:2.4em;font-weight:900;line-height:.92;letter-spacing:-.035em}
+.k-elite .pan{background:linear-gradient(155deg,rgba(233,196,117,.95),rgba(205,168,87,.55) 34%,rgba(10,31,49,.98) 78%)}
+.k-elite .b{color:var(--gold-lt)}
+.k-fun .pan{background:linear-gradient(155deg,rgba(92,167,220,.96),rgba(10,31,49,.98) 74%)}.k-fun .b{color:#fff}
+.k-pro .pan{background:linear-gradient(155deg,rgba(0,90,148,.98),rgba(10,31,49,.99) 76%)}.k-pro .b{color:var(--blue)}
+/* ---------- Faktenkarte ---------- */
+.fakt{background:var(--frost);border:1px solid var(--card-brd);border-radius:var(--r-lg);padding:26px 24px;
+ border-top:3px solid var(--blue);border-bottom:3px solid var(--gold);position:relative;overflow:hidden}
+.fakt .zahl{font-size:clamp(40px,4.4vw,62px);font-weight:900;line-height:.9;letter-spacing:-.045em;color:var(--gold-lt)}
+.fakt .txt{font-size:15px;font-weight:800;margin-top:12px;line-height:1.35}
+.fakt .quelle{font-size:10.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--ink-mut);opacity:.7;margin-top:14px}
+.fakt.spruch .zahl{display:none}
+.fakt.spruch .txt{font-size:clamp(19px,2vw,26px);font-weight:900;letter-spacing:-.02em;line-height:1.18;margin-top:0}
+.fakt.spruch{border-top-color:var(--gold);border-bottom-color:var(--blue)}
+/* ---------- Lightbox ---------- */
+#lb{position:fixed;inset:0;background:rgba(4,10,17,.94);z-index:100;display:none;align-items:center;justify-content:center;padding:26px}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:82vh;border-radius:var(--r-lg);display:block;box-shadow:var(--e-2)}
+#lb .info{position:absolute;left:0;right:0;bottom:0;padding:20px 26px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+#lb .info b{font-size:15px;font-weight:900}
+#lb .info span{font-size:12px;color:var(--ink-mut)}
+.xb{position:absolute;top:20px;right:22px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);
+ border:1px solid var(--card-brd);display:flex;align-items:center;justify-content:center;transition:all var(--t-fast) var(--ease)}
+.xb:hover{background:var(--red);border-color:var(--red)}
+.leer{padding:50px 0 80px;color:var(--ink-mut);font-size:14px;line-height:1.6;max-width:620px}
+.leer b{color:var(--gold-lt)}
+</style></head><body>
+
+<header>
+  <div class="mark"><img src="assets/img/logo-horizontal-white.png" alt="TFCZ"><span class="nm">Design Studio</span></div>
+  <div class="tog"><button id="tS" class="on" onclick="ansicht('studio')">Studio</button>
+                   <button id="tG" onclick="ansicht('galerie')">Galerie</button></div>
+  <div class="hspace"></div>
+  <button class="hbtn" onclick="alert('Öffnet die zuletzt bearbeiteten Entwürfe.')">Weiter bearbeiten</button>
+  <a class="hbtn gold" href="design-studio.html">Zum Editor</a>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<div id="lb" onclick="if(event.target===this||event.target.id==='lbx')lbZu()">
+  <button class="xb" id="lbx">&#10005;</button>
+  <img id="lbi" alt=""><div class="info" id="lbinfo"></div>
+</div>
+
+<script>
+/* ============================================================================
+   Zwei Ansichten, ein Raster.
+   STUDIO  = Motive (Vorlagen) mit ihrem echten Seitenverhaeltnis
+   GALERIE = die echten Vereinsfotos aus assets/fotos/galerie/galerie.json,
+             dazwischen nach FESTER Regel Faktenkarten (jede 7. Kachel) —
+             fest, nicht zufaellig, damit das Raster beim Neuladen nicht springt.
+   ============================================================================ */
+var MOTIVE=[
+ {n:'Doppel-Tag',s:'STS Zürich',k:'elite',f:'Thumbnail',ar:'16/9',t:'quer',kick:'STS26',a:'ITSF250',b:'ZÜRICH'},
+ {n:'Einzel-Tag',s:'STS Zürich',k:'elite',f:'Story',ar:'9/16',t:'hoch',kick:'STS26',a:'ITSF250',b:'ZÜRICH'},
+ {n:'Crazy DYP',s:'jeden Mittwoch',k:'fun',f:'Reel',ar:'9/16',t:'hoch',kick:'MITTWOCH',a:'CRAZY',b:'DYP'},
+ {n:'KäseKick',s:'Plausch-Turnier',k:'fun',f:'Feed',ar:'4/5',t:'quad',kick:'PLAUSCH',a:'KÄSE',b:'KICK'},
+ {n:'STRT Zürich',s:'Pro Tour',k:'pro',f:'Thumbnail',ar:'16/9',t:'quer',kick:'PRO TURNIER',a:'STRT',b:'ZÜRICH'},
+ {n:'Rangliste',s:'Vereinsintern',k:'pro',f:'Feed',ar:'1/1',t:'quad',kick:'SAISON 26',a:'RANG',b:'LISTE'},
+ {n:'Mitglied werden',s:'Verein',k:'fun',f:'Story',ar:'9/16',t:'hoch',kick:'KOMM VORBEI',a:'MITGLIED',b:'WERDEN'},
+ {n:'Stream-Overlay',s:'Livestream',k:'elite',f:'Overlay',ar:'16/9',t:'quer',kick:'LIVE',a:'TISCH 1',b:'TFCZ'},
+ {n:'Firmenevent',s:'Auf Anfrage',k:'pro',f:'Feed',ar:'4/5',t:'quad',kick:'TEAM-ABEND',a:'FIRMEN',b:'EVENT'}
+];
+/* Belegte Zahlen — Quellen in CLAUDE.md und im Brand Guide. Nichts geschaetzt. */
+var FAKTEN=[
+ {z:'108',t:'Mitglieder — einer der grössten Tischfussballvereine der Schweiz.',q:'Stand 2026'},
+ {spruch:1,t:'Bei uns trainieren Weltmeister. Am Tisch daneben spielt jemand seine erste Partie.'},
+ {z:'1990',t:'Gegründet — und seither in derselben Halle in Zürich zuhause.',q:'Seit 36 Jahren'},
+ {z:'10',t:'Leonhart-Turniertische stehen permanent im Clublokal, dazu ein Ullrich.',q:'Ausstattung'},
+ {spruch:1,t:'Kein Partner nötig, keine Anmeldung. Zuschauen kostet nichts.'},
+ {z:'80+',t:'Turniere im Jahr — vom Plauschabend bis zum internationalen Ranglistenturnier.',q:'Jahresprogramm'},
+ {z:'5000',t:'Franken Jahres-Preistopf beim Crazy DYP, jeden Mittwoch ausgespielt.',q:'Preisgeld'},
+ {spruch:1,t:'Alle sind willkommen — vom ersten Mal am Tisch bis zur Nationalmannschaft.'}
+];
+var CATNM={turnier:'Turnier & Match',team:'Team & Emotionen',mannschaft:'Mannschaftsfotos',
+ portrait:'Portraits & Spieler',location:'Location & Bar',atmo:'Atmosphäre & Publikum',detail:'Detail & Equipment'};
+
+var GAL={photos:[],geladen:false}, ANS='studio';
+var flt={cat:'',turnier:'',orient:''};
+
+fetch('assets/fotos/galerie/galerie.json',{cache:'no-store'})
+  .then(function(r){ return r.ok?r.json():null; })
+  .then(function(j){ if(j&&j.photos){ GAL.photos=j.photos; GAL.geladen=true; } if(ANS==='galerie')bau(); })
+  .catch(function(){});
+
+function ansicht(a){ ANS=a;
+  document.getElementById('tS').classList.toggle('on',a==='studio');
+  document.getElementById('tG').classList.toggle('on',a==='galerie');
+  flt={cat:'',turnier:'',orient:''}; bau(); window.scrollTo(0,0); }
+
+function mast(t1,t2,sub,stats){
+  return '<div class="mast"><div class="eyebrow">Tischfussball Club Zürich</div>'
+   +'<div class="mastrow"><h1>'+t1+'<br><em>'+t2+'</em></h1><div class="stats">'
+   +stats.map(function(s){return '<div><b>'+s[0]+'</b><span>'+s[1]+'</span></div>';}).join('')
+   +'</div></div><p class="sub">'+sub+'</p></div>';
+}
+function esc(x){ return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+
+/* ---------- Studio-Ansicht ---------- */
+function motivKachel(m){
+  return '<button class="tile" style="aspect-ratio:'+m.ar+'" onclick="oeffne(\''+esc(m.n)+'\')">'
+   +'<div class="mf '+m.t+' k-'+m.k+'" style="font-size:15px"><div class="bgp"></div><div class="pan"></div><div class="edge"></div>'
+   +'<div class="tx"><div class="k">'+m.kick+'</div><div class="a">'+m.a+'</div><div class="b">'+m.b+'</div></div></div>'
+   +'<div class="veil"></div><div class="go">&#8599;</div>'
+   +'<div class="cap"><div class="fmt"><i></i>'+m.f+' · '+m.ar.replace('/',':')+'</div>'
+   +'<h3>'+m.n+'</h3><div class="meta">'+m.s+'</div></div></button>';
+}
+/* ---------- Galerie-Ansicht ---------- */
+function bild(p){ return p.src ? p.src : ('assets/fotos/galerie/thumb/'+p.id+'.webp'); }
+function voll(p){ return p.src ? p.src : ('assets/fotos/galerie/full/'+p.id+'.webp'); }
+function fotoKachel(p,i){
+  var ar=(p.orient==='hoch')?'3/4':((p.w&&p.h)?(p.w+'/'+p.h):'4/3');
+  var tags=(p.tags||[]).slice(0,3).join(' · ');
+  return '<button class="tile" style="aspect-ratio:'+ar+'" onclick="lbAuf('+i+')">'
+   +'<div class="ph"></div><img loading="lazy" src="'+esc(bild(p))+'" alt="">'
+   +'<div class="veil"></div><div class="go">&#8599;</div>'
+   +'<div class="cap"><div class="fmt"><i></i>'+esc(CATNM[p.category]||p.category||'Foto')+'</div>'
+   +(tags?'<div class="meta">'+esc(tags)+'</div>':'')+'</div></button>';
+}
+function faktKachel(f){
+  return '<div class="fakt'+(f.spruch?' spruch':'')+'">'
+   +(f.z?'<div class="zahl">'+f.z+'</div>':'')
+   +'<div class="txt">'+f.t+'</div>'
+   +(f.q?'<div class="quelle">'+f.q+'</div>':'')+'</div>';
+}
+function filtern(){
+  return GAL.photos.filter(function(p){
+    if(flt.cat&&p.category!==flt.cat)return false;
+    if(flt.turnier&&(p.turnier||'')!==flt.turnier)return false;
+    if(flt.orient&&(p.orient||'')!==flt.orient)return false;
+    return true;
+  });
+}
+function chips(label,key,opts){
+  var h='<span class="lb">'+label+'</span><button class="f'+(flt[key]?'':' on')+'" onclick="setF(\''+key+'\',\'\')">Alle</button>';
+  opts.forEach(function(o){ if(!o.n)return;
+    h+='<button class="f'+(flt[key]===o.v?' on':'')+'" onclick="setF(\''+key+'\',\''+esc(o.v)+'\')">'+esc(o.l)+'<i>'+o.n+'</i></button>'; });
+  return h;
+}
+function setF(k,v){ flt[k]=v; bau(); }
+
+function bau(){
+  var app=document.getElementById('app'), h='';
+  if(ANS==='studio'){
+    h=mast('Alles, was der','Verein zeigt.',
+      'Neun Vorlagen, sechs Formate — vom YouTube-Thumbnail bis zur Hochkant-Story. Klick ein Motiv an, wähle den Tag, fertig.',
+      [['13','Vorlagen'],['6','Formate'],['289','Vereinsfotos']])
+     +'<div class="bar"><span class="lb">Format</span>'
+     +'<button class="f on">Alle</button><button class="f">Quer 16:9</button><button class="f">Hoch 9:16</button>'
+     +'<button class="f">Feed 4:5</button><button class="f">Quadrat</button><span class="sp"></span>'
+     +'<span class="lb">Kategorie</span><button class="f on">Alle</button><button class="f">Fun</button>'
+     +'<button class="f">Pro</button><button class="f">Elite</button></div>'
+     +'<div class="mason">'+MOTIVE.map(motivKachel).join('')+'</div>';
+  } else {
+    if(!GAL.geladen){
+      h=mast('Das Archiv','des Vereins.','Wird geladen …',[['—','Fotos'],['7','Kategorien'],['1990','seit']])
+       +'<div class="leer">Der Katalog <b>assets/fotos/galerie/galerie.json</b> liess sich nicht laden. '
+       +'Diese Seite muss über einen Server geöffnet werden — per Doppelklick sperrt der Browser die Datei.</div>';
+    } else {
+      var alle=GAL.photos, hits=filtern();
+      var catZ={},turZ={},oriZ={};
+      alle.forEach(function(p){ catZ[p.category]=(catZ[p.category]||0)+1;
+        if(p.turnier)turZ[p.turnier]=(turZ[p.turnier]||0)+1;
+        if(p.orient)oriZ[p.orient]=(oriZ[p.orient]||0)+1; });
+      h=mast('Das Archiv','des Vereins.',
+        'Jedes Foto stammt aus unserer Halle — Turniere, Training, Abende an der Bar. Anklicken zeigt es gross.',
+        [[alle.length,'Fotos'],['7','Kategorien'],['1990','seit']])
+       +'<div class="bar">'
+       +chips('Kategorie','cat',Object.keys(CATNM).map(function(k){return {v:k,l:CATNM[k],n:catZ[k]||0};}))
+       +'<span class="sp"></span>'
+       +chips('Format','orient',[{v:'quer',l:'Quer',n:oriZ.quer||0},{v:'hoch',l:'Hoch',n:oriZ.hoch||0}])
+       +'</div>'
+       +'<div class="count"><b>'+hits.length+'</b> von '+alle.length+' Fotos</div>';
+      /* Faktenkarten fest jede 7. Position — reproduzierbar, nicht zufaellig. */
+      var teile=[],fi=0;
+      hits.forEach(function(p,i){
+        teile.push(fotoKachel(p,i));
+        if((i+1)%7===0&&fi<FAKTEN.length){ teile.push(faktKachel(FAKTEN[fi])); fi++; }
+      });
+      h+='<div class="mason">'+teile.join('')+'</div>';
+    }
+  }
+  app.innerHTML=h;
+  window.__hits=(ANS==='galerie'&&GAL.geladen)?filtern():[];
+}
+function oeffne(n){ location.href='design-studio.html'; }
+function lbAuf(i){ var p=(window.__hits||[])[i]; if(!p)return;
+  document.getElementById('lbi').src=voll(p);
+  document.getElementById('lbinfo').innerHTML='<div><b>'+esc(CATNM[p.category]||p.category||'Foto')+'</b>'
+   +'<span style="display:block">'+esc((p.tags||[]).join(' · '))+'</span></div>'
+   +'<span>'+esc(p.turnier||p.event||'')+'</span>';
+  document.getElementById('lb').classList.add('on'); }
+function lbZu(){ document.getElementById('lb').classList.remove('on'); }
+document.addEventListener('keydown',function(e){ if(e.key==='Escape')lbZu(); });
+bau();
+</script>
+</body></html>

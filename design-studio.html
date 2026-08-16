@@ -193,6 +193,30 @@ main{flex:1;display:flex;min-height:0;position:relative;}
 .isec{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#9fb2c4;font-weight:900;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid #1d4666;}
 .igrp{display:flex;flex-direction:column;margin-top:14px;}
 .igrp:first-of-type{margin-top:8px;}
+/* ---- Einstellungen-Spalte: vier Reiter (16.08.2026) ----
+   Vorher lagen acht Gruppen untereinander in einer Spalte und man scrollte.
+   Jetzt: Inhalt · Schrift · Farbe · Platz. Ein Reiter ohne Felder verschwindet. */
+.itabs{display:flex;gap:3px;position:sticky;top:0;z-index:4;margin:0 0 12px;padding:0;
+  background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.94));border-bottom:2px solid var(--gold);}
+.itab{flex:1 1 0;min-width:0;font:inherit;font-size:11px;font-weight:800;cursor:pointer;
+  padding:8px 3px 7px;border:0;border-top:3px solid transparent;border-radius:10px 10px 0 0;
+  background:transparent;color:#9fb2c4;display:flex;flex-direction:column;align-items:center;gap:3px;transition:.15s;}
+.itab:hover{color:#eef4fa;background:rgba(92,167,220,.10);}
+.itab.on{background:rgba(17,34,51,.60);border-top-color:var(--blue);color:#eef4fa;}
+.itab svg{flex:none;}
+.ipane{display:none;flex-direction:column;}
+.ipane.on{display:flex;}
+.ipane .igrp:first-of-type{margin-top:0;}
+/* Beschriftung über dem Feld statt in einer 64px-Spalte daneben —
+   lange Namen („Verankerung“, „Textbreite px“) brachen die Zeile sonst um. */
+.inspector .rw{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:11px;}
+.inspector .rw>label:first-child{flex:1 0 100%;width:auto;margin:0 0 1px;font-size:10.5px;font-weight:900;
+  letter-spacing:.09em;text-transform:uppercase;color:#9fb2c4;}
+.inspector .rw label.reqchk{width:auto;flex:1 1 auto;}
+.inspector .rw input[type=number]{width:76px;flex:none;}
+.inspector .rw .range{flex:1 1 60px;min-width:60px;}
+.inspector .rw select,.inspector .rw input[type=text],.inspector .rw textarea{flex:1 1 130px;min-width:0;}
+.inspector .rw .seg,.inspector .rw .swatches{flex:1 1 100%;}
 .swatches{display:flex;flex-direction:column;gap:9px;width:100%;}
 .sw-grp{display:flex;flex-direction:column;gap:4px;}
 .sw-glab{font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#94a9bd;}
@@ -335,7 +359,13 @@ body.doc-mode .stagewrap{align-items:stretch;justify-content:stretch;}
 .rwr.allreset{display:block;width:100%;margin:0 0 10px;height:28px;color:#c3d2e0;background:rgba(255,255,255,.06);border:1px solid #163854;letter-spacing:.03em;}
 .rwr.allreset:hover{color:#fff;background:#26313f;}
 .seg{display:flex;gap:4px;flex:1;}.seg button{flex:1;padding:6px 8px;background:#071722;border:1px solid #163854;border-radius:8px;color:#c3d2e0;font:inherit;font-size:12px;font-weight:800;cursor:pointer;}.seg button.on{border-color:var(--gold);background:#1a2430;color:#fff;}
-#deselect{float:right;background:rgba(255,255,255,.06);border:0;color:#c3d2e0;width:22px;height:22px;border-radius:6px;cursor:pointer;font-weight:800;}#deselect:hover{color:var(--navy);background:var(--gold2);}
+/* Der Schliess-Knopf folgt wieder dem Brand-Standard (.xbtn: 36px rund, Hover rot, xsquish).
+   Vorher überschrieb diese ID-Regel ihn auf 22px eckig. */
+.inspector h3{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;color:#94a9bd;font-weight:900;}
+.inspector h3 #selname{flex:1 1 auto;min-width:0;font-size:15px;letter-spacing:0;text-transform:none;
+  color:var(--ink,#eef4fa);font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.inspector h3::before{content:"";flex:none;width:22px;height:2px;border-radius:2px;background:var(--gold);}
 #rotHandle{position:fixed;z-index:60;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:var(--gold);color:var(--navy);display:none;align-items:center;justify-content:center;font-size:15px;font-weight:900;cursor:grab;box-shadow:0 4px 12px rgba(0,0,0,.5);border:2px solid #fff;user-select:none;}
 #rotHandle:active{cursor:grabbing;}
 .rszh{position:fixed;z-index:60;width:12px;height:12px;margin-left:-6px;margin-top:-6px;background:#fff;border:2px solid var(--gold);border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,.5);}
@@ -913,9 +943,7 @@ button .ic{pointer-events:none}
   font:inherit;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}
 .add-btn:hover{border-color:transparent;box-shadow:inset 0 2px 0 var(--blue),inset 0 -2px 0 var(--gold)}
 /* Profi-Modus: erweiterte Felder nur sichtbar, wenn eingeschaltet */
-body:not(.pro) #r-num, body:not(.pro) #r-scl, body:not(.pro) #r-cst, body:not(.pro) #r-tw{display:none !important}
-body:not(.pro) #grp-border{display:none !important}
-body:not(.pro) #grp-pos .rw:nth-child(n+4){display:none}   /* nur Deckkraft/Sperre bleiben knapp */
+/* Profi-Modus entfernt (16.08.2026). Was sichtbar ist, entscheidet jetzt allein KANN[typ]. */
 /* Einstiegs-Hinweis auf leerer Auswahl */
 #introHint{position:absolute;left:50%;bottom:58px;transform:translateX(-50%);z-index:35;pointer-events:none;
   display:flex;align-items:center;gap:9px;padding:9px 16px;border-radius:var(--r-pill);
@@ -1093,7 +1121,7 @@ header{z-index:200;}
     <div class="mm-sep"></div>
     <div class="mm-h">Ansicht</div>
     <button id="modeToggle" title="Hintergrund: Normal (hellblau) / Dark (navy)"><span data-ic="moon" data-icsz="16"></span> Dark</button>
-    <button id="proToggle" title="Detailgrad: exakte Werte, Verankerung, Objekt-Details"><span data-ic="sliders-horizontal" data-icsz="16"></span> Detailgrad: Profi</button>
+
     <button id="brandGuideBtn" title="TFCZ Brand Guide & Design-System"><span data-ic="book-open" data-icsz="16"></span> Brand Guide</button>
   </div>
 </header>
@@ -1142,56 +1170,72 @@ header{z-index:200;}
     <button class="btn ghost" id="reset" style="margin-top:10px;width:100%">Template zurücksetzen</button>
 
     <div class="inspector" id="inspector" style="display:none">
-      <h3>Einstellungen<span id="selname"></span><button class="xbtn" id="deselect" title="Auswahl aufheben (Esc)"><span data-ic="x" data-icsz="17"></span></button></h3>
-      <div class="igrp" id="compProps" style="display:none"></div>
-      <div class="igrp" id="grp-content"><div class="isec">Inhalt</div>
-        <div class="rw" id="r-text"><label>Text</label><textarea id="i-text"></textarea><button class="rwr" data-k="text" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw" id="r-text2"><label>Wert</label><input type="text" id="i-text2"><button class="rwr" data-k="text2" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="igrp" id="grp-crop" style="display:none"><div class="isec">Ausschnitt (Crop)</div>
-          <div class="rw"><label>Horizontal</label><input type="range" class="range" id="i-cx" min="0" max="100" step="1"><button class="rwr" data-ck="x"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-          <div class="rw"><label>Vertikal</label><input type="range" class="range" id="i-cy" min="0" max="100" step="1"><button class="rwr" data-ck="y"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-          <div class="rw"><label>Zoom</label><input type="range" class="range" id="i-cz" min="1" max="3" step="0.05"><button class="rwr" data-ck="z"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-          <div class="ahint" style="padding:0 0 4px">Zoom wirkt in Rahmen-Fotos (YouTube, PRO). Sonst: Ausschnitt verschieben.</div>
+      <h3><span id="selname"></span><button class="xbtn" id="deselect" title="Auswahl aufheben (Esc)"><span data-ic="x" data-icsz="17"></span></button></h3>
+      <div class="itabs" id="itabs">
+        <button class="itab on" data-ip="inhalt" title="Inhalt"><span data-ic="square-pen" data-icsz="15"></span>Inhalt</button>
+        <button class="itab" data-ip="schrift" title="Schrift &amp; Grösse"><span data-ic="type" data-icsz="15"></span>Schrift</button>
+        <button class="itab" data-ip="farbe" title="Farbe, Füllung &amp; Rahmen"><span data-ic="palette" data-icsz="15"></span>Farbe</button>
+        <button class="itab" data-ip="platz" title="Position, Grösse &amp; Drehung"><span data-ic="ruler" data-icsz="15"></span>Platz</button>
+      </div>
+
+      <div class="ipane on" id="ip-inhalt">
+        <div class="igrp" id="compProps" style="display:none"></div>
+        <div class="igrp" id="grp-content">
+          <div class="rw" id="r-text"><label>Text</label><textarea id="i-text"></textarea><button class="rwr" data-k="text" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-text2"><label>Wert</label><input type="text" id="i-text2"><button class="rwr" data-k="text2" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-gal"><label>Galerie</label><button class="btn blue" id="i-gal" style="width:100%;justify-content:center"><span data-ic="image" data-icsz="15"></span> Foto aus der Galerie wählen</button></div>
+          <div class="rw" id="r-img"><label for="i-img">Bild hochladen</label><input type="file" id="i-img" accept="image/*" style="font-size:11px;color:#9fb2c4"></div>
+          <div class="rw" id="r-imgurl"><label for="i-iurl">Bild-URL</label><input type="text" id="i-iurl" placeholder="https://…  ·  oder Foto per Drag&amp;Drop"><button class="rwr" data-k="src" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="igrp" id="grp-crop" style="display:none"><div class="isec">Ausschnitt (Crop)</div>
+            <div class="rw"><label>Horizontal</label><input type="range" class="range" id="i-cx" min="0" max="100" step="1"><button class="rwr" data-ck="x"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+            <div class="rw"><label>Vertikal</label><input type="range" class="range" id="i-cy" min="0" max="100" step="1"><button class="rwr" data-ck="y"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+            <div class="rw"><label>Zoom</label><input type="range" class="range" id="i-cz" min="1" max="3" step="0.05"><button class="rwr" data-ck="z"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+            <div class="ahint" style="padding:0 0 4px">Zoom wirkt in Rahmen-Fotos (YouTube, PRO). Sonst: Ausschnitt verschieben.</div>
+          </div>
+          <div class="igrp" id="grp-filt" style="display:none"><div class="isec">Bild-Filter</div>
+            <div class="rw"><label>Helligkeit</label><input type="range" class="range" id="i-fb" min="0.3" max="2" step="0.02"><button class="rwr" data-fk="b"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+            <div class="rw"><label>Kontrast</label><input type="range" class="range" id="i-fc" min="0.3" max="2" step="0.02"><button class="rwr" data-fk="c"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+            <div class="rw"><label>Sättigung</label><input type="range" class="range" id="i-fs" min="0" max="2.5" step="0.02"><button class="rwr" data-fk="s"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+            <div class="rw"><label>Graustufen</label><input type="range" class="range" id="i-fg" min="0" max="1" step="0.05"><button class="rwr" data-fk="g"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          </div>
         </div>
-        <div class="igrp" id="grp-filt" style="display:none"><div class="isec">Bild-Filter</div>
-          <div class="rw"><label>Helligkeit</label><input type="range" class="range" id="i-fb" min="0.3" max="2" step="0.02"><button class="rwr" data-fk="b"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-          <div class="rw"><label>Kontrast</label><input type="range" class="range" id="i-fc" min="0.3" max="2" step="0.02"><button class="rwr" data-fk="c"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-          <div class="rw"><label>Sättigung</label><input type="range" class="range" id="i-fs" min="0" max="2.5" step="0.02"><button class="rwr" data-fk="s"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-          <div class="rw"><label>Graustufen</label><input type="range" class="range" id="i-fg" min="0" max="1" step="0.05"><button class="rwr" data-fk="g"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+      </div>
+
+      <div class="ipane" id="ip-schrift">
+        <div class="igrp" id="grp-type">
+          <div class="rw" id="r-size"><label>Grösse</label><input type="number" id="i-size" min="8" max="320" step="1"><input type="range" class="range" id="i-sizer" min="8" max="320" step="1"><button class="rwr" data-k="size" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-align"><label>Ausrichtung</label><div class="seg" id="i-align"><button data-v="left">Links</button><button data-v="center">Mitte</button><button data-v="right">Rechts</button></div></div>
+          <div class="rw" id="r-lh"><label>Zeilenhöhe</label><input type="number" id="i-lh" min="0.7" max="2.2" step="0.05"><input type="range" class="range" id="i-lhr" min="0.7" max="2.2" step="0.05"><button class="rwr" data-k="lh" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-tw"><label>Textbreite px</label><input type="number" id="i-tw" min="0" max="2000" step="10"><button class="rwr" data-k="tw" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-fit"><label>Auto-Shrink</label><label class="reqchk" style="margin:0"><input type="checkbox" id="i-fit"> <span>Schrift verkleinern statt überlaufen</span></label></div>
+          <div class="rw" id="r-tstyle"><label>Brand-Stil</label><select id="i-tstyle"></select><button class="btn blue" id="i-tapply" style="flex:none;padding:7px 10px">Anwenden</button></div>
+          <div class="rw" id="r-weight"><label>Schriftschnitt</label><select id="i-weight"></select><button class="rwr" data-k="weight" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-style"><label>Stil</label><select id="i-bstyle"><option value="solid">Voll</option><option value="outline">Outline</option><option value="gradient">Gradient</option></select><button class="rwr" data-k="bstyle" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
         </div>
-        <div class="rw" id="r-gal"><label>Galerie</label><button class="btn blue" id="i-gal" style="width:100%;justify-content:center"><span data-ic="image" data-icsz="15"></span> Foto aus der Galerie wählen</button></div>
-        <div class="rw" id="r-img"><label for="i-img">Bild</label><input type="file" id="i-img" accept="image/*" style="font-size:11px;color:#9fb2c4"></div>
-        <div class="rw" id="r-imgurl"><label for="i-iurl">Bild-URL</label><input type="text" id="i-iurl" placeholder="https://…  ·  oder Foto per Drag&Drop"><button class="rwr" data-k="src" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
       </div>
-      <div class="igrp" id="grp-type"><div class="isec">Schrift & Grösse</div>
-        <div class="rw"><label>Grösse</label><input type="number" id="i-size" min="8" max="320" step="1"><input type="range" class="range" id="i-sizer" min="8" max="320" step="1"><button class="rwr" data-k="size" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw" id="r-align"><label>Ausrichtung</label><div class="seg" id="i-align"><button data-v="left">Links</button><button data-v="center">Mitte</button><button data-v="right">Rechts</button></div></div>
-        <div class="rw" id="r-lh"><label>Zeilenhöhe</label><input type="number" id="i-lh" min="0.7" max="2.2" step="0.05"><input type="range" class="range" id="i-lhr" min="0.7" max="2.2" step="0.05"><button class="rwr" data-k="lh" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw" id="r-tw"><label>Textbreite px</label><input type="number" id="i-tw" min="0" max="2000" step="10"><button class="rwr" data-k="tw" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw" id="r-cst"><label>Verankerung</label><select id="i-cst"><option value="">Fest (px)</option><option value="scale">Skaliert mit Format</option></select></div>
-        <div class="rw" id="r-fit"><label>Auto-Shrink</label><label class="reqchk" style="margin:0"><input type="checkbox" id="i-fit"> <span>Schrift verkleinern statt überlaufen</span></label></div>
-        <div class="rw" id="r-tstyle"><label>Brand-Stil</label><select id="i-tstyle"></select><button class="btn blue" id="i-tapply" style="flex:none;padding:7px 10px">Anwenden</button></div>
-        <div class="rw" id="r-weight"><label>Schrift</label><select id="i-weight"></select><button class="rwr" data-k="weight" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw" id="r-style"><label>Stil</label><select id="i-bstyle"><option value="solid">Voll</option><option value="outline">Outline</option><option value="gradient">Gradient</option></select><button class="rwr" data-k="bstyle" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+
+      <div class="ipane" id="ip-farbe">
+        <div class="igrp" id="grp-color">
+          <div class="rw" id="r-color"><label>Farbe</label><div class="swatches" id="i-color"></div><div class="sw-note">TFCZ-Regel: Logo weiss · Brand-Linie blau/gold fix · Button-Farben brandkonform (Textfarbe automatisch). Verläufe lt. Brand Guide nur für Screen-UI – auf Flyern dezent.</div></div>
+          <div class="rw" id="r-gradt"><label>Verlauf</label><div class="seg" id="i-gradt"><button data-t="lin">Linear</button><button data-t="rad">Radial</button></div></div>
+        </div>
+        <div class="igrp" id="grp-border"><div class="isec">Rahmen</div>
+          <div class="rw" id="r-border"><label>Rahmenfarbe</label><div class="swatches" id="i-bcol"></div></div>
+          <div class="rw" id="r-bw"><label>Rahmen px</label><input type="number" id="i-bw" min="0" max="30" step="1"><input type="range" class="range" id="i-bwr" min="0" max="30" step="1"><button class="rwr" data-k="bw" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-brad"><label>Ecken px</label><input type="number" id="i-brad" min="0" max="120" step="1"><input type="range" class="range" id="i-bradr" min="0" max="120" step="1"><button class="rwr" data-k="brad" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+        </div>
       </div>
-      <div class="igrp" id="grp-color"><div class="isec">Farbe & Füllung</div>
-        <div class="rw" id="r-color"><label>Farbe</label><div class="swatches" id="i-color"></div><div class="sw-note">TFCZ-Regel: Logo weiss · Brand-Linie blau/gold fix · Button-Farben brandkonform (Textfarbe automatisch). Verläufe lt. Brand Guide nur für Screen-UI – auf Flyern dezent.</div>
-        <div class="rw" id="r-gradt"><label>Verlauf</label><div class="seg" id="i-gradt"><button data-t="lin">Linear</button><button data-t="rad">Radial</button></div>
-      </div>
-      <div class="igrp" id="grp-border"><div class="isec">Rahmen</div>
-        <div class="rw" id="r-border"><label>Rahmen</label><div class="swatches" id="i-bcol"></div>
-        <div class="rw" id="r-bw"><label>Rahmen px</label><input type="number" id="i-bw" min="0" max="30" step="1"><input type="range" class="range" id="i-bwr" min="0" max="30" step="1"><button class="rwr" data-k="bw" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw" id="r-brad"><label>Radius px</label><input type="number" id="i-brad" min="0" max="120" step="1"><input type="range" class="range" id="i-bradr" min="0" max="120" step="1"><button class="rwr" data-k="brad" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-      </div>
-      <div class="igrp" id="grp-pos"><div class="isec">Position, Grösse & Drehung</div>
-        <div class="rw" id="r-num"><label>X / Y</label><input type="number" id="i-nx" step="1" title="Horizontal (px)"><input type="number" id="i-ny" step="1" title="Vertikal (px)"></div>
-        <div class="rw" id="r-scl"><label>Breite ×</label><input type="number" id="i-sclx" min="0.1" max="6" step="0.05" title="Breite"><input type="number" id="i-scly" min="0.1" max="6" step="0.05" title="Höhe"><button class="rwr" data-k="sclx,scly" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw"><label>Vertikal ↕</label><input type="number" id="i-dy" min="-600" max="600" step="1"><input type="range" class="range" id="i-dyr" min="-600" max="600" step="1"><button class="rwr" data-k="dy" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw"><label>Horizontal ↔</label><input type="number" id="i-dx" min="-600" max="600" step="1"><input type="range" class="range" id="i-dxr" min="-600" max="600" step="1"><button class="rwr" data-k="dx" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw"><label>Abstand</label><input type="number" id="i-gap" min="0" max="240" step="1"><input type="range" class="range" id="i-gapr" min="0" max="240" step="1"><button class="rwr" data-k="gap" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw"><label>Drehung °</label><input type="number" id="i-rot" min="-180" max="180" step="1"><input type="range" class="range" id="i-rotr" min="-180" max="180" step="1"><button class="rwr" data-k="rot" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw"><label>Deckkraft</label><input type="number" id="i-op" min="0" max="1" step="0.05"><input type="range" class="range" id="i-opr" min="0" max="1" step="0.05"><button class="rwr" data-k="op" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
-        <div class="rw"><label>Sperre</label><button class="btn ghost" id="i-lock" style="width:100%;justify-content:center">Ebene sperren / entsperren</button></div>
+
+      <div class="ipane" id="ip-platz">
+        <div class="igrp" id="grp-pos">
+          <div class="rw" id="r-scl"><label>Breite × / Höhe ×</label><input type="number" id="i-sclx" min="0.1" max="6" step="0.05" title="Breite"><input type="number" id="i-scly" min="0.1" max="6" step="0.05" title="Höhe"><button class="rwr" data-k="sclx,scly" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-dy"><label>Vertikal ↕</label><input type="number" id="i-dy" min="-600" max="600" step="1"><input type="range" class="range" id="i-dyr" min="-600" max="600" step="1"><button class="rwr" data-k="dy" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-dx"><label>Horizontal ↔</label><input type="number" id="i-dx" min="-600" max="600" step="1"><input type="range" class="range" id="i-dxr" min="-600" max="600" step="1"><button class="rwr" data-k="dx" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-rot"><label>Drehung °</label><input type="number" id="i-rot" min="-180" max="180" step="1"><input type="range" class="range" id="i-rotr" min="-180" max="180" step="1"><button class="rwr" data-k="rot" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-op"><label>Deckkraft</label><input type="number" id="i-op" min="0" max="1" step="0.05"><input type="range" class="range" id="i-opr" min="0" max="1" step="0.05"><button class="rwr" data-k="op" title="Zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
+          <div class="rw" id="r-cst"><label>Verankerung</label><select id="i-cst"><option value="">Fest (px)</option><option value="scale">Skaliert mit Format</option></select></div>
+          <div class="rw" id="r-lock"><label>Sperre</label><button class="btn ghost" id="i-lock" style="width:100%;justify-content:center">Ebene sperren / entsperren</button></div>
+        </div>
       </div>
     </div>
     
@@ -3055,39 +3099,124 @@ function deselect(){ sel=null; selMulti=[]; markSel(); syncInspector(); }
 
 const insp=document.getElementById('inspector');
 function defEl(id){ return (DEF[state.active].els||[]).find(function(x){return x.id===id;}); }
-function elIsFill(el){ return (el.type==='pill'||el.type==='button'||el.type==='kv')&&((CAPS[state.active]||{}).fill!==false); }
-function setGradType(t){ if(!sel)return; var el=getEl(sel); var prop=elIsFill(el)?'fill':'color'; var v=el[prop]; if(!isGrad(v))return; var key=String(v).split(':')[1]; beginEdit(); el[prop]='grad:'+key+(t==='rad'?':rad':''); save(); rebuild(); syncInspector(); }
+/* Welche Eigenschaft die Fläche eines Objekts steuert: Text färbt seine SCHRIFT (color),
+   alles andere seine FLÄCHE (fill). Vorher galt das nur für Chip/Button/Box — darum bot
+   die Foto-Abdunklung eine wirkungslose Textfarbe an statt ihrer echten Füllung. */
+function fillProp(el){ if(!el)return 'color'; if(el.type==='text'||el.type==='chip')return 'color'; if((CAPS[state.active]||{}).fill===false)return 'color'; return 'fill'; }
+function elIsFill(el){ return fillProp(el)==='fill'; }
+function setGradType(t){ if(!sel)return; var el=getEl(sel); var prop=fillProp(el); var v=el[prop]; if(!isGrad(v))return; var key=String(v).split(':')[1]; beginEdit(); el[prop]='grad:'+key+(t==='rad'?':rad':''); save(); rebuild(); syncInspector(); }
 function resetProp(keys){ if(!sel)return; var d=defEl(sel); if(!d)return; beginEdit(); var el=getEl(sel); keys.split(',').forEach(function(k){ if(k in d)el[k]=clone(d[k]); else delete el[k]; }); save(); rebuild(); syncInspector(); }
 function resetAllProps(){ if(!sel)return; var d=defEl(sel); if(!d)return; beginEdit(); var el=getEl(sel); EDITKEYS.forEach(function(k){ if(k in d)el[k]=clone(d[k]); else delete el[k]; }); save(); rebuild(); syncInspector(); }
+/* ============================================================
+   Einstellungen-Spalte · Feld-Registry (16.08.2026)
+
+   Vorher entschied eine Blacklist, was erscheint:
+       var isTxt = (el.type !== 'image' && !isComp);
+   Alles, was kein Bild und keine Komponente war, galt als Text. Die
+   Foto-Abdunklung (type "shape", gerendert als LEERES div) bekam dadurch
+   Textfeld, Grösse, Ausrichtung, Zeilenhöhe, Auto-Shrink, Brand-Stil,
+   Schriftschnitt und Textfarbe — nichts davon hatte eine Wirkung.
+
+   Jetzt sagt KANN je Typ, welche Zeilen es überhaupt gibt. Weil Grösse und
+   Schnitt im Flyer-Code pro Element-ID gelesen werden (FS/WT, nicht pro Typ),
+   darf ein einzelnes Element mit  el.kann  /  el.nicht  davon abweichen.
+   Grundlage: gemessen an rebuild()/wireItems(), nicht geschätzt.
+   ============================================================ */
+var IROWS=['r-text','r-text2','grp-crop','grp-filt','r-gal','r-img','r-imgurl',
+           'r-size','r-align','r-lh','r-tw','r-fit','r-tstyle','r-weight','r-style',
+           'r-color','r-gradt','r-border','r-bw','r-brad',
+           'r-scl','r-dy','r-dx','r-rot','r-op','r-cst','r-lock'];
+var IGRP={'grp-content':['r-text','r-text2','grp-crop','grp-filt','r-gal','r-img','r-imgurl'],
+          'grp-type'   :['r-size','r-align','r-lh','r-tw','r-fit','r-tstyle','r-weight','r-style'],
+          'grp-color'  :['r-color','r-gradt'],
+          'grp-border' :['r-border','r-bw','r-brad'],
+          'grp-pos'    :['r-scl','r-dy','r-dx','r-rot','r-op','r-cst','r-lock']};
+var IPANE={inhalt:['grp-content'],schrift:['grp-type'],farbe:['grp-color','grp-border'],platz:['grp-pos']};
+/* Position, Grösse, Drehung, Deckkraft, Verankerung und Sperre wirken bei JEDEM Typ. */
+var IALLE=['r-scl','r-dy','r-dx','r-rot','r-op','r-cst','r-lock'];
+var KANN={
+  text  : ['r-text','r-size','r-align','r-lh','r-tw','r-fit','r-tstyle','r-weight','r-color','r-gradt'].concat(IALLE),
+  kv    : ['r-text','r-text2','r-size','r-align','r-lh','r-tstyle','r-color','r-gradt','r-border','r-bw','r-brad'].concat(IALLE),
+  pill  : ['r-text','r-size','r-lh','r-tw','r-fit','r-tstyle','r-weight','r-style','r-color','r-gradt','r-border','r-bw','r-brad'].concat(IALLE),
+  image : ['r-gal','r-img','r-imgurl','grp-crop','grp-filt','r-border','r-bw','r-brad'].concat(IALLE),
+  shape : ['r-color','r-gradt','r-border','r-bw','r-brad'].concat(IALLE),
+  comp  : [].concat(IALLE)
+};
+KANN.button=KANN.pill; KANN.chip=KANN.kv;
+function kannListe(el){
+  var k=(el.kann||KANN[el.type]||KANN.text).slice();
+  if(el.nicht&&el.nicht.length)k=k.filter(function(x){return el.nicht.indexOf(x)<0;});
+  /* Logo/Emblem: das Motiv ist Brand-fest und wird nicht getauscht. */
+  if(el.type==='image'&&el.slot==='logo')k=k.filter(function(x){return ['r-gal','r-img','r-imgurl','grp-crop','grp-filt'].indexOf(x)<0;});
+  return k;
+}
+var iTab='inhalt';
+function iReiter(offen){
+  if(offen.indexOf(iTab)<0)iTab=offen[0]||'inhalt';
+  Object.keys(IPANE).forEach(function(p){
+    var tb=document.querySelector('.itab[data-ip="'+p+'"]'), pn=document.getElementById('ip-'+p);
+    var da=offen.indexOf(p)>=0;
+    if(tb){tb.style.display=da?'flex':'none'; tb.classList.toggle('on',da&&p===iTab);}
+    if(pn)pn.classList.toggle('on',da&&p===iTab);
+  });
+}
+/* Blendet Zeilen, Gruppen und Reiter nach der Registry ein bzw. aus und
+   liefert die Liste zurück, damit der Rest von syncInspector sie nutzen kann. */
+function iZeilen(el,isComp){
+  var k=kannListe(el), offen=[];
+  IROWS.forEach(function(id){ show(id,k.indexOf(id)>=0); });
+  Object.keys(IGRP).forEach(function(g){ show(g, IGRP[g].some(function(r){return k.indexOf(r)>=0;})); });
+  Object.keys(IPANE).forEach(function(p){
+    var da=IPANE[p].some(function(g){ return IGRP[g].some(function(r){return k.indexOf(r)>=0;}); });
+    if(p==='inhalt'&&isComp)da=true;
+    if(da)offen.push(p);
+  });
+  iReiter(offen);
+  return k;
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.itab'); if(!b)return;
+  iTab=b.dataset.ip;
+  Object.keys(IPANE).forEach(function(p){
+    var tb=document.querySelector('.itab[data-ip="'+p+'"]'), pn=document.getElementById('ip-'+p);
+    if(tb)tb.classList.toggle('on',p===iTab);
+    if(pn)pn.classList.toggle('on',p===iTab);
+  });
+});
 function syncInspector(){ try{renderShelf();}catch(e){} const el=sel?getEl(sel):null; insp.style.display=el?'block':'none'; var _rb=document.getElementById('reqBox'); if(_rb)_rb.style.display=(el&&isAdmin())?'block':'none'; var _rc=document.getElementById('reqEl'); if(_rc&&el)_rc.checked=!!el.req; if(!el)return; const ev=evEl(el);
   document.getElementById('selname').textContent=el.name;
   const isBtn=el.type==='pill'||el.type==='button';
-  const isFill=(isBtn||el.type==='kv')&&((CAPS[state.active]||{}).fill!==false);
+  const isFill=elIsFill(el);
+  const fprop=fillProp(el);
   const isPhoto=el.type==='image'&&el.slot!=='logo';
   const isComp=el.type==='comp';
   if(isComp)buildCompInspector(el); else { var _cp=document.getElementById('compProps'); if(_cp)_cp.style.display='none'; }
-  show('r-text',el.type!=='image'&&!isComp); show('r-text2',el.type==='chip'||el.type==='kv'); show('r-gal',isPhoto&&!isComp); show('r-img',isPhoto&&!isComp); show('r-imgurl',isPhoto&&!isComp); show('r-color',el.type!=='image'); show('r-style',isBtn); show('r-weight',el.type!=='image'); show('r-border',isFill); show('r-bw',isFill); show('r-brad',isFill); show('grp-type',el.type!=='image'&&!isComp); show('grp-color',el.type!=='image'&&!isComp); show('grp-border',isFill);
+  var _kann=iZeilen(el,isComp);
   if(isPhoto)document.getElementById('i-iurl').value=(ev.src&&ev.src.slice(0,5)!=='data:')?ev.src:'';
-  if(el.type!=='image'&&!isComp)document.getElementById('i-text').value=ev.text||'';
-  if(el.type==='chip'||el.type==='kv')document.getElementById('i-text2').value=ev.text2||'';
-  setN('size',ev.size); setN('gap',ev.gap||0); setN('dy',ev.dy||0); setN('dx',ev.dx||0); setN('rot',ev.rot||0); setN('op',ev.op!=null?ev.op:1);
+  if(_kann.indexOf('r-text')>=0)document.getElementById('i-text').value=ev.text||'';
+  if(_kann.indexOf('r-text2')>=0)document.getElementById('i-text2').value=ev.text2||'';
+  setN('size',ev.size); setN('dy',ev.dy||0); setN('dx',ev.dx||0); setN('rot',ev.rot||0); setN('op',ev.op!=null?ev.op:1);
   var _nx=document.getElementById('i-nx'),_ny=document.getElementById('i-ny'),_sx=document.getElementById('i-sclx'),_sy=document.getElementById('i-scly');
   if(_nx)_nx.value=Math.round(ev.dx||0); if(_ny)_ny.value=Math.round(ev.dy||0);
   if(_sx)_sx.value=ev.sclx||1; if(_sy)_sy.value=ev.scly||1;
   buildWeight(ev.weight||700);
-  var isTxt=(el.type!=='image'&&!isComp);
-  show('r-tstyle',isTxt); buildTStyle(el.tstyle||'');
-  show('r-align',isTxt); show('r-lh',isTxt); show('r-tw',isTxt); show('r-fit',isTxt); show('r-cst',true);
-  if(isTxt){
+  buildTStyle(el.tstyle||'');
+  {
     setN('lh', ev.lh!=null?ev.lh:1.1);
     var _tw=document.getElementById('i-tw'); if(_tw)_tw.value=ev.tw||0;
     var _ft=document.getElementById('i-fit'); if(_ft)_ft.checked=!!ev.fit;
     document.querySelectorAll('#i-align button').forEach(function(b){ b.classList.toggle('on', b.dataset.v===(ev.align||'left')); });
     var _cst=document.getElementById('i-cst'); if(_cst)_cst.value=el.cst||'';
   }
-  if(isFill){ if(isBtn)document.getElementById('i-bstyle').value=ev.bstyle||'solid'; buildSwatch('i-color',ev.fill,c=>{beginEdit();el.fill=c;save();rebuild();},BTN_COLORS,true); buildSwatch('i-bcol',ev.bcol||'navy',c=>{beginEdit();el.bcol=c;save();rebuild();},SWATCH); setN('bw',ev.bw||0); setN('brad',ev.brad!=null?ev.brad:0); }
-  else if(!isComp){ buildSwatch('i-color',ev.color,c=>{beginEdit();el.color=c;save();rebuild();},SWATCH,true); }
-  var _gv=isFill?ev.fill:ev.color; var _ig=isGrad(_gv); show('r-gradt',_ig&&el.type!=='image');
+  /* Ein Farbwähler für beides: bei Text die Schriftfarbe, sonst die Füllung.
+     Buttons/Chips bleiben auf die brandkonformen Button-Farben beschränkt. */
+  if(isBtn)document.getElementById('i-bstyle').value=ev.bstyle||'solid';
+  if(!isComp){
+    buildSwatch('i-color',ev[fprop],function(c){beginEdit();el[fprop]=c;save();rebuild();},isBtn?BTN_COLORS:SWATCH,true);
+    buildSwatch('i-bcol',ev.bcol||'navy',function(c){beginEdit();el.bcol=c;save();rebuild();},SWATCH);
+    setN('bw',ev.bw||0); setN('brad',ev.brad!=null?ev.brad:0);
+  }
+  var _gv=ev[fprop]; var _ig=isGrad(_gv); show('r-gradt',_ig&&_kann.indexOf('r-gradt')>=0);
   if(_ig){ var _rad=String(_gv).split(':')[2]==='rad'; document.querySelectorAll('#i-gradt button').forEach(function(bb){bb.classList.toggle('on',bb.dataset.t===(_rad?'rad':'lin'));}); } }
 /* Brand-Text-Stile (H1, H2, Lead, Kicker …) kommen aus system/brand-components.js.
    „Anwenden" schreibt Grösse, Gewicht, Laufweite und Farbe des Stils in die Ebene —
@@ -3131,7 +3260,7 @@ function buildSwatch(host,curc,cb,pal,withGrad){ pal=pal||SWATCH; const h=docume
   var sx=document.getElementById('i-sclx'); if(sx)sx.addEventListener('input',function(){ set('sclx',Math.max(0.1,parseFloat(this.value)||1)); });
   var sy=document.getElementById('i-scly'); if(sy)sy.addEventListener('input',function(){ set('scly',Math.max(0.1,parseFloat(this.value)||1)); });
 })();
-['size','gap','dy','dx','rot','bw','brad'].forEach(k=>{ const ap=v=>{ if(!sel)return; beginEdit(); const el=getEl(sel); el[k]=v; setN(k,v); save(); rebuild(); };
+['size','dy','dx','rot','bw','brad'].forEach(k=>{ const ap=v=>{ if(!sel)return; beginEdit(); const el=getEl(sel); el[k]=v; setN(k,v); save(); rebuild(); };
   document.getElementById('i-'+k).addEventListener('input',e=>ap(parseFloat(e.target.value)||0));
   document.getElementById('i-'+k+'r').addEventListener('input',e=>ap(parseFloat(e.target.value)||0)); });
 document.getElementById('i-text').addEventListener('input',e=>{if(!sel)return;beginEdit();getEl(sel).text=e.target.value;save();rebuild();});
@@ -5943,8 +6072,7 @@ function addText(stil){ addComp('text'); var el=getEl(sel); if(el){ el.props={st
       var sp=rt.querySelector('[data-ic]'); sp.innerHTML=''; sp.setAttribute('data-ic',on?'lock':'unlock'); hydrateIcons(rt);
       toast(on?'Seitenverhältnis gesperrt — kein Verzerren':'Seitenverhältnis frei'); };
   }
-  var pt=document.getElementById('proToggle'); if(pt)pt.onclick=function(){ document.body.classList.toggle('pro'); this.classList.toggle('on',document.body.classList.contains('pro')); localStorage.setItem('tfcz_pro',document.body.classList.contains('pro')?'1':'0'); };
-  if(localStorage.getItem('tfcz_pro')==='1'){ document.body.classList.add('pro'); if(pt)pt.classList.add('on'); }
+  /* Profi-Schalter entfernt (16.08.2026) — siehe KANN[typ] in der Einstellungen-Spalte. */
 })();
 var _mtb=document.getElementById('modeToggle'); if(_mtb)_mtb.onclick=function(){ _mode=(_mode==='dark')?'normal':'dark'; localStorage.setItem('tfcz_mode',_mode); applyMode(); }; if(!document.body.classList.contains('mobile') && localStorage.getItem('tfcz_view')==='editor'&&_role){/* auf Refresh im Editor bleiben */}else{showHome();} }
 if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>{layoutFit();}).catch(()=>{});}
