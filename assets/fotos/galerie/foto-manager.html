@@ -433,26 +433,26 @@ if(window.showSaveFilePicker){document.getElementById('saveDirectBtn').style.dis
   /* Zahlen sind belegt (CLAUDE.md, Brand Guide, Intro-Decks). Die Sprueche sind
      Haltung, keine Behauptung — sie stellen keine Fakten auf, die niemand prueft. */
   var FAKTEN=[
-   {z:'108',t:'Mitglieder — einer der grössten Tischfussballvereine der Schweiz.',q:'Stand 2026'},
-   {s:1,t:'Bei uns trainieren Weltmeister. Am Tisch daneben spielt jemand seine erste Partie.'},
+   {z:'108',t:'Mitglieder — einer der grössten Tisch&shy;fussball&shy;vereine der Schweiz.',q:'Stand 2026'},
+   {s:1,t:'Bei uns trainieren Welt&shy;meister. Am Tisch daneben spielt jemand seine erste Partie.'},
    {z:'1990',t:'Gegründet — und seither in derselben Halle in Zürich zuhause.',q:'Seit 36 Jahren'},
    {s:1,t:'Kein Partner nötig, keine Anmeldung. Zuschauen kostet nichts.'},
-   {z:'10',t:'Leonhart-Turniertische stehen permanent im Clublokal, dazu ein Ullrich.',q:'Ausstattung'},
-   {s:1,t:'Alle sind willkommen — vom ersten Mal am Tisch bis zur Nationalmannschaft.'},
-   {z:'80+',t:'Turniere im Jahr — vom Plauschabend bis zum Ranglistenturnier.',q:'Jahresprogramm'},
+   {z:'10',t:'Leonhart-Turnier&shy;tische stehen permanent im Clublokal, dazu ein Ullrich.',q:'Ausstattung'},
+   {s:1,t:'Alle sind willkommen — vom ersten Mal am Tisch bis zur National&shy;mannschaft.'},
+   {z:'80+',t:'Turniere im Jahr — vom Plausch&shy;abend bis zum Ranglisten&shy;turnier.',q:'Jahresprogramm'},
    {s:1,t:'Draw Your Partner: dein Partner wird jede Runde neu ausgelost. Du spielst mit allen.'},
    {z:'5000',t:'Franken Jahres-Preistopf beim Crazy DYP, über die Saison ausgespielt.',q:'Preisgeld'},
    {s:1,t:'Mittwochs ab 19 Uhr offen. Um 20:15 wird ausgelost.'},
    {z:'2',t:'Abende pro Woche offenes Training — Dienstag und Mittwoch.',q:'Jede Woche'},
    {s:1,t:'Fünf Franken, Raclette inklusive. So geht KäseKick.'},
    {z:'14',t:'Turniertische an einem STS-Wochenende — die Halle wird zur Arena.',q:'STS Zürich'},
-   {s:1,t:'Wer zuschaut, zahlt nichts. Wer mitspielt, braucht keine Vorkenntnisse.'},
+   {s:1,t:'Wer zuschaut, zahlt nichts. Wer mitspielt, braucht keine Vor&shy;kenntnisse.'},
    {z:'2900',t:'Franken Preisgeld am ITSF250-Wochenende in Zürich.',q:'STS 2026'},
    {s:1,t:'Töggele nennen es die einen. Wir nehmen es trotzdem ernst.'},
    {z:'48',t:'Teams an den Zürich Open — das grösste Feld der Saison.',q:'Zürich Open 2'},
    {s:1,t:'Der Tisch fragt nicht, wie alt du bist oder wie lange du schon spielst.'},
-   {z:'289',t:'Fotos im Vereinsarchiv, in sieben Kategorien sortiert.',q:'Dieses Archiv'},
-   {s:1,t:'Landenbergstrasse 10, Zürich. Türe auf, Licht an, Kugel rollt.'}
+   {z:'289',t:'Fotos im Vereins&shy;archiv, in sieben Kategorien sortiert.',q:'Dieses Archiv'},
+   {s:1,t:'Landenberg&shy;strasse 10, Zürich. Türe auf, Licht an, Kugel rollt.'}
   ];
   function faktEl(f){
     var d=document.createElement('div'); d.className='fakt'+(f.s?' spruch':'');
@@ -505,7 +505,8 @@ if(window.showSaveFilePicker){document.getElementById('saveDirectBtn').style.dis
 #grid .card img{height:100%;width:100%;object-fit:cover}
 #grid .fakt{grid-row:span var(--rs,26);grid-column:span var(--cs,1);
   display:flex;flex-direction:column;justify-content:center;overflow:hidden}
-#grid .fakt .fk-in{width:100%}
+#grid .fakt .fk-in{width:100%;min-width:0}
+#grid .fakt .fk-in *{overflow-wrap:break-word;hyphens:manual;-webkit-hyphens:manual}
 /* --- Filter: Text statt Kasten --- */
 #viewFotos .chiprow{gap:20px;margin:0 0 4px;align-items:flex-end;
   border-bottom:1px solid var(--card-brd);padding-bottom:0}
@@ -708,4 +709,178 @@ if(window.showSaveFilePicker){document.getElementById('saveDirectBtn').style.dis
   #grid .card::after{opacity:1!important;background:linear-gradient(180deg,rgba(8,24,38,.55) 0%,rgba(8,24,38,0) 26%)!important}
 }
 </style>
+<style>
+/* ============================================================================
+   KOPFBEREICH + EINGEKLAPPTE WERKZEUGLEISTE — auf dem FERTIGEN Archiv
+   Alles darunter ist der abgenommene Stand: durchmischt, saubere Kacheln,
+   20 Fakten, mobile-first, Bildansicht nur mit Herunterladen und Blaettern.
+   Neu ist nur der Kopf — und dass Suche und Filter eingeklappt starten.
+   ============================================================================ */
+/* --- Werkzeugleiste: eingeklappt --- */
+#tb{scroll-margin-top:96px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:15px 0;
+  border-top:1px solid var(--card-brd);border-bottom:1px solid var(--card-brd)}
+#tb .b{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--card-brd);
+  border-radius:var(--btn-radius);padding:10px 15px;font-size:13px;font-weight:900;color:var(--ink-mut);
+  transition:all var(--t-fast) var(--ease)}
+#tb .b:hover{border-color:var(--blue);color:var(--ink)}
+#tb .b.on{background:var(--ink);color:var(--navy);border-color:transparent}
+#tb .b sup{font-size:10px;color:var(--gold-lt);font-weight:900}
+#tb .b.on sup{color:var(--navy)}
+#tb .sp{flex:1}
+#tb .z{font-size:12.5px;color:var(--ink-mut)}
+#tb .z b{color:var(--gold-lt)}
+#sb{display:flex;align-items:center;border:1px solid var(--card-brd);border-radius:var(--btn-radius);
+  width:44px;overflow:hidden;transition:width var(--t-base) var(--ease),border-color var(--t-base) var(--ease)}
+#sb.open{width:min(430px,60vw);border-color:var(--gold)}
+#sb .ic{width:44px;height:42px;flex:none;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--ink-mut)}
+/* Die vorhandenen Filterzeilen wandern in ein Blatt, das zu bleibt. */
+#fsheet{display:none;padding:16px 0 4px;border-bottom:1px solid var(--card-brd)}
+#fsheet.open{display:block}
+#viewFotos .bar{margin:0!important;flex:1;min-width:0}
+#viewFotos .search{border:0!important;padding:0 12px 0 0!important;font-size:14px!important;background:none!important}
+#viewFotos .hint{display:none}
+@media(max-width:760px){
+  #tb{padding:12px 0;gap:7px}
+  #tb .b{padding:11px 14px}
+  #sb{order:-1;width:44px}
+  #sb.open{width:100%}
+  #sb .ic{width:40px}
+  #viewFotos .search{font-size:16px!important}
+}
+
+/* ============================================================================
+   HERO — exakt die Klassen der Website (tfcz-training.html / tfcz-firmenevents.html):
+   .hero / .hero-bg / .hero-ov / .hero .wrap / .kick / h1 .g / .sub / .ctas / .cue
+   ============================================================================ */
+.hero{position:relative; min-height:clamp(540px,90vh,840px); display:grid; align-items:center; overflow:hidden;
+  margin:0 calc(-1*var(--bleed,0px))}
+.hero-bg{position:absolute; inset:-12% 0 -12% 0; z-index:0; will-change:transform}
+.hero-bg img{width:100%; height:100%; object-fit:cover}
+.hero-ov{position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(6,15,24,.6) 0%, rgba(7,20,33,.52) 40%, rgba(5,12,20,.9) 100%), radial-gradient(1200px 700px at 78% 12%, rgba(0,90,148,.42), transparent 60%)}
+.hero-ov::after{content:""; position:absolute; left:0; right:0; bottom:0; height:5px; background:linear-gradient(90deg,var(--blue),var(--gold))}
+.hero .wrap{position:relative; z-index:2; width:100%; max-width:1160px; margin:0 auto; padding:60px 22px 70px}
+.hero .kick{display:inline-flex; align-items:center; gap:9px; font-size:12px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-lt); background:rgba(8,18,29,.5); border:1px solid rgba(233,196,117,.4); padding:7px 15px; border-radius:var(--r-pill); margin-bottom:20px}
+.hero h1{font-size:clamp(40px,7.4vw,86px); font-weight:900; color:#fff; text-transform:uppercase; line-height:.95; text-shadow:0 6px 40px rgba(0,0,0,.5); max-width:12ch; margin:0}
+.hero h1 .g{color:var(--gold-lt)}   /* Akzent auf dunklem Foto = Gold, nie Blau */
+.hero .sub{font-size:clamp(16px,2vw,20px); color:#eef4fa; max-width:580px; font-weight:600; margin:20px 0 26px; text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.hero .sub b{color:var(--gold-lt)}
+.hero .ctas{display:flex; gap:12px; flex-wrap:wrap}
+.hero .cue{position:absolute; left:50%; bottom:22px; transform:translateX(-50%); z-index:2; color:rgba(255,255,255,.7); font-size:11px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:8px}
+.hero .cue .arw{width:22px; height:22px; border-right:2px solid rgba(255,255,255,.7); border-bottom:2px solid rgba(255,255,255,.7); transform:rotate(45deg); animation:bob 1.8s var(--ease) infinite}
+@keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(4px,4px)}}
+@media(max-width:640px){ .hero{min-height:86vh} .hero .cue{display:none} }
+@media(prefers-reduced-motion:reduce){ .hero-bg{transform:none!important} .hero .cue .arw{animation:none} }
+/* Knoepfe: die Website-Klassen, unveraendert */
+.btn-ghost{display:inline-flex; align-items:center; gap:8px; font-family:var(--font); font-size:14.5px; font-weight:800; color:#fff; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.28); padding:13px 20px; border-radius:var(--r-pill); cursor:pointer; text-decoration:none; transition:var(--t-fast)}
+.btn-ghost:hover{border-color:transparent; box-shadow:inset 0 2px 0 var(--blue), inset 0 -2px 0 var(--gold)}
+.btn-ghost svg{width:18px;height:18px;flex:none}
+</style>
+<script>
+/* ============================================================================
+   KOPFBEREICH (siehe CSS darueber).
+   Er setzt den Website-Hero und klappt Suche und Filter ein. Alles andere —
+   Durchmischung, Kacheln, Fakten, Bildansicht — bleibt unveraendert.
+   ============================================================================ */
+(function(){
+  var vf=document.getElementById('viewFotos'); if(!vf)return;
+  var mast=document.getElementById('edMast');
+  var bar=vf.querySelector('.bar');
+  var reihen=[].slice.call(vf.querySelectorAll('.chiprow'));
+  if(!mast||!bar||!reihen.length)return;
+
+  /* --- Werkzeugleiste bauen: Lupe, Filter, Zaehler --- */
+  var tb=document.createElement('div'); tb.id='tb';
+  var sb=document.createElement('div'); sb.id='sb';
+  sb.innerHTML='<button class="ic" title="Suchen">&#9906;</button>';
+  sb.appendChild(bar);
+  var fb=document.createElement('button'); fb.className='b'; fb.innerHTML='Filter<sup id="fz"></sup>';
+  var rb=document.createElement('button'); rb.className='b'; rb.textContent='Zurücksetzen'; rb.style.display='none';
+  var sp=document.createElement('div'); sp.className='sp';
+  var zz=document.createElement('div'); zz.className='z';
+  tb.appendChild(sb); tb.appendChild(fb); tb.appendChild(rb); tb.appendChild(sp); tb.appendChild(zz);
+  var sheet=document.createElement('div'); sheet.id='fsheet';
+  reihen.forEach(function(r){ sheet.appendChild(r); });
+  mast.parentNode.insertBefore(tb,mast.nextSibling);
+  tb.parentNode.insertBefore(sheet,tb.nextSibling);
+
+  sb.querySelector('.ic').onclick=function(){
+    var auf=!sb.classList.contains('open'); sb.classList.toggle('open',auf);
+    var q=document.getElementById('q');
+    if(auf){ q.focus(); } else if(q.value){ q.value=''; q.dispatchEvent(new Event('input')); }
+  };
+  fb.onclick=function(){ var auf=!sheet.classList.contains('open');
+    sheet.classList.toggle('open',auf); fb.classList.toggle('on',auf); };
+  rb.onclick=function(){
+    sheet.querySelectorAll('.chip-f').forEach(function(c){ if(/Alle/.test(c.textContent))c.click(); });
+    var q=document.getElementById('q'); if(q.value){ q.value=''; q.dispatchEvent(new Event('input')); }
+  };
+  /* Zaehler und „Zuruecksetzen" folgen dem, was wirklich gesetzt ist. */
+  function stand(){
+    var aktiv=0;
+    sheet.querySelectorAll('.chiprow').forEach(function(r){
+      var on=r.querySelector('.chip-f.on'); if(on&&!/^Alle/.test(on.textContent.trim()))aktiv++; });
+    var q=document.getElementById('q'); if(q&&q.value.trim())aktiv++;
+    document.getElementById('fz').textContent=aktiv?aktiv:'';
+    rb.style.display=aktiv?'':'none';
+    var n=document.querySelectorAll('#grid .card').length;
+    var g=(typeof MAN!=='undefined'&&MAN.photos)?MAN.photos.length:0;
+    zz.innerHTML='<b>'+n+'</b> von '+g+' Fotos';
+  }
+  var _r=window.render;
+  window.render=function(){ var x=_r.apply(this,arguments); try{ stand(); }catch(e){} return x; };
+  stand();
+
+  /* --- Kopfbereich: der Website-Hero, gleiche Klassen --- */
+  var HERO_IMG=RES('assets/fotos/galerie/full/817.webp');
+  var Z=(typeof MAN!=='undefined'&&MAN.photos)?MAN.photos.length:289;
+  mast.innerHTML=
+    '<section class="hero">'
+    + '<div class="hero-bg" data-par="0.18"><img src="'+HERO_IMG+'" alt="Mannschaft des Tischfussball Club Zürich am Tisch"></div>'
+    + '<div class="hero-ov"></div>'
+    + '<div class="wrap">'
+    +   '<div class="kick">Tischfussball Club Zürich · Fotoarchiv</div>'
+    +   '<h1>Das Archiv <span class="g">des Vereins</span></h1>'
+    +   '<p class="sub"><b>'+Z+' Fotos</b> aus Turnier- und Spielabenden — die meisten bei uns im Tischfussball-Lokal.</p>'
+    +   '<div class="ctas">'
+    +     '<a class="btn-ghost" href="#tb" id="heroFilter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M7 12h10M10 19h4"/></svg>Fotos filtern</a>'
+    +   '</div>'
+    + '</div>'
+    + '<div class="cue">Scroll<span class="arw"></span></div>'
+    + '</section>';
+
+  /* Der Hero klappt hoechstens die Filter auf — mehr macht er nicht. */
+  var hf=document.getElementById('heroFilter');
+  if(hf) hf.onclick=function(e){ e.preventDefault();
+    if(!sheet.classList.contains('open')) fb.click();
+    tb.scrollIntoView({behavior:'smooth',block:'start'}); };
+
+  /* Parallax wie auf der Website (data-par). */
+  (function(){
+    var pars=[].slice.call(document.querySelectorAll('[data-par]')), ticking=false;
+    if(!pars.length) return;
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    function tick(){ ticking=false; var vh=window.innerHeight;
+      for(var i=0;i<pars.length;i++){ var el=pars[i], r=el.getBoundingClientRect(),
+        spd=parseFloat(el.getAttribute('data-par'))||0.2, mid=r.top+r.height/2, off=(mid-vh/2)*spd;
+        el.style.transform='translate3d(0,'+(-off).toFixed(1)+'px,0)'; } }
+    function req(){ if(!ticking){ ticking=true; requestAnimationFrame(tick); } }
+    window.addEventListener('scroll',req,{passive:true}); window.addEventListener('resize',req); tick();
+  })();
+})();
+</script>
+
+<script>
+(function(){
+  function bleed(){
+    var m=document.getElementById('edMast'); if(!m) return;
+    var r=m.getBoundingClientRect();
+    var g=Math.max(0, Math.round(r.left));
+    var rest=Math.max(0, Math.round(document.documentElement.clientWidth - r.right));
+    m.style.setProperty('--bleed', Math.min(g,rest)+'px');
+  }
+  window.addEventListener('resize', bleed);
+  if(document.readyState!=='loading') setTimeout(bleed,60); else document.addEventListener('DOMContentLoaded',function(){setTimeout(bleed,60);});
+  setTimeout(bleed,900); setTimeout(bleed,2500);
+})();
+</script>
 </body></html>
