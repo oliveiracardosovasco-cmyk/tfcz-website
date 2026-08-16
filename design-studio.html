@@ -453,7 +453,21 @@ body.role-guest #rotHandle,body.role-guest .rszh{display:none!important;}
 .pk-h{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #12304a;position:sticky;top:0;background:#0a1f31;}
 .pk-h .t{font-weight:900;font-size:16px;}.pk-x{background:#222c38;border:0;color:#eef4fa;width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;}
 .pk-tabs{display:flex;gap:6px;padding:12px 18px 0;flex-wrap:wrap;}
-.pk-tab{background:#0d273d;border:1px solid #163854;color:#c3d2e0;padding:7px 14px;border-radius:20px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;}
+.pk-tab{background:#0d273d;border:1px solid #163854;color:#c3d2e0;padding:7px 14px;border-radius:12px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;}
+/* ---------- Galerie-Reiter: Filterzeilen wie im Foto-Manager ----------
+   Der Bildwaehler liest denselben Katalog (assets/fotos/galerie/galerie.json),
+   den auch der Foto-Manager benutzt. Eine Quelle, zwei Oberflaechen. */
+.pk-search{width:100%;background:#0f1620;border:1px solid #273241;border-radius:12px;color:#eef4fa;padding:10px 12px;font:inherit;font-size:13px;margin-bottom:10px;}
+.pk-frow{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:7px;}
+.pk-flab{font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#7f95ab;flex:none;width:74px;}
+.pk-chip{background:#0d273d;border:1px solid #163854;color:#c3d2e0;padding:5px 11px;border-radius:12px;font:inherit;font-size:11.5px;font-weight:800;cursor:pointer;}
+.pk-chip:hover{border-color:#5ca7dc;}
+.pk-chip.on{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d;border-color:transparent;}
+.pk-chip i{font-style:normal;opacity:.6;margin-left:5px;font-weight:700;}
+.pk-count{color:#94a9bd;font-size:12px;margin:10px 0 8px;}
+/* Die Galerie braucht mehr Breite als Upload/URL. Kacheln bleiben quadratisch,
+   sonst reisst ein Hochformat die Zeile auf; hoch oder quer sagt der Filter. */
+.pk.wide{max-width:860px;}
 .pk-tab.on{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d;border-color:transparent;}
 .pk-body{padding:16px 18px 20px;}
 .pk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;}
@@ -1116,7 +1130,7 @@ header{z-index:200;}
           <div class="rw"><label>Sättigung</label><input type="range" class="range" id="i-fs" min="0" max="2.5" step="0.02"><button class="rwr" data-fk="s"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
           <div class="rw"><label>Graustufen</label><input type="range" class="range" id="i-fg" min="0" max="1" step="0.05"><button class="rwr" data-fk="g"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
         </div>
-        <div class="rw" id="r-gal"><label>Galerie</label><button class="btn blue" id="i-gal" style="width:100%;justify-content:center"><span data-ic="image" data-icsz="15"></span> Foto aus Action / Atmosphäre wählen</button></div>
+        <div class="rw" id="r-gal"><label>Galerie</label><button class="btn blue" id="i-gal" style="width:100%;justify-content:center"><span data-ic="image" data-icsz="15"></span> Foto aus der Galerie wählen</button></div>
         <div class="rw" id="r-img"><label for="i-img">Bild</label><input type="file" id="i-img" accept="image/*" style="font-size:11px;color:#9fb2c4"></div>
         <div class="rw" id="r-imgurl"><label for="i-iurl">Bild-URL</label><input type="text" id="i-iurl" placeholder="https://…  ·  oder Foto per Drag&Drop"><button class="rwr" data-k="src" title="Auf Standard zurücksetzen"><span data-ic="rotate-ccw" data-icsz="13"></span></button></div>
       </div>
@@ -2019,6 +2033,43 @@ const FOTO_BASE={action:'assets/fotos/action/', atmo:'assets/fotos/atmosphaere/'
 (async function(){ try{ const r=await fetch('assets/fotos/index.json',{cache:'no-store'}); if(!r.ok)return;
   const j=await r.json(); if(j&&j.action)FOTOS={action:j.action||[], atmosphaere:j.atmosphaere||[]};
 }catch(e){} })();
+
+/* ===== Foto-Katalog — die EINZIGE Bildquelle =====
+   assets/fotos/galerie/galerie.json ist dieselbe Datei, aus der der Foto-Manager
+   liest. Wer dort ein Foto kategorisiert oder taggt, sieht es hier sofort im
+   Bildwaehler. Kein zweiter Index, keine Handpflege im Code.
+
+   Pfade im Katalog sind ab Site-Wurzel geschrieben. Diese Datei LIEGT in der
+   Wurzel, also stimmen sie hier unveraendert — im Foto-Manager (drei Ebenen
+   tiefer) setzt dessen RES() den Sprung nach oben davor.
+
+   Zwei Sorten Eintraege:
+     - Galerie-Fotos: Datei unter galerie/thumb/<id>.webp bzw. galerie/full/<id>.webp
+     - Altbestand (action/, atmosphaere/) und Vorlagen-Zuschnitte (elite/):
+       tragen ein Feld `src` mit dem echten Pfad und werden direkt von dort geladen.
+   Deshalb galFull() vor jedem Einsetzen — nie den Pfad selbst zusammenbauen. */
+var GAL={photos:[],categories:[],loaded:false};
+const GAL_THUMB='assets/fotos/galerie/thumb/', GAL_FULL='assets/fotos/galerie/full/';
+function galThumb(p){ return (p&&p.src) ? p.src : (GAL_THUMB+(p&&p.id)+'.webp'); }
+function galFull(p){  return (p&&p.src) ? p.src : (GAL_FULL +(p&&p.id)+'.webp'); }
+function galCatName(k){ const c=(GAL.categories||[]).find(function(x){return x.key===k;}); return c?(c.label||c.name||k):k; }
+(async function(){ try{ const r=await fetch('assets/fotos/galerie/galerie.json',{cache:'no-store'}); if(!r.ok)return;
+  const j=await r.json(); if(j&&j.photos){ GAL.photos=j.photos; GAL.categories=j.categories||[]; GAL.loaded=true; }
+}catch(e){} })();
+
+/* Filtern in EINER Funktion, damit Zaehler und Raster garantiert dieselbe Menge
+   sehen — sonst steht ueber dem Raster eine Zahl, die nicht stimmt. */
+function galFilter(f){
+  var q=(f.q||'').trim().toLowerCase();
+  return (GAL.photos||[]).filter(function(p){
+    if(f.cat && (p.category||p.cat)!==f.cat) return false;
+    if(f.turnier && (p.turnier||'')!==f.turnier) return false;
+    if(f.orient && (p.orient||'')!==f.orient) return false;
+    if(!q) return true;
+    var hay=[p.id,p.event,p.turnier,(p.tags||[]).join(' '),galCatName(p.category||p.cat)].join(' ').toLowerCase();
+    return q.split(/\s+/).every(function(w){ return hay.indexOf(w)>=0; });
+  });
+}
 /* Repo-Foto in eine Data-URL wandeln — sonst „taintet" es beim PNG-Export das Canvas.
    Klappt nur über Server; bei file:// wird der Pfad direkt genommen (Vorschau ok, Export ggf. nicht). */
 /* ===== Galerie-Fotos: NUR bei file:// in eine Data-URL wandeln =====
@@ -3077,7 +3128,7 @@ document.getElementById('i-img').addEventListener('change',e=>{ if(!sel)return; 
   var lk=document.getElementById('i-lock'); if(lk)lk.addEventListener('click',toggleLock);
 })();
 document.getElementById('i-gal').addEventListener('click',function(){ if(!sel)return; var el=getEl(sel);
-  openPicker({title:'Foto wählen · Action / Atmosphäre'},function(src){ if(!src)return; beginEdit(); el.src=src; addToLibrary(src); save(); rebuild(); syncInspector(); }); });
+  openPicker({title:'Foto wählen · Vereinsgalerie'},function(src){ if(!src)return; beginEdit(); el.src=src; addToLibrary(src); save(); rebuild(); syncInspector(); }); });
 document.getElementById('i-iurl').addEventListener('change',e=>{ if(!sel)return; const u=e.target.value.trim(); beginEdit(); getEl(sel).src=u||null; save(); rebuild(); });
 document.getElementById('i-weight').addEventListener('change',e=>{if(!sel)return;beginEdit();getEl(sel).weight=parseInt(e.target.value);save();rebuild();});
 document.getElementById('i-bstyle').addEventListener('change',e=>{if(!sel)return;beginEdit();getEl(sel).bstyle=e.target.value;save();rebuild();});
@@ -4588,7 +4639,7 @@ function buildEvent(){ const P=document.getElementById('profi'),C=COLORS; const 
   P.querySelectorAll('.edrop').forEach(n=>{
     const setSrc=src=>{ beginEdit(); const el=getEl('photo'); if(el)el.src=src||null; save(); rebuild(); };
     const doFile=fl=>fileToSrc(fl,function(src){ addToLibrary(src); setSrc(src); });
-    n.addEventListener('dblclick',ev=>{ev.stopPropagation();openPicker({title:'Foto wählen · Action / Atmosphäre'},setSrc);});
+    n.addEventListener('dblclick',ev=>{ev.stopPropagation();openPicker({title:'Foto wählen · Vereinsgalerie'},setSrc);});
     n.addEventListener('dragover',ev=>{ev.preventDefault();n.classList.add('dragover');});
     n.addEventListener('dragleave',()=>n.classList.remove('dragover'));
     n.addEventListener('drop',ev=>{ev.preventDefault();n.classList.remove('dragover');const fl=ev.dataTransfer&&ev.dataTransfer.files&&ev.dataTransfer.files[0];if(fl)doFile(fl);});
@@ -4626,12 +4677,49 @@ function buildEventPanel(){ const p=document.getElementById('eventPanel'); if(!p
 }
 function openPicker(opts,cb){ opts=opts||{}; const kind=opts.kind||'image'; const P=document.getElementById('picker');
   const repo=(kind==='logo'?ASSETS.logo:ASSETS.img)||[]; const base=kind==='logo'?'assets/logo/':'assets/img/';
-  let tab=(kind==='logo')?((state.library&&state.library.length)?'lib':'upload'):'action';
+  /* Galerie ist der Standard. Nur wenn der Katalog nicht geladen werden konnte
+     (file:// ohne Server), faellt der Waehler auf die alten Ordner-Reiter zurueck —
+     dann steht wenigstens der Altbestand zur Verfuegung statt einer leeren Flaeche. */
+  let tab=(kind==='logo')?((state.library&&state.library.length)?'lib':'upload'):(GAL.loaded?'gal':'action');
+  let flt={cat:'',turnier:'',orient:'',q:''};
   function close(){ TFCZ_PORTAL.close(P.firstElementChild,function(){ P.style.display='none'; P.innerHTML=''; }); }
   function pick(src){ close(); cb(src); }
   function render(){
     let body='';
-    if(tab==='action'||tab==='atmo'){
+    if(tab==='gal'){
+      /* Chips zeigen ihre Trefferzahl unter den JEWEILS anderen Filtern —
+         so sieht man vor dem Klick, ob er ins Leere fuehrt. */
+      function chips(label,key,opts){
+        var h='<div class="pk-frow"><span class="pk-flab">'+label+'</span>';
+        h+='<button class="pk-chip'+(flt[key]?'':' on')+'" data-f="'+key+'" data-v="">Alle</button>';
+        opts.forEach(function(o){
+          var probe=Object.assign({},flt); probe[key]=o.v;
+          var n=galFilter(probe).length; if(!n && flt[key]!==o.v) return;
+          h+='<button class="pk-chip'+(flt[key]===o.v?' on':'')+'" data-f="'+key+'" data-v="'+escA(o.v)+'">'+esc(o.l)+'<i>'+n+'</i></button>';
+        });
+        return h+'</div>';
+      }
+      var cats=(GAL.categories||[]).map(function(c){return {v:c.key,l:c.label||c.name||c.key};});
+      if(!cats.length){ var seen={}; (GAL.photos||[]).forEach(function(p){var k=p.category||p.cat; if(k)seen[k]=1;});
+        cats=Object.keys(seen).map(function(k){return {v:k,l:k};}); }
+      var turn={}; (GAL.photos||[]).forEach(function(p){ if(p.turnier)turn[p.turnier]=1; });
+      var turnOpts=Object.keys(turn).sort().map(function(t){return {v:t,l:t};});
+
+      var hits=galFilter(flt);
+      body ='<input class="pk-search" id="pkQ" placeholder="Suchen: Tag, Kategorie, ID … z. B. jubel, pokal, doppel" value="'+escA(flt.q)+'">';
+      body+=chips('Kategorie','cat',cats);
+      if(turnOpts.length) body+=chips('Turnier','turnier',turnOpts);
+      body+=chips('Format','orient',[{v:'quer',l:'Quer'},{v:'hoch',l:'Hoch'}]);
+      body+='<div class="pk-count"><b>'+hits.length+'</b> von '+(GAL.photos||[]).length+' Fotos</div>';
+      body+= hits.length
+        ? '<div class="pk-grid">'+hits.map(function(p){
+            var t=galThumb(p), f=galFull(p);
+            var ti=[p.id,galCatName(p.category||p.cat),(p.tags||[]).join(', ')].filter(Boolean).join(' · ');
+            return '<div class="pk-thumb" data-repo="'+escA(f)+'" '
+                 + 'style="background-image:url(\''+escA(t)+'\'),url(\''+escA(f)+'\')" title="'+escA(ti)+'"></div>'; }).join('')+'</div>'
+        : '<div class="pk-empty">Kein Foto passt zu dieser Auswahl. Filter zurücksetzen oder im Foto-Manager taggen.</div>';
+    }
+    else if(tab==='action'||tab==='atmo'){
       const list=(tab==='action'?FOTOS.action:FOTOS.atmosphaere)||[], b=FOTO_BASE[tab];
       body=list.length
         ? '<div class="pk-grid">'+list.map(function(fn){ const u=b+fn;
@@ -4642,13 +4730,23 @@ function openPicker(opts,cb){ opts=opts||{}; const kind=opts.kind||'image'; cons
     else if(tab==='repo'){ body=repo.length?'<div class="pk-grid">'+repo.map(fn=>{const u=base+fn;return '<div class="pk-thumb" data-src="'+u+'" style="background-image:url('+u+')" title="'+esc(fn)+'"></div>';}).join('')+'</div>':'<div class="pk-empty">Keine Repo-Bilder hinterlegt. Lege Dateien in <b>'+base+'</b> ab und trage die Dateinamen im Code unter <b>ASSETS</b> ein.</div>'; }
     else if(tab==='url'){ body='<div class="pk-row"><input type="url" id="pkUrl" placeholder="https://…/bild.jpg"><button class="btn primary" id="pkUrlGo">Übernehmen</button></div><div class="pk-empty">Öffentlich erreichbare Bild-URL einfügen.</div>'; }
     else { body='<div class="pk-row"><input type="file" id="pkFile" accept="image/*"></div><div class="pk-empty">Bild von deinem Gerät wählen – es wird auch in der Bibliothek gespeichert.</div>'; }
-    const tabs=(kind==='logo')?[['lib','Bibliothek'],['upload','Upload'],['url','URL']]:[['action','Action'],['atmo','Atmosphäre'],['lib','Bibliothek'],['upload','Upload'],['url','URL']]; if(repo.length)tabs.push(['repo','Repo-Galerie']);
-    let h='<div class="pk"><div class="pk-h"><div class="t">'+esc(opts.title||'Bild wählen')+'</div><button class="xbtn pk-x" id="pkX">'+IC('x',17)+'</button></div>';
+    /* Ein Reiter „Galerie" statt zweier Ordner-Reiter. Die alten bleiben nur als
+       Notnagel sichtbar, wenn der Katalog nicht geladen werden konnte. */
+    const tabs=(kind==='logo')
+      ? [['lib','Bibliothek'],['upload','Upload'],['url','URL']]
+      : (GAL.loaded ? [['gal','Galerie'],['lib','Bibliothek'],['upload','Upload'],['url','URL']]
+                    : [['action','Action'],['atmo','Atmosphäre'],['lib','Bibliothek'],['upload','Upload'],['url','URL']]);
+    if(repo.length)tabs.push(['repo','Repo-Galerie']);
+    let h='<div class="pk'+(tab==='gal'?' wide':'')+'"><div class="pk-h"><div class="t">'+esc(opts.title||'Bild wählen')+'</div><button class="xbtn pk-x" id="pkX">'+IC('x',17)+'</button></div>';
     h+='<div class="pk-tabs">'+tabs.map(t=>'<button class="pk-tab'+(t[0]===tab?' on':'')+'" data-tab="'+t[0]+'">'+t[1]+'</button>').join('')+((kind==='logo'&&state.logoSrc)?'<button class="pk-tab" data-tab="__reset">'+IC('rotate-ccw',13)+' Standard-Logo</button>':'')+'</div>';
     h+='<div class="pk-body">'+body+'</div></div>';
     P.innerHTML=h;
     document.getElementById('pkX').onclick=close;
     P.querySelectorAll('.pk-tab').forEach(b=>b.onclick=()=>{ if(b.dataset.tab==='__reset'){pick(null);return;} tab=b.dataset.tab; render(); });
+    P.querySelectorAll('.pk-chip').forEach(b=>b.onclick=()=>{ flt[b.dataset.f]=b.dataset.v; render(); });
+    const q=document.getElementById('pkQ');
+    if(q){ q.oninput=function(){ flt.q=q.value; render(); const n=document.getElementById('pkQ');
+             if(n){ n.focus(); n.setSelectionRange(n.value.length,n.value.length); } }; }
     P.querySelectorAll('.pk-thumb').forEach(t=>t.onclick=async ()=>{
       if(t.dataset.repo){ const d=await fotoSrc(t.dataset.repo); addToLibrary(d); pick(d); }
       else pick(t.dataset.src); });
@@ -4663,7 +4761,7 @@ var _lb=document.getElementById('logoBtn'); if(_lb)_lb.onclick=()=>openPicker({t
 const CAP_IG='@tischfussballclubzuerich', CAP_YT='@tischfussballclubzuerich', CAP_WEB='tfcz.ch';
 /* Wer wir sind — eine Quelle, gilt für jede Beschreibung. Tone of Voice: Du-Form, kurz, konkret,
    einladend, nie gendern, keine Corporate-Floskeln. Zahlen/Adresse nur aus dem Steckbrief. */
-const CAP_ABOUT='Der Tischfussball Club Zürich ist der grösste Tischfussballverein der Schweiz — seit 1990 in derselben Halle in Wipkingen. Bei uns trainieren Weltmeister, und am Tisch daneben spielt jemand seine erste Partie. Alle sind willkommen.';
+const CAP_ABOUT='Der Tischfussball Club Zürich ist der grösste Tischfussballverein der Schweiz — seit 1990 in derselben Halle in Zürich. Bei uns trainieren Weltmeister, und am Tisch daneben spielt jemand seine erste Partie. Alle sind willkommen.';
 const CAP_ORT='Landenbergstrasse 10, 8037 Zürich';
 /* Zeiten — EINE Quelle. Freigegeben Vasco 14.07.2026: DYP Türöffnung 19:00, Start 20:15.
    Dienstag = offenes Training (Lokal ab 18:00 offen). Nie eine zweite Zeit irgendwo hinschreiben. */
@@ -4728,7 +4826,7 @@ function capDefault(cat,fmt){
       `${d.ttl} LIVE | Tischfussball Club Zürich`,
       '',
       'BESCHREIBUNG',
-      `Wir streamen den ganzen ${d.ttl} aus unserem Lokal in Zürich Wipkingen — von der ersten Auslosung bis zum Final.`,
+      `Wir streamen den ganzen ${d.ttl} aus unserem Lokal in Zürich — von der ersten Auslosung bis zum Final.`,
       '',
       d.hook,
       '',
@@ -4809,7 +4907,10 @@ const PERMATRIX_DEF={
   international:['keyplayer'],
   events:['alle','fdf','gast']
 };
-function escA(s){ return esc(s).replace(/"/g,'&quot;'); }
+/* Attribut-sicher: ein Apostroph in einem Tag („grosse's Spiel") wuerde sonst
+   aus style="…url('…')" ausbrechen. Ueberall dort, wo Katalog-Text in ein
+   Attribut geht, escA() statt esc(). */
+function escA(s){ return esc(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 function ensurePersona(){
   if(!state.personas) state.personas=clone(PERSONA_DEF);
   if(!state.tournaments) state.tournaments=clone(TOURN_DEF);
@@ -5735,7 +5836,7 @@ function addText(stil){ addComp('text'); var el=getEl(sel); if(el){ el.props={st
 (function(){
   document.querySelectorAll('.add-btn[data-add]').forEach(function(b){ b.onclick=function(){ var a=b.dataset.add;
     if(a==='h1'||a==='h2'||a==='body')addText(a);
-    else if(a==='photo'){ addComp('foto'); openPicker&&openPicker({title:'Foto wählen · Action / Atmosphäre'},function(src){ if(!src||!sel)return; var el=getEl(sel); if(el){ el.props=el.props||{}; el.props.src=src; save(); rebuild(); syncInspector(); } }); }
+    else if(a==='photo'){ addComp('foto'); openPicker&&openPicker({title:'Foto wählen · Vereinsgalerie'},function(src){ if(!src||!sel)return; var el=getEl(sel); if(el){ el.props=el.props||{}; el.props.src=src; save(); rebuild(); syncInspector(); } }); }
     else if(a==='cta')addComp('cta');
   }; });
   var me=document.getElementById('addMoreEls'); if(me)me.onclick=function(){ document.body.classList.remove('layers-hidden'); var lb=document.getElementById('rpLib'); if(lb)lb.scrollIntoView({behavior:'smooth',block:'start'}); };
