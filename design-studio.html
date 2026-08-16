@@ -6080,6 +6080,7 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&m.style.di
   pTexte.classList.add('on');
 
   var RPTAB='texte';
+  var TIPPT=false;      /* true, solange der Nutzer in einem Formularfeld schreibt */
   function setRP(t,ohneFokus){
     RPTAB=t;
     [].forEach.call(tabs.children,function(b){ b.classList.toggle('on',b.dataset.rp===t); });
@@ -6115,15 +6116,25 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&m.style.di
             +'</div>'; }).join('');
     els.forEach(function(e){
       var f=document.getElementById('tf_'+e.id); if(!f)return;
+      /* rebuild() loest syncInspector aus, und das wuerde das Formular neu bauen —
+         mitten im Tippen. Der Knoten unter dem Cursor waere dann ein anderer, der
+         Rest der Eingabe ginge ins Leere. Deshalb waehrend der Eingabe sperren. */
       f.addEventListener('input',function(){
+        TIPPT=true;
         beginEdit(); getEl(e.id).text=f.value; save(); rebuild();
         var i=document.getElementById('i-text'); if(i&&sel===e.id)i.value=f.value;
+        TIPPT=false;
       });
-      /* Fokus im Formular = Auswahl auf der Buehne. So bleiben beide synchron. */
+      /* Fokus im Formular = Auswahl auf der Buehne. So bleiben beide synchron.
+         TIPPT sperrt dabei den Neuaufbau des Formulars — sonst wuerde der Knoten,
+         in dem der Cursor gerade steht, unter den Fingern ersetzt. Genau daran
+         ist die erste Fassung gescheitert. */
       f.addEventListener('focus',function(){
-        if(sel!==e.id){ sel=e.id; selMulti=[e.id]; markSel(); syncInspector(); setRP('texte',true); }
+        TIPPT=true;
+        if(sel!==e.id){ sel=e.id; selMulti=[e.id]; markSel(); syncInspector(); }
         markiere(e.id);
       });
+      f.addEventListener('blur',function(){ TIPPT=false; });
     });
     markiere(sel);
   }
@@ -6141,6 +6152,7 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&m.style.di
     window.syncInspector=function(){
       _si.apply(this,arguments);
       try{
+        if(TIPPT){ markiere(sel); return; }
         if(sel){ var e=getEl(sel);
           if(e&&(e.type==='image'||e.type==='comp')&&RPTAB==='texte'){ setRP('element'); return; } }
         if(RPTAB==='texte'){ buildTxtForm(); if(sel&&document.getElementById('tf_'+sel))fokusFeld(); }
@@ -6362,6 +6374,335 @@ body.mobile .layers{height:56vh}
   if(typeof _si2==='function'){ window.syncInspector=function(){ _si2.apply(this,arguments);
     try{ if(document.body.classList.contains('mobile')&&sel)lay.classList.add('rp-open'); }catch(e){} }; }
   document.addEventListener('keydown',function(e){ if(e.key==='Escape')lay.classList.remove('rp-open'); });
+})();
+</script>
+<style>
+/* ============================================================================
+   KEIN STILLES SPEICHERN (Vasco 16.08.2026)
+   Vorher schrieb jede Aenderung sofort in den Browser-Speicher UND ans Backend,
+   waehrend die Oberflaeche gleichzeitig „ungespeichert" meldete. Beides zugleich
+   ist ein Widerspruch — und es hiess, dass Aenderungen bestand haben, ohne dass
+   sie jemand bestaetigt hat.
+
+   Neu: Aenderungen sind ein ENTWURF. Sie liegen in einem eigenen Speicherplatz,
+   der beim Start NICHT geladen wird, und werden erst mit „Speichern" verbindlich.
+   Der Entwurf bleibt trotzdem liegen — ein Absturz oder ein versehentliches
+   Neuladen soll die Arbeit nicht vernichten (genau so ging schon einmal eine
+   Vorlage verloren). Beim naechsten Start wird er angeboten, nicht aufgezwungen.
+   ============================================================================ */
+#saveBtn{display:inline-flex;align-items:center;gap:7px;background:#0d273d;border:1px solid #30435a;
+  color:#c3d2e0;border-radius:var(--btn-radius,12px);padding:9px 15px;font:inherit;font-size:13px;
+  font-weight:900;cursor:pointer;transition:.18s;margin-right:6px;white-space:nowrap}
+#saveBtn:hover{border-color:#5ca7dc;color:#eef4fa}
+#saveBtn.dirty{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d;border-color:transparent}
+#saveBtn .dot{width:7px;height:7px;border-radius:50%;background:#5b6f83;flex:none}
+#saveBtn.dirty .dot{background:#0d273d}
+#saveBtn:disabled{opacity:.55;cursor:default}
+#recBar{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:120;display:none;
+  align-items:center;gap:12px;background:rgba(10,31,49,.98);border:1px solid #30435a;
+  border-top:2px solid #5ca7dc;border-bottom:2px solid #cda857;border-radius:var(--btn-radius,12px);
+  padding:11px 15px;box-shadow:0 16px 40px rgba(0,0,0,.55);font-size:13px}
+#recBar.on{display:flex}
+#recBar b{color:#e9c475}
+#recBar button{border-radius:var(--btn-radius,12px);padding:7px 13px;font:inherit;font-size:12.5px;font-weight:900;cursor:pointer;border:0}
+#recBar .ja{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d}
+#recBar .nein{background:#0d273d;border:1px solid #30435a;color:#c3d2e0}
+body.mobile #saveBtn{padding:9px 11px}
+body.mobile #saveBtn .lbl{display:none}
+</style>
+<script>
+/* ============================================================================
+   KEIN STILLES SPEICHERN — siehe CSS-Block darueber.
+   save() schreibt nur noch in den Entwurfs-Platz. Verbindlich wird es ueber
+   speichereJetzt(), das an „Speichern", „Als Vorlage speichern" und die
+   Bestaetigungen der Bearbeiten-Leiste haengt.
+   ============================================================================ */
+(function(){
+  if(typeof LSKEY==='undefined'||typeof save!=='function')return;
+  var ENTWURF=LSKEY+':entwurf';
+  var echt=false, dirty=false, benutzer=false;
+  /* Beim Aufbau ruft das Studio selbst mehrfach save() — das ist keine Aenderung
+     des Nutzers und darf den Knopf nicht auf „ungespeichert" stellen. */
+  ['pointerdown','keydown','input','change'].forEach(function(ev){
+    document.addEventListener(ev,function(){ benutzer=true; },true); });
+  var _save=window.save;
+
+  function setDirty(d){
+    dirty=d; var b=document.getElementById('saveBtn'); if(!b)return;
+    b.classList.toggle('dirty',d);
+    b.disabled=!d;
+    b.querySelector('.lbl').textContent = d ? 'Speichern' : 'Gespeichert';
+    b.title = d ? 'Schreibt deine Änderungen verbindlich fest.'
+                : 'Keine offenen Änderungen.';
+  }
+
+  /* Der Alltagsweg: nur Entwurf, kein Backend. */
+  window.save=function(){
+    if(echt)return _save.apply(this,arguments);
+    try{ localStorage.setItem(ENTWURF, JSON.stringify(stateToStore())); }catch(e){}
+    /* Nur echte Inhalts-Aenderungen zaehlen. Die laufen ausnahmslos durch
+       beginEdit(), das `editing` setzt — Navigation und Aufbau tun das nicht.
+       Damit sagen Knopf und Bearbeiten-Leiste ab jetzt dasselbe. */
+    if(typeof editing!=='undefined'&&editing)setDirty(true);
+  };
+  window.speichereJetzt=function(still){
+    echt=true;
+    try{ _save(); }catch(e){}
+    echt=false;
+    try{ localStorage.removeItem(ENTWURF); }catch(e){}
+    setDirty(false);
+    if(!still&&typeof toast==='function')toast('Gespeichert.');
+  };
+
+  /* Speichern-Knopf in die Kopfzeile, direkt vor „Herunterladen". */
+  var dl=document.getElementById('download');
+  if(dl&&dl.parentElement){
+    var b=document.createElement('button'); b.id='saveBtn';
+    b.innerHTML='<span class="dot"></span><span class="lbl">Gespeichert</span>';
+    b.onclick=function(){ speichereJetzt(); };
+    dl.parentElement.insertBefore(b,dl);
+  }
+  setDirty(false);
+
+  /* Die vorhandenen Bestaetigungen sind ab jetzt echte Speicherpunkte. */
+  var _ce=window.commitEdit;
+  if(typeof _ce==='function'){ window.commitEdit=function(){ var r=_ce.apply(this,arguments);
+    speichereJetzt(true); return r; }; }
+  var _st=document.getElementById('saveTpl');
+  if(_st)_st.addEventListener('click',function(){ setTimeout(function(){ speichereJetzt(true); },80); });
+  /* Verwerfen raeumt auch den Entwurf weg. */
+  var _cae=window.cancelEdit;
+  if(typeof _cae==='function'){ window.cancelEdit=function(){ var r=_cae.apply(this,arguments);
+    try{ localStorage.removeItem(ENTWURF); }catch(e){} setDirty(false); return r; }; }
+
+  /* Beim Start: liegt ein Entwurf herum, wird er ANGEBOTEN — nicht geladen.
+     So bleibt „nichts wird ohne dich gespeichert" wahr, ohne dass ein Absturz
+     die Arbeit kostet. */
+  var roh=null; try{ roh=localStorage.getItem(ENTWURF); }catch(e){}
+  if(roh){
+    var bar=document.createElement('div'); bar.id='recBar';
+    bar.innerHTML='<span>Vom letzten Mal liegt ein <b>ungespeicherter Entwurf</b> bereit.</span>'
+      +'<button class="ja" id="recJa">Wiederherstellen</button>'
+      +'<button class="nein" id="recNein">Verwerfen</button>';
+    document.body.appendChild(bar);
+    setTimeout(function(){ bar.classList.add('on'); },1200);
+    document.getElementById('recJa').onclick=function(){
+      try{ localStorage.setItem(LSKEY,roh); }catch(e){}
+      try{ localStorage.removeItem(ENTWURF); }catch(e){}
+      location.reload();
+    };
+    document.getElementById('recNein').onclick=function(){
+      try{ localStorage.removeItem(ENTWURF); }catch(e){}
+      bar.classList.remove('on');
+    };
+  }
+})();
+</script>
+<style>
+/* ============================================================================
+   BUEHNE IMMER ZENTRIERT UND EINGEPASST (Vasco 16.08.2026)
+   Vorher: #stagescroll war oben ausgerichtet, und die Skalierung wurde nur bei
+   einem Fenster-Resize neu gerechnet. Klappte die linke Schiene auf, wurde der
+   Platz schmaler — die Buehne blieb aber gleich gross und lief unter das Blatt.
+
+   Loesung in zwei Teilen:
+   1) margin:auto auf dem Seitenstapel. Das zentriert waagrecht UND senkrecht,
+      solange Platz da ist, und schneidet — anders als align-items:center — bei
+      zu grossem Inhalt oben nichts ab.
+   2) Ein ResizeObserver auf der Buehnenflaeche. Damit wird JEDE Aenderung der
+      verfuegbaren Breite neu gerechnet, egal wodurch sie entsteht.
+   ============================================================================ */
+#stagescroll{align-items:stretch!important}
+#pagestack{margin:auto!important;padding:24px 0!important;justify-content:center}
+</style>
+<script>
+/* Siehe CSS-Block darueber. */
+(function(){
+  var wrap=document.getElementById('stagescroll');
+  if(!wrap||typeof fitStage!=='function')return;
+  var warten=false;
+  function neu(){
+    if(warten)return; warten=true;
+    requestAnimationFrame(function(){ warten=false;
+      try{ fitStage(); }catch(e){}
+    });
+  }
+  if(window.ResizeObserver){ new ResizeObserver(neu).observe(wrap); }
+  else { window.addEventListener('resize',neu); }
+  /* Das Blatt der Symbolschiene faehrt animiert aus — waehrend der Fahrt und
+     einmal danach nachrechnen, damit es nicht springt. */
+  var fly=document.getElementById('flyB');
+  if(fly){ fly.addEventListener('transitionend',neu);
+    var _mo=new MutationObserver(function(){ neu(); setTimeout(neu,60); setTimeout(neu,280); });
+    _mo.observe(fly,{attributes:true,attributeFilter:['class']}); }
+  /* Dasselbe fuer die rechte Spalte, falls sie ein- oder ausgeblendet wird. */
+  var lay=document.getElementById('layersPanel');
+  if(lay){ new MutationObserver(function(){ neu(); setTimeout(neu,280); })
+    .observe(lay,{attributes:true,attributeFilter:['class','style']}); }
+  neu();
+})();
+</script>
+<style>
+/* ============================================================================
+   SPALTEN: SYMBOLE BEIDSEITIG, BREITE ZIEHBAR (Vasco 16.08.2026)
+   Rechts spiegelt jetzt links: schmale Symbolschiene aussen, Inhalt daneben.
+   Beide Spalten lassen sich am Rand breiter und schmaler ziehen; die Breite
+   bleibt gespeichert. Die Buehne rechnet sich dabei laufend neu ein (siehe
+   ResizeObserver weiter oben) — sie wird nie ueberdeckt.
+   ============================================================================ */
+#railR{width:60px;flex:none;background:var(--cardg2,#0a1f31);border-left:1px solid var(--brd,#30435a);
+  display:flex;flex-direction:column;align-items:center;padding:9px 0 12px;gap:5px;z-index:31;order:99}
+#railR .rbI{color:#94a9bd}
+.layers{order:98;position:relative}
+#rpTabs{display:none!important}
+/* Die verschobenen Werkzeuggruppen sind fuer eine waagrechte Leiste gebaut —
+   in einer schmalen Spalte muessen sie umbrechen duerfen. */
+#rpTools .tbcond{display:block;max-width:none!important;overflow:visible;opacity:1}
+#rpTools .tbcond.off{display:none}
+#rpTools .tb-group{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:8px}
+#rpTools .tb-lab{width:100%;font-size:10px;font-weight:900;letter-spacing:.11em;
+  text-transform:uppercase;color:#94a9bd;margin:0 0 5px}
+#rpTools .tb-sep{display:none}
+/* Ziehgriffe */
+.szh{position:absolute;top:0;bottom:0;width:8px;cursor:col-resize;z-index:40}
+.szh::after{content:"";position:absolute;top:50%;width:2px;height:34px;margin-top:-17px;
+  border-radius:2px;background:#2a4763;left:3px;opacity:0;transition:opacity .18s}
+.szh:hover::after,.szh.zieht::after{opacity:1;background:#cda857}
+#szhL{right:-4px}
+#szhR{left:-4px}
+body.zieht{cursor:col-resize;user-select:none}
+/* Inhalt der Spalten darf nie ueberlaufen — das war das Chaos in der Bibliothek. */
+#flyB .flyPane,.layers .rp-pane{min-width:0}
+#flyB *,.layers .rp-pane *{max-width:100%}
+#flyB .libhost,.layers .libhost{min-width:0;overflow:hidden}
+#flyB .lib-item,#flyB .libcat,.libhost .lib-item{min-width:0}
+#flyB .lib-prev,.libhost .lib-prev{max-width:100%;overflow:hidden}
+body.mobile #railR{display:none!important}
+</style>
+<script>
+/* Siehe CSS-Block darueber. */
+(function(){
+  var lay=document.getElementById('layersPanel');
+  var fly=document.getElementById('flyB');
+  var main=lay?lay.parentElement:null;
+  if(!lay||!main)return;
+  var IC2=function(n,sz){ return (typeof IC==='function')?IC(n,sz||18):''; };
+
+  /* ---------- Rechte Symbolschiene ---------- */
+  var railR=document.createElement('aside'); railR.id='railR';
+  main.appendChild(railR);
+  var DEFR=[['texte','type','Texte'],['element','sliders-horizontal','Element'],['ebenen','layers','Ebenen']];
+  DEFR.forEach(function(d){ var b=document.createElement('button'); b.className='rbI'; b.dataset.rp=d[0];
+    b.title=d[2]; b.innerHTML=IC2(d[1],18)+'<i>'+d[2]+'</i>'; railR.appendChild(b); });
+
+  function markR(k){ [].forEach.call(railR.children,function(b){ b.classList.toggle('on',b.dataset.rp===k); }); }
+  var alteTabs=document.getElementById('rpTabs');
+  [].forEach.call(railR.children,function(b){
+    b.onclick=function(){
+      var k=b.dataset.rp;
+      /* Auf denselben Knopf ein zweites Mal = Spalte zuklappen. Wie links. */
+      if(b.classList.contains('on')&&lay.style.display!=='none'){ lay.style.display='none'; markR(null); return; }
+      lay.style.display='';
+      var t=alteTabs?alteTabs.querySelector('.rpTab[data-rp="'+k+'"]'):null;
+      if(t)t.click();
+      markR(k);
+    };
+  });
+  /* Wenn das Studio selbst den Reiter wechselt, folgt die Schiene. */
+  if(alteTabs){ new MutationObserver(function(){
+      var on=alteTabs.querySelector('.rpTab.on'); if(on)markR(on.dataset.rp);
+    }).observe(alteTabs,{subtree:true,attributes:true,attributeFilter:['class']}); }
+  markR('texte');
+
+  /* ---------- Breite ziehen ---------- */
+  function ziehbar(el,griffId,seite,minB,maxB,key){
+    if(!el)return;
+    var g=document.createElement('div'); g.className='szh'; g.id=griffId; el.appendChild(g);
+    var gesp=null; try{ gesp=parseInt(localStorage.getItem(key)||'',10); }catch(e){}
+    if(gesp&&gesp>=minB&&gesp<=maxB)setzen(gesp);
+    function setzen(w){ el.style.width=w+'px';
+      if(el.id==='flyB')el.style.setProperty('--fw',w+'px'); }
+    g.addEventListener('mousedown',function(e){
+      e.preventDefault(); g.classList.add('zieht'); document.body.classList.add('zieht');
+      var x0=e.clientX, w0=el.getBoundingClientRect().width;
+      function mv(ev){
+        var d=(seite==='links')?(ev.clientX-x0):(x0-ev.clientX);
+        var w=Math.max(minB,Math.min(maxB,Math.round(w0+d)));
+        setzen(w);
+      }
+      function up(){ document.removeEventListener('mousemove',mv); document.removeEventListener('mouseup',up);
+        g.classList.remove('zieht'); document.body.classList.remove('zieht');
+        try{ localStorage.setItem(key,String(Math.round(el.getBoundingClientRect().width))); }catch(e){} }
+      document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up);
+    });
+    /* Doppelklick setzt auf die Standardbreite zurueck. */
+    g.addEventListener('dblclick',function(){ el.style.width=''; try{ localStorage.removeItem(key); }catch(e){} });
+  }
+  ziehbar(fly,'szhL','links',200,560,'tfcz_studio_bL');
+  ziehbar(lay,'szhR','rechts',220,560,'tfcz_studio_bR');
+
+  /* Das Flyout hat seine Breite aus einer CSS-Klasse — beim Ziehen muss die
+     Inline-Breite gewinnen, sonst springt es beim naechsten Oeffnen zurueck. */
+  if(fly){ var _mo=new MutationObserver(function(){
+      if(fly.classList.contains('on')){
+        var w=null; try{ w=parseInt(localStorage.getItem('tfcz_studio_bL')||'',10); }catch(e){}
+        if(w)fly.style.width=w+'px';
+      } else { fly.style.width=''; }
+    }); _mo.observe(fly,{attributes:true,attributeFilter:['class']}); }
+
+  /* Meine frueher gesetzten Doppel-Beschriftungen entfernen: die Gruppen bringen
+     ihre eigene mit ("Ausrichten", "Auswahl", "Stil"). */
+  var box=document.getElementById('rpTools');
+  if(box){ [].forEach.call(box.querySelectorAll(':scope > .tb-lab'),function(n){ n.remove(); }); }
+})();
+</script>
+<style>
+/* ============================================================================
+   FUSSZEILE: EINE ZEILE STATT ZWEIER INSELN (Vasco 16.08.2026)
+   Seitenleiste sass links absolut, Zoom/Werkzeuge rechts absolut. Auf schmalen
+   Fenstern sind sie ineinandergelaufen. Jetzt teilen sie sich eine Zeile, die
+   umbrechen darf; wird es noch enger, fallen zuerst die Beschriftungen weg,
+   danach die selteneren Knoepfe. Die Buehne bekommt den Platz unten frei.
+   ============================================================================ */
+#footRow{position:absolute;left:10px;right:10px;bottom:10px;z-index:40;display:flex;align-items:flex-end;
+  justify-content:space-between;gap:10px;flex-wrap:wrap-reverse;pointer-events:none}
+#footRow > *{pointer-events:auto;position:static!important;left:auto!important;right:auto!important;bottom:auto!important}
+#footRow #pagebar,#footRow #zoombar{flex:0 1 auto;min-width:0;flex-wrap:wrap}
+@media(max-width:1180px){
+  #stageTools .tb-btn{font-size:0;padding:0 9px;gap:0}
+  #stageTools .tb-btn span[data-ic]{font-size:13px}
+}
+@media(max-width:900px){
+  #pagebar .pb-lbl,#pagebar .pgb-txt{display:none}
+  #pagebar button span:not([data-ic]){display:none}
+}
+/* Der Hinweis in der Mitte darf nicht auf der Fusszeile liegen. */
+#introHint{bottom:74px}
+@media(max-height:620px){#introHint{display:none}}
+</style>
+<script>
+/* Siehe CSS-Block darueber: Seitenleiste und Zoomleiste in EINE Zeile legen. */
+(function(){
+  var pb=document.getElementById('pagebar'), zb=document.getElementById('zoombar');
+  if(!pb||!zb||!pb.parentElement)return;
+  var row=document.createElement('div'); row.id='footRow';
+  pb.parentElement.insertBefore(row,pb);
+  row.appendChild(pb); row.appendChild(zb);
+  /* Die Buehne darf nicht unter die Fusszeile laufen. Statt einer geratenen
+     Konstante wird die tatsaechliche Hoehe der Zeile gemessen und der Scroll-
+     Bereich entsprechend verkuerzt — dann stimmt auch die Einpass-Rechnung,
+     die mit clientHeight arbeitet. Dasselbe fuer den Hinweis in der Mitte. */
+  var wrap=document.getElementById('stagescroll');
+  var hint=document.getElementById('introHint');
+  function platz(){
+    var h=Math.ceil(row.getBoundingClientRect().height)+14;
+    if(wrap)wrap.style.bottom=h+'px';
+    if(hint)hint.style.bottom=(h+8)+'px';
+    try{ if(typeof fitStage==='function')fitStage(); }catch(e){}
+  }
+  if(window.ResizeObserver){ new ResizeObserver(platz).observe(row); }
+  window.addEventListener('resize',platz);
+  platz(); setTimeout(platz,300);
 })();
 </script>
 </body></html>
