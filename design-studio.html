@@ -6155,4 +6155,213 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&m.style.di
   setRP('texte',true);
 })();
 </script>
+<style>
+/* ============================================================================
+   ENTWURF B — Stufe 2-4
+   Stufe 2: linke Symbolschiene statt voller Spalte
+   Stufe 3: Werkzeugleiste entruempelt, ein Download-Ort
+   Stufe 4: Handy — keine Schienen, zwei Knoepfe
+   ============================================================================ */
+#railB{width:60px;flex:none;background:var(--cardg2,#0a1f31);border-right:1px solid var(--brd,#30435a);
+  display:flex;flex-direction:column;align-items:center;padding:9px 0 12px;gap:5px;z-index:31;overflow:visible}
+.rbI{width:46px;height:46px;border-radius:var(--btn-radius,12px);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:2px;background:none;border:0;color:#94a9bd;cursor:pointer;
+  transition:background .18s,color .18s}
+.rbI span[data-ic]{line-height:0}
+.rbI i{font-style:normal;font-size:8px;font-weight:900;letter-spacing:.01em}
+.rbI:hover{background:rgba(92,167,220,.12);color:#dceaf5}
+.rbI.on{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d}
+.rbGap{flex:1}
+#flyB{width:0;flex:none;background:var(--cardg2,#0a1f31);border-right:1px solid transparent;
+  overflow:hidden;transition:width .24s cubic-bezier(.32,.72,.35,1)}
+#flyB.on{width:268px;border-right-color:var(--brd,#30435a)}
+.flyPane{display:none;padding:14px;height:100%;overflow:auto}
+.flyPane.on{display:block}
+.flyH{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#e9c475;margin-bottom:11px}
+/* Fusszeile: Lineal, Snap, Ratio wohnen bei der Zoomstufe — nicht in der Menuezeile. */
+#stageTools{display:flex;gap:6px;align-items:center;margin-right:8px}
+#stageTools .tb-group{display:flex;gap:5px;align-items:center}
+#stageTools .tb-btn{height:28px;font-size:11.5px;white-space:nowrap;padding:0 10px;
+  width:auto!important;min-width:0;flex:none;
+  display:inline-flex;align-items:center;gap:5px;line-height:1}
+#stageTools .tb-btn span[data-ic]{line-height:0}
+#zoombar{gap:6px}
+/* Das Flyout darf seinen Inhalt nicht abschneiden. */
+#flyB.on{width:292px}
+.flyPane .add-row{flex-wrap:wrap}
+.flyPane .add-btn{flex:1 1 auto;min-width:0}
+/* Ausrichten und Auswahl gehoeren zur Auswahl, also nach rechts. */
+#rpTools{padding:10px 0 4px;border-top:1px solid var(--brd,#30435a);margin-top:10px}
+#rpTools .tb-group{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+#rpTools .tb-lab{width:100%;font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#94a9bd;margin-bottom:5px}
+/* Handy: keine Schienen, ein Blatt von unten, zwei Knoepfe. */
+#mobBar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:78;gap:8px;padding:9px 12px 12px;
+  background:rgba(10,31,49,.97);border-top:1px solid var(--brd,#30435a);backdrop-filter:blur(8px)}
+#mobBar button{flex:1;border-radius:var(--btn-radius,12px);padding:12px 0;font:inherit;font-size:13.5px;font-weight:900;border:0;cursor:pointer}
+#mobBar .m1{background:#0d273d;border:1px solid var(--brd,#30435a);color:#dceaf5}
+#mobBar .m2{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d}
+body.mobile #railB,body.mobile #flyB{display:none!important}
+body.mobile #mobBar{display:flex}
+body.mobile .layers{position:fixed!important;left:0;right:0;bottom:0;top:auto;width:auto!important;
+  height:62vh;border-left:0;border-top:1px solid var(--brd,#30435a);border-radius:18px 18px 0 0;
+  transform:translateY(102%);transition:transform .28s cubic-bezier(.32,.72,.35,1);z-index:80;
+  box-shadow:0 -18px 50px rgba(0,0,0,.55)}
+body.mobile .layers.rp-open{transform:none}
+body.mobile .layers::before{content:"";position:absolute;left:50%;top:7px;width:38px;height:4px;margin-left:-19px;
+  border-radius:2px;background:#2a4763;z-index:5}
+body.mobile #rpTabs{padding-top:14px}
+body.mobile #stagescroll{padding-bottom:64px}
+body.mobile #stageTools{display:none}
+/* Handy: die Kopfzeile traegt nur noch Motiv und Menue. Herunterladen steht
+   unten in der Leiste, doppelt braucht es ihn nicht. Post-Text und das
+   Ausgaben-Menue sind Desktop-Sachen. */
+body.mobile header{overflow:hidden;min-width:0}
+body.mobile header > *{min-width:0}
+body.mobile header #download,body.mobile #tbDL,body.mobile #tbCaption{display:none!important}
+body.mobile #tbCaption{display:none!important}
+body.mobile .ttl-name,body.mobile .ttl-sep{display:none}
+/* Das Blatt soll den Flyer nicht ganz verdecken. */
+body.mobile .layers{height:56vh}
+</style>
+<script>
+/* ============================================================================
+   ENTWURF B — Stufe 2-4 (siehe CSS darueber)
+   Wieder gilt: es werden vorhandene Knoten VERSCHOBEN, nicht nachgebaut.
+   Dadurch bleiben alle Listener, IDs und Funktionen unveraendert erhalten.
+   ============================================================================ */
+(function(){
+  var side=document.getElementById('sidebar');
+  var main=side?side.parentElement:null;
+  if(!side||!main)return;
+
+  /* ---------- Stufe 2: Symbolschiene ---------- */
+  var rail=document.createElement('aside'); rail.id='railB';
+  var fly=document.createElement('div');   fly.id='flyB';
+  main.insertBefore(rail,side); main.insertBefore(fly,side);
+
+  function pane(key){ var p=document.createElement('div'); p.className='flyPane'; p.id='fly_'+key;
+    fly.appendChild(p); return p; }
+  function head(p,t){ var h=document.createElement('div'); h.className='flyH'; h.textContent=t; p.appendChild(h); }
+  function move(p,node){ if(node)p.appendChild(node); }
+  /* Ueberschrift + Folgeknoten eines Blocks einsammeln (h3 gehoert zum Block). */
+  function h3Vor(node){ var n=node&&node.previousElementSibling;
+    return (n&&n.tagName==='H3')?n:null; }
+
+  var P={};
+  /* 1 Einfuegen — hier verschmelzen „Hinzufuegen" und die Brand-Bibliothek.
+     Das war die groesste Doppelspurigkeit: dasselbe Einfuegen auf beiden Seiten. */
+  P.add=pane('add'); head(P.add,'Einfügen');
+  move(P.add, document.getElementById('addBlock'));
+  var lib=document.getElementById('rpLib');
+  if(lib){ var hb=document.createElement('div'); hb.className='flyH'; hb.style.marginTop='16px';
+    hb.textContent='Bausteine'; P.add.appendChild(hb); P.add.appendChild(lib);
+    var tb=document.querySelector('.rpTab[data-rp="bau"]'); if(tb)tb.remove();
+    var pb=document.getElementById('rp_bau'); if(pb)pb.remove(); }
+
+  /* 2 Bilder — Galerie und die Ablage dieses Flyers. */
+  P.img=pane('img'); head(P.img,'Bilder');
+  var galBtn=document.createElement('button');
+  galBtn.className='btn blue'; galBtn.style.cssText='width:100%;justify-content:center;margin-bottom:12px';
+  galBtn.innerHTML='<span data-ic="image" data-icsz="15"></span> Aus der Vereinsgalerie';
+  galBtn.onclick=function(){ openPicker({title:'Foto wählen · Vereinsgalerie'},function(src){
+    if(!src)return; var e=sel?getEl(sel):null;
+    if(e&&e.type==='image'&&e.slot!=='logo'){ beginEdit(); e.src=src; addToLibrary(src); save(); rebuild(); syncInspector(); }
+    else { var l=(typeof shelfList==='function')?shelfList():null;
+      if(l&&l.indexOf(src)<0){ l.push(src); save(); if(typeof renderShelf==='function')renderShelf();
+        toast('In die Bild-Ablage gelegt — klick zuerst ein Bild im Flyer an, um es einzusetzen.'); } }
+  }); };
+  P.img.appendChild(galBtn);
+  var shelf=document.getElementById('shelf');
+  if(shelf){ var sh3=h3Vor(shelf); var note=document.getElementById('shelfNote');
+    if(sh3)P.img.appendChild(sh3); P.img.appendChild(shelf); if(note)P.img.appendChild(note); }
+
+  /* 3 Motiv — Formatwahl, Vorlagenliste und die typeigenen Inhaltspanels. */
+  P.mot=pane('mot'); head(P.mot,'Motiv & Format');
+  ['fmtHost','nfHost','editHost','ausPanel','rankPanel','eventPanel','reelPanel'].forEach(function(id){
+    move(P.mot, document.getElementById(id)); });
+
+  /* 4 Vorlage — selten gebraucht, deshalb ganz unten in der Schiene. */
+  P.tpl=pane('tpl'); head(P.tpl,'Vorlage & Sicherung');
+  move(P.tpl, document.getElementById('sideTop'));
+  move(P.tpl, document.getElementById('reset'));
+  var ex=document.getElementById('exportFile');
+  if(ex){ /* „Datei mit Vorlagen exportieren" ist kein Download des Flyers, sondern
+             ein Backup. Der Name hat genau das verwechselt. */
+    var lbl=ex.querySelector('span:not([data-ic])');
+    if(lbl)lbl.textContent=' Sicherung erstellen'; else ex.innerHTML=ex.innerHTML.replace('Datei mit Vorlagen exportieren','Sicherung erstellen');
+    ex.title='Sichert die aktuellen Vorlagen als HTML-Datei. Das ist KEIN Download des Flyers.'; }
+
+  side.style.display='none';   /* die alte Spalte ist jetzt leer */
+
+  var IC2=function(n,sz){ return (typeof IC==='function')?IC(n,sz||18):''; };
+  var DEF=[['add','plus','Einfügen'],['img','image','Bilder'],['mot','layout-grid','Motiv']];
+  DEF.forEach(function(d){ var b=document.createElement('button'); b.className='rbI'; b.dataset.k=d[0];
+    b.title=d[2]; b.innerHTML=IC2(d[1],18)+'<i>'+d[2]+'</i>'; rail.appendChild(b); });
+  var gap=document.createElement('div'); gap.className='rbGap'; rail.appendChild(gap);
+  var bt=document.createElement('button'); bt.className='rbI'; bt.dataset.k='tpl'; bt.title='Vorlage';
+  bt.innerHTML=IC2('star',18)+'<i>Vorlage</i>'; rail.appendChild(bt);
+
+  var OFFEN=null;
+  function openFly(k){
+    if(OFFEN===k){ OFFEN=null; fly.classList.remove('on');
+      [].forEach.call(rail.children,function(b){ if(b.classList)b.classList.remove('on'); }); return; }
+    OFFEN=k;
+    [].forEach.call(rail.children,function(b){ if(b.dataset)b.classList.toggle('on',b.dataset.k===k); });
+    ['add','img','mot','tpl'].forEach(function(x){ var n=document.getElementById('fly_'+x);
+      if(n)n.classList.toggle('on',x===k); });
+    fly.classList.add('on');
+  }
+  [].forEach.call(rail.querySelectorAll('.rbI'),function(b){ b.onclick=function(){ openFly(b.dataset.k); }; });
+
+  /* ---------- Stufe 3: Werkzeugleiste entruempeln ---------- */
+  var zb=document.getElementById('zoombar');
+  if(zb){
+    var st=document.createElement('div'); st.id='stageTools'; zb.insertBefore(st,zb.firstChild);
+    var ruler=document.getElementById('tbRuler');
+    if(ruler&&ruler.parentElement){ st.appendChild(ruler.parentElement); }   /* Lineal · Snap · Ratio */
+  }
+  /* Ausrichten und Auswahl-Aktionen ziehen in die rechte Spalte unter „Element". */
+  var pEl=document.getElementById('rp_element');
+  if(pEl){
+    var box=document.createElement('div'); box.id='rpTools';
+    ['condAlign','condSelect'].forEach(function(id){ var g=document.getElementById(id);
+      if(g){ var lab=document.createElement('div'); lab.className='tb-lab';
+        lab.textContent=(id==='condAlign')?'Ausrichten':'Auswahl'; box.appendChild(lab); box.appendChild(g); } });
+    /* Stil kopieren/einsetzen gehoert zur Auswahl, nicht in die Menuezeile. */
+    var cs=document.getElementById('tbCopyStyle');
+    if(cs&&cs.parentElement){ var lab2=document.createElement('div'); lab2.className='tb-lab';
+      lab2.textContent='Stil'; box.appendChild(lab2); box.appendChild(cs.parentElement); }
+    if(box.children.length)pEl.appendChild(box);
+  }
+
+  /* Ein Download-Ort: das Ausgaben-Menue wandert neben den Herunterladen-Knopf. */
+  var dl=document.getElementById('download');
+  var tbDL=document.getElementById('tbDL'), cap=document.getElementById('tbCaption');
+  if(dl&&dl.parentElement){
+    if(cap&&cap.parentElement)dl.parentElement.insertBefore(cap.parentElement,dl);
+    if(tbDL)dl.parentElement.insertBefore(tbDL,dl);
+  }
+  /* Jetzt ist die Werkzeugleiste leer — sie hat nur noch Platz gekostet.
+     Ausgeblendet statt entfernt, damit ein Rueckbau eine Zeile bleibt. */
+  var tbar=document.getElementById('toolbar');
+  if(tbar&&!tbar.querySelector('button')){ tbar.style.display='none'; }
+
+  /* ---------- Stufe 4: Handy ---------- */
+  var lay=document.getElementById('layersPanel');
+  var bar=document.createElement('div'); bar.id='mobBar';
+  bar.innerHTML='<button class="m1" id="mbTexte">Texte ändern</button>'
+               +'<button class="m2" id="mbDL">Herunterladen</button>';
+  document.body.appendChild(bar);
+  document.getElementById('mbTexte').onclick=function(){
+    var t=document.querySelector('.rpTab[data-rp="texte"]'); if(t)t.click();
+    lay.classList.add('rp-open');
+    var f=lay.querySelector('#txtForm input,#txtForm textarea'); if(f)setTimeout(function(){f.focus();},300); };
+  document.getElementById('mbDL').onclick=function(){ lay.classList.remove('rp-open'); if(dl)dl.click(); };
+  /* Auf dem Handy faehrt das Blatt bei Auswahl selbst hoch. */
+  var _si2=window.syncInspector;
+  if(typeof _si2==='function'){ window.syncInspector=function(){ _si2.apply(this,arguments);
+    try{ if(document.body.classList.contains('mobile')&&sel)lay.classList.add('rp-open'); }catch(e){} }; }
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape')lay.classList.remove('rp-open'); });
+})();
+</script>
 </body></html>
