@@ -40,3 +40,7 @@ config.js
 
 # Editor-/Tool-Backups nie tracken
 *~
+
+# Aussortiertes bleibt lokal — nie veroeffentlichen (Vasco 16.08.2026).
+# Bisher war nur assets/fotos/_to_delete/ ignoriert, der Ordner im Wurzelverzeichnis nicht.
+_to_delete/

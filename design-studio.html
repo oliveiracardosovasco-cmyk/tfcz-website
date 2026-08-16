@@ -6833,4 +6833,267 @@ body.mobile #railR{display:none!important}
   platz(); setTimeout(platz,300);
 })();
 </script>
+
+<!-- ============================================================
+     SEITENSPALTEN · FUNDAMENT  (16.08.2026)
+
+     Warum es diesen Block gibt: Innenabstände und Überschriften waren in
+     beiden Spalten über ein Dutzend Stellen verstreut und liefen auseinander —
+     linker Rand mal 14px, mal 36px, rechter mal 12px, mal 0; sieben
+     verschiedene Uppercase-Label-Stile; zwei Überschriften ganz ohne Stil,
+     weil ihr Selektor (.sidebar h3) durch das Verschieben ins Flyout nicht
+     mehr griff. Ab hier gilt EINE Quelle für beide Spalten.
+
+     Er lädt bewusst als LETZTES und überschreibt die Altwerte — sichtbar
+     und an einer Stelle, statt sie einzeln in der Datei zu jagen.
+     ============================================================ -->
+<style id="sb-fundament">
+:root{
+  --sb-pad:14px;   /* Innenabstand JEDER Spalten-Fläche — links, rechts, oben, unten */
+  --sb-gap:14px;   /* Abstand zwischen zwei Blöcken */
+  --sb-row:10px;   /* Abstand zwischen zwei Feldzeilen */
+}
+
+/* ---- 1 · Der Innenabstand sitzt NUR auf der Pane. Alles darin ist bündig. ---- */
+#flyB .flyPane,
+.layers .rp-pane{ padding:var(--sb-pad); }
+#flyB .flyPane > :first-child,
+.layers .rp-pane > :first-child{ margin-top:0; }
+
+/* Blöcke, die vorher ihren eigenen Rand mitbrachten (daraus wurden 36px links) */
+#flyB .rp-sec, .layers .rp-pane .rp-sec{ padding:0; }
+#flyB .libhost, .layers .libhost{ padding:0; }
+#flyB .lib-hint, .layers .lib-hint{ padding:0; margin:0 0 var(--sb-row); }
+#txtForm{ padding:0; }
+#inspector{ padding:0; }
+#rpTools{ padding:var(--sb-gap) 0 0; margin:var(--sb-gap) 0 0; border-top:1px solid var(--card-brd,rgba(255,255,255,.13)); }
+#sideTop{ padding:0 0 var(--sb-gap); margin:0 0 var(--sb-gap); }
+#addBlock{ margin:0 0 var(--sb-gap); }
+#fmtHost:not(:empty){ margin-top:var(--sb-gap); }
+.shelf{ margin:0; }
+.shf-note{ margin:var(--sb-row) 0 0; }
+.lay-hint{ margin:var(--sb-gap) 0 0; }
+
+/* ---- 2 · Ein Rhythmus für Feldzeilen — vorher 6/8/11px gemischt ---- */
+#flyB .add-row,
+.layers .tf-f,
+.layers .inspector .rw{ margin:0 0 var(--sb-row); }
+#flyB .add-row:last-child,
+.layers .tf-f:last-child,
+.layers .inspector .rw:last-child{ margin-bottom:0; }
+.layers .igrp{ margin-top:var(--sb-gap); }
+.layers .igrp:first-of-type{ margin-top:0; }
+.itabs{ margin:0 0 var(--sb-gap); }
+
+/* ---- 3 · EINE Überschrift für beide Spalten: Kicker-Signature ----
+   Goldener Strich + Gold-Uppercase (CLAUDE.md „Kicker-Signature").
+   Vorher: .flyH gold, .lay-h/.isec grau, .tb-lab wieder anders,
+   und zwei <h3> ganz ohne Stil. Jetzt trägt jede Überschrift dieselbe. */
+.sbH,
+#flyB .flyH,
+#flyB .flyPane > h3,
+#flyB #addBlock > h3,
+#flyB #fmtHost > h3,
+#flyB .lay-h,
+#flyB .isec,
+.layers .lay-h,
+.layers .isec,
+#rpTools .tb-lab{
+  display:flex; align-items:center; justify-content:flex-start; gap:8px;
+  margin:0 0 var(--sb-gap); padding:0; border:0; width:auto;
+  font-size:10px; font-weight:900; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold-lt,#e9c475) !important;
+}
+.sbH::before,
+#flyB .flyH::before,
+#flyB .flyPane > h3::before,
+#flyB #addBlock > h3::before,
+#flyB #fmtHost > h3::before,
+#flyB .lay-h::before,
+#flyB .isec::before,
+.layers .lay-h::before,
+.layers .isec::before,
+#rpTools .tb-lab::before{
+  content:""; flex:none; width:28px; height:2px; border-radius:2px; background:var(--gold,#cda857);
+}
+/* Der Objektname im Inspector ist dieselbe Signature — nur mit grossem Namen. */
+.inspector h3::before{ width:28px; }
+/* „Bausteine" hatte einen Extra-Abstand per style-Attribut; hier gilt der Rhythmus. */
+#flyB .flyH[style]{ margin-top:var(--sb-gap) !important; }
+#flyB .flyPane > .flyH:first-child{ margin-top:0 !important; }
+
+/* ---- 4 · EINE Feldbeschriftung (ohne Strich) ---- */
+.layers .inspector .rw > label:first-child,
+.layers .tf-f label,
+.layers .sw-glab,
+#flyB .epanel .af label,
+.layers #r-color > label, .layers #r-border > label{
+  display:block; width:auto; flex:1 0 100%;
+  margin:0 0 4px; font-size:10px; font-weight:900; letter-spacing:.11em;
+  text-transform:uppercase; color:#9fb2c4;
+}
+.layers .tf-f.act label{ color:var(--gold-lt,#e9c475); }
+
+/* ---- 5 · Brand-Bibliothek: die Vorschau wurde abgeschnitten ----
+   Ursache war ein fester 104×34-Kasten mit overflow:hidden, in den der
+   Renderer echte px-Grössen legte (eine Rahmen-Komponente 420×235), plus
+   ein Universalselektor #flyB *{max-width:100%}, der die Vorschau-Innereien
+   auf Spaltenbreite zwang und sie dadurch mehrzeilig aufblies. */
+#flyB .lib-acc, .layers .lib-acc{ flex:none; }              /* nicht mehr stauchen lassen */
+#flyB .libhost, .layers .libhost{ overflow-y:auto; overflow-x:hidden; }
+#flyB #rpLib, #flyB .rp-sec{ height:auto !important; }      /* Alt-Inlinehöhe aushebeln */
+#flyB .lib-prev, .layers .lib-prev{
+  width:116px; height:52px; flex:none; position:relative; overflow:hidden;
+  display:block; border-radius:6px; background:rgba(4,12,20,.5);
+}
+#flyB .lib-prev > *, .layers .lib-prev > *{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%) scale(var(--lp,.4));
+  transform-origin:center center; max-width:none !important;
+}
+#flyB .lib-prev *{ max-width:none; }                        /* engt den Universalselektor ein */
+#flyB .lib-item{ align-items:center; gap:10px; padding:8px; }
+#flyB .lib-nm{ min-width:0; }
+
+/* Doppelte Überschriften: die Pane sagt schon „Einfügen" bzw. „Bausteine" —
+   „Hinzufügen" und „Brand-Bibliothek" darunter sagten dasselbe nochmal. */
+#flyB #addBlock > h3, #flyB #rpLib > .lay-h{ display:none; }
+
+/* Die Werkzeug-Beschriftungen stehen auf eigener Zeile, nicht neben den Knöpfen. */
+#rpTools .tb-lab{ flex:0 0 100%; width:100%; }
+#rpTools .tb-group{ margin:0 0 var(--sb-gap); }
+#rpTools .tb-group:last-child{ margin-bottom:0; }
+
+/* ---- Brand Guide, Editor-Semantik: Gold = Auswahl/Aktiv, Blau = Aktion ----
+   „Als Vorlage speichern" war golden. Das ist eine Aktion, kein Zustand —
+   und Gold nutzt sich ab, wenn es an Werkzeugen klebt. */
+#flyB .nf-btn2{
+  background:linear-gradient(180deg,var(--blue),var(--blue-mid,#4489c7));
+  color:#fff; box-shadow:0 6px 18px rgba(68,137,199,.26);
+}
+
+/* ---- 6 · Der Ziehgriff der linken Spalte war weggeschnitten ---- */
+#flyB{ position:relative; }
+#szhL{ right:0; }
+
+/* ---- 7 · Sehr schmale Fenster: die linke Spalte bleibt zu ---- */
+@media (max-width:1180px){ #flyB.on{ width:0 !important; border-right-color:transparent; } }
+</style>
+
+<script id="sb-fundament-js">
+/* ============================================================
+   SEITENSPALTEN · Verhalten (16.08.2026)
+   1) Standard beim Start: links „Einfügen" offen, rechts „Texte" offen.
+   2) Die Vorschauen der Brand-Bibliothek werden auf ihre Kachel eingepasst,
+      statt sie hart abzuschneiden.
+   ============================================================ */
+(function(){
+  'use strict';
+  var SCHMAL = 1181;   /* darunter bleibt die linke Spalte zu */
+
+  /* --- Alt-Inlinehöhe der Bibliothek räumen (kam von einem Ziehgriff,
+         der inzwischen aus dem DOM entfernt wird — die Höhe klebte weiter). --- */
+  try{ localStorage.removeItem('tfcz_h_rpLib'); }catch(e){}
+  var _lib = document.getElementById('rpLib');
+  if(_lib) _lib.style.height = '';
+
+  /* --- Vorschau einpassen: messen, dann skalieren. --- */
+  function libFit(){
+    var host = document.getElementById('libHost');
+    if(!host || !host.offsetParent) return;          /* unsichtbar = nicht messbar */
+    [].forEach.call(host.querySelectorAll('.lib-prev'), function(box){
+      var k = box.firstElementChild; if(!k) return;
+      k.style.setProperty('--lp', 1);                 /* für die Messung zurücksetzen */
+      var bw = box.clientWidth, bh = box.clientHeight;
+      var kw = k.offsetWidth || k.getBoundingClientRect().width;
+      var kh = k.offsetHeight || k.getBoundingClientRect().height;
+      if(!bw || !bh || !kw || !kh) return;
+      var s = Math.min(bw / kw, bh / kh, 1);
+      k.style.setProperty('--lp', (Math.floor(s * 1000) / 1000));
+    });
+  }
+  window.TFCZ_libFit = libFit;
+
+  var host = document.getElementById('libHost');
+  if(host && window.MutationObserver){
+    new MutationObserver(function(){ requestAnimationFrame(libFit); })
+      .observe(host, { childList:true, subtree:true });
+  }
+  addEventListener('resize', function(){ requestAnimationFrame(libFit); });
+
+  /* --- Ein Reiter ohne Inhalt erscheint nicht ---
+         Dieselbe Regel wie in der rechten Spalte. „Motiv & Format" war eine
+         leere Hülle, seit Motiv und Ausgaben oben in der Kopfzeile sitzen. --- */
+  function railFit(){
+    var rail = document.getElementById('railB');
+    if(!rail) return;
+    var offenWeg = false;
+    [].forEach.call(rail.querySelectorAll('.rbI'), function(b){
+      var pane = document.getElementById('fly_' + b.dataset.k);
+      if(!pane) return;
+      var voll = false;
+      [].forEach.call(pane.children, function(n){
+        if(n.classList && (n.classList.contains('flyH') || n.classList.contains('sbH'))) return;
+        if(n.offsetHeight > 0 || (n.textContent || '').trim() || n.querySelector('button,input,select,textarea,img')) voll = true;
+      });
+      b.style.display = voll ? '' : 'none';
+      if(!voll && b.classList.contains('on')) offenWeg = true;
+    });
+    if(offenWeg){
+      var erst = rail.querySelector('.rbI:not([style*="none"])');
+      if(erst) erst.click();
+    }
+  }
+  window.TFCZ_railFit = railFit;
+  if(window.MutationObserver){
+    var fb = document.getElementById('flyB');
+    if(fb) new MutationObserver(function(){ clearTimeout(railFit._t); railFit._t = setTimeout(railFit, 120); })
+             .observe(fb, { childList:true, subtree:true });
+  }
+
+  /* --- Jede Fläche trägt eine Überschrift — links wie rechts.
+         „Ebenen" hat „Objekte", „Element" den Objektnamen; „Texte" hatte keine. --- */
+  function kopfNachruesten(){
+    var p = document.getElementById('rp_texte');
+    if(!p || p.querySelector(':scope > .sbH')) return;
+    var h = document.createElement('div');
+    h.className = 'sbH';
+    h.textContent = 'Texte';
+    p.insertBefore(h, p.firstChild);
+  }
+
+  /* --- Standard-Zustand der beiden Spalten --- */
+  function auf(){
+    if(document.body.classList.contains('mobile')) return;
+
+    /* Die Bibliothek baut sich sonst erst beim Vorlagenwechsel (switchAll) —
+       wenn die Spalte von Anfang an offen ist, wäre sie beim Start leer. */
+    var lh = document.getElementById('libHost');
+    if(lh && !lh.children.length && typeof buildLibrary === 'function'){
+      try{ buildLibrary(); }catch(e){}
+    }
+
+    /* rechts: „Texte" ist vorausgewählt; nur sicherstellen, dass die Spalte steht. */
+    var lay = document.getElementById('layersPanel');
+    if(lay && lay.style.display === 'none'){
+      var tr = document.querySelector('#railR .rbI[data-rp="texte"]');
+      if(tr) tr.click();
+    }
+
+    /* links: „Einfügen" aufklappen — der Knopf schaltet um, also nur wenn zu. */
+    if(innerWidth >= SCHMAL){
+      var fly = document.getElementById('flyB');
+      var tb  = document.querySelector('#railB .rbI[data-k="add"]');
+      if(fly && tb && !fly.classList.contains('on')) tb.click();
+    }
+    kopfNachruesten();
+    railFit();
+    requestAnimationFrame(libFit);
+    setTimeout(libFit, 260);   /* nach der Aufklapp-Animation nochmal messen */
+  }
+  if(document.readyState === 'complete') setTimeout(auf, 60);
+  else addEventListener('load', function(){ setTimeout(auf, 60); });
+})();
+</script>
+
 </body></html>
