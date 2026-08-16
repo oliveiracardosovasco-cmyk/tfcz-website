@@ -915,7 +915,16 @@ header,#toolbar,#editbar{border-top:3px solid var(--blue);border-bottom:3px soli
 /* Die Kopfzeile muss ueber der Bibliothek/den Ebenen liegen, sonst faengt deren
    Kopf die Klicks des ⋯ Menues ab (gemessen: .lib-head schluckte den Klick). */
 header{z-index:200;}
-#tabs{background:none;box-shadow:none;padding:0;gap:10px;align-items:center;overflow:visible;flex:1 1 auto;}
+#tabs{background:none;box-shadow:none;padding:0;gap:10px;align-items:center;flex:1 1 auto;min-width:0;
+  overflow-x:auto;scrollbar-width:none;}
+#tabs::-webkit-scrollbar{display:none;}
+/* Schmale Fenster: die Beschriftung „Ausgaben" und die Masse weichen, damit
+   Motiv-Knopf und Download nicht uebereinander liegen. */
+@media(max-width:700px){
+  .outs-lab{display:none;}
+  #download.dlmain{padding:9px 11px;}
+  .motiv .mv-nm{max-width:38vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+}
 /* --- Motiv-Knopf: oeffnet die Vorlagen-Galerie --- */
 .motiv{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--ui-brd,rgba(255,255,255,.14));
   background:rgba(255,255,255,.05);color:#fff;font-family:inherit;font-weight:800;font-size:13px;
@@ -966,47 +975,64 @@ header{z-index:200;}
 #moreMenu .mm-sep{height:1px;background:rgba(255,255,255,.1);margin:6px 4px;}
 #moreMenu #mmSide{display:none!important;}
 @media(max-width:880px){#moreMenu #mmSide{display:flex!important;}}
-/* --- Motiv-Galerie --- */
-#motivOv{position:fixed;inset:0;z-index:900;display:none;place-items:start center;padding:82px 18px 26px;
+/* --- Motiv-Galerie ---
+   Kompakt gehalten: die Karte ist nur so breit wie das Raster (max 3 Spalten) und
+   waechst mit dem Inhalt. Frueher war sie 1000px breit — bei zwei Vorlagen stand
+   rechts eine leere Flaeche und das X schwebte im Nichts. */
+#motivOv{position:fixed;inset:0;z-index:900;display:none;place-items:start center;padding:78px 18px 26px;
   background:rgba(4,12,20,.86);overflow:auto;}
 #motivOv.on{display:grid;}
-#motivOv .mo-card{width:min(1000px,96vw);background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.94));
+#motivOv .mo-card{width:fit-content;min-width:min(560px,94vw);max-width:min(880px,94vw);
+  background:linear-gradient(155deg,rgba(17,34,51,.96),rgba(9,21,33,.94));
   border:1px solid var(--ui-brd,rgba(255,255,255,.14));border-top:3px solid var(--blue);border-bottom:3px solid var(--gold);
-  border-radius:14px;padding:22px 24px 26px;color:#eef4fa;}
-#motivOv .mo-head{display:flex;align-items:flex-start;gap:16px;}
-#motivOv .mo-head h3{margin:0;font-size:21px;font-weight:900;}
-#motivOv .mo-head p{margin:5px 0 0;color:#9fb2c4;font-weight:600;font-size:13.5px;max-width:66ch;}
-#motivOv .mo-x{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  border-radius:14px;padding:16px 18px 20px;color:#eef4fa;}
+#motivOv .mo-head{display:flex;align-items:center;gap:14px;}
+#motivOv .mo-head h3{margin:0;font-size:19px;font-weight:900;flex:none;}
+#motivOv .mo-head p{margin:0;color:#7d97b0;font-weight:700;font-size:12.5px;line-height:1.35;min-width:0;}
+#motivOv .mo-x{flex:none;margin-left:auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
   background:rgba(255,255,255,.08);border:1px solid var(--ui-brd,rgba(255,255,255,.14));color:#fff;transition:.18s;}
-#motivOv .mo-x svg{width:17px;height:17px;display:block;flex:none;}
+#motivOv .mo-x svg{width:16px;height:16px;display:block;flex:none;}
 #motivOv .mo-x:hover{background:#da2929;border-color:#da2929;animation:xsquish .3s;}
 #motivOv .mo-x:active{transform:scale(.9);}
-#motivOv .mo-s{position:relative;max-width:400px;margin:16px 0 4px;}
-#motivOv .mo-s svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#7d97b0;}
+#motivOv .mo-s{position:relative;margin:14px 0 2px;}
+#motivOv .mo-s svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:#7d97b0;}
 #motivOv .mo-s input{width:100%;background:rgba(255,255,255,.05);color:#eef4fa;border:1px solid var(--ui-brd,rgba(255,255,255,.14));
-  border-radius:10px;padding:9px 12px 9px 35px;font:inherit;font-weight:700;font-size:13.5px;outline:none;}
+  border-radius:10px;padding:8px 12px 8px 34px;font:inherit;font-weight:700;font-size:13px;outline:none;}
 #motivOv .mo-s input:focus{border-color:#cda857;box-shadow:0 0 0 2px rgba(205,168,87,.18);}
-#motivOv .mo-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;}
+#motivOv .mo-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px;}
 #motivOv .mo-lab{font-size:9.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#7d97b0;}
 #motivOv .mo-chip{background:rgba(255,255,255,.05);border:1px solid var(--ui-brd,rgba(255,255,255,.14));color:#c3d2e0;
-  border-radius:999px;padding:6px 14px;font:inherit;font-weight:800;font-size:12.5px;cursor:pointer;transition:.16s;}
+  border-radius:999px;padding:5px 13px;font:inherit;font-weight:800;font-size:12px;cursor:pointer;transition:.16s;}
 #motivOv .mo-chip:hover:not(.on){box-shadow:inset 0 2px 0 #5ca7dc,inset 0 -2px 0 #cda857;}
 #motivOv .mo-chip.on{border-color:#cda857;color:#e9c475;background:rgba(205,168,87,.13);}
-#motivOv .mo-ser{margin-top:20px;}
-#motivOv .mo-sh{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:900;letter-spacing:.12em;
+#motivOv .mo-ser{margin-top:16px;}
+#motivOv .mo-sh{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:900;letter-spacing:.12em;
   text-transform:uppercase;color:#cda857;}
-#motivOv .mo-sh i{width:9px;height:9px;border-radius:50%;flex:none;font-style:normal;}
-#motivOv .mo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:12px;margin-top:10px;}
+#motivOv .mo-sh i{width:8px;height:8px;border-radius:50%;flex:none;font-style:normal;}
+#motivOv .mo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-top:8px;}
+/* Querformat-Vorlagen (Thumbnail, Overlay, Hintergrund) duerfen breiter kacheln */
+#motivOv .mo-grid.quer{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));}
 #motivOv .mo-it{background:linear-gradient(155deg,rgba(17,34,51,.74),rgba(9,21,33,.60));border:1px solid var(--ui-brd,rgba(255,255,255,.14));
-  border-radius:12px;padding:10px;cursor:pointer;text-align:left;font-family:inherit;color:#eef4fa;transition:.16s;}
+  border-radius:11px;padding:8px;cursor:pointer;text-align:left;font-family:inherit;color:#eef4fa;transition:.16s;}
 #motivOv .mo-it:hover{box-shadow:inset 0 3px 0 #5ca7dc,inset 0 -3px 0 #cda857;}
 #motivOv .mo-it.on{border-color:#cda857;}
-#motivOv .mo-pv{height:74px;border-radius:8px;background:linear-gradient(135deg,#12324b,#0a1c2b);
-  border:1px solid rgba(255,255,255,.12);margin-bottom:8px;display:grid;place-items:center;color:#5f7c96;}
-#motivOv .mo-pv svg{width:22px;height:22px;}
-#motivOv .mo-it b{display:block;font-size:13px;font-weight:900;}
-#motivOv .mo-it span{font-size:11.5px;font-weight:800;color:#7d97b0;}
-#motivOv .mo-leer{padding:26px 4px;color:#7d97b0;font-weight:800;font-size:14px;}
+/* Das Vorschaubild ist ein ECHTES Rendering der Vorlage (assets/img/studio-covers/).
+   Faellt es aus, bleibt das Icon als Platzhalter stehen — nie ein leerer Kasten. */
+#motivOv .mo-pv{position:relative;width:100%;border-radius:7px;overflow:hidden;margin-bottom:7px;
+  background:linear-gradient(135deg,#12324b,#0a1c2b);border:1px solid rgba(255,255,255,.12);
+  display:grid;place-items:center;color:#5f7c96;}
+#motivOv .mo-pv img{width:100%;height:100%;object-fit:cover;display:block;grid-area:1/1;}
+#motivOv .mo-pv svg{width:20px;height:20px;grid-area:1/1;}
+#motivOv .mo-it b{display:block;font-size:12.5px;font-weight:900;line-height:1.25;}
+#motivOv .mo-it span{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:#7d97b0;margin-top:1px;}
+#motivOv .mo-it .mo-dot{width:7px;height:7px;border-radius:50%;flex:none;font-style:normal;display:block;}
+#motivOv .mo-leer{padding:20px 4px;color:#7d97b0;font-weight:800;font-size:13.5px;}
+@media(max-width:640px){
+  #motivOv{padding:70px 12px 20px;}
+  #motivOv .mo-card{padding:14px;min-width:0;width:100%;}
+  #motivOv .mo-head p{display:none;}   /* der Satz bricht auf dem Handy in vier Zeilen */
+  #motivOv .mo-grid,#motivOv .mo-grid.quer{grid-template-columns:1fr;}
+}
 </style><script defer src="system/components/portal.js"></script>
 <script defer src="praesentationen/index.js"></script>
 <script defer src="praesentationen/prompt.js"></script>
@@ -3795,6 +3821,9 @@ function positionTabInd(){ }
 var MOTIV={med:null,kat:null,q:''};
 var MEDNM={social:'Flyer & Social',yt:'YouTube',stream:'Stream',bg:'Hintergrund',praesi:'Präsentationen'};
 var KATFARBE={fun:'#5ca7dc',pro:'#005a94',elite:'#cda857',verein:'#0d273d'};
+/* Vorschaubild einer Vorlage. Die Bilder sind echte Renderings und entstehen mit
+   `node _tools/studio-covers.mjs` (braucht einen Browser + laufenden Server). */
+function coverSrc(id){ return 'assets/img/studio-covers/'+String(id).replace(/:/g,'-')+'.jpg'; }
 function motivErlaubt(id){ if(_role!=='guest')return true;
   var basis=(id.indexOf('thumb:')===0)?'thumb':id; return !!READY[basis]; }
 function openMotiv(){ var ov=document.getElementById('motivOv'); if(!ov)return;
@@ -3808,9 +3837,9 @@ function drawMotiv(){
   var med=MOTIV.med||'social', baum=SERIEN[med]||{};
   var kats=Object.keys(baum).filter(function(k){ return (baum[k]||[]).length; });
   if(kats.indexOf(MOTIV.kat)<0)MOTIV.kat=kats[0]||null;
-  var h='<div class="mo-head"><div><h3>Motiv wählen</h3>'
-    +'<p>Erst das Medium, dann die Kategorie, dann die Serie. Die Ausgabe-Formate stehen oben in der Kopfzeile — hier geht es nur um das Motiv.</p></div>'
-    +'<button class="mo-x" id="motivX" title="Schliessen">'+IC('x',17)+'</button></div>';
+  var h='<div class="mo-head"><h3>Motiv wählen</h3>'
+    +'<p>Die Ausgabe-Formate stehen oben in der Kopfzeile.</p>'
+    +'<button class="mo-x" id="motivX" title="Schliessen">'+IC('x',16)+'</button></div>';
   h+='<div class="mo-s">'+IC('search',16)+'<input id="motivQ" placeholder="Vorlage oder Serie suchen…" value="'+esc(MOTIV.q)+'"></div>';
   h+='<div class="mo-row"><span class="mo-lab">Medium</span>';
   Object.keys(MEDNM).forEach(function(m){
@@ -3833,20 +3862,29 @@ function drawMotiv(){
       if(eintr.length)gruppen.push({med:m,kat:k,se:se,eintr:eintr}); }); }); });
   if(med==='praesi'&&!q){
     h+='<div class="mo-ser"><div class="mo-sh"><i style="background:#3b7657"></i>Präsentationen</div>'
-      +'<div class="mo-grid"><button class="mo-it" data-praesi="1"><div class="mo-pv">'+IC('monitor',22)+'</div>'
+      +'<div class="mo-grid quer"><button class="mo-it" data-praesi="1"><div class="mo-pv" style="aspect-ratio:16/9">'+IC('monitor',22)+'</div>'
       +'<b>Alle Decks</b><span>Übersicht öffnen</span></button></div></div>';
   } else if(!gruppen.length){
     h+='<div class="mo-leer">Nichts gefunden.</div>';
   } else {
+    /* EIN Raster statt eines pro Serie: bei einer Vorlage je Serie stand sonst jede Karte
+       allein in einer Zeile und rechts daneben gaehnte die Leere. Die Serie steht auf der
+       Karte selbst — die Zuordnung geht also nicht verloren. */
+    var quer=(gruppen[0]&&gruppen[0].med!=='social')&&!q;
+    h+='<div class="mo-grid'+(quer?' quer':'')+'" style="margin-top:16px">';
     gruppen.forEach(function(g){
-      h+='<div class="mo-ser"><div class="mo-sh"><i style="background:'+(KATFARBE[g.kat]||'#5ca7dc')+'"></i>'
-        +esc(g.se.n)+(q?' · '+esc(MEDNM[g.med]):'')+'</div><div class="mo-grid">';
+      var gq=(g.med!=='social');
       g.eintr.forEach(function(e){
-        var aktiv=(motivId()===e[0]);
-        h+='<button class="mo-it'+(aktiv?' on':'')+'" data-go="'+esc(e[0])+'">'
-          +'<div class="mo-pv">'+IC(g.med==='yt'?'play':(g.med==='stream'?'monitor':'image'),22)+'</div>'
-          +'<b>'+esc(e[1])+'</b><span>'+esc(g.se.n)+'</span></button>'; });
-      h+='</div></div>'; });
+        var aktiv=(motivId()===e[0]), ratio=gq?'16/9':'4/5';
+        h+='<button class="mo-it'+(aktiv?' on':'')+'" data-go="'+esc(e[0])+'" title="'+esc(MEDNM[g.med]+' · '+(CATNM[g.kat]||g.kat)+' · '+g.se.n)+'">'
+          +'<div class="mo-pv" style="aspect-ratio:'+ratio+'">'
+          +IC(g.med==='yt'?'play':(g.med==='stream'?'monitor':'image'),20)
+          +'<img src="'+coverSrc(e[0])+'" alt="" loading="lazy" decoding="async" width="440" height="'+(gq?248:550)+'" '
+          +'onerror="this.style.display=\'none\'">'
+          +'</div><b>'+esc(e[1])+'</b>'
+          +'<span><i class="mo-dot" style="background:'+(KATFARBE[g.kat]||'#5ca7dc')+'"></i>'+esc(g.se.n)+(q?' · '+esc(MEDNM[g.med]):'')+'</span>'
+          +'</button>'; }); });
+    h+='</div>';
   }
   c.innerHTML=h;
   c.querySelector('#motivX').onclick=closeMotiv;
