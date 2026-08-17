@@ -5573,12 +5573,43 @@ function applyStage(){
 /* Momentaufnahme einer NICHT aktiven Seite: kurz auf die Seite umschalten, rendern, das fertige
    HTML einsammeln, zurückschalten. Die Kopie ist statisch (keine Klick-Handler) — bearbeitet wird
    immer nur die aktive Seite. Läuft nur, wenn sich die Seiten ändern, nicht bei jedem Tastendruck. */
+/* Entfernt alle id="…"-Attribute aus einem HTML-Schnipsel. Ueber einen echten
+   Parser, nicht per Zeichenkette — sonst trifft es auch Text mit id= darin. */
+var _snapLauf=0;
+function ohneIds(html){
+  try{
+    var d=document.createElement('div'); d.innerHTML=html;
+    var praefix='s'+(++_snapLauf)+'-';
+    /* IDs INNERHALB von SVG werden per url(#id) referenziert (Verlaeufe, Masken).
+       Die duerfen nicht einfach weg — sie bekommen einen eigenen Namen, und die
+       Verweise wandern mit. Alles andere verliert seine ID ersatzlos. */
+    d.querySelectorAll('svg [id], svg[id]').forEach(function(n){
+      var alt=n.getAttribute('id'); if(!alt)return;
+      n.setAttribute('id', praefix+alt);
+    });
+    var roh=d.innerHTML;
+    d.querySelectorAll('svg [id], svg[id]').forEach(function(n){
+      var neu=n.getAttribute('id'), alt=neu.slice(praefix.length);
+      roh=roh.split('url(#'+alt+')').join('url(#'+neu+')')
+             .split('href="#'+alt+'"').join('href="#'+neu+'"');
+    });
+    d.innerHTML=roh;
+    d.querySelectorAll('[id]').forEach(function(n){
+      if(n.getAttribute('id').indexOf(praefix)!==0) n.removeAttribute('id'); });
+    return d.innerHTML;
+  }catch(e){ return html; }
+}
 function snapshotPage(i){
   var k=state.active, old=state.pageIx[k];
   try{
     state.pageIx[k]=i;
     applyCanvasSize(); renderBg(); applyDark(); try{renderShelf();}catch(e){} rebuild();
-    var out={ html:canvas.innerHTML, w:CW(), h:CH(), bg:getComputedStyle(canvas).background };
+    /* WICHTIG: Der Schnappschuss wird als HTML in den Seitenstapel gelegt. Kaeme
+       er mit den Original-IDs (profi, canvas, bgimg, col …), gaebe es dieselbe ID
+       mehrfach im Dokument — und getElementById() liefert IMMER den ersten Treffer.
+       Auf Seite 2 haette dann jede Auswahl, jede Ebene und jedes Ziehen die
+       Objekte von Seite 1 erwischt. Darum: IDs raus. (Vasco, 17.08.2026) */
+    var out={ html:ohneIds(canvas.innerHTML), w:CW(), h:CH(), bg:getComputedStyle(canvas).background };
     return out;
   } finally {
     state.pageIx[k]=old;
@@ -7355,7 +7386,14 @@ body.mobile #railR{display:none!important}
   #topBar,#botBar{gap:7px;padding:7px 10px}
   #botBar .tbfill{display:none}
 }
-#botBar #pagebar .pg-chip span{display:inline!important}
+/* Nur die Seitenzahl erzwingen — NICHT das Loesch-X (.pg-x), das gehoert
+   weiterhin nur auf die aktive Kachel und beim Zeigen. */
+#botBar #pagebar .pg-chip .pg-n{display:inline!important}
+/* Ist das Lineal an, beginnt die Buehne darunter — und die beiden Seitenspalten
+   auf derselben Linie. Sonst laege der Flyer-Kopf unter dem Lineal und die
+   Spalten faengen hoeher an als die Buehne. (Vasco, 17.08.2026) */
+body.rulers #railB,body.rulers #flyB,body.rulers .sidebar,
+body.rulers .layers,body.rulers #railR{padding-top:18px}
 body.mobile #topBar{display:none}
 </style>
 <script>
@@ -7394,14 +7432,20 @@ body.mobile #topBar{display:none}
      bewusst bei top:0, weil seine Marken gegen die Buehne gerechnet werden. */
   function platz(){
     var hu=Math.ceil(bot.getBoundingClientRect().height);
-    /* Die obere Leiste sitzt ausserhalb der Buehne — die Buehne beginnt bei 0
-       und endet ueber der unteren Leiste. Gemessen, nicht geraten. */
-    scroll.style.top='0px'; scroll.style.bottom=hu+'px';
+    /* Die obere Leiste sitzt ausserhalb der Buehne. Ist das Lineal an, faengt
+       die Buehne darunter an — sonst deckt es den Kopf des Flyers zu. */
+    var rt=document.getElementById('rulerTop');
+    var hl=(rt&&document.body.classList.contains('rulers'))
+      ? Math.ceil(rt.getBoundingClientRect().height) : 0;
+    scroll.style.top=hl+'px'; scroll.style.bottom=hu+'px';
     try{ if(typeof fitStage==='function')fitStage(); }catch(e){}
     try{ if(window.buildRuler)window.buildRuler(); }catch(e){}
   }
   if(window.ResizeObserver){ var ro=new ResizeObserver(platz); ro.observe(top); ro.observe(bot); }
   window.addEventListener('resize',platz);
+  /* Der Lineal-Schalter aendert die Hoehe der Buehne — also neu messen. */
+  new MutationObserver(function(){ platz(); setTimeout(platz,40); })
+    .observe(document.body,{attributes:true,attributeFilter:['class']});
   platz(); setTimeout(platz,300); setTimeout(platz,1200);
 })();
 </script>
