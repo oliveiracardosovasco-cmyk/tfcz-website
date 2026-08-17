@@ -5576,26 +5576,31 @@ function applyStage(){
 /* Entfernt alle id="…"-Attribute aus einem HTML-Schnipsel. Ueber einen echten
    Parser, nicht per Zeichenkette — sonst trifft es auch Text mit id= darin. */
 var _snapLauf=0;
-function ohneIds(html){
+/* Ein Schnappschuss liegt als HTML im Seitenstapel — mit denselben IDs wie die
+   lebende Seite. Das ist nur bei den beiden IDs ein Problem, die woanders per
+   SELEKTOR gesucht werden: #profi und #col. Kaemen sie doppelt vor, lieferte
+   querySelector('#profi .item[...]') den Knoten der falschen Seite — genau das
+   war der Grund, warum auf Seite 2 alles die Objekte von Seite 1 erwischte.
+   Alle anderen IDs bleiben: sie tragen Gestaltung (#bgimg, #scrim, #darklayer)
+   und werden nirgends per Selektor gesucht. Vorher hatte ich pauschal ALLE IDs
+   entfernt — dann verlor der Schnappschuss sein Aussehen (dunkler Hintergrund,
+   verrutschter Kaese). SVG-interne IDs bekommen einen eigenen Namen, damit sich
+   Verlaeufe zweier Seiten nicht ins Gehege kommen. (Vasco, 17.08.2026) */
+function entschaerfe(html){
   try{
     var d=document.createElement('div'); d.innerHTML=html;
     var praefix='s'+(++_snapLauf)+'-';
-    /* IDs INNERHALB von SVG werden per url(#id) referenziert (Verlaeufe, Masken).
-       Die duerfen nicht einfach weg — sie bekommen einen eigenen Namen, und die
-       Verweise wandern mit. Alles andere verliert seine ID ersatzlos. */
     d.querySelectorAll('svg [id], svg[id]').forEach(function(n){
-      var alt=n.getAttribute('id'); if(!alt)return;
-      n.setAttribute('id', praefix+alt);
-    });
+      n.setAttribute('id', praefix+n.getAttribute('id')); });
     var roh=d.innerHTML;
     d.querySelectorAll('svg [id], svg[id]').forEach(function(n){
       var neu=n.getAttribute('id'), alt=neu.slice(praefix.length);
       roh=roh.split('url(#'+alt+')').join('url(#'+neu+')')
-             .split('href="#'+alt+'"').join('href="#'+neu+'"');
-    });
+             .split('href="#'+alt+'"').join('href="#'+neu+'"'); });
     d.innerHTML=roh;
-    d.querySelectorAll('[id]').forEach(function(n){
-      if(n.getAttribute('id').indexOf(praefix)!==0) n.removeAttribute('id'); });
+    [['profi','profi-snap'],['col','col-snap']].forEach(function(paar){
+      var n=d.querySelector('#'+paar[0]);
+      if(n){ n.removeAttribute('id'); n.classList.add(paar[1]); } });
     return d.innerHTML;
   }catch(e){ return html; }
 }
@@ -5609,7 +5614,7 @@ function snapshotPage(i){
        mehrfach im Dokument — und getElementById() liefert IMMER den ersten Treffer.
        Auf Seite 2 haette dann jede Auswahl, jede Ebene und jedes Ziehen die
        Objekte von Seite 1 erwischt. Darum: IDs raus. (Vasco, 17.08.2026) */
-    var out={ html:ohneIds(canvas.innerHTML), w:CW(), h:CH(), bg:getComputedStyle(canvas).background };
+    var out={ html:entschaerfe(canvas.innerHTML), w:CW(), h:CH(), bg:getComputedStyle(canvas).background };
     return out;
   } finally {
     state.pageIx[k]=old;
@@ -7457,6 +7462,15 @@ body.mobile #topBar{display:none}
    der Zeile, also traf man fast immer das Objekt statt das Kästchen.
    Jetzt: 20 px Kästchen in einer 40 x 44 px grossen Fläche.
    ============================================================================ */
+/* Die entschaerften Knoten im Schnappschuss brauchen dieselbe Gestaltung wie
+   #profi bzw. #col — sonst faellt der Hintergrund weg und die Seite wird dunkel. */
+.profi-snap{position:absolute;inset:0;z-index:6;flex-direction:column;display:none;overflow:hidden;
+  background:linear-gradient(180deg,#0e2b44,#0b2236 46%,#081a2a 76%,#050f19)}
+.profi-snap .item{cursor:default;user-select:none}
+.profi-snap.bglay .item,.profi-snap.kaselay .item,.profi-snap.ytlay .item{max-width:none}
+.profi-snap .item.sel{outline:none!important;box-shadow:none!important}
+.col-snap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;
+  flex-direction:column;align-items:center;text-align:center;width:max-content;z-index:6}
 #ellist .el .vis-hit{display:inline-flex;align-items:center;justify-content:center;
   width:40px;height:44px;margin:-6px -8px -6px 0;flex:none;cursor:pointer;border-radius:var(--btn-radius,12px)}
 #ellist .el .vis-hit:hover{background:rgba(255,255,255,.08)}
@@ -7481,6 +7495,92 @@ body.mobile #topBar{display:none}
     window.buildList=function(){ var r=_bl.apply(this,arguments); try{ kaestchen(); }catch(e){} return r; };
   }
   try{ kaestchen(); }catch(e){}
+})();
+</script>
+
+<style>
+/* ============================================================================
+   AUGE STATT KONTROLLKÄSTCHEN · TITEL MIT SEITENNAME · AUSWAHLRAHMEN (17.08.2026)
+   1) Das Kästchen mass 13 x 13 px in einer 48 px hohen Zeile — man traf es fast
+      nie. Jetzt ein Auge (Lucide) in einer 44 x 44 px grossen Fläche;
+      ausgeblendet zeigt es das durchgestrichene Auge.
+   2) Die Überschrift der Objektliste sagt jetzt, zu welcher Seite sie gehört.
+   3) Der Auswahlrahmen hing beim Scrollen fest — Moveable rechnet in
+      Fensterkoordinaten und muss beim Scrollen der Bühne nachgeführt werden.
+   ============================================================================ */
+#ellist .el .vis-hit{width:44px;height:44px;margin:-6px -10px -6px 0;border-radius:var(--btn-radius,12px)}
+#ellist .el .vis-hit input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+#ellist .el .vis-hit .augen{display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;color:var(--ink-mut,#c3d2e0);transition:color var(--t-fast,.15s) var(--ease,ease)}
+#ellist .el .vis-hit:hover .augen{color:#fff}
+#ellist .el .vis-hit.aus .augen{color:#6b7f92}
+#ellist .el.aus .nm{opacity:.5;text-decoration:line-through;text-decoration-thickness:1px}
+</style>
+<script>
+(function(){
+  /* --- 1) Auge statt Kaestchen ------------------------------------------- */
+  var AUGE_ZU='<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/>'
+    +'<path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/>'
+    +'<path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/>'
+    +'<path d="m2 2 20 20"/>';
+  function svg(offen){
+    return '<span class="augen">'+(offen ? (typeof IC==='function'?IC('eye',18):'')
+      : '<svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" '
+        +'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+AUGE_ZU+'</svg>')+'</span>';
+  }
+  function stand(l){
+    var cb=l.querySelector('input'); if(!cb)return;
+    var offen=cb.checked;
+    l.classList.toggle('aus',!offen);
+    var zeile=l.closest('.el'); if(zeile)zeile.classList.toggle('aus',!offen);
+    l.title=offen?'Objekt ausblenden':'Objekt einblenden';
+    l.setAttribute('aria-label',l.title);
+    var alt=l.querySelector('.augen'); if(alt)alt.remove();
+    l.insertAdjacentHTML('beforeend', svg(offen));
+  }
+  function augen(){
+    var h=document.getElementById('ellist'); if(!h)return;
+    [].forEach.call(h.querySelectorAll('.el .vis-hit'),function(l){
+      if(!l.dataset.auge){ l.dataset.auge='1';
+        l.addEventListener('click',function(){ setTimeout(function(){ stand(l); },0); }); }
+      stand(l);
+    });
+  }
+  if(typeof window.buildList==='function'){
+    var _bl=window.buildList;
+    window.buildList=function(){ var r=_bl.apply(this,arguments); try{ augen(); }catch(e){} return r; };
+  }
+  try{ augen(); }catch(e){}
+
+  /* --- 2) Ueberschrift der Objektliste traegt den Seitennamen ------------- */
+  function titel(){
+    var sp=document.querySelector('#rpLayers .lay-h span'); if(!sp)return;
+    if(typeof isGuest==='function'&&isGuest())return;      /* Gast sieht „Pflichtangaben" */
+    try{
+      var ps=pagesOf(state.active), i=pageNow();
+      sp.textContent='Objekte · '+pageLabel(ps[i],i);
+    }catch(e){}
+  }
+  ['buildList','buildPagebar','switchAll'].forEach(function(fn){
+    if(typeof window[fn]!=='function')return;
+    var _f=window[fn];
+    window[fn]=function(){ var r=_f.apply(this,arguments); try{ titel(); }catch(e){} return r; };
+  });
+  try{ titel(); }catch(e){}
+
+  /* --- 3) Auswahlrahmen beim Scrollen nachfuehren ------------------------- */
+  var wrap=document.getElementById('stagescroll');
+  if(wrap){
+    var wartet=false;
+    function nach(){
+      if(wartet)return; wartet=true;
+      requestAnimationFrame(function(){ wartet=false;
+        try{ if(window.MV&&MV.target&&MV.target.length)MV.updateRect(); }catch(e){}
+        try{ if(typeof positionEditToolbar==='function')positionEditToolbar(); }catch(e){}
+      });
+    }
+    wrap.addEventListener('scroll',nach,{passive:true});
+  }
 })();
 </script>
 </body></html>
