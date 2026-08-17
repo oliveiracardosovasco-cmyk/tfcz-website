@@ -1984,7 +1984,8 @@ function save(){ saveLocal();
   if(_saveT)clearTimeout(_saveT); _saveT=setTimeout(function(){ _saveT=null;
     try{ fetch(API_BASE+'/api/state',{method:'PUT',headers:{'content-type':'application/json'},body:JSON.stringify(stateToStore())}).catch(function(){}); }catch(e){}
   },600); }
-function hydrate(){ try{ fetch(API_BASE+'/api/state').then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(s){ if(!s||typeof s!=='object')return; rebuildPages(s); if(s.pages)state.pages=s.pages; if(s.pageIx)state.pageIx=s.pageIx; if(s.active)state.active=s.active; if(s.fmt)state.fmt=s.fmt; if(s.logoSrc)state.logoSrc=s.logoSrc; if(Array.isArray(s.library))state.library=s.library; if(s.shelf&&typeof s.shelf==='object')state.shelf=s.shelf; if(s.data&&Object.keys(s.data).length){Object.keys(s.data).forEach(function(k){ if(s.data[k])state.data[k]=s.data[k]; });} if(s.templates)state.templates=s.templates; if(s.captions)state.captions=s.captions; if(Array.isArray(s.personas)&&s.personas.length)state.personas=s.personas; if(Array.isArray(s.tournaments)&&s.tournaments.length)state.tournaments=s.tournaments; if(s.perMatrix&&Object.keys(s.perMatrix).length)state.perMatrix=s.perMatrix; if(s.personaLayout&&Object.keys(s.personaLayout).length)state.personaLayout=s.personaLayout; if(typeof switchAll==='function')switchAll(); }).catch(function(){ if(typeof toast==='function')toast('Backend nicht erreichbar – nur lokal, kein Speichern'); }); }catch(e){} }
+function hydrate(){ try{ fetch(API_BASE+'/api/state').then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(s){ if(!s||typeof s!=='object')return; rebuildPages(s); if(s.pages)state.pages=s.pages; if(s.pageIx)state.pageIx=s.pageIx; if(s.active)state.active=s.active; if(s.fmt)state.fmt=s.fmt; if(s.logoSrc)state.logoSrc=s.logoSrc; if(Array.isArray(s.library))state.library=s.library; if(s.shelf&&typeof s.shelf==='object')state.shelf=s.shelf; if(s.data&&Object.keys(s.data).length){Object.keys(s.data).forEach(function(k){ if(s.data[k])state.data[k]=s.data[k]; });} if(s.templates)state.templates=s.templates; if(s.captions)state.captions=s.captions; if(Array.isArray(s.personas)&&s.personas.length)state.personas=s.personas; if(Array.isArray(s.tournaments)&&s.tournaments.length)state.tournaments=s.tournaments; if(s.perMatrix&&Object.keys(s.perMatrix).length)state.perMatrix=s.perMatrix; if(s.personaLayout&&Object.keys(s.personaLayout).length)state.personaLayout=s.personaLayout; if(typeof switchAll==='function')switchAll(); }).catch(function(){ /* Kein Hinweis mehr (Vasco, 17.08.2026): die Meldung war zudem falsch —
+     lokal wird ueber „Speichern" sehr wohl gespeichert. */ }); }catch(e){} }
 
 /* ============================================================================
    SEITEN (Versionen) je Flyer-Typ — wie die Seiten in Canva
@@ -6574,15 +6575,11 @@ body.mobile #saveBtn .lbl{display:none}
     if(!still&&typeof toast==='function')toast('Gespeichert.');
   };
 
-  /* Speichern-Knopf in die Kopfzeile, direkt vor „Herunterladen". */
-  var dl=document.getElementById('download');
-  if(dl&&dl.parentElement){
-    var b=document.createElement('button'); b.id='saveBtn';
-    b.innerHTML='<span class="dot"></span><span class="lbl">Gespeichert</span>';
-    b.onclick=function(){ speichereJetzt(); };
-    dl.parentElement.insertBefore(b,dl);
-  }
+  /* Kein zweiter Speichern-Knopf in der Kopfzeile mehr (Vasco, 17.08.2026).
+     Zwei Knoepfe fuer dieselbe Sache waren einer zu viel — es bleibt die
+     schwebende Leiste, die nur dann auftaucht, wenn es etwas zu speichern gibt. */
   setDirty(false);
+
 
   /* Die vorhandenen Bestaetigungen sind ab jetzt echte Speicherpunkte. */
   var _ce=window.commitEdit;
@@ -7056,12 +7053,8 @@ body.mobile #railR{display:none!important}
       if(tr) tr.click();
     }
 
-    /* links: „Einfügen" aufklappen — der Knopf schaltet um, also nur wenn zu. */
-    if(innerWidth >= SCHMAL){
-      var fly = document.getElementById('flyB');
-      var tb  = document.querySelector('#railB .rbI[data-k="add"]');
-      if(fly && tb && !fly.classList.contains('on')) tb.click();
-    }
+    /* links: bleibt ZU (Vasco, 17.08.2026). Die Symbolschiene steht, das Blatt
+       faehrt erst auf Klick aus — die Buehne bekommt den Platz. */
     kopfNachruesten();
     railFit();
     requestAnimationFrame(libFit);
@@ -7321,51 +7314,52 @@ body.mobile #railR{display:none!important}
 
 <style>
 /* ============================================================================
-   BÜHNEN-LEISTE OBEN (klebrig, über dem Lineal)
-   Vorher lagen Ansicht (Lineal/Snap/Ratio/Zoom) und Seiten unten in einer Zeile,
-   die auf schmalen Fenstern umbrach und der Bühne zweimal Höhe wegnahm — und
-   die Schalter sassen diagonal gegenüber dem, was sie steuern (Lineal oben
-   links, sein Schalter unten rechts). Jetzt: eine Leiste oben, die Bühne
-   darunter frei bis zum unteren Rand.
+   ZWEI BÜHNEN-LEISTEN (17.08.2026)
+   OBEN, klebrig über dem Lineal: was die ANSICHT steuert — Lineal, Snap, Ratio.
+     Vorher sass der Lineal-Schalter unten rechts, das Lineal oben links.
+   UNTEN, fest am Rand: was das DOKUMENT betrifft — Seiten und Zoom.
+   Die Bühne liegt sauber zwischen beiden; keine Leiste liegt je auf dem Flyer.
    ============================================================================ */
-#topBar{position:absolute;left:0;right:0;top:0;z-index:46;display:flex;align-items:center;
-  gap:10px;flex-wrap:wrap;padding:8px 12px;background:rgba(8,18,29,.86);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--card-brd)}
-#topBar .tbsep{width:1px;align-self:stretch;margin:2px 2px;background:var(--card-brd);flex:none}
-#topBar .tbfill{flex:1;min-width:0}
-#topBar > *{position:static!important;left:auto!important;right:auto!important;
+/* Die obere Leiste liegt VOR <main> und spannt darum ueber alle drei Spalten.
+   Dadurch docken beide Seitenspalten unter ihr an, auf einer Linie mit dem
+   Lineal — vorher begannen sie daneben und die Kante lief mitten durch. */
+#topBar{position:relative;z-index:46;flex:none;border-bottom:1px solid var(--card-brd)}
+#botBar{position:absolute;left:0;right:0;bottom:0;z-index:46;border-top:1px solid var(--card-brd)}
+#topBar,#botBar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;
+  background:rgba(8,18,29,.86);backdrop-filter:blur(12px)}
+#topBar > *,#botBar > *{position:static!important;left:auto!important;right:auto!important;
   top:auto!important;bottom:auto!important;margin:0!important}
-#topBar #zoombar,#topBar #pagebar{background:none!important;box-shadow:none!important;
+#botBar .tbfill{flex:1;min-width:0}
+#botBar #zoombar,#botBar #pagebar{background:none!important;box-shadow:none!important;
   border:0!important;padding:0!important;flex:0 1 auto;min-width:0;flex-wrap:wrap}
-/* Der Prozentwert ist jetzt selbst der Weg zurueck auf 100 % — der stumme
-   Bild-Knopf daneben entfaellt. */
-#topBar #zoomval{cursor:pointer;border:1px solid var(--card-brd);border-radius:var(--btn-radius);
+/* Der Prozentwert ist selbst der Weg zurueck auf 100 % — der stumme Bild-Knopf
+   daneben ist entfallen, er hiess „Einpassen" und passte nichts ein. */
+#botBar #zoomval{cursor:pointer;border:1px solid var(--card-brd);border-radius:var(--btn-radius);
   padding:5px 10px;min-width:58px;transition:all var(--t-fast) var(--ease)}
-#topBar #zoomval:hover{border-color:var(--gold);color:var(--ink)}
+#botBar #zoomval:hover{border-color:var(--gold);color:var(--ink)}
 #footRow{display:none!important}
-#introHint{bottom:18px!important}
+/* Der Einstiegs-Hinweis ueber der Buehne ist raus (Vasco, 17.08.2026). */
+#introHint{display:none!important}
+/* Enger werdende Leisten: zuerst fallen die Beschriftungen, dann die Wortknoepfe.
+   Die Seitenzahl bleibt IMMER stehen, sonst weiss niemand mehr, wo er ist. */
 @media(max-width:1180px){
   #topBar #stageTools .tb-btn{font-size:0;padding:0 9px;gap:0}
   #topBar #stageTools .tb-btn span[data-ic]{font-size:13px}
 }
-/* Enger werdende Leiste: zuerst fallen die Beschriftungen, dann die Wortknoepfe —
-   die Seitenzahl bleibt IMMER stehen, sonst weiss niemand mehr, wo er ist. */
 @media(max-width:1024px){
-  #topBar #pagebar .pg-lab{display:none}
-  /* Der Text steht als blosser Textknoten im Knopf — er faellt ueber die
-     Schriftgroesse weg, das Icon behaelt seine eigene. */
-  #topBar #pagebar #pgDup,#topBar #pagebar #pgNew{font-size:0;padding:0 9px;gap:0}
-  #topBar #pagebar #pgDup span[data-ic],#topBar #pagebar #pgNew span[data-ic]{font-size:13px}
+  #botBar #pagebar .pg-lab{display:none}
+  #botBar #pagebar #pgDup,#botBar #pagebar #pgNew{font-size:0;padding:0 9px;gap:0}
+  #botBar #pagebar #pgDup span[data-ic],#botBar #pagebar #pgNew span[data-ic]{font-size:13px}
 }
 @media(max-width:900px){
-  #topBar{gap:7px;padding:7px 10px}
-  #topBar .tbfill{display:none}
+  #topBar,#botBar{gap:7px;padding:7px 10px}
+  #botBar .tbfill{display:none}
 }
-#topBar #pagebar .pg-chip span{display:inline!important}
-body.mobile #topBar #stageTools{display:none}
+#botBar #pagebar .pg-chip span{display:inline!important}
+body.mobile #topBar{display:none}
 </style>
 <script>
-/* Siehe CSS darueber: alles aus der Fusszeile in eine klebrige Leiste oben. */
+/* Siehe CSS darueber: Ansicht nach oben, Seiten und Zoom nach unten. */
 (function(){
   var wrap=document.getElementById('stagewrap');
   var scroll=document.getElementById('stagescroll');
@@ -7373,18 +7367,19 @@ body.mobile #topBar #stageTools{display:none}
   var pb=document.getElementById('pagebar');
   if(!wrap||!scroll||!zb||!pb)return;
 
-  var bar=document.createElement('div'); bar.id='topBar';
-  wrap.insertBefore(bar, wrap.firstChild);
+  var top=document.createElement('div'); top.id='topBar';
+  var bot=document.createElement('div'); bot.id='botBar';
+  var mainEl=wrap.parentElement;                 /* <main> */
+  mainEl.parentElement.insertBefore(top, mainEl);/* volle Breite ueber allen Spalten */
+  wrap.appendChild(bot);
 
-  /* Reihenfolge: Ansicht (Lineal/Snap/Ratio), Zoom, Trenner, Seiten. */
   var st=document.getElementById('stageTools');
-  if(st) bar.appendChild(st);
-  bar.appendChild(zb);
-  var sep=document.createElement('div'); sep.className='tbsep'; bar.appendChild(sep);
-  bar.appendChild(pb);
-  var fill=document.createElement('div'); fill.className='tbfill'; bar.appendChild(fill);
+  if(st) top.appendChild(st);                 /* Lineal · Snap · Ratio */
+  bot.appendChild(pb); bot.appendChild(zb);   /* Seiten … Zoom */
+  var fill=document.createElement('div'); fill.className='tbfill';
+  bot.insertBefore(fill, zb);
 
-  /* "Einpassen" hiess nie, was es tat: es setzt auf 100 % und rueckt die Seite
+  /* „Einpassen" hiess nie, was es tat: es setzt auf 100 % und rueckt die Seite
      wieder in die Mitte. Genau das steht jetzt auf dem Prozentwert selbst. */
   var zf=document.getElementById('zFit'); if(zf&&zf.parentElement) zf.parentElement.removeChild(zf);
   var zv=document.getElementById('zoomval');
@@ -7393,25 +7388,21 @@ body.mobile #topBar #stageTools{display:none}
     zv.onclick=function(){ try{ zoomFit(); }catch(e){} };
     zv.onkeydown=function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); zv.onclick(); } }; }
 
-  /* Die Bühne und beide Lineale beginnen unter der Leiste. Gemessen, nicht geraten. */
-  var rt=document.getElementById('rulerTop'), rl=document.getElementById('rulerLeft');
-  window._topBarH=0;
+  /* Die Buehne beginnt unter der oberen und endet ueber der unteren Leiste.
+     Gemessen, nicht geraten — sonst stimmt die Einpass-Rechnung nicht, die mit
+     clientHeight arbeitet. Das obere Lineal rueckt mit; das LINKE bleibt
+     bewusst bei top:0, weil seine Marken gegen die Buehne gerechnet werden. */
   function platz(){
-    var h=Math.ceil(bar.getBoundingClientRect().height);
-    window._topBarH=h;
-    scroll.style.top=h+'px'; scroll.style.bottom='0px';
-    /* Das obere Lineal rueckt unter die Leiste — seine Marken sitzen waagrecht,
-       das aendert nichts an ihnen. Das LINKE Lineal bleibt bewusst bei top:0:
-       seine Marken werden gegen stagewrap gerechnet, ein Versatz wuerde sie
-       verschieben. Die Leiste deckt den oberen Teil ohnehin ab. */
-    if(rt)rt.style.top=h+'px';
+    var hu=Math.ceil(bot.getBoundingClientRect().height);
+    /* Die obere Leiste sitzt ausserhalb der Buehne — die Buehne beginnt bei 0
+       und endet ueber der unteren Leiste. Gemessen, nicht geraten. */
+    scroll.style.top='0px'; scroll.style.bottom=hu+'px';
     try{ if(typeof fitStage==='function')fitStage(); }catch(e){}
     try{ if(window.buildRuler)window.buildRuler(); }catch(e){}
   }
-  if(window.ResizeObserver){ new ResizeObserver(platz).observe(bar); }
+  if(window.ResizeObserver){ var ro=new ResizeObserver(platz); ro.observe(top); ro.observe(bot); }
   window.addEventListener('resize',platz);
   platz(); setTimeout(platz,300); setTimeout(platz,1200);
-
 })();
 </script>
 </body></html>
