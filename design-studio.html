@@ -7583,4 +7583,95 @@ body.mobile #topBar{display:none}
   }
 })();
 </script>
+
+<style>
+/* ============================================================================
+   SEITEN NEBENEINANDER ODER ÜBEREINANDER · TITEL MIT SEITENNAME ·
+   RECHTE SPALTE UNTER DEM LINEAL  (17.08.2026)
+   ============================================================================ */
+/* Die rechte Spalte hatte #layersPanel{padding:0} — eine ID schlaegt meine
+   Klassenregel, darum blieb sie oben kleben. */
+body.rulers #layersPanel{padding-top:18px!important}
+
+/* --- Ausrichtung des Seitenstapels --- */
+/* Nebeneinander: „safe" verhindert, dass beim Zentrieren der Anfang aus dem
+   Bild rutscht — sonst ist die erste Seite links abgeschnitten und nicht
+   erreichbar (gemessen: linke Kante bei -8 px). */
+#pagestack.quer{flex-direction:row!important;align-items:center;margin:0!important;
+  padding:24px 24px!important;min-width:min-content}
+#stagescroll:has(#pagestack.quer){align-items:safe center!important;justify-content:safe center!important}
+#botBar #pgLay{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border:1px solid var(--card-brd);border-radius:var(--btn-radius);background:transparent;
+  color:var(--ink-mut);cursor:pointer;flex:none;transition:all var(--t-fast) var(--ease)}
+#botBar #pgLay:hover{border-color:var(--gold);color:var(--ink)}
+#botBar #pgLay.on{background:var(--ink);color:var(--navy);border-color:transparent}
+</style>
+<script>
+(function(){
+  /* --- 1) Nebeneinander / uebereinander -------------------------------- */
+  var SCHL='tfcz_pglay';
+  var stack=document.getElementById('pagestack');
+  var zb=document.getElementById('zoombar');
+  if(stack&&zb){
+    var quer=false; try{ quer=localStorage.getItem(SCHL)==='quer'; }catch(e){}
+    var IC2=function(n,s){ return (typeof IC==='function')?IC(n,s||15):''; };
+    var b=document.createElement('button'); b.id='pgLay'; b.type='button';
+    zb.insertBefore(b, zb.firstChild);
+    function zeichne(){
+      stack.classList.toggle('quer',quer);
+      b.classList.toggle('on',quer);
+      b.title = quer ? 'Seiten nebeneinander — umschalten auf übereinander'
+                     : 'Seiten übereinander — umschalten auf nebeneinander';
+      b.setAttribute('aria-label',b.title);
+      b.setAttribute('aria-pressed',quer?'true':'false');
+      /* Waagrecht = die Seiten stehen in einer Zeile, senkrecht = in einer Spalte. */
+      b.innerHTML = IC2(quer?'align-center-horizontal':'align-center-vertical',15);
+      try{ if(typeof fitStage==='function')fitStage(); }catch(e){}
+      try{ if(typeof scrollToPage==='function')scrollToPage(); }catch(e){}
+    }
+    b.onclick=function(){ quer=!quer; try{ localStorage.setItem(SCHL, quer?'quer':'hoch'); }catch(e){} zeichne(); };
+    zeichne();
+    /* buildStack() baut den Stapel neu — die Wahl darf dabei nicht verloren gehen. */
+    if(typeof window.buildStack==='function'){
+      var _bs=window.buildStack;
+      window.buildStack=function(){ var r=_bs.apply(this,arguments);
+        try{ document.getElementById('pagestack').classList.toggle('quer',quer); }catch(e){}
+        return r; };
+    }
+  }
+
+  /* --- 2) Alle Ueberschriften tragen die Seite ------------------------- */
+  function seiteJetzt(){
+    try{ var ps=pagesOf(state.active); return pageLabel(ps[pageNow()],pageNow()); }catch(e){ return ''; }
+  }
+  function titel(){
+    var s=seiteJetzt(); if(!s)return;
+    var t=document.querySelector('#rp_texte > .sbH');
+    if(t) t.textContent='Texte · '+s;
+    /* „Element" nennt das gewaehlte Objekt — die Seite gehoert trotzdem dazu,
+       sonst weiss man bei zwei gleich benannten Objekten nicht, wo man ist. */
+    var n=document.getElementById('selname');
+    if(n){ var roh=(n.dataset.roh!=null)?n.dataset.roh:n.textContent;
+      n.dataset.roh=roh;
+      n.textContent = (roh&&roh.trim()) ? (roh.trim()+' · '+s) : ('Element · '+s); }
+  }
+  ['buildList','buildPagebar','switchAll','syncInspector','markSel'].forEach(function(fn){
+    if(typeof window[fn]!=='function')return;
+    var _f=window[fn];
+    window[fn]=function(){ var r=_f.apply(this,arguments); try{ titel(); }catch(e){} return r; };
+  });
+  /* selname wird direkt beschrieben — darum auch darauf horchen. */
+  var sn=document.getElementById('selname');
+  if(sn&&window.MutationObserver){
+    var sperre=false;
+    new MutationObserver(function(){ if(sperre)return; sperre=true;
+      var t=sn.textContent||'';
+      var s=seiteJetzt();
+      if(s && t.indexOf(' · '+s)<0){ sn.dataset.roh=t; try{ titel(); }catch(e){} }
+      setTimeout(function(){ sperre=false; },0);
+    }).observe(sn,{childList:true,characterData:true,subtree:true});
+  }
+  try{ titel(); }catch(e){}
+})();
+</script>
 </body></html>
