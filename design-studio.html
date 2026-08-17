@@ -7096,4 +7096,250 @@ body.mobile #railR{display:none!important}
 })();
 </script>
 
+
+<style>
+/* ============================================================================
+   EINGANG (Startseite des Studios)
+   Ersetzt die alte Landing samt Minispiel und den Fun-Barometer-Schritt.
+   Aufbau: Kopfbereich "Zwei Hälften" (Vorlagen | Fotoarchiv), darunter direkt
+   die Motivauswahl im Mauerwerk. Klick auf ein Motiv geht den Hauptweg —
+   mit Vorlage weiter zum Datum. "Leer starten" bleibt als Nebenweg.
+   Farben und Radien ausschliesslich aus system/tokens.css.
+   ============================================================================ */
+#landingHome{background:var(--navy-3)!important;color:var(--ink)!important;overflow-y:auto!important}
+#lpWrap{max-width:1560px;margin:0 auto;padding:0 clamp(16px,3vw,32px) 80px}
+/* --- Kopfbereich --- */
+#lpWrap .lp-mast{padding:clamp(34px,6vw,72px) 0 clamp(18px,3vw,34px)}
+#lpWrap .lp-eye{font-size:10.5px;font-weight:900;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold-lt);margin-bottom:16px}
+#lpWrap .lp-mast h1{font-size:clamp(38px,7vw,88px);font-weight:900;letter-spacing:-.045em;
+  line-height:.92;margin:0;color:#fff}
+#lpWrap .lp-mast h1 em{font-style:normal;color:var(--gold-lt)}
+#lpWrap .lp-sub{max-width:560px;margin-top:20px;color:var(--ink-mut);font-size:clamp(14px,1.5vw,17px);font-weight:600}
+/* Zwei Hälften */
+#lpWrap .lp-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+@media(max-width:760px){#lpWrap .lp-split{grid-template-columns:1fr}}
+#lpWrap .lp-half{position:relative;overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--card-brd);
+  min-height:172px;padding:24px;text-align:left;background:var(--card);color:var(--ink);cursor:pointer;
+  display:block;text-decoration:none;
+  transition:transform var(--t-base) var(--ease),border-color var(--t-base) var(--ease)}
+#lpWrap .lp-half:hover{transform:translateY(-3px);border-color:var(--gold)}
+#lpWrap .lp-half.on{border-color:transparent;background:var(--frost);
+  box-shadow:inset 0 3px 0 var(--blue),inset 0 -3px 0 var(--gold)}
+#lpWrap .lp-half b{display:block;font-size:clamp(22px,2.6vw,34px);font-weight:900;letter-spacing:-.03em;line-height:1;color:#fff}
+#lpWrap .lp-half p{font-size:13.5px;color:var(--ink-mut);margin:10px 0 0;max-width:300px;font-weight:600}
+#lpWrap .lp-half .zz{position:absolute;right:20px;top:16px;font-size:clamp(32px,4vw,52px);font-weight:900;
+  color:transparent;-webkit-text-stroke:1.2px rgba(205,168,87,.5);line-height:1}
+#lpWrap .lp-half.on .zz{-webkit-text-stroke:0;color:rgba(205,168,87,.5)}
+/* --- Filterzeile --- */
+#lpWrap .lp-bar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:20px 0 24px;
+  border-top:1px solid var(--card-brd);margin-top:34px}
+#lpWrap .lp-bar .lplb{font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-mut);margin-right:6px}
+#lpWrap .lp-f{background:transparent;border:1px solid var(--card-brd);border-radius:var(--r-md);
+  padding:7px 15px;font-size:12.5px;font-weight:900;color:var(--ink-mut);cursor:pointer;
+  transition:all var(--t-fast) var(--ease)}
+#lpWrap .lp-f:hover{border-color:var(--blue);color:var(--ink)}
+#lpWrap .lp-f.on{background:var(--ink);color:var(--navy);border-color:transparent}
+#lpWrap .lp-bar .sp{flex:1}
+/* --- Mauerwerk --- */
+#lpWrap .lp-mason{columns:4;column-gap:16px}
+#lpWrap .lp-mason > *{break-inside:avoid;margin-bottom:16px;display:block}
+@media(max-width:1280px){#lpWrap .lp-mason{columns:3}}
+@media(max-width:860px){#lpWrap .lp-mason{columns:2}}
+@media(max-width:540px){#lpWrap .lp-mason{columns:1}}
+#lpWrap .lp-tile{position:relative;display:block;width:100%;overflow:hidden;background:var(--navy-2);
+  border-radius:var(--r-lg);text-align:left;border:0;padding:0;cursor:pointer;
+  transition:transform var(--t-base) var(--ease)}
+#lpWrap .lp-tile:hover{transform:scale(1.012)}
+#lpWrap .lp-tile .lpart{position:absolute;inset:0}
+#lpWrap .lp-tile .lpveil{position:absolute;inset:0;opacity:.8;transition:opacity var(--t-base) var(--ease);
+  background:linear-gradient(180deg,rgba(4,10,17,0) 30%,rgba(4,10,17,.62) 62%,rgba(4,10,17,.94) 100%)}
+#lpWrap .lp-tile:hover .lpveil{opacity:.95}
+#lpWrap .lp-tile .lpcap{position:absolute;left:0;right:0;bottom:0;padding:18px 20px;z-index:3}
+#lpWrap .lp-tile .lpfmt{display:inline-flex;align-items:center;gap:7px;font-size:9.5px;font-weight:900;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:7px}
+#lpWrap .lp-tile .lpfmt i{width:5px;height:5px;border-radius:50%;background:var(--gold);font-style:normal}
+#lpWrap .lp-tile h3{font-size:clamp(17px,1.7vw,26px);font-weight:900;letter-spacing:-.02em;line-height:1.05;margin:0;color:#fff}
+#lpWrap .lp-tile .lpmeta{font-size:11.5px;color:var(--ink-mut);margin-top:4px}
+#lpWrap .lp-tile .lpgo{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;
+  background:rgba(238,244,250,.1);border:1px solid rgba(238,244,250,.2);
+  display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(-5px);
+  transition:all var(--t-base) var(--ease);z-index:3;font-size:14px;color:#fff}
+#lpWrap .lp-tile:hover .lpgo{opacity:1;transform:none}
+#lpWrap .lp-tile .lpsoon{position:absolute;top:16px;left:16px;z-index:3;font-size:9.5px;font-weight:900;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--navy);background:var(--gold-lt);
+  padding:4px 9px;border-radius:var(--r-sm)}
+/* Mini-Flyer im Innern (kein Bild, nur die Bildmarke der Vorlage) */
+#lpWrap .mfl{position:absolute;inset:0;overflow:hidden}
+#lpWrap .mfl .lpph{position:absolute;inset:0;background:linear-gradient(160deg,var(--navy-2),var(--navy-3) 70%)}
+#lpWrap .mfl .lppan{position:absolute;transform:skewX(-11.5deg);transform-origin:0 0}
+#lpWrap .mfl .lpedge{position:absolute;background:var(--gold-lt);transform:skewX(-11.5deg);transform-origin:0 0}
+#lpWrap .mfl.quer .lppan{left:46%;top:0;width:74%;height:100%}
+#lpWrap .mfl.quer .lpedge{left:44.6%;top:0;width:.9%;height:100%}
+#lpWrap .mfl.hoch .lppan{left:-6%;top:52%;width:120%;height:60%;transform:skewY(-7deg)}
+#lpWrap .mfl.hoch .lpedge{left:-6%;top:51%;width:120%;height:.7%;transform:skewY(-7deg)}
+#lpWrap .mfl.quad .lppan{left:40%;top:0;width:82%;height:100%}
+#lpWrap .mfl.quad .lpedge{left:38.6%;top:0;width:1.1%;height:100%}
+#lpWrap .mfl .lptx{position:absolute;z-index:3}
+#lpWrap .mfl.quer .lptx,#lpWrap .mfl.quad .lptx{right:7%;top:38%;transform:translateY(-50%);text-align:right}
+#lpWrap .mfl.hoch .lptx{left:8%;right:8%;bottom:32%;text-align:left}
+#lpWrap .mfl .lpk{font-size:.62em;font-weight:900;letter-spacing:.22em;color:rgba(255,255,255,.82)}
+#lpWrap .mfl .lpa{font-size:1.35em;font-weight:900;color:#fff;line-height:1;letter-spacing:-.01em}
+#lpWrap .mfl .lpb{font-size:2.5em;font-weight:900;line-height:.92;letter-spacing:-.035em}
+#lpWrap .k-elite .lppan{background:linear-gradient(155deg,rgba(233,196,117,.95),rgba(205,168,87,.55) 34%,rgba(10,25,40,.98) 78%)}
+#lpWrap .k-elite .lpb{color:var(--gold-lt)}
+#lpWrap .k-fun .lppan{background:linear-gradient(155deg,var(--blue),rgba(0,90,148,.92) 42%,rgba(8,24,38,.99) 82%)}
+#lpWrap .k-fun .lpb{color:#fff}
+#lpWrap .k-pro .lppan{background:linear-gradient(155deg,var(--blue-mid),rgba(0,90,148,.95) 44%,rgba(8,24,38,.99) 84%)}
+#lpWrap .k-pro .lpb{color:var(--blue)}
+/* --- Nebenweg --- */
+#lpWrap .lp-neben{margin-top:30px;padding-top:22px;border-top:1px solid var(--card-brd);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+#lpWrap .lp-neben span{font-size:13px;color:var(--ink-mut);font-weight:600}
+#lpWrap .lp-leer{background:transparent;border:1px solid var(--card-brd);border-radius:var(--btn-radius);
+  padding:11px 18px;font-size:13.5px;font-weight:900;color:var(--ink-mut);cursor:pointer;
+  transition:all var(--t-fast) var(--ease)}
+#lpWrap .lp-leer:hover{border-color:var(--gold);color:var(--ink)}
+/* Der Fun-Barometer-Schritt entfaellt — der Motivklick geht direkt zum Datum.
+   Damit bleibt nur ein Schritt uebrig: die Schiene braucht keine Verschiebung mehr. */
+#startPopup .fb-step{display:none!important}
+#startPopup .sp-track{width:100%!important}
+#startPopup .sp-track.s2{transform:none!important}
+#startPopup .sp-step{width:100%!important;flex:0 0 100%!important}
+</style>
+<script>
+/* ============================================================================
+   EINGANG — Aufbau siehe CSS darueber.
+   Der Block haengt am Ende der Datei: er ueberschreibt showHome() und den
+   Ruecksprung im Startdialog. Entfernen des Blocks stellt den alten Stand her.
+   ============================================================================ */
+(function(){
+  /* Das alte Minispiel lief schon los, als diese Datei geladen wurde. */
+  try{ if(window._physR) cancelAnimationFrame(window._physR); }catch(e){}
+  try{ clearTimeout(window._gameT); clearTimeout(window._detT); }catch(e){}
+
+  /* Format je Vorlage — dieselbe Zuordnung, die finish() im Studio benutzt. */
+  var FMT={ yt:'yt_thumb', bg:'bg_16_9', stream:'stream_1080', thumb:'thumb16' };
+  function fmtVon(k){ return FMT[k] || 'ig_feed'; }
+  function seiten(k){ var f=FORMATS[fmtVon(k)]; return f ? (f.w/f.h) : (1080/1350); }
+  function lage(k){ var v=seiten(k); return v>1.2 ? 'quer' : (v<0.7 ? 'hoch' : 'quad'); }
+
+  /* Kicker, Titel und Zeile zwei je Vorlage — sie zeigen, was die Kachel wird. */
+  var KUNST={
+    dyp   :{kl:'fun',  k:'MITTWOCH',    a:'CRAZY',   b:'DYP'},
+    kase  :{kl:'fun',  k:'PLAUSCH',     a:'KÄSE',    b:'KICK'},
+    profi :{kl:'elite',k:'PRO TURNIER', a:'STRT',    b:'ZÜRICH'},
+    rank  :{kl:'pro',  k:'SAISON',      a:'RANG',    b:'LISTE'},
+    events:{kl:'pro',  k:'TEAM-ABEND',  a:'FIRMEN',  b:'EVENT'},
+    yt    :{kl:'elite',k:'YOUTUBE',     a:'THUMB',   b:'NAIL'},
+    thumb :{kl:'elite',k:'YOUTUBE',     a:'THUMB',   b:'NAIL'},
+    bg    :{kl:'pro',  k:'BILDSCHIRM',  a:'HINTER',  b:'GRUND'},
+    stream:{kl:'elite',k:'LIVE',        a:'TISCH 1', b:'TFCZ'}
+  };
+  function mini(k,em){
+    var a=KUNST[k]||{kl:'pro',k:'TFCZ',a:'FLYER',b:'STUDIO'};
+    return '<div class="mfl '+lage(k)+' k-'+a.kl+'" style="font-size:'+(em||15)+'px">'
+      +'<div class="lpph"></div><div class="lppan"></div><div class="lpedge"></div>'
+      +'<div class="lptx"><div class="lpk">'+esc(a.k)+'</div><div class="lpa">'+esc(a.a)+'</div>'
+      +'<div class="lpb">'+esc(a.b)+'</div></div></div>';
+  }
+  function fmtLabel(k){
+    var f=FORMATS[fmtVon(k)]; if(!f) return '';
+    var g=Math.round(f.w/10)/Math.round(f.h/10);
+    var v = g>1.2 ? '16:9' : (g<0.85 ? (Math.abs(g-0.5625)<0.05?'9:16':'4:5') : '1:1');
+    return (FMTKURZ[fmtVon(k)]||f.grp)+' · '+v;
+  }
+  function kachel(o){
+    var k=o[0], bereit=(READY[k]||isAdmin());
+    var f=FORMATS[fmtVon(k)], ar=f?(f.w+'/'+f.h):'1080/1350';
+    return '<button class="lp-tile" data-k="'+k+'" style="aspect-ratio:'+ar+'">'
+      +'<div class="lpart">'+mini(k,15)+'</div><div class="lpveil"></div>'
+      +(bereit?'':'<span class="lpsoon">Bald</span>')
+      +'<div class="lpgo">&#8599;</div>'
+      +'<div class="lpcap"><div class="lpfmt"><i></i>'+esc(fmtLabel(k))+'</div>'
+      +'<h3>'+esc(o[2])+'</h3><div class="lpmeta">'+esc(o[3])+'</div></div></button>';
+  }
+
+  var GRUPPE={dyp:'fun',kase:'fun',events:'fun',profi:'wett',rank:'wett',yt:'medien',thumb:'medien',bg:'medien',stream:'medien'};
+  var filterLage='alle', filterGrp='alle';
+  function passt(k){
+    if(filterLage!=='alle' && lage(k)!==filterLage) return false;
+    if(filterGrp!=='alle' && GRUPPE[k]!==filterGrp) return false;
+    return true;
+  }
+
+  function anzahlFotos(){
+    try{ if(window.GAL&&GAL.photos) return GAL.photos.length; }catch(e){}
+    return 289;
+  }
+
+  window.showHome=function(){
+    try{localStorage.setItem('tfcz_view','home');}catch(e){}
+    var P=document.getElementById('landingHome'); if(!P)return;
+    var liste=STARTOPTS.filter(function(o){ return passt(o[0]); });
+    var h='<div id="lpWrap">'
+      +'<div class="lp-mast">'
+      +'<div class="lp-eye">Tischfussball Club Zürich · Design Studio</div>'
+      +'<h1>Womit fängst<br><em>du an?</em></h1>'
+      +'<div class="lp-split">'
+      +'<button class="lp-half on" data-halb="studio"><span class="zz">'+STARTOPTS.length+'</span>'
+      +'<b>Vorlagen</b><p>Thumbnails, Flyer, Stories und Overlays — fertig gestaltet. Du änderst nur Datum und Texte.</p></button>'
+      +'<a class="lp-half" href="galerie.html"><span class="zz">'+anzahlFotos()+'</span>'
+      +'<b>Fotogalerie</b><p>Alle Vereinsfotos aus Turnier- und Spielabenden — nach Kategorie und Turnier gefiltert.</p></a>'
+      +'</div></div>'
+      +'<div class="lp-bar"><span class="lplb">Format</span>'
+      +  ['alle:Alle','quer:Quer','quad:Feed','hoch:Hoch'].map(function(x){ var t=x.split(':');
+           return '<button class="lp-f'+(filterLage===t[0]?' on':'')+'" data-lage="'+t[0]+'">'+t[1]+'</button>'; }).join('')
+      +'<span class="sp"></span><span class="lplb">Bereich</span>'
+      +  ['alle:Alle','fun:Fun','wett:Wettkampf','medien:Medien'].map(function(x){ var t=x.split(':');
+           return '<button class="lp-f'+(filterGrp===t[0]?' on':'')+'" data-grp="'+t[0]+'">'+t[1]+'</button>'; }).join('')
+      +'</div>'
+      +'<div class="lp-mason">'+liste.map(kachel).join('')+'</div>'
+      +(liste.length?'':'<p class="lp-sub">Keine Vorlage passt zu dieser Auswahl.</p>')
+      +'<div class="lp-neben"><span>Du weisst schon, was du bauen willst?</span>'
+      +'<button class="lp-leer" id="lpLeer">Leer starten &#8594;</button></div>'
+      +'</div>';
+    P.innerHTML=h; P.style.display='block'; P.scrollTop=0;
+
+    P.querySelectorAll('.lp-f[data-lage]').forEach(function(b){
+      b.onclick=function(){ filterLage=b.dataset.lage; showHome(); }; });
+    P.querySelectorAll('.lp-f[data-grp]').forEach(function(b){
+      b.onclick=function(){ filterGrp=b.dataset.grp; showHome(); }; });
+    P.querySelectorAll('.lp-tile').forEach(function(b){
+      b.onclick=function(){ var k=b.dataset.k;
+        if(!READY[k]&&!isAdmin()){ try{showComingSoon();}catch(e){} return; }
+        hideHome(); showStart(true,k); }; });
+    var halb=P.querySelector('.lp-half[data-halb="studio"]');
+    if(halb) halb.onclick=function(){ var m=P.querySelector('.lp-mason'); if(m)m.scrollIntoView({behavior:'smooth',block:'start'}); };
+    var leer=document.getElementById('lpLeer');
+    if(leer) leer.onclick=function(){ try{localStorage.setItem('tfcz_start_done','1');}catch(e){} hideHome(); switchAll(); };
+  };
+
+  /* Der Startdialog oeffnet jetzt direkt beim Datum — "zurueck" fuehrt darum
+     nicht mehr auf den Fun-Barometer, sondern auf die Motivauswahl. */
+  var _ss=window.showStart;
+  window.showStart=function(force,startK){
+    var x=_ss.apply(this,arguments);
+    var P=document.getElementById('startPopup'); if(!P) return x;
+    var zur=document.getElementById('spBack');
+    if(zur){ zur.textContent='← Andere Vorlage';
+      zur.onclick=function(){ P.style.display='none'; showHome(); }; }
+    /* Nebenweg auch hier: leer weiter, ohne Vorlage. */
+    if(startK && !document.getElementById('spLeer')){
+      var foot=P.querySelector('.sp-foot2');
+      if(foot){ var b=document.createElement('button'); b.className='sp-skip'; b.id='spLeer';
+        b.textContent='Leer starten'; b.onclick=function(){
+          try{localStorage.setItem('tfcz_start_done','1');}catch(e){} P.style.display='none';
+          switchAll(); };
+        foot.insertBefore(b, foot.firstChild); } }
+    return x;
+  };
+
+  /* Beim Laden stand die alte Startseite schon da — neu zeichnen. */
+  var P0=document.getElementById('landingHome');
+  if(P0 && P0.style.display!=='none' && P0.style.display!=='') showHome();
+  else if(P0 && getComputedStyle(P0).display!=='none') showHome();
+})();
+</script>
 </body></html>
