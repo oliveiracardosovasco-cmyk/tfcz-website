@@ -6512,11 +6512,11 @@ body.mobile .layers{height:56vh}
    ist ein Widerspruch — und es hiess, dass Aenderungen bestand haben, ohne dass
    sie jemand bestaetigt hat.
 
-   Neu: Aenderungen sind ein ENTWURF. Sie liegen in einem eigenen Speicherplatz,
-   der beim Start NICHT geladen wird, und werden erst mit „Speichern" verbindlich.
-   Der Entwurf bleibt trotzdem liegen — ein Absturz oder ein versehentliches
-   Neuladen soll die Arbeit nicht vernichten (genau so ging schon einmal eine
-   Vorlage verloren). Beim naechsten Start wird er angeboten, nicht aufgezwungen.
+   Neu: Aenderungen werden ueberhaupt nicht mehr nebenbei geschrieben. Sie
+   bestehen nur im Arbeitsspeicher, bis jemand auf „Speichern" drueckt.
+   Es gibt keinen Entwurf-Speicherplatz und keine Wiederherstellen-Leiste mehr
+   (Vasco, 17.08.2026). Der Schutz vor versehentlichem Verlust ist die Warnung
+   des Browsers beim Schliessen oder Neuladen, solange etwas offen ist.
    ============================================================================ */
 #saveBtn{display:inline-flex;align-items:center;gap:7px;background:#0d273d;border:1px solid #30435a;
   color:#c3d2e0;border-radius:var(--btn-radius,12px);padding:9px 15px;font:inherit;font-size:13px;
@@ -6526,15 +6526,6 @@ body.mobile .layers{height:56vh}
 #saveBtn .dot{width:7px;height:7px;border-radius:50%;background:#5b6f83;flex:none}
 #saveBtn.dirty .dot{background:#0d273d}
 #saveBtn:disabled{opacity:.55;cursor:default}
-#recBar{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;z-index:120;display:none;
-  align-items:center;gap:12px;background:rgba(10,31,49,.98);border:1px solid #30435a;
-  border-top:2px solid #5ca7dc;border-bottom:2px solid #cda857;border-radius:var(--btn-radius,12px);
-  padding:11px 15px;box-shadow:0 16px 40px rgba(0,0,0,.55);font-size:13px}
-#recBar.on{display:flex}
-#recBar b{color:#e9c475}
-#recBar button{border-radius:var(--btn-radius,12px);padding:7px 13px;font:inherit;font-size:12.5px;font-weight:900;cursor:pointer;border:0}
-#recBar .ja{background:linear-gradient(180deg,#e9c475,#cda857);color:#0d273d}
-#recBar .nein{background:#0d273d;border:1px solid #30435a;color:#c3d2e0}
 body.mobile #saveBtn{padding:9px 11px}
 body.mobile #saveBtn .lbl{display:none}
 </style>
@@ -6564,10 +6555,11 @@ body.mobile #saveBtn .lbl{display:none}
                 : 'Keine offenen Änderungen.';
   }
 
-  /* Der Alltagsweg: nur Entwurf, kein Backend. */
+  /* Der Alltagsweg: gar nichts schreiben. Kein Backend, kein Entwurf.
+     Gespeichert wird ausschliesslich ueber „Speichern". Der Schutz vor
+     versehentlichem Verlust ist die Warnung beim Schliessen (beforeunload). */
   window.save=function(){
     if(echt)return _save.apply(this,arguments);
-    try{ localStorage.setItem(ENTWURF, JSON.stringify(stateToStore())); }catch(e){}
     /* Nur echte Inhalts-Aenderungen zaehlen. Die laufen ausnahmslos durch
        beginEdit(), das `editing` setzt — Navigation und Aufbau tun das nicht.
        Damit sagen Knopf und Bearbeiten-Leiste ab jetzt dasselbe. */
@@ -6603,27 +6595,11 @@ body.mobile #saveBtn .lbl{display:none}
   if(typeof _cae==='function'){ window.cancelEdit=function(){ var r=_cae.apply(this,arguments);
     try{ localStorage.removeItem(ENTWURF); }catch(e){} setDirty(false); return r; }; }
 
-  /* Beim Start: liegt ein Entwurf herum, wird er ANGEBOTEN — nicht geladen.
-     So bleibt „nichts wird ohne dich gespeichert" wahr, ohne dass ein Absturz
-     die Arbeit kostet. */
-  var roh=null; try{ roh=localStorage.getItem(ENTWURF); }catch(e){}
-  if(roh){
-    var bar=document.createElement('div'); bar.id='recBar';
-    bar.innerHTML='<span>Vom letzten Mal liegt ein <b>ungespeicherter Entwurf</b> bereit.</span>'
-      +'<button class="ja" id="recJa">Wiederherstellen</button>'
-      +'<button class="nein" id="recNein">Verwerfen</button>';
-    document.body.appendChild(bar);
-    setTimeout(function(){ bar.classList.add('on'); },1200);
-    document.getElementById('recJa').onclick=function(){
-      try{ localStorage.setItem(LSKEY,roh); }catch(e){}
-      try{ localStorage.removeItem(ENTWURF); }catch(e){}
-      location.reload();
-    };
-    document.getElementById('recNein').onclick=function(){
-      try{ localStorage.removeItem(ENTWURF); }catch(e){}
-      bar.classList.remove('on');
-    };
-  }
+  /* Frueher lag hier eine Leiste „ungespeicherter Entwurf — Wiederherstellen".
+     Sie ist raus (Vasco, 17.08.2026). Damit auf Rechnern, die sie noch kannten,
+     kein alter Entwurf liegen bleibt, wird der Speicherplatz einmal geraeumt. */
+  try{ localStorage.removeItem(ENTWURF); }catch(e){}
+  var _alt=document.getElementById('recBar'); if(_alt&&_alt.parentElement)_alt.parentElement.removeChild(_alt);
 })();
 </script>
 <style>
