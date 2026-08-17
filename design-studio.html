@@ -7449,4 +7449,38 @@ body.mobile #topBar{display:none}
   platz(); setTimeout(platz,300); setTimeout(platz,1200);
 })();
 </script>
+
+<style>
+/* ============================================================================
+   KONTROLLKÄSTCHEN IN DEN EBENEN (17.08.2026)
+   Es mass 13 x 13 px in einer 48 px hohen Zeile — daneben liegt der Klick auf
+   der Zeile, also traf man fast immer das Objekt statt das Kästchen.
+   Jetzt: 20 px Kästchen in einer 40 x 44 px grossen Fläche.
+   ============================================================================ */
+#ellist .el .vis-hit{display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:44px;margin:-6px -8px -6px 0;flex:none;cursor:pointer;border-radius:var(--btn-radius,12px)}
+#ellist .el .vis-hit:hover{background:rgba(255,255,255,.08)}
+#ellist .el .vis-hit input{width:20px;height:20px;margin:0;cursor:pointer;accent-color:var(--gold,#cda857)}
+</style>
+<script>
+/* Siehe CSS darueber. Das <label> leitet den Klick von selbst an das Kaestchen
+   weiter; gestoppt wird nur das Weiterreichen an die Zeile, sonst waehlt sie
+   das Objekt aus. Laeuft nach jedem Aufbau der Ebenenliste. */
+(function(){
+  function kaestchen(){
+    var h=document.getElementById('ellist'); if(!h)return;
+    [].forEach.call(h.querySelectorAll('.el > input[type="checkbox"]'),function(cb){
+      var l=document.createElement('label'); l.className='vis-hit';
+      l.title='Objekt ein- oder ausblenden';
+      cb.parentElement.insertBefore(l,cb); l.appendChild(cb);
+      l.addEventListener('click',function(ev){ ev.stopPropagation(); });
+    });
+  }
+  if(typeof window.buildList==='function'){
+    var _bl=window.buildList;
+    window.buildList=function(){ var r=_bl.apply(this,arguments); try{ kaestchen(); }catch(e){} return r; };
+  }
+  try{ kaestchen(); }catch(e){}
+})();
+</script>
 </body></html>
