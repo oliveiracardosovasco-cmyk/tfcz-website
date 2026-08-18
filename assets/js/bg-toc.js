@@ -21,7 +21,7 @@
   /* Reihenfolge der Gruppen = Reihenfolge im Panel.
      Eine Sektion, die hier nirgends steht, landet automatisch in „Weiteres". */
   var GRUPPEN = [
-    { titel: 'Grundlagen', ids: ['nutzung','positionierung','werte','persoenlichkeit','versprechen','zielgruppen','tone','botschaften','sprache','fakten','playbook'] },
+    { titel: 'Grundlagen', ids: ['nutzung','positionierung','werte','persoenlichkeit','versprechen','zielgruppen','tone','botschaften','sprache','fakten','reichweite','playbook'] },
     { titel: 'Farben, Logo & Typo', kurz: 'Farben & Typo', ids: ['farben','logos','typo','tokens'] },
     { titel: 'Komponenten', ids: ['buttons','burger-standard','menu-cascade','logo-standard','signatur','cards','formulare','controls','iconlib','auswahl','hoverregel','badges','pakete','barometer','kalender','navelemente','feedback','daten'] },
     { titel: 'Bausteine & Effekte', kurz: 'Bausteine', ids: ['bildplayer','getraenke','portal','formbaustein','navbaustein','tokendatei','hintergrund','unlocks','easteregg','bausteine','overlay'] },
