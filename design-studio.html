@@ -2538,6 +2538,44 @@ function buildDyp(){ const P=document.getElementById('profi'),C=COLORS; const W=
   wireItems(P);
 }
 
+/* ===== Strahlenkranz & Punkt-Raster als SVG-Bild (KaeseKick) =====
+   html2canvas kennt weder `conic-gradient` noch CSS-`mask` - beides fiel im PNG-Export
+   ersatzlos weg, waehrend die Leinwand es zeigte (Befund 21.08.2026). Als <img> mit
+   eingebackener SVG-Maske rastert html2canvas es zuverlaessig - derselbe Trick wie bei
+   streamOverlaySVG(). WICHTIG: das SVG braucht `width`/`height`, sonst findet
+   html2canvas keine natuerliche Groesse und laesst das Bild kommentarlos weg. */
+function kaseRaysSVG(W,H){
+  var w=Math.round(W*1.7), h=Math.round(H*1.7), cx=w/2, cy=h/2;
+  var R=Math.sqrt(cx*cx+cy*cy);              /* bis in die Ecke - wie farthest-corner */
+  var p='', a, a0, a1;
+  for(a=0;a<360;a+=14){                      /* Raster 14deg, Strahl 6deg - wie vorher */
+    a0=(a-3)*Math.PI/180; a1=(a+3)*Math.PI/180;
+    p+='M'+cx.toFixed(1)+' '+cy.toFixed(1)
+      +'L'+(cx+R*Math.cos(a0)).toFixed(1)+' '+(cy+R*Math.sin(a0)).toFixed(1)
+      +'A'+R.toFixed(1)+' '+R.toFixed(1)+' 0 0 1 '+(cx+R*Math.cos(a1)).toFixed(1)+' '+(cy+R*Math.sin(a1)).toFixed(1)+'Z';
+  }
+  var s='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">'
+   +'<defs><radialGradient id="rm" gradientUnits="userSpaceOnUse" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+R.toFixed(1)+'">'
+   +'<stop offset="0.12" stop-color="#ffffff" stop-opacity="1"/>'
+   +'<stop offset="0.34" stop-color="#ffffff" stop-opacity="0.5"/>'
+   +'<stop offset="0.5" stop-color="#ffffff" stop-opacity="0"/></radialGradient>'
+   +'<mask id="rk"><rect width="'+w+'" height="'+h+'" fill="url(#rm)"/></mask></defs>'
+   +'<path d="'+p+'" fill="#ffffff" fill-opacity="0.5" mask="url(#rk)"/></svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);
+}
+function kaseDotsSVG(W,H){
+  var w=Math.round(W), h=Math.round(H), t=W*0.026;
+  var cx=w/2, cy=h*0.26, rx=w*1.2, ry=h*0.7;
+  var s='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">'
+   +'<defs><pattern id="dp" width="'+t.toFixed(2)+'" height="'+t.toFixed(2)+'" patternUnits="userSpaceOnUse">'
+   +'<circle cx="'+(t/2).toFixed(2)+'" cy="'+(t/2).toFixed(2)+'" r="1.2" fill="#0d273d" fill-opacity="0.9"/></pattern>'
+   +'<radialGradient id="dm" gradientUnits="userSpaceOnUse" cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+rx.toFixed(1)+'"'
+   +' gradientTransform="translate('+cx.toFixed(1)+','+cy.toFixed(1)+') scale(1,'+(ry/rx).toFixed(4)+') translate(-'+cx.toFixed(1)+',-'+cy.toFixed(1)+')">'
+   +'<stop offset="0.46" stop-color="#000000"/><stop offset="1" stop-color="#ffffff"/></radialGradient>'
+   +'<mask id="dk"><rect width="'+w+'" height="'+h+'" fill="url(#dm)"/></mask></defs>'
+   +'<rect width="'+w+'" height="'+h+'" fill="url(#dp)" mask="url(#dk)"/></svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);
+}
 function buildKase(){ const P=document.getElementById('profi'),C=COLORS; const W=CW(),H=CH(),k=W/1000;
   col.style.display='none'; bgimg.style.display='none'; const sc=document.getElementById('scrim'); if(sc)sc.style.display='none'; darklayer.style.display='none';
   P.style.display='block'; P.classList.add('kaselay'); P.style.background='linear-gradient(178deg,#d3eafa 0%,#a8d3f1 24%,#7fbbe6 50%,#5ca7dc 74%,#4489c7 100%)';
@@ -2554,8 +2592,8 @@ function buildKase(){ const P=document.getElementById('profi'),C=COLORS; const W
   let h='';
   if(bgp) h+='<div style="position:absolute;inset:0;background:url('+bgp+') center/cover;opacity:.25"></div>';
   if(cur().dark>0) h+='<div style="position:absolute;inset:0;background:'+C.navy+';opacity:'+cur().dark+'"></div>';
-  h+='<div style="position:absolute;left:50%;top:30%;width:170%;height:170%;transform:translate(-50%,-50%);opacity:.32;pointer-events:none;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.5) 0deg 6deg,transparent 6deg 14deg);-webkit-mask:radial-gradient(circle at 50% 50%,#000 12%,rgba(0,0,0,.5) 34%,transparent 50%);mask:radial-gradient(circle at 50% 50%,#000 12%,rgba(0,0,0,.5) 34%,transparent 50%)"></div>';
-  h+='<div style="position:absolute;inset:0;opacity:.08;pointer-events:none;background-image:radial-gradient(rgba(13,39,61,.9) 1px,transparent 1.6px);background-size:'+(W*0.026)+'px '+(W*0.026)+'px;-webkit-mask:radial-gradient(120% 70% at 50% 26%,transparent 46%,#000);mask:radial-gradient(120% 70% at 50% 26%,transparent 46%,#000)"></div>';
+  h+='<img alt="" style="position:absolute;left:50%;top:30%;width:170%;height:170%;transform:translate(-50%,-50%);opacity:.32;pointer-events:none" src="'+kaseRaysSVG(W,H)+'">';
+  h+='<img alt="" style="position:absolute;inset:0;width:100%;height:100%;opacity:.08;pointer-events:none" src="'+kaseDotsSVG(W,H)+'">';
   if(vis(g('cheese'))){ const cel=g('cheese'); if(cel.src) h+='<img class="item" data-id="cheese" src="'+cel.src+'" style="position:absolute;top:0;left:0;width:100%;'+dsh(0,H*0.01,.22)+'">'; else h+='<div class="item" data-id="cheese" style="position:absolute;top:0;left:0;width:100%;height:'+(H*0.20)+'px;'+dsh(0,H*0.01,.22)+'">'+CHEESE_SVG+'</div>'; }
   h+='<div style="position:absolute;top:0;left:0;right:0;height:'+lh+'px;background:'+C.blue+'"></div>';
   h+='<div style="position:absolute;bottom:0;left:0;right:0;height:'+lh+'px;background:'+C.gold+'"></div>';
@@ -4580,6 +4618,107 @@ function exportMoeglich(){
         +'funktionieren alle.' });
   return false;
 }
+/* ===== Prop-Schatten fuer die Aufnahme einbacken =====
+   html2canvas liest CSS-`filter` gar nicht - `drop-shadow()` an Kaese-Tropfen, Figur,
+   Raclette, Wein und Logo fiel im PNG also ersatzlos weg (Befund 21.08.2026). Fuer die
+   Aufnahme wird der Schatten deshalb in eine Offscreen-Leinwand gemalt und das Bild
+   dagegen getauscht. Die Box wird dabei um den Schattenrand aufgeblasen und exakt auf
+   ihre gemessene Stelle gesetzt, damit die Grafik selbst pixelgenau liegen bleibt.
+   Danach kommt der Original-Stil zurueck - genau wie bei flattenGradientText().
+   Laesst sich die Leinwand nicht auslesen (fremde Herkunft), bleibt das Bild unberuehrt. */
+var _shadowFix=[];
+function _dropShadowTeile(f){
+  var i=f.indexOf('drop-shadow('); if(i<0)return null;
+  var j=i+12, tiefe=1;
+  while(j<f.length && tiefe>0){ if(f[j]==='(')tiefe++; else if(f[j]===')')tiefe--; j++; }
+  var innen=f.slice(i+12, j-1), rest=(f.slice(0,i)+f.slice(j)).trim();
+  var col='rgba(0,0,0,.5)';
+  var cm=innen.match(/rgba?\([^)]*\)|#[0-9a-fA-F]{3,8}/);
+  if(cm){ col=cm[0]; innen=innen.replace(cm[0],' '); }
+  var zahlen=(innen.match(/-?[\d.]+px/g)||[]).map(parseFloat);
+  if(zahlen.length<2)return null;
+  return { dx:zahlen[0], dy:zahlen[1], blur:zahlen[2]||0, col:col, rest:(rest&&rest!=='none')?rest:'' };
+}
+async function bakeImgShadows(on,scl){
+  if(!on){
+    _shadowFix.forEach(function(o){
+      if(o.style===null)o.n.removeAttribute('style'); else o.n.setAttribute('style',o.style);
+      o.n.setAttribute('src',o.src);
+    });
+    _shadowFix=[]; return;
+  }
+  _shadowFix=[];
+  var base=canvas.getBoundingClientRect();
+  [].forEach.call(canvas.querySelectorAll('img'),function(im){
+    var cs; try{ cs=getComputedStyle(im); }catch(e){ return; }
+    var t=_dropShadowTeile(cs.filter||''); if(!t)return;
+    var r=im.getBoundingClientRect(); if(!r.width||!r.height)return;
+    var padX=Math.ceil(Math.abs(t.dx)+t.blur*1.6)+2, padY=Math.ceil(Math.abs(t.dy)+t.blur*1.6)+2;
+    var cw=Math.round((r.width+2*padX)*scl), ch=Math.round((r.height+2*padY)*scl);
+    if(cw<1||ch<1||cw>10000||ch>10000)return;
+    var oc=document.createElement('canvas'); oc.width=cw; oc.height=ch;
+    var g=oc.getContext('2d'); if(!g)return;
+    if(t.rest){ try{ g.filter=t.rest; }catch(e){} }
+    g.shadowColor=t.col; g.shadowOffsetX=t.dx*scl; g.shadowOffsetY=t.dy*scl; g.shadowBlur=t.blur*scl;
+    var url;
+    try{ g.drawImage(im, padX*scl, padY*scl, r.width*scl, r.height*scl); url=oc.toDataURL('image/png'); }
+    catch(e){ return; }                       /* fremde Herkunft -> lieber gar nichts aendern */
+    _shadowFix.push({ n:im, style:im.getAttribute('style'), src:im.getAttribute('src') });
+    im.setAttribute('src',url);
+    im.style.position='absolute';
+    im.style.left=(r.left-base.left-padX)+'px';
+    im.style.top=(r.top-base.top-padY)+'px';
+    im.style.right='auto'; im.style.bottom='auto';
+    im.style.width=(r.width+2*padX)+'px';
+    im.style.height=(r.height+2*padY)+'px';
+    im.style.transform='none'; im.style.filter='none'; im.style.opacity=cs.opacity;
+  });
+  /* WICHTIG: html2canvas liest `currentSrc` - solange das neue Bild nicht dekodiert ist,
+     zeigt das noch auf die alte Datei. Die waere dann in die aufgeblasene Box gestreckt
+     worden (Prop zu gross und verschoben). Darum hier warten. */
+  await Promise.all(_shadowFix.map(function(o){
+    try{ return o.n.decode(); }catch(e){ return Promise.resolve(); }
+  }).map(function(pr){ return pr && pr.catch ? pr.catch(function(){}) : Promise.resolve(); }));
+}
+
+/* OFFEN (21.08.2026) - Kasten-Schatten fehlen im PNG:
+   html2canvas malt `box-shadow`, indem es den Pfad um 10'000px zur Seite schiebt und den
+   Schatten per `shadowOffsetX = offsetX + 10000` zurueckholt. Der Pfad liegt in skalierten
+   Einheiten, der Schatten-Versatz aber in Geraetepunkten - bei scale 2 landet der Schatten
+   darum neben der Leinwand. Ergebnis: die weissen Ringe um Preis-Schild und Badge und die
+   Schatten unter Banner/Boxen fehlen im Download.
+   Ein Ausgleich ueber die CSS-Werte (Versatz + 10'000 mitziehen) wurde getestet und wieder
+   VERWORFEN: html2canvas zeichnet den Ring dann als gefuellten weissen Klecks neben die Box.
+   Der tragfaehige Weg waere derselbe wie bei bakeImgShadows() - den Schatten selbst in eine
+   Offscreen-Leinwand malen und als Bild hinter das Element legen. Noch nicht gebaut. */
+/* ===== Text-Schatten: Weichzeichner gegen den html2canvas-Bug ausgleichen =====
+   In html2canvas 1.4.1 wandert der Versatz mit dem Massstab mit, der Blur-Radius aber
+   NICHT (`shadowBlur = A.blur.number`, ohne `* options.scale`). Bei scale 2 kam der
+   Schatten darum halb so weich heraus wie auf der Leinwand - genau das "Text hat nur
+   teilweise Schatten". Fuer die Aufnahme wird der Blur mit dem Export-Massstab
+   multipliziert und danach exakt zurueckgesetzt. */
+var _tshFix=[];
+function boostTextShadow(on,scl){
+  if(!on){
+    _tshFix.forEach(function(o){ if(o.style===null)o.n.removeAttribute('style'); else o.n.setAttribute('style',o.style); });
+    _tshFix=[]; return;
+  }
+  _tshFix=[]; if(!(scl>1))return;
+  [].forEach.call(canvas.querySelectorAll('*'),function(n){
+    var cs; try{ cs=getComputedStyle(n); }catch(e){ return; }
+    var ts=cs.textShadow||''; if(!ts||ts==='none')return;
+    var hatText=false;
+    for(var c=n.firstChild;c;c=c.nextSibling){ if(c.nodeType===3 && /\S/.test(c.nodeValue)){ hatText=true; break; } }
+    if(!hatText)return;
+    var neu=ts.split(/,(?![^()]*\))/).map(function(teil){
+      var i=0;
+      return teil.replace(/(-?[\d.]+)px/g,function(all,v){ i++; return (i===3? (parseFloat(v)*scl) : v)+'px'; });
+    }).join(',');
+    if(neu===ts)return;
+    _tshFix.push({ n:n, style:n.getAttribute('style') });
+    n.style.textShadow=neu;
+  });
+}
 async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
   const prev=canvas.style.transform; canvas.style.transform='none';
   /* Das Canvas hängt jetzt in einem skalierten Seiten-Rahmen (.pgin). html2canvas würde diese
@@ -4587,9 +4726,16 @@ async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
      kurz ausgeschaltet und danach wiederhergestellt. */
   const _pin=canvas.closest('.pgin'); const _pinPrev=_pin?_pin.style.transform:null;
   if(_pin)_pin.style.transform='none';
-  flattenGradientText(true);            /* Verlaufs-Text -> Vollfarbe (html2canvas-Fix) */
-  document.body.classList.add('capturing'); let url=null;
   const _scl=(state.active==='stream')?1:2;
+  document.body.classList.add('capturing');
+  flattenGradientText(true);            /* Verlaufs-Text -> Vollfarbe (html2canvas-Fix) */
+  await bakeImgShadows(true,_scl);      /* filter:drop-shadow -> ins Bild gemalt */
+  boostTextShadow(true,_scl);           /* halbierten Blur ausgleichen */
+  /* Das Warten oben ist eine echte Pause - in der Zwischenzeit kann layoutFit() die
+     Passt-ins-Fenster-Skalierung wieder gesetzt haben. Darum kurz vor der Aufnahme
+     noch einmal auf 1:1 stellen, sonst nimmt html2canvas die verkleinerte Buehne auf. */
+  canvas.style.transform='none'; if(_pin)_pin.style.transform='none';
+  let url=null;
   try{ const c=await html2canvas(canvas,{width:CW(),height:CH(),scale:_scl,backgroundColor:null,useCORS:true,logging:false}); url=c.toDataURL('image/png'); }
   catch(err){
     var m=(err&&err.message)||String(err);
@@ -4601,6 +4747,7 @@ async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
             +'http://localhost und der Export funktioniert.' });
     } else sagInfo({titel:'Render-Fehler',text:m});
   }
+  boostTextShadow(false); bakeImgShadows(false);
   flattenGradientText(false);           /* Original-Stile exakt zurück */
   document.body.classList.remove('capturing'); canvas.style.transform=prev;
   if(_pin&&_pinPrev!==null)_pin.style.transform=_pinPrev;

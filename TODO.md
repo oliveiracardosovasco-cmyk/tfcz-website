@@ -135,3 +135,23 @@ langsam, Klasse für Klasse, mit Sichtprüfung.
 - **`design-studio.html`: 3 JS-Fehler beim Laden.** Bestehen unabhängig von den Bausteinen (schon vor
   dem Emoji-Purge und vor dem Portal-Umbau vorhanden — gegen Snapshot geprüft). Noch nicht analysiert,
   nicht untergehen lassen.
+
+---
+
+## Design Studio · PNG-Export (offen seit 21.08.2026)
+
+- [ ] **Kasten-Schatten fehlen im Download.** Die weissen Ringe um Preis-Schild und Badge
+  (`box-shadow:0 0 0 Npx #fff`) und die Schatten unter Banner/Boxen sind im PNG nicht da.
+  Grund: html2canvas 1.4.1 verschiebt den Schatten-Pfad um 10'000px und holt ihn per
+  `shadowOffsetX = offsetX + 10000` zurueck — der Pfad liegt in skalierten Einheiten, der
+  Versatz in Geraetepunkten, also landet der Schatten bei `scale:2` neben der Leinwand.
+  Ein Ausgleich ueber die CSS-Werte wurde getestet und **verworfen** (html2canvas malt den
+  Ring dann als gefuellten weissen Klecks neben die Box). Tragfaehiger Weg: wie
+  `bakeImgShadows()` den Schatten selbst in eine Offscreen-Leinwand malen und als Bild
+  hinter das Element legen.
+- [ ] **Kaese-Tropfen als Inline-SVG** (wenn kein eigenes Bild gesetzt ist) behaelt seinen
+  `filter:drop-shadow` — `bakeImgShadows()` fasst nur `<img>` an. Schatten ist mit .22 sehr
+  dezent, faellt kaum auf.
+- [ ] **Strahlenkranz steht zweimal:** die Leinwand nutzt jetzt `kaseRaysSVG()`, der
+  HTML-Export (`kaseHTML()`, `.rays`) weiter das CSS mit `conic-gradient`. Im Browser stimmt
+  beides, aber es sind zwei Quellen fuer dasselbe Bild (§9). Bei Gelegenheit vereinheitlichen.
