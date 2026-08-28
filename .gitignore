@@ -44,3 +44,8 @@ config.js
 # Aussortiertes bleibt lokal — nie veroeffentlichen (Vasco 16.08.2026).
 # Bisher war nur assets/fotos/_to_delete/ ignoriert, der Ordner im Wurzelverzeichnis nicht.
 _to_delete/
+
+# Editor-/Arbeitskopien nie tracken (28.08.2026): "*~" fing die .bak-Dateien nicht,
+# galerie.html.bak waere sonst beim naechsten "git add -A" mitveroeffentlicht worden.
+*.bak
+*.bak-*

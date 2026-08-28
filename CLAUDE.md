@@ -659,6 +659,7 @@ wieder eingebaut — additiv, mit eigenem Klassen-Präfix, ohne bestehendes Seit
 - `system/components/dock-magnify.js` — **Dock-Lupe** (macOS-Dock-Vergrösserung für horizontale Reihen mit gleich breiten Kindern), siehe unten.
 - `system/tokens.css` — **Design-Tokens** (Farben, Radien, Schatten, Zeiten, Easing), siehe unten.
 - `system/components/lightbox.js` — **Bild-Player** (X · Pfeile · Thumbnail-Dock · Herz), siehe unten.
+- `system/seiten.js` — **Seiten-Sichtbarkeit** (live/pausiert + Fassungen), siehe unten.
 - `assets/js/bg-swirl.js` — Hintergrund-Wirbel (war nie Teil der Batches, bleibt).
 
 **Aufruf-Reihenfolge im `<head>`:** `system/content.js` → `system/cta.js` → `system/components/*.js`
@@ -926,6 +927,47 @@ nötig, wenn der Server kommt. **Regel:** Jede neue Funktion mit Server-Bedarf d
 **zuerst in `tfcz-api.js` + `API.md`** (Vertrag: Methode, Pfad, Body, Antwort) und nutzt den Client —
 nie verstreute `fetch`-Aufrufe mit eigener URL-Logik. Feature-Module (`tfcz-likes.js`, `tfcz-drinks.js`,
 `tfcz-form.js`) folgen diesem Vertrag bereits.
+
+### Seiten-Sichtbarkeit = Baustein `system/seiten.js` (verbindlich, freigegeben Vasco 28.08.2026)
+
+**Der Vorstand entscheidet im Portal, welche Unterseite live ist** — ohne Code, ohne Deploy.
+Geschaltet wird in `seiten.html` (Kachel „Seiten & Sichtbarkeit" im Dashboard).
+
+**Der Schlüssel einer Seite ist ihr DATEINAME** (`tfcz-regeln.html`), nicht ein Kürzel. Damit
+passt der Stand 1:1 auf die `href`-Werte in Menü und Footer — es gibt **keine zweite Seitenliste**
+neben `system/content.js`.
+
+**Drei Stufen, in dieser Reihenfolge** (`system/seiten.js`):
+1. **STAND** — der beim letzten Veröffentlichen eingebackene Block in der Datei. Gilt sofort, ohne Netz.
+2. **Zwischenspeicher** — was der Browser beim letzten Besuch geholt hat (synchron gelesen, kein Flackern).
+3. **Server** — okapi `GET /api/settings/public/website`. Kommt asynchron nach.
+
+Fällt der Server aus, läuft alles auf Stufe 1/2 weiter — **eine Seite darf nie brechen, weil ein
+Server schweigt.**
+
+**Einbinden:** als **erstes Skript im `<head>`, blockierend** (`<script src="system/seiten.js"></script>`,
+kein `defer`) — sonst blitzt eine pausierte Seite kurz auf. Jede neue öffentliche Seite bindet es ein.
+
+**Was der Baustein macht:**
+- pausierte Seite → Inhalt aus, markenkonformer Hinweis (Fenster-Signatur), Kopfleiste und Footer
+  bleiben stehen, die seiteneigenen Sprungmarken werden ausgeblendet, `noindex` wird gesetzt
+- Links auf pausierte Seiten verschwinden aus Kopfleiste, Menü-Drawer und Footer — zentral hier,
+  **nicht** in `nav.js`/`footer.js`. Ein Element mit `data-seite="datei.html"` (z. B. eine Karte auf
+  der Home) verschwindet mit.
+- **Fassungen einer Seite:** Blöcke mit `data-var="<id>"`; sichtbar ist nur die aktive. Die Seite
+  deklariert ihren Rückfall als `<html data-variante-standard="…">` — ohne diesen Rückfall wären
+  beide Fassungen sichtbar. Welche Fassungen es gibt, steht in `VARIANTEN` **im Baustein**.
+  Heute: `tfcz-training.html` mit `anmeldung` (Anmeldeformular + Gold-CTA) und `laufend`
+  (kein Formular, Hinweis aufs nächste Semester).
+
+**Beim Veröffentlichen** backt `_tools/bake-seiten.mjs` den Stand fest: STAND-Block, `noindex` auf
+pausierten Seiten, `sitemap.xml` ohne sie (Vorlage: `_tools/sitemap.quelle.xml`), aktive Fassung ins
+`<html>`-Tag. Der Lauf hängt in beiden `Website veröffentlichen …`-Commands.
+
+**Ehrlich zur Grenze:** Menü und Links folgen sofort. Wer den Direktlink einer gerade pausierten
+Seite öffnet, sieht den Inhalt je nach Zwischenspeicher noch einen Sekundenbruchteil, bis die
+Antwort da ist. Endgültig weg ist er erst nach dem Publish. Für „vorübergehend offline" reicht das;
+für echte Geheimhaltung wäre der statische Host der falsche Ort.
 
 ### Schatten / Elevation (global)
 Grosse ruhende Container: feine 1px-Border + max. `--e-1`. `--e-2/--e-3` nur für Schwebendes

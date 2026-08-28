@@ -66,6 +66,8 @@
 }
 </script>
 <link rel="stylesheet" href="system/tokens.css">
+<!-- Seiten-Sichtbarkeit: entscheidet live/pausiert + Fassung. Blockierend, damit nichts aufblitzt. -->
+<script src="system/seiten.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
@@ -1204,7 +1206,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
       <h2 class="big reveal">Training, Kinder<br>&amp; Firmen</h2>
     </div>
     <div class="agrid">
-      <div class="acard reveal">
+      <div class="acard reveal" data-seite="tfcz-training.html">
         <div class="aimg"><span class="tag-anmelden"><span class="dot"></span>Jetzt anmelden</span><img decoding="async" data-slot="index.tisch" class="goldf-lift" src="assets/fotos/galerie/full/482.webp" alt="TFCZ-Tisch im Clublokal, stimmungsvolles Licht" loading="lazy"></div>
         <div class="abody">
           <h3>Training mit</h3>
@@ -1222,7 +1224,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
           <a class="mail-cta" data-cat="kids" href="mailto:info@tfcz.ch?subject=Kindertraining">Infos anfragen</a>
         </div>
       </div>
-      <div class="acard reveal d2">
+      <div class="acard reveal d2" data-seite="tfcz-firmenevents.html">
         <div class="aimg bluef-dk"><img decoding="async" data-slot="index.firmenevent" src="assets/fotos/galerie/full/1057.webp" alt="Gruppe an mehreren Tischen im TFCZ-Clublokal" loading="lazy"></div>
         <div class="abody">
           <h3>Firmenevents &amp; Vermietung</h3>
