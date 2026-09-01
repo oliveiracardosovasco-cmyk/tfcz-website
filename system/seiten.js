@@ -49,14 +49,17 @@
       "tfcz-geschichte.html": {
         "status": "live"
       },
-      "tfcz-regeln.html": {
-        "status": "live"
-      },
       "tfcz-medien.html": {
         "status": "live"
       },
       "galerie.html": {
-        "status": "live"
+        "status": "nur_admin"
+      },
+      "brandguide.html": {
+        "status": "nur_admin"
+      },
+      "design-studio.html": {
+        "status": "nur_admin"
       }
     }
   };
@@ -99,7 +102,24 @@
 
   function eintrag(datei) { return (stand.seiten && stand.seiten[dateiname(datei)]) || null; }
   function pausiert(datei) { var e = eintrag(datei); return !!e && e.status === 'pausiert'; }
+  function nurAdmin(datei) { var e = eintrag(datei); return !!e && e.status === 'nur_admin'; }
   function variante(datei) { var e = eintrag(datei); return (e && e.variante) || null; }
+
+  /* Ist der Besucher als Super Admin angemeldet?
+     null = noch nicht gefragt · true/false = Antwort da. Solange null ist,
+     gilt eine `nur_admin`-Seite als verborgen — im Zweifel NICHT zeigen. */
+  var istAdmin = null;
+  try {
+    var gemerkt = sessionStorage.getItem('tfcz_admin');
+    if (gemerkt === '1') istAdmin = true;
+    else if (gemerkt === '0') istAdmin = false;
+  } catch (e) { /* privater Modus */ }
+
+  /* Verborgen = pausiert, ODER intern und der Besucher ist (noch) kein Admin. */
+  function verborgen(datei) {
+    if (pausiert(datei)) return true;
+    return nurAdmin(datei) && istAdmin !== true;
+  }
 
   /* ---------- Fassung dieser Seite ---------- */
   var wurzel = document.documentElement;
@@ -114,6 +134,26 @@
     stil('tfcz-variante-css',
       'html[data-variante="' + VAR + '"] [data-var]:not([data-var~="' + VAR + '"]){display:none !important}');
   }
+
+  /* ---------- Fassung einer ANDEREN Seite ----------
+     Die Startseite wirbt für das Training — und muss darum wissen, ob dort
+     gerade angemeldet wird oder das Semester läuft. Bis 01.09.2026 ging das
+     nicht: die Fassung galt immer nur für die Seite, auf der man steht, und
+     so stand auf der Home ein rotes «Jetzt anmelden» über einer geschlossenen
+     Anmeldung. Ein Element darf sich jetzt auf eine fremde Seite beziehen:
+
+         <span data-var-seite="tfcz-training.html" data-var="laufend">…</span>
+
+     Gerechnet wird aus dem Stand, ohne DOM zu lesen — die Regeln stehen, bevor
+     das erste Element geparst ist, darum blitzt nichts auf. */
+  var fremd = [];
+  for (var datei in (stand.seiten || {})) {
+    if (!Object.prototype.hasOwnProperty.call(stand.seiten, datei)) continue;
+    var fv = variante(datei);
+    if (!fv) continue;
+    fremd.push('[data-var-seite="' + datei + '"][data-var]:not([data-var~="' + fv + '"]){display:none !important}');
+  }
+  if (fremd.length) stil('tfcz-var-seite-css', fremd.join(''));
 
   /* ---------- Pausiert-Zustand ---------- */
   function stil(id, css) {
@@ -155,19 +195,23 @@
     schirmGebaut = true;
 
     var e = eintrag(HIER) || {};
-    var satz = e.hinweis ||
-      'Wir überarbeiten diese Seite gerade. Sie ist in Kürze wieder da — schau in der Zwischenzeit auf der Startseite vorbei.';
+    var intern = nurAdmin(HIER);
+    var satz = e.hinweis || (intern
+      ? 'Diese Seite ist ein internes Werkzeug des Vorstands. Wer dafür angemeldet ist, sieht sie nach dem Anmelden.'
+      : 'Wir überarbeiten diese Seite gerade. Sie ist in Kürze wieder da — schau in der Zwischenzeit auf der Startseite vorbei.');
 
     var box = document.createElement('div');
     box.className = 'tfcz-pause';
     box.setAttribute('role', 'status');
     box.innerHTML =
-      '<span class="kicker">Vorübergehend pausiert</span>' +
-      '<h1>Diese Seite ist gerade nicht verfügbar</h1>' +
+      '<span class="kicker">' + (intern ? 'Interne Seite' : 'Vorübergehend pausiert') + '</span>' +
+      '<h1>' + (intern ? 'Diese Seite ist nicht öffentlich' : 'Diese Seite ist gerade nicht verfügbar') + '</h1>' +
       '<p></p>' +
       '<div class="wege">' +
         '<a class="btn btn-ghost" href="index.html">Zur Startseite</a>' +
-        '<a class="btn btn-text" href="mailto:info@tfcz.ch">Frage an den Verein</a>' +
+        (intern
+          ? '<a class="btn btn-text" href="https://app.tfcz.ch/login">Anmelden</a>'
+          : '<a class="btn btn-text" href="mailto:info@tfcz.ch">Frage an den Verein</a>') +
       '</div>';
     box.querySelector('p').textContent = satz;   /* Text nie als HTML einsetzen */
 
@@ -184,7 +228,7 @@
   }
 
   function anwenden() {
-    var aus = pausiert(HIER);
+    var aus = verborgen(HIER);
     wurzel.classList.toggle('tfcz-pausiert', aus);
 
     if (aus) {
@@ -223,14 +267,14 @@
       [].forEach.call(b.querySelectorAll('a[href]'), function (a) {
         var ziel = a.getAttribute('href') || '';
         if (ziel.charAt(0) === '#' || /^(https?:|mailto:|tel:)/i.test(ziel)) return;
-        var weg = pausiert(ziel);
+        var weg = verborgen(ziel);
         if (weg) a.setAttribute('hidden', '');
         else if (a.hasAttribute('hidden')) a.removeAttribute('hidden');
       });
     });
 
     [].forEach.call(document.querySelectorAll('[data-seite]'), function (el) {
-      var weg = pausiert(el.getAttribute('data-seite'));
+      var weg = verborgen(el.getAttribute('data-seite'));
       if (weg) el.setAttribute('hidden', '');
       else if (el.hasAttribute('hidden')) el.removeAttribute('hidden');
     });
@@ -242,7 +286,7 @@
       var sichtbar = sub.querySelectorAll('a:not([hidden])').length;
       var kopf = g.querySelector('.tn-row .tn-lnk');
       var kopfZiel = kopf ? (kopf.getAttribute('href') || '') : '';
-      var kopfWeg = kopf ? pausiert(kopfZiel) && kopfZiel.charAt(0) !== '#' : false;
+      var kopfWeg = kopf ? verborgen(kopfZiel) && kopfZiel.charAt(0) !== '#' : false;
       var tog = g.querySelector('.tn-tog');
       if (tog) tog.hidden = !sichtbar;
       if (!sichtbar && kopfWeg) g.setAttribute('hidden', '');
@@ -258,8 +302,11 @@
   var horcher = [];
   TFCZ.seiten = {
     stand:      function () { return stand; },
-    status:     function (datei) { return pausiert(datei) ? 'pausiert' : 'live'; },
+    status:     function (datei) { var e = eintrag(datei); return (e && e.status) || 'live'; },
     pausiert:   pausiert,
+    nurAdmin:   nurAdmin,
+    verborgen:  verborgen,
+    istAdmin:   function () { return istAdmin; },
     variante:   variante,
     hier:       function () { return HIER; },
     dateiname:  dateiname,
@@ -300,4 +347,43 @@
 
   if (document.readyState === 'loading') addEventListener('DOMContentLoaded', frischHolen);
   else frischHolen();
+
+  /* ---------- Interne Seiten: ist ein Super Admin da? ----------
+     Gefragt wird NUR, wenn überhaupt eine Seite auf `nur_admin` steht — sonst
+     schickte jeder Besucher eine Anfrage mit Sitzungsdaten los, für nichts.
+
+     tfcz.ch und app.tfcz.ch teilen die Domain, die Anfrage gilt darum als
+     same-site und die Sitzung wird mitgeschickt. Okapi erlaubt tfcz.ch
+     ausdrücklich (Access-Control-Allow-Credentials).
+
+     EHRLICH ZUR GRENZE: das hier entscheidet, was ANGEZEIGT wird — es schützt
+     die Datei nicht. Wer die Adresse kennt, lädt das HTML weiterhin. Für echten
+     Schutz gehört eine Seite nicht auf den statischen Host. Steht so auch in
+     CLAUDE.md, Abschnitt «Seiten-Sichtbarkeit». */
+  function adminPruefen() {
+    if (istAdmin !== null) return;                       /* schon beantwortet */
+    var noetig = false;
+    for (var d in (stand.seiten || {})) {
+      if (Object.prototype.hasOwnProperty.call(stand.seiten, d) &&
+          stand.seiten[d] && stand.seiten[d].status === 'nur_admin') { noetig = true; break; }
+    }
+    if (!noetig || !window.fetch) return;
+
+    var OKAPI = (window.TFCZ_OKAPI_APP || 'https://app.tfcz.ch/api').replace(/\/+$/, '');
+    fetch(OKAPI + '/auth/verify', { credentials: 'include' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        var u = j && j.data && j.data.user;
+        istAdmin = !!(u && u.isSuperAdmin);
+        try { sessionStorage.setItem('tfcz_admin', istAdmin ? '1' : '0'); } catch (e) {}
+        if (istAdmin) { anwenden(); linkeAufraeumen(); }   /* nur AUFdecken, nie zudecken */
+      })
+      .catch(function () {
+        istAdmin = false;                                  /* im Zweifel: verborgen */
+        try { sessionStorage.setItem('tfcz_admin', '0'); } catch (e) {}
+      });
+  }
+
+  if (document.readyState === 'loading') addEventListener('DOMContentLoaded', adminPruefen);
+  else adminPruefen();
 })();

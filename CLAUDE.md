@@ -486,7 +486,9 @@ TFCZ-v3/
 ├── CLAUDE.md                    ← diese Datei (EINZIGE Quelle der Wahrheit)
 ├── README.md                    ← Wegweiser: was liegt wo
 │
-├── ocsav - tfcz_Web/            ← DIE WEBSITE  →  Repo ocsav
+├── ocsav - tfcz_Web/            ← DIE WEBSITE  →  Repo tfcz-website (Pages)
+│                                  tfcz.ch kommt aus ~/Claude/Projects/TFCZ/Ocsav
+│                                  (Repo ocsav, Ordner website/site/) — siehe §8
 │   ├── index.html               ← Home (früher tfcz-2026.html)
 │   ├── mitglied · tfcz-training · tfcz-firmenevents · tfcz-regeln
 │   ├── tfcz-ueber-uns · tfcz-geschichte · tfcz-medien · login
@@ -589,11 +591,36 @@ mit der V3 **abgeschafft** (Website und Design Studio sind jetzt sauber getrennt
 Push über HTTPS mit PAT nur einmalig in der Push-URL (`x-access-token:<PAT>@…`), **nie** in
 `.git/config` persistieren.
 
-**Git-Push-Ziel Website (verbindlich, V3-Fassung 14.07.2026):** Wenn Vasco sagt „pushe die Website",
-ist **immer das Repo `ocsav`** gemeint: `https://github.com/tischfussball-club-zuerich/ocsav.git`,
-Branch `main`. Committet wird der **ganze Ordner `ocsav - tfcz_Web/`** (Remote `origin` → ocsav);
-`_secret/` bleibt via `.gitignore` draussen. Also: **Ordner `ocsav - …` → Repo `ocsav`, Ordner
-`picaso - …` → Repo `picaso`.** PAT nur einmalig in der Push-URL, nie in `.git/config`.
+**Website veröffentlichen (verbindlich, Fassung 01.09.2026 — ersetzt die Regel vom 14.07.2026):**
+
+> `node _tools/veroeffentlichen.mjs`
+
+Das ist der ganze Befehl. Er backt, committet, pusht **beide** Ziele und wartet, bis tfcz.ch den
+neuen Stand ausliefert. Die zwei `.command`-Dateien im Projektordner sind gelöscht — sie waren
+falsch (siehe unten) und trugen GitHub-Tokens im Klartext.
+
+**Es gibt ZWEI Ziele, und nur eines davon ist tfcz.ch:**
+
+| Was | Remote | Repo | landet auf |
+|---|---|---|---|
+| Ordner `ocsav - tfcz_Web/` | `privat` | `oliveiracardosovasco-cmyk/tfcz-website` | GitHub Pages — **nicht** tfcz.ch |
+| Repo `ocsav`, Ordner `website/site/` | `origin` | `tischfussball-club-zuerich/ocsav` | **tfcz.ch** (Workflow `deploy-website.yml` → Docker-Image → SSH → Container `tfcz-website`) |
+
+Der Vereins-Klon liegt **nicht** neben diesem Ordner, sondern unter `~/Claude/Projects/TFCZ/Ocsav`
+(anderes Projektverzeichnis — genau darum hat ihn am 01.09.2026 niemand gefunden, und tfcz.ch stand
+eine Woche lang auf dem Stand vom 24. August, während alle dachten, es sei veröffentlicht).
+
+**Die alte Regel war dreifach falsch:** dieser Ordner hat gar keinen Remote `origin`; er pusht nach
+`tfcz-website`, nicht nach `ocsav`; und selbst ein Push nach `ocsav` läge an der falschen Stelle —
+dort gehört die Seite unter `website/site/`, nicht in die Wurzel. Ein `git push --force` aus diesem
+Ordner nach `ocsav` würde die Workflow-Datei löschen, die tfcz.ch überhaupt erst deployt.
+
+**Was nie ausgeliefert wird, steht in `_tools/nicht-veroeffentlichen.txt`** — EINE Liste, aus der
+sowohl `veroeffentlichen.mjs` als auch `.github/workflows/pages.yml` lesen. Vorher stand dieselbe
+Aufzählung dreimal und überall anders; darum wäre am 01.09.2026 beinahe `_to_delete/` live gegangen.
+
+Für das Design Studio gilt weiter: **Ordner `picaso - …` → Repo `picaso`.** Zugangsdaten gehören in
+den Schlüsselbund bzw. `gh auth`, **nie** in eine Datei im Projekt.
 
 **Home heisst jetzt `index.html`** (früher `tfcz-2026.html`) — damit die Seite unter der nackten
 Domain lädt, ohne Dateinamen im Link. Alle 37 internen Referenzen wurden mitgezogen.
@@ -963,6 +990,33 @@ kein `defer`) — sonst blitzt eine pausierte Seite kurz auf. Jede neue öffentl
 **Beim Veröffentlichen** backt `_tools/bake-seiten.mjs` den Stand fest: STAND-Block, `noindex` auf
 pausierten Seiten, `sitemap.xml` ohne sie (Vorlage: `_tools/sitemap.quelle.xml`), aktive Fassung ins
 `<html>`-Tag. Der Lauf hängt in beiden `Website veröffentlichen …`-Commands.
+
+**Drei Zustände** (`status`): `live` · `pausiert` · **`nur_admin`** (Fassung 01.09.2026). `nur_admin`
+verhält sich wie `pausiert` — Links weg, Inhalt weg, `noindex` — mit einem Unterschied: ist ein
+**angemeldeter Super Admin** da, wird die Seite normal gezeigt. Gefragt wird bei
+`app.tfcz.ch/api/auth/verify` mit `credentials: 'include'`; tfcz.ch und app.tfcz.ch teilen die
+Domain, die Sitzung wird also mitgeschickt, und Okapi erlaubt tfcz.ch ausdrücklich. Die Antwort
+liegt für die Sitzung in `sessionStorage`. **Gefragt wird nur, wenn überhaupt eine Seite auf
+`nur_admin` steht** — sonst schickte jeder Besucher eine Anfrage mit Sitzungsdaten los, für nichts.
+Solange die Antwort fehlt, gilt die Seite als verborgen: im Zweifel nicht zeigen. Heute intern:
+`brandguide.html`, `design-studio.html`, `galerie.html`.
+
+**`nur_admin` ist KEIN Schutz.** Es entscheidet, was angezeigt wird — die Datei liegt weiter auf dem
+Webserver, wer die Adresse kennt, lädt sie. Wer etwas wirklich vertraulich braucht, deployt es nicht
+auf den öffentlichen Host (Eintrag in `_tools/nicht-veroeffentlichen.txt`) oder legt es hinter Okapi.
+Das steht so auch im Portal über den Schaltflächen, damit niemand sich in Sicherheit wiegt.
+
+**Fassung einer ANDEREN Seite** (`data-var-seite`, Fassung 01.09.2026): ein Element darf sich auf die
+Fassung einer fremden Seite beziehen —
+
+```html
+<span data-var-seite="tfcz-training.html" data-var="laufend">Semester läuft</span>
+```
+
+Gebraucht für die Trainingskarte auf der Startseite: bis dahin galt die Fassung immer nur für die
+Seite, auf der man steht, und so stand auf der Home ein rotes «Jetzt anmelden» über einer
+geschlossenen Anmeldung. Die Regeln werden aus dem Stand gerechnet, ohne DOM zu lesen — sie stehen,
+bevor das erste Element geparst ist, darum blitzt nichts auf.
 
 **Ehrlich zur Grenze:** Menü und Links folgen sofort. Wer den Direktlink einer gerade pausierten
 Seite öffnet, sieht den Inhalt je nach Zwischenspeicher noch einen Sekundenbruchteil, bis die
