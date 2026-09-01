@@ -16,13 +16,6 @@
 <script src="system/brand-components.js"></script>
 <!-- Tokens = Single Source (CLAUDE.md §9). tfcz-base.css ist geparkt in _module/ (Ebene 2 offen) -> nicht einbinden. -->
 <link rel="stylesheet" href="system/tokens.css">
-<!-- Section „Schilder": Renderer und Stile. Einzige Quelle, liegt in system/. -->
-<link rel="stylesheet" href="system/schild.css">
-<link rel="stylesheet" href="system/studio-schilder.css">
-<!-- Icon-Bibliothek: eigenstaendiger Baustein, laesst sich ueberall anbinden. -->
-<link rel="stylesheet" href="system/icon-picker.css">
-<script src="system/icon-picker.js"></script>
-<script src="system/schild-renderer.js"></script>
 <style>
 /* ===== Studio-Shell =====
    Das Studio ist eine INTERNE, login-geschützte Fläche → Dunkel-Navy (CLAUDE.md §1).
@@ -668,24 +661,17 @@ body.mobile .pm-left,body.mobile .pm-right{display:none;}
 #profi.kaselay .item{max-width:none;}
 #profi.ytlay .item{max-width:none;}
 #profi.bglay .item{max-width:none;}
-/* Die Grundfarbe der Fotozone ist EXAKT die Farbe, die der Seitenhintergrund an ihrer
-   Unterkante (60% Hoehe) hat - sonst steht dort eine sichtbare Stufe. */
-.pzone{position:relative;flex:none;overflow:hidden;background:#0a1e30;}
+.pzone{position:relative;flex:none;overflow:hidden;background:#06121f;}
 /* Foto-Schnitte: skewX statt clip-path — html2canvas kann clip-path NICHT (Export-Bug).
    Der Rahmen ist geskewt und schneidet ab (overflow:hidden), das Bild darin gegen-geskewt,
    damit das Motiv gerade bleibt. Neigung überall gleich: -9deg. */
 .pph{position:absolute;top:-4%;bottom:-4%;overflow:hidden;transform:skewX(-9deg);}
 .pph i{position:absolute;inset:0;display:block;transform:skewX(9deg);background-size:cover;background-position:center;}
 .pL{left:-6%;width:44%;}
-/* Der mittlere Rahmen endet IN der goldenen Naht (64.6-66.4%), nicht dahinter.
-   Vorher 37% breit = Kante bei 70%: das Mittelfoto lag sichtbar ueber dem rechten. */
-.pH{left:33%;width:33%;z-index:2;}
+.pH{left:33%;width:37%;z-index:2;}
 .pR{left:66%;width:40%;}
-/* NIE auf `transparent` auslaufen lassen: html2canvas bricht solche Verlaeufe hart ab und
-   hinterlaesst an der Unterkante eine sichtbare Linie quer durchs Foto (bei 15.6% Hoehe).
-   Dieselbe Farbe mit Alpha 0 rendert dort sauber. */
-.ptscrim{position:absolute;z-index:3;top:0;left:0;right:0;height:26%;background:linear-gradient(180deg,rgba(5,15,25,.85),rgba(5,15,25,0));}
-.pbscrim{position:absolute;z-index:3;left:0;right:0;bottom:0;height:46%;background:linear-gradient(180deg,rgba(7,20,33,0),rgba(7,20,33,.78) 55%,#0a1e30 92%,#0a1e30);}
+.ptscrim{position:absolute;z-index:3;top:0;left:0;right:0;height:26%;background:linear-gradient(180deg,rgba(5,15,25,.85),transparent);}
+.pbscrim{position:absolute;z-index:3;left:0;right:0;bottom:0;height:46%;background:linear-gradient(180deg,transparent,rgba(7,20,33,.78) 55%,#06121f);}
 .pframe{position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;pointer-events:none;}
 .pframe .item{pointer-events:auto;}
 .pspacer{flex:1 1 auto;min-height:0;}
@@ -698,22 +684,14 @@ body.mobile .pm-left,body.mobile .pm-right{display:none;}
 .pdate{text-transform:uppercase;}
 .pu{margin-left:auto;margin-right:auto;width:42%;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 .pprize{text-transform:uppercase;background:rgba(205,168,87,.08);}
-/* Der obere Brand-Streifen laeuft NICHT ueber border-image - html2canvas kennt es nicht und
-   malt stattdessen die nackte border-top-Farbe (weiss). Als Hintergrund-Ebene exportiert er sauber. */
-.pdetail{flex:none;z-index:7;display:flex;align-items:stretch;padding-top:3px;background:linear-gradient(90deg,var(--blue),var(--gold)) 0 0/100% 3px no-repeat,linear-gradient(90deg,#0a1b2b,#0c2236);}
+.pdetail{flex:none;z-index:7;display:flex;align-items:stretch;background:linear-gradient(90deg,#0a1b2b,#0c2236);border-top:3px solid;border-image:linear-gradient(90deg,var(--blue),var(--gold)) 1;}
 .pcell{flex:1;text-align:center;}
 .pcell+.pcell{border-left:1px solid rgba(255,255,255,.13);}
 .pk{font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);}
 .pval{margin-top:.3em;white-space:nowrap;}
 .pfoot{flex:none;z-index:7;display:flex;align-items:center;justify-content:center;background:#050d16;text-align:center;}
-/* Der Graufilter steht NICHT mehr fest im CSS - er kommt pro Foto aus el.filt (Regler
-   "Bild-Filter" im Bearbeiten-Bereich). Vorgabe siehe PHFILT_DEF. Fest verdrahtet
-   liess er sich weder abschalten noch sauber exportieren. */
+.pph i.gray{filter:grayscale(1) contrast(1.04) brightness(.92);}
 .ptscrim,.pbscrim{z-index:4;pointer-events:none;}
-/* Abschluss-Streifen in der Hintergrundfarbe: html2canvas laesst am unteren Rand der
-   Fotozone eine einzelne hellere Pixelzeile stehen (Rundung beim Beschnitt). Der Streifen
-   deckt sie ab und ist im Editor unsichtbar, weil er genau die Farbe darunter hat. */
-.pbfill{position:absolute;left:0;right:0;bottom:0;height:6px;background:#0a1e30;z-index:5;pointer-events:none;}
 .ptear{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(233,196,117,0),rgba(233,196,117,.95) 28%,rgba(92,167,220,.78) 72%,rgba(233,196,117,0));filter:drop-shadow(0 0 22px rgba(233,196,117,.55));}
 .ptear{width:1.8%;left:37%;right:auto;transform:skewX(-9deg);}
 .ptear.s1{left:32.6%;}
@@ -1189,7 +1167,6 @@ header{z-index:200;}
       <div class="add-row">
         <button class="add-btn" data-add="photo"><span data-ic="image" data-icsz="15"></span> Foto</button>
         <button class="add-btn" data-add="cta"><span data-ic="external-link" data-icsz="15"></span> Button</button>
-        <button class="add-btn" data-add="icon"><span data-ic="star" data-icsz="15"></span> Icon</button>
         <button class="add-btn" id="addMoreEls"><span data-ic="layers" data-icsz="15"></span> Elemente…</button>
       </div>
     </div>
@@ -2343,17 +2320,6 @@ function layoutFit(){ if(isProfi()){buildProfi();return;} if(isYt()){buildYt();r
   const colH=itemsH+gaps*gapF, scaledH=colH*scale;
   const top=Math.max(padY,(H-scaledH)/2);
   col.style.top=top+'px'; col.style.transform='translateX(-50%) scale('+scale+')'; }
-/* Vorgabe-Filter der drei PRO-Fotos: aussen grau, Mitte farbig. Steht hier und nicht im CSS,
-   damit der Regler ihn ueberschreiben kann und der Export ihn einbacken kann. */
-var PHFILT_DEF={imgL:{b:.92,c:1.04,s:1,g:1}, imgR:{b:.92,c:1.04,s:1,g:1}, imgH:{b:1,c:1,s:1,g:0}};
-function phFiltWerte(el,id){ var d=PHFILT_DEF[id]||{}, f=(el&&el.filt)||null;
-  return { b:(f&&f.b!=null)?f.b:(d.b!=null?d.b:1),
-           c:(f&&f.c!=null)?f.c:(d.c!=null?d.c:1),
-           s:(f&&f.s!=null)?f.s:(d.s!=null?d.s:1),
-           g:(f&&f.g!=null)?f.g:(d.g!=null?d.g:0) }; }
-function phFiltCss(el,id){ var v=phFiltWerte(el,id);
-  if(v.b===1&&v.c===1&&v.s===1&&v.g===0)return '';
-  return 'filter:grayscale('+v.g+') contrast('+v.c+') brightness('+v.b+') saturate('+v.s+');'; }
 function buildProfi(){ const P=document.getElementById('profi'),C=COLORS; const W=CW(),H=CH(),k=W/1080;
   col.style.display='none'; bgimg.style.display='none'; const sc=document.getElementById('scrim'); if(sc)sc.style.display='none'; darklayer.style.display='none';
   P.style.display='flex'; P.style.background='';
@@ -2368,11 +2334,11 @@ function buildProfi(){ const P=document.getElementById('profi'),C=COLORS; const 
   P.innerHTML=
    '<div class="pzone" style="height:'+ph+'px">'
     /* Bild liegt in einem gegen-geskewten <i> — der Rahmen schneidet, das Motiv bleibt gerade. */
-    +'<div class="item pph pL" data-id="imgL"><i style="'+phFiltCss(g('imgL'),'imgL')+'background-image:url('+photo(g('imgL'))+')"></i></div>'
-    +'<div class="item pph pR" data-id="imgR"><i style="'+phFiltCss(g('imgR'),'imgR')+'background-image:url('+photo(g('imgR'))+')"></i></div>'
-    +'<div class="item pph pH" data-id="imgH"><i style="'+phFiltCss(g('imgH'),'imgH')+'background-image:url('+photo(g('imgH'))+')"></i></div>'
+    +'<div class="item pph pL" data-id="imgL"><i class="gray" style="background-image:url('+photo(g('imgL'))+')"></i></div>'
+    +'<div class="item pph pR" data-id="imgR"><i class="gray" style="background-image:url('+photo(g('imgR'))+')"></i></div>'
+    +'<div class="item pph pH" data-id="imgH"><i style="background-image:url('+photo(g('imgH'))+')"></i></div>'
     +'<div class="ptear s1"></div><div class="ptear s2"></div>'
-    +'<div class="ptscrim"></div><div class="pbscrim"></div><div class="pbfill"></div></div>'
+    +'<div class="ptscrim"></div><div class="pbscrim"></div></div>'
    +'<div class="item pghost" data-id="ghost" style="font-size:'+(ghost.size*k)+'px;color:'+C[ghost.color]+'">'+esc(ghost.text)+'</div>'
    +'<div class="pbrandtop" style="height:'+hb+'px"></div><div class="pbrandbot" style="height:'+hb+'px"></div>'
    +'<div class="pframe">'
@@ -2539,26 +2505,17 @@ function buildDyp(){ const P=document.getElementById('profi'),C=COLORS; const W=
   const FS=(id,fb)=>Math.round((((g(id)&&g(id).size)||fb))*k);
   const WT=id=>((g(id)&&g(id).weight)||900);
   const lh=Math.max(4,H*0.0075), NAVY='#0d273d', GOLD='#cda857', GOLD2='#e9c475';
-  /* Die Figur wird in JEDES Stangen-SVG direkt hineingeschrieben - kein <use>, kein <defs>.
-     Vorher lag sie einmal in einem separaten <svg width="0" height="0"><defs> und die Stangen
-     zeigten per <use href="#dman"> dorthin. html2canvas serialisiert jedes SVG EINZELN in ein
-     Bild; die Referenz lief dort ins Leere und die Kicker-Figuren fehlten im PNG komplett
-     (Befund 01.09.2026). Auch <use> auf ein defs im SELBEN SVG war unzuverlaessig - dort kam
-     die Farbe der unteren Stange falsch heraus. Darum die Formen inline. */
-  const MANBODY='<circle cx="0" cy="22" r="17"/><path d="M-36,55 Q-38,45 -24,42 Q0,39.5 24,42 Q38,45 36,55 L34,85 Q34,96 17,98 Q0,100 -17,98 Q-34,96 -34,85 Z"/><path d="M-15,96 L15,96 L12,131 L-12,131 Z"/><path d="M-19,129 L19,129 Q24,129 23,136 L21,143 Q20,146 14,146 L-14,146 Q-20,146 -21,143 L-23,136 Q-24,129 -19,129 Z"/>';
-  const man=function(x){ return '<g transform="translate('+x+',0)">'+MANBODY+'</g>'; };
-  const rod=function(men){
-    return '<svg width="1080" height="180" viewBox="0 0 1080 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">'
-      +'<rect x="0" y="60" width="1080" height="12" rx="6" fill="#c6d2dd"/><rect x="0" y="60" width="1080" height="5" rx="2.5" fill="#eef4f9"/>'
-      +men+'</svg>'; };
+  const MAN='<g id="dman"><circle cx="0" cy="22" r="17"/><path d="M-36,55 Q-38,45 -24,42 Q0,39.5 24,42 Q38,45 36,55 L34,85 Q34,96 17,98 Q0,100 -17,98 Q-34,96 -34,85 Z"/><path d="M-15,96 L15,96 L12,131 L-12,131 Z"/><path d="M-19,129 L19,129 Q24,129 23,136 L21,143 Q20,146 14,146 L-14,146 Q-20,146 -21,143 L-23,136 Q-24,129 -19,129 Z"/></g>';
+  const rod=function(men){return '<svg viewBox="0 0 1080 180" style="width:100%;height:auto;display:block"><rect x="0" y="60" width="1080" height="12" rx="6" fill="#c6d2dd"/><rect x="0" y="60" width="1080" height="5" rx="2.5" fill="#eef4f9"/>'+men+'</svg>';};
   let h='';
+  h+='<svg width="0" height="0" style="position:absolute"><defs>'+MAN+'</defs></svg>';
   h+='<svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.32" viewBox="0 0 1080 1350" preserveAspectRatio="none"><g stroke="rgba(255,255,255,.9)" stroke-width="3" fill="none"><rect x="42" y="42" width="996" height="1266" rx="10"/><line x1="42" y1="675" x2="1038" y2="675"/><circle cx="540" cy="675" r="118"/><rect x="486" y="26" width="108" height="18" rx="3"/><rect x="290" y="42" width="500" height="176"/><rect x="410" y="42" width="260" height="66"/><path d="M476,218 Q540,268 604,218"/><rect x="486" y="1306" width="108" height="18" rx="3"/><rect x="290" y="1132" width="500" height="176"/><rect x="410" y="1242" width="260" height="66"/><path d="M476,1132 Q540,1082 604,1132"/></g></svg>';
   var _cf=[[8,7,GOLD],[20,4,'#fff'],[33,9,'#005a94'],[46,5,GOLD2],[60,7,'#fff'],[73,6,GOLD],[86,5,'#4489c7'],[14,14,GOLD2],[40,16,'#fff'],[66,13,GOLD],[92,15,'#005a94'],[26,20,GOLD2],[54,24,'#fff'],[80,22,GOLD]];
   for(var _i=0;_i<_cf.length;_i++){var cf=_cf[_i];h+='<div style="position:absolute;left:'+cf[0]+'%;top:'+cf[1]+'%;width:8px;height:13px;background:'+cf[2]+';border-radius:2px;transform:rotate('+((cf[0]*7)%360)+'deg);opacity:.5"></div>';}
   h+='<div style="position:absolute;top:0;left:0;right:0;height:'+lh+'px;background:'+C.blue+'"></div>';
   h+='<div style="position:absolute;bottom:0;left:0;right:0;height:'+lh+'px;background:'+C.gold+'"></div>';
-  h+='<div style="position:absolute;left:0;right:0;top:21%">'+rod('<g fill="#0d273d">'+man(250)+man(540)+man(830)+'</g>')+'</div>';
-  h+='<div style="position:absolute;left:0;right:0;top:71%">'+rod('<g fill="#cda857">'+man(410)+man(670)+'</g>')+'</div>';
+  h+='<div style="position:absolute;left:0;right:0;top:21%">'+rod('<g fill="#0d273d"><use href="#dman" x="250"/><use href="#dman" x="540"/><use href="#dman" x="830"/></g>')+'</div>';
+  h+='<div style="position:absolute;left:0;right:0;top:71%">'+rod('<g fill="#cda857"><use href="#dman" x="410"/><use href="#dman" x="670"/></g>')+'</div>';
   var bs=Math.round(112*k), rf=Math.round(56*k), bl=Math.round(96*k);
   function boxrow(L,r){return '<div style="display:flex;align-items:center;gap:'+(10*k)+'px;margin-bottom:'+(8*k)+'px"><span style="width:'+bs+'px;height:'+bs+'px;display:flex;align-items:center;justify-content:center;background:'+GOLD+';color:#fff;border-radius:'+(12*k)+'px;box-shadow:0 '+(9*k)+'px '+(18*k)+'px rgba(13,39,61,.32);font-weight:900;font-size:'+bl+'px;line-height:1">'+L+'</span><span style="font-weight:900;font-size:'+rf+'px;text-transform:uppercase;color:#fff;text-shadow:2px 3px 0 rgba(13,39,61,.3)">'+r+'</span></div>';}
   h+='<div style="position:absolute;top:34.5%;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:'+(10*k)+'px">'
@@ -2757,8 +2714,7 @@ function buildKase2(){ const P=document.getElementById('profi'),C=COLORS; const 
    grid : 1px Blau, 5% × 8.9% Raster, opacity .07, Maske ellipse 65% 65% (transparent 40% → 100%)
    glow : 56% breiter Kreis bei 50%/46%, rgba(92,167,220,.26) → 0 bei 65%, blur 10px            */
 function bgSpotSVG(){
-  /* width/height MUESSEN dran sein - ohne natuerliche Groesse laesst html2canvas das SVG weg. */
-  var s='<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="none">'
+  var s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="none">'
    +'<defs>'
    +'<radialGradient id="bgg" gradientUnits="userSpaceOnUse" cx="960" cy="486" r="1344" gradientTransform="translate(960,486) scale(1,0.7232) translate(-960,-486)">'
    +'<stop offset="0" stop-color="#17405f"/><stop offset="0.55" stop-color="#0d273d"/><stop offset="1" stop-color="#071722"/></radialGradient>'
@@ -3213,9 +3169,7 @@ function wireItems(P){
           }
         }
       }
-      /* Die PRO-Fotorahmen (.pph) tragen den Filter bereits auf dem inneren <i> - dort liegt
-         das Bild. Ein zweites Mal auf den Rahmen gelegt wuerde er sich verdoppeln. */
-      if(el.type==='image'&&el.filt&&!n.classList.contains('pph')){
+      if(el.type==='image'&&el.filt){
         var _f=el.filt;
         n.style.filter='brightness('+(_f.b!=null?_f.b:1)+') contrast('+(_f.c!=null?_f.c:1)+') saturate('+(_f.s!=null?_f.s:1)+') grayscale('+(_f.g!=null?_f.g:0)+')';
       }
@@ -3448,11 +3402,6 @@ function syncInspector(){ try{renderShelf();}catch(e){} const el=sel?getEl(sel):
   if(isComp)buildCompInspector(el); else { var _cp=document.getElementById('compProps'); if(_cp)_cp.style.display='none'; }
   var _kann=iZeilen(el,isComp);
   if(isPhoto)document.getElementById('i-iurl').value=(ev.src&&ev.src.slice(0,5)!=='data:')?ev.src:'';
-  /* Die Filter-Regler standen bisher immer auf ihrer Startposition, egal was am Element hing.
-     Jetzt zeigen sie den wirksamen Wert - inkl. der PRO-Vorgabe (aussen grau). */
-  if(isPhoto){ var _fv=phFiltWerte(ev,el.id);
-    [['i-fb',_fv.b],['i-fc',_fv.c],['i-fs',_fv.s],['i-fg',_fv.g]].forEach(function(pr){
-      var nd=document.getElementById(pr[0]); if(nd)nd.value=pr[1]; }); }
   if(_kann.indexOf('r-text')>=0)document.getElementById('i-text').value=ev.text||'';
   if(_kann.indexOf('r-text2')>=0)document.getElementById('i-text2').value=ev.text2||'';
   setN('size',ev.size); setN('dy',ev.dy||0); setN('dx',ev.dx||0); setN('rot',ev.rot||0); setN('op',ev.op!=null?ev.op:1);
@@ -4695,7 +4644,6 @@ async function bakeImgShadows(on,scl){
     _shadowFix.forEach(function(o){
       if(o.style===null)o.n.removeAttribute('style'); else o.n.setAttribute('style',o.style);
       o.n.setAttribute('src',o.src);
-      if(o.ph&&o.ph.parentNode)o.ph.parentNode.removeChild(o.ph);   /* Platzhalter wieder weg */
     });
     _shadowFix=[]; return;
   }
@@ -4715,21 +4663,7 @@ async function bakeImgShadows(on,scl){
     var url;
     try{ g.drawImage(im, padX*scl, padY*scl, r.width*scl, r.height*scl); url=oc.toDataURL('image/png'); }
     catch(e){ return; }                       /* fremde Herkunft -> lieber gar nichts aendern */
-    /* WICHTIG: Das Bild wird gleich `position:absolute` - damit faellt es aus dem Fluss.
-       Ohne Ersatz rutschen die Geschwister: im PRO-Kopf (`.ptop`, justify-content:space-between)
-       sprang der LIVE-Badge dadurch vom rechten Rand nach links unter das Logo. Darum steht an
-       seiner Stelle fuer die Aufnahme ein unsichtbarer Platzhalter gleicher Groesse.
-       Nur wenn das Bild ueberhaupt IM Fluss steht - ein bereits absolut gesetztes Prop
-       (Kaese-Tropfen, Figur ...) braucht keinen Platzhalter, der wuerde sogar stoeren. */
-    var _imFluss=(cs.position==='static'||cs.position==='relative');
-    var _ph=_imFluss?document.createElement('span'):null;
-    if(_ph){
-      _ph.style.cssText='display:inline-block;flex:none;vertical-align:top;pointer-events:none;'
-        +'width:'+(im.offsetWidth||r.width)+'px;height:'+(im.offsetHeight||r.height)+'px;'
-        +'margin:'+cs.marginTop+' '+cs.marginRight+' '+cs.marginBottom+' '+cs.marginLeft+';';
-      if(im.parentNode)im.parentNode.insertBefore(_ph,im);
-    }
-    _shadowFix.push({ n:im, style:im.getAttribute('style'), src:im.getAttribute('src'), ph:_ph });
+    _shadowFix.push({ n:im, style:im.getAttribute('style'), src:im.getAttribute('src') });
     im.setAttribute('src',url);
     im.style.position='absolute';
     im.style.left=(r.left-base.left-padX)+'px';
@@ -4745,130 +4679,6 @@ async function bakeImgShadows(on,scl){
   await Promise.all(_shadowFix.map(function(o){
     try{ return o.n.decode(); }catch(e){ return Promise.resolve(); }
   }).map(function(pr){ return pr && pr.catch ? pr.catch(function(){}) : Promise.resolve(); }));
-}
-
-/* ===== Farb-Filter fuer die Aufnahme einbacken (grayscale, contrast, brightness ...) =====
-   html2canvas liest CSS-`filter` gar nicht. Im PRO-Flyer sind die beiden aeusseren Fotos
-   `filter:grayscale(1) contrast(1.04) brightness(.92)` - im Export kamen sie darum in FARBE
-   heraus (Befund 01.09.2026). Fuer die Aufnahme wird das Bild deshalb mit genau diesem Filter
-   in eine Offscreen-Leinwand gemalt und die Quelle getauscht; das Seitenverhaeltnis bleibt
-   gleich, damit `background-size:cover` exakt denselben Ausschnitt zeigt.
-   Gilt fuer <img> UND fuer Hintergrundbilder (z. B. die geskewten `.pph i`).
-   `drop-shadow` bleibt aussen vor - das macht bakeImgShadows(). */
-var _filterFix=[];
-function _farbFilterOhneSchatten(f){
-  if(!f||f==='none')return '';
-  var out=String(f).replace(/drop-shadow\((?:[^()]|\([^()]*\))*\)/g,'').replace(/\s+/g,' ').trim();
-  if(!out||out==='none')return '';
-  /* NUR reine Farbfunktionen backen. `blur()` waere falsch: der Radius gilt in Bildschirm-Pixeln,
-     gemalt wird aber in der natuerlichen Bildgroesse - das ergaebe einen anderen Weichzeichner. */
-  if(/blur\s*\(/i.test(out))return '';
-  if(/[a-z-]+\s*\(/i.test(out.replace(/(grayscale|sepia|saturate|invert|hue-rotate|brightness|contrast|opacity)\s*\([^()]*\)/gi,'')))return '';
-  return out;
-}
-function _ladeBild(src){ return new Promise(function(res,rej){
-  var i=new Image(); try{ if(src.slice(0,5)!=='data:')i.crossOrigin='anonymous'; }catch(e){}
-  i.onload=function(){res(i);}; i.onerror=rej; i.src=src; }); }
-/* ===== Farbfilter von Hand rechnen (Ersatzweg fuer Safari < 18) =====
-   `canvas.filter` gibt es in Safari erst ab Version 18. Ohne diesen Ersatzweg wird der Filter
-   beim Einbacken still ignoriert und die Fotos landen FARBIG im PNG - genau der Befund vom
-   01.09.2026. Alle hier unterstuetzten Funktionen sind affin in sRGB, lassen sich also zu EINER
-   3x4-Matrix zusammenfassen und in einem Durchgang anwenden. `blur` ist nicht affin und wird
-   von _farbFilterOhneSchatten() ohnehin ausgeschlossen. */
-function _mmul(A,B){ /* A nach B, beide {m:3x3, o:3} */
-  var m=[0,0,0,0,0,0,0,0,0], o=[0,0,0];
-  for(var r=0;r<3;r++){
-    for(var c=0;c<3;c++){ var v=0; for(var k=0;k<3;k++) v+=B.m[r*3+k]*A.m[k*3+c]; m[r*3+c]=v; }
-    var t=B.o[r]; for(var k2=0;k2<3;k2++) t+=B.m[r*3+k2]*A.o[k2]; o[r]=t;
-  }
-  return {m:m,o:o};
-}
-function _filterMatrix(f){
-  var M={m:[1,0,0, 0,1,0, 0,0,1], o:[0,0,0]}, alpha=1, gab=false;
-  var re=/([a-z-]+)\(\s*([-0-9.]+)\s*(%?)\s*\)/gi, m;
-  while((m=re.exec(f))){
-    var fn=m[1].toLowerCase(), v=parseFloat(m[2]); if(m[3]==='%')v/=100;
-    var S=null;
-    if(fn==='grayscale'){ var a=Math.min(1,Math.max(0,v)), R=.2126,G=.7152,B=.0722;
-      S={m:[1+a*(R-1), a*G, a*B,  a*R, 1+a*(G-1), a*B,  a*R, a*G, 1+a*(B-1)], o:[0,0,0]}; }
-    else if(fn==='sepia'){ var a2=Math.min(1,Math.max(0,v));
-      S={m:[1+a2*(.393-1), a2*.769, a2*.189,  a2*.349, 1+a2*(.686-1), a2*.168,  a2*.272, a2*.534, 1+a2*(.131-1)], o:[0,0,0]}; }
-    else if(fn==='saturate'){ var sv=v, R2=.2126,G2=.7152,B2=.0722;
-      S={m:[R2+sv*(1-R2), G2-sv*G2, B2-sv*B2,  R2-sv*R2, G2+sv*(1-G2), B2-sv*B2,  R2-sv*R2, G2-sv*G2, B2+sv*(1-B2)], o:[0,0,0]}; }
-    else if(fn==='brightness'){ S={m:[v,0,0, 0,v,0, 0,0,v], o:[0,0,0]}; }
-    else if(fn==='contrast'){ var off=(1-v)/2*255; S={m:[v,0,0, 0,v,0, 0,0,v], o:[off,off,off]}; }
-    else if(fn==='invert'){ var a3=Math.min(1,Math.max(0,v)), k=1-2*a3;
-      S={m:[k,0,0, 0,k,0, 0,0,k], o:[a3*255,a3*255,a3*255]}; }
-    else if(fn==='opacity'){ alpha*=v; gab=true; continue; }
-    else continue;
-    M=_mmul(M,S); gab=true;
-  }
-  return gab?{M:M,alpha:alpha}:null;
-}
-function _filterVonHand(ctx,w,h,f){
-  var P=_filterMatrix(f); if(!P)return false;
-  var img; try{ img=ctx.getImageData(0,0,w,h); }catch(e){ return false; }
-  var d=img.data, m=P.M.m, o=P.M.o, al=P.alpha;
-  for(var i=0;i<d.length;i+=4){
-    var r=d[i], g2=d[i+1], b=d[i+2];
-    var nr=m[0]*r+m[1]*g2+m[2]*b+o[0];
-    var ng=m[3]*r+m[4]*g2+m[5]*b+o[1];
-    var nb=m[6]*r+m[7]*g2+m[8]*b+o[2];
-    d[i]  = nr<0?0:(nr>255?255:nr);
-    d[i+1]= ng<0?0:(ng>255?255:ng);
-    d[i+2]= nb<0?0:(nb>255?255:nb);
-    if(al!==1) d[i+3]=d[i+3]*al;
-  }
-  ctx.putImageData(img,0,0);
-  return true;
-}
-async function bakeCssFilters(on){
-  if(!on){
-    _filterFix.forEach(function(o){
-      if(o.style===null)o.n.removeAttribute('style'); else o.n.setAttribute('style',o.style);
-      if(o.src!=null)o.n.setAttribute('src',o.src);
-    });
-    _filterFix=[]; return;
-  }
-  _filterFix=[];
-  var jobs=[];
-  [].forEach.call(canvas.querySelectorAll('*'),function(n){
-    var cs; try{ cs=getComputedStyle(n); }catch(e){ return; }
-    var f=_farbFilterOhneSchatten(cs.filter); if(!f)return;
-    var istImg=(n.tagName==='IMG'), quelle=null;
-    if(istImg){ quelle=n.currentSrc||n.getAttribute('src'); }
-    else { var m=(cs.backgroundImage||'').match(/url\(["']?([^"')]+)["']?\)/); if(m)quelle=m[1]; }
-    if(!quelle)return;
-    jobs.push({n:n,f:f,img:istImg,src:quelle});
-  });
-  for(var i=0;i<jobs.length;i++){
-    var j=jobs[i], bild=null;
-    try{ bild=await _ladeBild(j.src); }catch(e){ continue; }
-    var bw=bild.naturalWidth||bild.width, bh=bild.naturalHeight||bild.height;
-    if(!bw||!bh)continue;
-    var s=Math.min(1,2600/Math.max(bw,bh));
-    var cw=Math.max(1,Math.round(bw*s)), ch=Math.max(1,Math.round(bh*s));
-    var oc=document.createElement('canvas'); oc.width=cw; oc.height=ch;
-    var g=oc.getContext('2d'); if(!g)continue;
-    /* Kann die Leinwand Filter? Safari < 18 schluckt die Zuweisung wirkungslos - dann
-       wird der Filter nach dem Zeichnen von Hand gerechnet. */
-    var kannFilter=false;
-    try{ g.filter=j.f; kannFilter=!!(g.filter && g.filter!=='none'); }catch(e){ kannFilter=false; }
-    var url=null, typ=/^data:image\/jpe?g|\.jpe?g(\?|$)/i.test(j.src)?'image/jpeg':'image/png';
-    try{
-      g.drawImage(bild,0,0,cw,ch);
-      if(!kannFilter && !_filterVonHand(g,cw,ch,j.f)) continue;   /* geht gar nicht -> Bild unveraendert lassen */
-      url=oc.toDataURL(typ,0.94);
-    }catch(e){ continue; }
-    if(!url)continue;
-    _filterFix.push({ n:j.n, style:j.n.getAttribute('style'), src:j.img?j.n.getAttribute('src'):null });
-    if(j.img) j.n.setAttribute('src',url); else j.n.style.backgroundImage='url("'+url+'")';
-    j.n.style.filter='none';
-  }
-  /* wie bei bakeImgShadows: html2canvas liest `currentSrc` - erst dekodieren lassen */
-  await Promise.all(_filterFix.map(function(o){
-    try{ return (o.n.tagName==='IMG'&&o.n.decode)?o.n.decode():Promise.resolve(); }catch(e){ return Promise.resolve(); }
-  }).map(function(pr){ return pr&&pr.catch?pr.catch(function(){}):Promise.resolve(); }));
 }
 
 /* OFFEN (21.08.2026) - Kasten-Schatten fehlen im PNG:
@@ -4920,7 +4730,6 @@ async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
   document.body.classList.add('capturing');
   flattenGradientText(true);            /* Verlaufs-Text -> Vollfarbe (html2canvas-Fix) */
   await bakeImgShadows(true,_scl);      /* filter:drop-shadow -> ins Bild gemalt */
-  await bakeCssFilters(true);           /* grayscale & Co. -> ins Bild gemalt */
   boostTextShadow(true,_scl);           /* halbierten Blur ausgleichen */
   /* Das Warten oben ist eine echte Pause - in der Zwischenzeit kann layoutFit() die
      Passt-ins-Fenster-Skalierung wieder gesetzt haben. Darum kurz vor der Aufnahme
@@ -4938,7 +4747,7 @@ async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
             +'http://localhost und der Export funktioniert.' });
     } else sagInfo({titel:'Render-Fehler',text:m});
   }
-  boostTextShadow(false); await bakeCssFilters(false); bakeImgShadows(false);
+  boostTextShadow(false); bakeImgShadows(false);
   flattenGradientText(false);           /* Original-Stile exakt zurück */
   document.body.classList.remove('capturing'); canvas.style.transform=prev;
   if(_pin&&_pinPrev!==null)_pin.style.transform=_pinPrev;
@@ -6652,8 +6461,6 @@ function buildCompInspector(el){
   if(ov){ var rb=document.createElement('button'); rb.className='btn ghost'; rb.style.cssText='width:100%;justify-content:center;margin-bottom:8px';
     rb.textContent='Auf Master zurücksetzen'; rb.onclick=function(){ compReset(el); }; host.appendChild(rb); }
   def.felder.forEach(function(fd){
-    /* Icon-Felder bekommen die Icon-Bibliothek statt eines Textfelds — system/studio-icons.js. */
-    if(fd.typ==='icon' && window.iconFeldRow){ iconFeldRow(host, el, fd, p); return; }
     var w=document.createElement('div'); w.className='rw';
     var l=document.createElement('label'); l.textContent=fd.label; w.appendChild(l);
     var inp;
@@ -6706,7 +6513,6 @@ function addText(stil){ addComp('text'); var el=getEl(sel); if(el){ el.props={st
     if(a==='h1'||a==='h2'||a==='body')addText(a);
     else if(a==='photo'){ addComp('foto'); openPicker&&openPicker({title:'Foto wählen · Vereinsgalerie'},function(src){ if(!src||!sel)return; var el=getEl(sel); if(el){ el.props=el.props||{}; el.props.src=src; save(); rebuild(); syncInspector(); } }); }
     else if(a==='cta')addComp('cta');
-    else if(a==='icon'){ addComp('icon'); if(window.iconWaehlenFuerSel)iconWaehlenFuerSel(); }
   }; });
   var me=document.getElementById('addMoreEls'); if(me)me.onclick=function(){ document.body.classList.remove('layers-hidden'); var lb=document.getElementById('rpLib'); if(lb)lb.scrollIntoView({behavior:'smooth',block:'start'}); };
   var rt=document.getElementById('tbRatio');
@@ -8284,8 +8090,4 @@ body.rulers #layersPanel{padding-top:18px!important}
   try{ titel(); }catch(e){}
 })();
 </script>
-<!-- Section „Schilder": ergaenzt Motiv, Formate und Bedienfeld,
-     ohne bestehende Logik zu aendern. -->
-<script src="system/studio-icons.js"></script>
-<script src="system/studio-schilder.js"></script>
 </body></html>

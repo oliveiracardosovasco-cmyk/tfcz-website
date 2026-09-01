@@ -155,35 +155,6 @@ Empfänger für den Mail-Weg: `info@tfcz.ch` (aus `system/content.js`).
 
 ---
 
-### 2.4 Seiten-Sichtbarkeit — `GET /api/settings/public/website`
-
-Aufrufer: `system/seiten.js` (jede öffentliche Seite), `seiten.html` (Portal),
-`_tools/bake-seiten.mjs` (beim Veröffentlichen).
-
-**Liegt in okapi**, nicht in diesem Backend — dort gibt es den Settings-Speicher schon.
-Lesen ist offen, Schreiben geht über `PUT /api/settings/website_seiten` (Bearer, Admin).
-Patch und Startwert: `../okapi-patch-website-seiten.md`.
-
-```jsonc
-// Antwort
-{ "success": true, "data": { "website_seiten": {
-  "stand": "2026-08-28",
-  "seiten": {
-    "tfcz-regeln.html":   { "status": "pausiert" },
-    "tfcz-training.html": { "status": "live", "variante": "anmeldung" }
-  }
-}}}
-```
-
-`status` ist `live` oder `pausiert` · `variante` nur bei Seiten mit mehreren Fassungen ·
-`hinweis` (optional) ersetzt den Standardtext auf der Pausiert-Seite.
-**Schlüssel = Dateiname**, damit er auf die Links in Menü und Footer passt.
-
-Antwortet der Server nicht, gilt der beim letzten Publish eingebackene Stand. Kein Aufruf
-blockiert die Seite.
-
----
-
 ## 3 · Endpunkte, die noch kommen
 
 Diese ruft das Frontend **noch nicht** auf — hier ist der Vertrag noch verhandelbar. Bevor sie gebaut

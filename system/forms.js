@@ -121,25 +121,6 @@ window.TFCZ = window.TFCZ || {};
         ]
       },
 
-      /* Fassung „laufend" der Trainingsseite: das Semester ist voll und läuft.
-         Hier wird KEIN Platz vergeben — die Person meldet nur Interesse fürs nächste
-         Semester an. Darum weniger Pflichtfelder als bei 'training' (keine Adresse,
-         kein Semester zur Wahl) und ein Betreff, der die Absicht klar benennt. */
-      'training-interesse': {
-        titel: 'Training mit Philipp — Interesse am nächsten Semester',
-        betreff: function (who) { return 'TFCZ · Training mit Philipp — Interesse nächstes Semester — ' + (who || 'Interessent'); },
-        kopf: 'Interesse am nächsten Semester (KEINE Anmeldung)',
-        /* Absender ist der Interessent — der Schlusssatz steht aus SEINER Sicht. */
-        fuss: 'Bitte informiert mich, sobald die Daten und die Anmeldung fürs nächste Semester stehen.\nGesendet über das Formular auf tfcz.ch',
-        felder: [
-          F.vorname, F.nachname, F.email,
-          { k:'tel', label:'Mobile-Nr.', type:'tel', opt:true, ph:'optional' },
-          { k:'mitglied', label:'Bist du TFCZ-Mitglied?', type:'select', options:['Ja','Nein','Noch nicht'] },
-          { k:'tag', label:'Welcher Tag passt dir eher?', type:'select', options:['Dienstag','Mittwoch','Beides geht','Weiss ich noch nicht'] },
-          { k:'msg', label:'Nachricht', type:'textarea', opt:true, full:true, ph:'Level, Fragen, Wünsche?' }
-        ]
-      },
-
       'firmenevent': {
         titel: 'Firmenevent-Anfrage',
         betreff: function (who) { return 'TFCZ · Firmenevent-Anfrage — ' + (who || 'Team'); },

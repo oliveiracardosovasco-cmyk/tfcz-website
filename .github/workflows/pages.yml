@@ -40,19 +40,13 @@ jobs:
 
       - name: Interne Dateien aus dem Artefakt entfernen
         run: |
-          # Die Liste steht in _tools/nicht-veroeffentlichen.txt — EINE Quelle,
-          # aus der auch _tools/veroeffentlichen.mjs liest (tfcz.ch). Vorher stand
-          # sie hier fest verdrahtet und lief mit der anderen auseinander.
-          while read -r zeile; do
-            eintrag="${zeile%%#*}"; eintrag="$(echo "$eintrag" | xargs)"
-            [ -z "$eintrag" ] && continue
-            case "$eintrag" in
-              */*) rm -rf -- "$eintrag" ;;                       # Pfad ab der Wurzel
-              *\**) find . -name "$eintrag" -exec rm -rf {} + 2>/dev/null || true ;;
-              *)   find . -name "$eintrag" -exec rm -rf {} + 2>/dev/null || true ;;
-            esac
-          done < _tools/nicht-veroeffentlichen.txt
-          rm -rf _tools .github          # zuletzt: die Liste selbst und der Workflow
+          rm -rf _secret _snapshots _snapshot-baseline _module _tools tools node_modules .github
+          rm -f CLAUDE.md API.md ARCHITEKTUR.md TODO.md CTA-ANALYSE.md README.md
+          rm -f package.json package-lock.json okapi-event-mapping.md
+          # .gitignore muss AUCH weg: sie nennt "_secret/" samt Kommentar
+          # "Eier-Jagd im Klartext" — das verraet die Existenz der Jagd und wo
+          # ihre Quelle liegt. Genau das, was §3b verhindern will.
+          rm -f .gitignore
           echo "--- was ausgeliefert wird:"
           ls -a
           # Gegenproben. Exit 1 stoppt den Deploy, bevor etwas live geht.

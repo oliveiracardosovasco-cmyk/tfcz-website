@@ -24,5 +24,6 @@
 - Firmenevents: https://tfcz.ch/firmenevents
 - Geschichte: https://tfcz.ch/geschichte
 - Über uns: https://tfcz.ch/ueber-uns
+- Regeln (ITSF Standard Matchplay): https://tfcz.ch/regeln
 - Medien: https://tfcz.ch/medien
 - Mitglied werden: https://tfcz.ch/mitglied

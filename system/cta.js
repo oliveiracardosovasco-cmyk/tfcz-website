@@ -59,6 +59,7 @@ TFCZ.ctas = {
   /* ---- Navigation / sekundär (GHOST) ---- */
   'komm-vorbei':  { href: 'index.html#woche',        text: 'Komm vorbei',        stil: 'ghost' },
   'kalender':     { href: 'index.html#woche',        text: 'Kalender',           stil: 'ghost' },
+  'regeln':       { href: 'tfcz-regeln.html',        text: 'Alle Regeln',        stil: 'ghost' },
   'training':     { href: 'tfcz-training.html',      text: 'Training mit Philipp', stil: 'ghost' },
   'firmenevents': { href: 'tfcz-firmenevents.html',  text: 'Firmenevents',       stil: 'ghost' },
   'ueberuns':     { href: 'tfcz-ueber-uns.html',     text: 'Über uns',           stil: 'ghost' },

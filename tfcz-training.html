@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="de" data-variante-standard="laufend">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Training mit Philipp · TFCZ — Tischfussball Club Zürich</title>
-<meta name="description" content="Geführtes Tischfussball-Training beim TFCZ: Technik lernen und sichtbar besser werden. Dienstags 18:45–20:15, gratis für Mitglieder. Das Herbstsemester 2026 ist ausgebucht — für das nächste auf die Liste setzen.">
+<meta name="description" content="Geführtes Tischfussball-Training beim TFCZ: Technik lernen und sichtbar besser werden. Dienstags 18:45–20:15, gratis für Mitglieder. Jetzt Platz sichern.">
 <meta name="theme-color" content="#0d273d">
 <link rel="canonical" href="https://tfcz.ch/training">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
@@ -14,22 +14,14 @@
 <meta property="og:site_name" content="Tischfussball Club Zürich">
 <meta property="og:locale" content="de_CH">
 <meta property="og:title" content="Training mit Philipp — Tischfussball Club Zürich">
-<meta property="og:description" content="Technik, die dich schnell besser macht. Das Herbstsemester ist ausgebucht — trag dich für das nächste auf die Liste.">
+<meta property="og:description" content="Technik, die dich schnell besser macht. Bisher jedes Semester ausverkauft – jetzt Platz sichern.">
 <meta property="og:image" content="https://tfcz.ch/assets/fotos/action/philipp.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Training mit Philipp — Tischfussball Club Zürich">
-<meta name="twitter:description" content="Technik, die dich schnell besser macht. Das Herbstsemester ist ausgebucht — trag dich für das nächste auf die Liste.">
+<meta name="twitter:description" content="Technik, die dich schnell besser macht. Bisher jedes Semester ausverkauft – jetzt Platz sichern.">
 <meta name="twitter:image" content="https://tfcz.ch/assets/fotos/action/philipp.jpg">
 <link rel="stylesheet" href="assets/css/tfcz-fonts.css">
 <link rel="stylesheet" href="system/tokens.css">
-<!-- Seiten-Sichtbarkeit: entscheidet live/pausiert + Fassung. Blockierend, damit nichts aufblitzt. -->
-<script src="system/seiten.js"></script>
-<!-- Rückfall, falls seiten.js NICHT lädt (404, Netzfehler, Skript blockiert):
-     Dann fehlt data-variante am <html> und diese Regel greift — es bleibt die
-     Standard-Fassung stehen statt beide gleichzeitig. Läuft seiten.js, setzt es
-     data-variante noch im <head>, und die Regel matcht nie.
-     Der Publish-Lauf hält die Fassung hier mit dem echten Stand gleich. -->
-<style id="tfcz-var-fallback">html:not([data-variante]) [data-var]:not([data-var~="laufend"]){display:none}</style>
 <link rel="stylesheet" href="system/nav.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -222,25 +214,6 @@ section{padding:clamp(30px,4.5vw,60px) 0}
 .pg-note{margin-top:18px; display:flex; align-items:flex-start; gap:9px; font-size:13px; color:var(--ink-mut); line-height:1.55}
 .pg-note svg{flex:none; margin-top:1px; color:var(--gold-lt); width:18px; height:18px}
 .pg-note b{color:#fff}
-/* ---- Fassung „laufend": ausgebucht wird ROT gezeigt, nicht in Gold.
-   Gold heisst auf dieser Seite «komm dazu» (Platz sichern, Gratis für Mitglieder);
-   «voll» ist das Gegenteil und braucht darum eine eigene Farbe. Bewusste
-   Seiten-Ausnahme zu system/tokens.css. ---- */
-.urg.voll{border-color:rgba(218,41,41,.55); background:rgba(41,11,13,.55)}
-.urg.voll .dot{background:#ff6b6b; box-shadow:0 0 0 0 rgba(218,41,41,.6)}
-.urg.voll b{color:#ff9090}
-.pg-chip.voll{color:#ff9a9a; border-color:rgba(218,41,41,.45); background:rgba(58,14,16,.42)}
-.pg-chip.voll svg{color:#ff9090}
-.pg-chip.voll b{color:#ffd9d9}
-.pg-voll{display:flex; align-items:center; gap:10px; margin:0 0 12px; padding:11px 15px; border-radius:var(--r-md); border:1px solid rgba(218,41,41,.42); background:rgba(58,14,16,.35); font-size:13px; line-height:1.5; color:var(--ink-mut)}
-.pg-voll svg{width:17px; height:17px; flex:none; color:#ff9090}
-.pg-voll b{color:#ff9a9a; font-weight:900; letter-spacing:.03em}
-.pg-note.voll svg{color:#ff9090}
-/* «Trainer offen» ist laenger als das frühere «offen»: das Datum soll ganz
-   bleiben, das Etikett darf auf die zweite Zeile rutschen. */
-.pg-day.prov{flex-wrap:wrap}
-.pg-day.prov .pg-dt{white-space:nowrap}
-.pg-day.prov .pg-tag{margin-left:41px}
 .pg-cta{display:flex; gap:12px; flex-wrap:wrap; align-items:stretch; margin-top:22px}
 
 /* ===== Foto-Marquee ===== */
@@ -345,8 +318,7 @@ section{padding:clamp(30px,4.5vw,60px) 0}
       <a class="lnk" href="#programm">Termine</a>
       <a class="lnk" href="#warum">Warum</a>
       <a class="lnk" href="#erwartet">Ablauf</a>
-      <a class="lnk" data-var="anmeldung" href="#voranmelden">Platz sichern</a>
-      <a class="lnk" data-var="laufend" href="#voranmelden">Auf die Liste</a>
+      <a class="lnk" href="#voranmelden">Platz sichern</a>
     </div>
   </nav>
 
@@ -363,17 +335,11 @@ section{padding:clamp(30px,4.5vw,60px) 0}
         <span class="hb hb-season"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Herbstsemester 2026</span>
         <span class="hb hb-pop"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Beliebt</span>
       </div>
-      <div class="urg" data-var="anmeldung" data-aos="fade-up" data-aos-delay="170"><span class="dot"></span><span><b>Jedes Semester ausverkauft</b> — Start Di 1. September · Plätze begrenzt</span></div>
-      <div class="urg voll" data-var="laufend" data-aos="fade-up" data-aos-delay="170"><span class="dot"></span><span><b>Ausgebucht</b> — 34 dabei · Liste fürs nächste Semester ist offen</span></div>
-      <p class="sub" data-var="anmeldung" data-aos="fade-up" data-aos-delay="200">Neues Semester ab <b>September 2026</b>: 14 Einheiten Technik, mit der du in Wochen sichtbar besser wirst — für Einsteiger wie für ambitionierte Spieler.</p>
-      <p class="sub" data-var="laufend" data-aos="fade-up" data-aos-delay="200">14 Einheiten Technik, mit der du in Wochen sichtbar besser wirst. Das Herbstsemester ist mit <b>34 Angemeldeten</b> gestartet und voll — für das nächste kannst du dich schon auf die Liste setzen.</p>
-      <div class="ctas" data-var="anmeldung" data-aos="fade-up" data-aos-delay="260">
+      <div class="urg" data-aos="fade-up" data-aos-delay="170"><span class="dot"></span><span><b>Jedes Semester ausverkauft</b> — Start Di 1. September · Plätze begrenzt</span></div>
+      <p class="sub" data-aos="fade-up" data-aos-delay="200">Neues Semester ab <b>September 2026</b>: 14 Einheiten Technik, mit der du in Wochen sichtbar besser wirst — für Einsteiger wie für ambitionierte Spieler.</p>
+      <div class="ctas" data-aos="fade-up" data-aos-delay="260">
         <a class="btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Jetzt Platz sichern</a>
         <a class="btn-ghost" href="#programm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Termine ansehen</a>
-      </div>
-      <div class="ctas" data-var="laufend" data-aos="fade-up" data-aos-delay="260">
-        <a class="btn btn-ghost" href="#programm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Termine ansehen</a>
-        <a class="btn btn-ghost" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Auf die Liste</a>
       </div>
     </div>
     <div class="cue">Scroll<span class="arw"></span></div>
@@ -410,17 +376,15 @@ section{padding:clamp(30px,4.5vw,60px) 0}
         <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>1. Sept – 15. Dez</span>
         <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>max. <b>20</b> Plätze</span>
         <span class="pg-chip gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>Gratis für Mitglieder</span>
-          <span class="pg-chip voll" data-var="laufend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg><b>Ausgebucht</b>&nbsp;· 34 angemeldet</span>
       </div>
-      <div class="pg-voll" data-var="laufend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg><span><b>ALLE TERMINE AUSGEBUCHT</b> — beide Gruppen sind voll, das Semester läuft bereits.</span></div>
       <div class="pg-months">
         <div class="pg-month">
           <div class="pg-mname">September</div>
           <div class="pg-day"><span class="pg-num">1</span><span class="pg-dt">Di 1. Sept</span></div>
           <div class="pg-day"><span class="pg-num">2</span><span class="pg-dt">Di 8. Sept</span></div>
           <div class="pg-day"><span class="pg-num">3</span><span class="pg-dt">Di 15. Sept</span></div>
-          <div class="pg-day prov"><span class="pg-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.5"/><path d="M12 18h.01"/></svg></span><span class="pg-dt">Di 22. Sept</span><span class="pg-tag">Trainer offen</span></div>
-          <div class="pg-day prov"><span class="pg-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.5"/><path d="M12 18h.01"/></svg></span><span class="pg-dt">Di 29. Sept</span><span class="pg-tag">Trainer offen</span></div>
+          <div class="pg-day prov"><span class="pg-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.5"/><path d="M12 18h.01"/></svg></span><span class="pg-dt">Di 22. Sept</span><span class="pg-tag">offen</span></div>
+          <div class="pg-day prov"><span class="pg-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2.5-3 4.5"/><path d="M12 18h.01"/></svg></span><span class="pg-dt">Di 29. Sept</span><span class="pg-tag">offen</span></div>
         </div>
         <div class="pg-month">
           <div class="pg-mname">Oktober</div>
@@ -451,17 +415,13 @@ section{padding:clamp(30px,4.5vw,60px) 0}
           <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>2. Sept – 16. Dez</span>
           <span class="pg-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>max. <b>20</b> Plätze</span>
           <span class="pg-chip gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>Gratis für Mitglieder</span>
-          <span class="pg-chip voll" data-var="laufend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg><b>Ausgebucht</b>&nbsp;· 34 angemeldet</span>
         </div>
-        <div class="pg-voll" data-var="laufend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg><span><b>ALLE TERMINE AUSGEBUCHT</b> — beide Gruppen sind voll, das Semester läuft bereits.</span></div>
         <div class="pg-months" data-mirror-di><!-- gespiegelt aus der Dienstag-Gruppe (Tag danach) — per JS befüllt --></div>
       </div>
       <div class="pg-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>Die <b>zwei letzten September-Termine</b> sind zusätzlich möglich, aber noch offen — an diesen Terminen ist der Trainer noch nicht fix. Sobald das steht, geben wir Bescheid.</span></div>
-      <div class="pg-note" data-var="anmeldung"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Der <b>Dienstag</b> ist der Haupttag, die <b>Mittwoch-Gruppe</b> läuft parallel — je max. 20 Plätze. Wer nur am Mittwoch kann, meldet sich trotzdem an; gib bei der Anmeldung einfach deine Wunsch-Option an.</span></div>
-      <div class="pg-note voll" data-var="laufend"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Der <b>Dienstag</b> ist der Haupttag, die <b>Mittwoch-Gruppe</b> läuft parallel — je max. 20 Plätze. Beide sind für dieses Semester <b>voll</b>; die Termine stehen hier, damit du siehst, wie ein Semester abläuft.</span></div>
+      <div class="pg-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Der <b>Dienstag</b> ist der Haupttag, die <b>Mittwoch-Gruppe</b> läuft parallel — je max. 20 Plätze. Wer nur am Mittwoch kann, meldet sich trotzdem an; gib bei der Anmeldung einfach deine Wunsch-Option an.</span></div>
       <div class="pg-cta">
-        <a class="btn btn-gold" data-var="anmeldung" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Platz sichern</a>
-        <a class="btn btn-ghost" data-var="laufend" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Auf die Liste fürs nächste Semester</a>
+        <a class="btn btn-gold" data-cta="training-anmelden" href="#voranmelden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Platz sichern</a>
         <button type="button" class="btn btn-ghost" data-ical-all><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h12M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7"/><path d="M19 16v6M16 19h6"/></svg><span data-ical-label>Alle Dienstag-Termine zum Kalender</span></button>
       </div>
     </div>
@@ -558,32 +518,10 @@ section{padding:clamp(30px,4.5vw,60px) 0}
   <div class="wrap">
   <!-- ANMELDUNG -->
   <section id="voranmelden">
-    <div class="lbl" data-var="anmeldung" data-aos="fade-up">Anmeldung Herbstsemester 2026</div>
-    <h2 class="h2" data-var="anmeldung" data-aos="fade-up">Meld dich an — <span class="g">Platz sichern</span></h2>
-    <p class="intro" data-var="anmeldung" data-aos="fade-up">Die Anmeldung gilt pro Semester. Fülls unten aus — beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an <b>info@tfcz.ch</b>.</p>
-
-    <!-- Fassung „laufend": Semester läuft und ist voll — es wird Interesse gesammelt, NICHT angemeldet -->
-    <div class="lbl" data-var="laufend" data-aos="fade-up">Liste fürs nächste Semester</div>
-    <h2 class="h2" data-var="laufend" data-aos="fade-up">Steh auf der <span class="g">Liste</span>, wenn es losgeht</h2>
-    <p class="intro" data-var="laufend" data-aos="fade-up">Das Herbstsemester ist mit 34 Anmeldungen voll und läuft bereits. So geht es weiter:</p>
-    <div class="pg-note" data-var="laufend" data-aos="fade-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5l3 2"/></svg><span><b>1 · Du trägst dich ein.</b> Nur Name und E-Mail — mehr braucht es jetzt nicht.</span></div>
-    <div class="pg-note" data-var="laufend" data-aos="fade-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span><b>2 · Wir melden uns mit den Infos</b>, sobald Daten, Tage und Plätze stehen.</span></div>
-    <div class="pg-note" data-var="laufend" data-aos="fade-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>3 · Dann erst kommt die Anmeldung.</b> Wer auf der Liste steht, erfährt es zuerst.</span></div>
-    <div class="pg-note voll" data-var="laufend" data-aos="fade-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Das ist keine Anmeldung.</b> Du sagst uns nur, dass dich das nächste Semester interessiert — die Daten und die richtige Anmeldung folgen später hier auf der Seite.</span></div>
-    <div class="formbox" data-var="laufend" data-aos="fade-up" style="margin-top:22px">
-      <h2>Auf die Liste setzen</h2>
-      <div class="fsub">Das kostet nichts und verpflichtet zu nichts — es sorgt nur dafür, dass du die Infos zuerst bekommst.</div>
-      <form id="trIntForm" data-tfcz="form" data-form="training-interesse" novalidate>
-        <div class="fgrid"></div>
-        <div class="fnote"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Beim Senden öffnet sich dein Mailprogramm mit Empfänger, Betreff und Text — alles schon ausgefüllt.</span></div>
-        <div class="btnrow">
-          <button class="btn btn-gold" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>Auf die Liste setzen</button>
-          <span class="formerr">Bitte fülle die markierten Pflichtfelder aus.</span>
-        </div>
-      </form>
-    </div>
-
-    <div class="formbox" data-var="anmeldung" data-aos="fade-up" style="margin-top:22px">
+    <div class="lbl" data-aos="fade-up">Anmeldung Herbstsemester 2026</div>
+    <h2 class="h2" data-aos="fade-up">Meld dich an — <span class="g">Platz sichern</span></h2>
+    <p class="intro" data-aos="fade-up">Die Anmeldung gilt pro Semester. Fülls unten aus — beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an <b>info@tfcz.ch</b>.</p>
+    <div class="formbox" data-aos="fade-up" style="margin-top:22px">
       <div id="fEdit">
         <h2>Jetzt anmelden</h2>
         <div class="fsub">Trag deine Angaben ein — wir bestätigen dir deinen Platz. <b>Wichtig:</b> gib an, ob dir Dienstag und/oder Mittwoch passt. Beim Senden öffnet sich dein Mailprogramm mit der fertigen Nachricht an info@tfcz.ch.</div>

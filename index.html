@@ -66,8 +66,6 @@
 }
 </script>
 <link rel="stylesheet" href="system/tokens.css">
-<!-- Seiten-Sichtbarkeit: entscheidet live/pausiert + Fassung. Blockierend, damit nichts aufblitzt. -->
-<script src="system/seiten.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
@@ -623,12 +621,6 @@ h1 .g{color:var(--gold-lt)}
 .tag-anmelden{position:absolute; top:12px; left:12px; z-index:3; display:inline-flex; align-items:center; gap:8px; background:var(--red); color:#fff; font-size:11.5px; font-weight:900; letter-spacing:.05em; text-transform:uppercase; padding:7px 13px 7px 11px; border-radius:var(--r-pill); box-shadow:0 8px 20px rgba(218,41,41,.5)}
 .tag-anmelden .dot{position:relative; width:8px; height:8px; border-radius:50%; background:#fff; flex:none}
 .tag-anmelden .dot::after{content:""; position:absolute; inset:0; border-radius:50%; background:#fff; animation:tagPulse 1.8s ease-out infinite}
-/* Zweite Fassung des Badges (01.09.2026): läuft das Semester, ist «voll» eine
-   Auskunft und kein Ruf — gedecktes Navy mit blauem Rand, KEIN Puls. Rot bleibt
-   dem «Jetzt anmelden» und dem «Ausgebucht» auf der Trainingsseite. */
-.tag-anmelden.laeuft{background:rgba(9,29,46,.92); border:1px solid rgba(92,167,220,.55); color:#cfe6f7; box-shadow:none}
-.tag-anmelden.laeuft .dot{background:var(--blue)}
-.tag-anmelden.laeuft .dot::after{animation:none}
 @keyframes tagPulse{0%{transform:scale(1); opacity:.75}70%{transform:scale(3.4); opacity:0}100%{transform:scale(3.4); opacity:0}}
 @media(prefers-reduced-motion:reduce){.tag-anmelden .dot::after{animation:none}}
 @media(max-width:860px){ .agrid{grid-template-columns:1fr} }
@@ -1105,6 +1097,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
       <div class="kicker reveal">Formate &amp; Wettkampf</div>
       <h2 class="big reveal">Wie viel Wettkampf<br>willst du?</h2>
       <p class="lead reveal d1">Vom allerersten Mal am Tisch bis zur Weltmeisterschaft — bei uns hat alles Platz, am gleichen Tisch. Zieh den Barometer und finde deine Stufe: ganz oben der volle Plausch, wo wirklich alle willkommen sind, ganz unten die internationale Spitze. Das Panel erzählt dir, was dich erwartet.</p>
+      <p class="lead reveal d1" style="margin-top:12px">Willst du's ganz genau wissen? <a href="tfcz-regeln.html">Hier geht's zum kompletten Regelwerk →</a></p>
     </div>
     <!-- Fun-Barometer = Baustein system/components/baro.js (Single Source, auch im Brand Guide) -->
     <div class="reveal" data-tfcz="baro"></div>
@@ -1211,22 +1204,13 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
       <h2 class="big reveal">Training, Kinder<br>&amp; Firmen</h2>
     </div>
     <div class="agrid">
-      <div class="acard reveal" data-seite="tfcz-training.html">
-        <!-- Die Karte folgt der Fassung der TRAININGSSEITE (data-var-seite, system/seiten.js):
-             läuft dort die Anmeldung, ruft sie; läuft das Semester, zeigt sie aufs nächste.
-             Vorher stand hier ein rotes «Jetzt anmelden» über einer geschlossenen Anmeldung. -->
-        <div class="aimg">
-          <span class="tag-anmelden" data-var-seite="tfcz-training.html" data-var="anmeldung"><span class="dot"></span>Jetzt anmelden</span>
-          <span class="tag-anmelden laeuft" data-var-seite="tfcz-training.html" data-var="laufend"><span class="dot"></span>Semester läuft</span>
-          <img decoding="async" data-slot="index.tisch" class="goldf-lift" src="assets/fotos/galerie/full/482.webp" alt="TFCZ-Tisch im Clublokal, stimmungsvolles Licht" loading="lazy">
-        </div>
+      <div class="acard reveal">
+        <div class="aimg"><span class="tag-anmelden"><span class="dot"></span>Jetzt anmelden</span><img decoding="async" data-slot="index.tisch" class="goldf-lift" src="assets/fotos/galerie/full/482.webp" alt="TFCZ-Tisch im Clublokal, stimmungsvolles Licht" loading="lazy"></div>
         <div class="abody">
           <h3>Training mit</h3>
           <div class="am">Di 18:45 · Semester à 14 Einheiten</div>
-          <p data-var-seite="tfcz-training.html" data-var="anmeldung">Geführte Trainingsserie: Übungs- und Spielformen, Feedback, Tipps und Tricks. Gratis für Mitglieder, CHF 100 pro Semester für Nicht-Mitglieder.</p>
-          <p data-var-seite="tfcz-training.html" data-var="laufend">Geführte Trainingsserie: Übungs- und Spielformen, Feedback, Tipps und Tricks. Das Herbstsemester ist gestartet und voll — fürs nächste kannst du dich schon vormerken lassen.</p>
-          <a class="acta" href="tfcz-training.html" data-var-seite="tfcz-training.html" data-var="anmeldung">Training ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="acta" href="tfcz-training.html#voranmelden" data-var-seite="tfcz-training.html" data-var="laufend">Fürs nächste Semester vormerken <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p>Geführte Trainingsserie: Übungs- und Spielformen, Feedback, Tipps und Tricks. Gratis für Mitglieder, CHF 100 pro Semester für Nicht-Mitglieder.</p>
+          <a class="acta" href="tfcz-training.html">Training ansehen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
       <div class="acard reveal d1">
@@ -1238,7 +1222,7 @@ footer::after{content:""; display:block; height:4px; background:var(--gold)}
           <a class="mail-cta" data-cat="kids" href="mailto:info@tfcz.ch?subject=Kindertraining">Infos anfragen</a>
         </div>
       </div>
-      <div class="acard reveal d2" data-seite="tfcz-firmenevents.html">
+      <div class="acard reveal d2">
         <div class="aimg bluef-dk"><img decoding="async" data-slot="index.firmenevent" src="assets/fotos/galerie/full/1057.webp" alt="Gruppe an mehreren Tischen im TFCZ-Clublokal" loading="lazy"></div>
         <div class="abody">
           <h3>Firmenevents &amp; Vermietung</h3>

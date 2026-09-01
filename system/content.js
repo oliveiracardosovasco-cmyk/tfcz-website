@@ -39,6 +39,7 @@ TFCZ.content = {
     firmenevents:{ href: 'tfcz-firmenevents.html', text: 'Firmenevents' },
     ueberuns:    { href: 'tfcz-ueber-uns.html',    text: 'Über uns' },
     geschichte:  { href: 'tfcz-geschichte.html',   text: 'Geschichte' },
+    regeln:      { href: 'tfcz-regeln.html',       text: 'Regeln' },
     medien:      { href: 'tfcz-medien.html',       text: 'Medien' },
     brandguide:  { href: 'brandguide.html', text: 'Brand Guide' },
     designstudio:{ href: 'design-studio.html',     text: 'Design Studio' },
@@ -64,11 +65,12 @@ TFCZ.content = {
     { text: 'Tische',   href: '#tische' },
     { text: 'Über uns', href: 'tfcz-ueber-uns.html', kinder: [
         { text: 'Geschichte', href: 'tfcz-geschichte.html' },
+        { text: 'Regeln',     href: 'tfcz-regeln.html' },
         { text: 'Medien',     href: 'tfcz-medien.html' }
     ]},
     { text: 'Kontakt', href: '#kontakt' }
   ],
 
   /* ---- Welche Links stehen im Footer (Reihenfolge) ---- */
-  footerLinks: ['mitglied','training','firmenevents','ueberuns','geschichte','medien','brandguide','designstudio','galerie']
+  footerLinks: ['mitglied','training','firmenevents','ueberuns','geschichte','regeln','medien','brandguide','designstudio','galerie']
 };
