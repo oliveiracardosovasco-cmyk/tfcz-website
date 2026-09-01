@@ -52,7 +52,7 @@
      steht im Bedienfeld. */
   DEF.schild = { layout:'schild', v:1, bg:'navy', dark:0, schild:{
     design:'mitte', kategorie:'verbot', icon:'cigarette-off',
-    hilfen:false, akzent:''
+    groesse:'a3', hilfen:false, akzent:''
   }, els:[
     { id:'wortmarke', name:'Wortmarke',  type:'image', slot:'logo' },
     { id:'wappen',    name:'Wappen',     type:'image', slot:'logo' },
@@ -75,7 +75,7 @@
 
   /* Auswahlreihenfolge im Bedienfeld: von klein nach gross, quer
      jeweils hinter hoch — so sucht man ein Format. */
-  var FORMATREIHE = ['a5','a5q','a4','a4q','a3','a3q','a2','a2q','a1','a1q','a0','a0q']
+  var GROESSEN = ['a5','a4','a3','a2','a1','a0']
     .filter(function(k){ return !!TFCZ.schild.formate[k]; });
 
   function istSchild(){ return state.active === 'schild'; }
@@ -237,13 +237,12 @@
     /* Titel und Erklärung stehen im Reiter „Texte" — dort erwartet sie
        jeder, der das Studio kennt. Hier steht, was dort nicht hingehört. */
     html += zeile('Icon',
-      '<div class="sc-iconzeile">'+
+      '<button class="sc-iconwahl" id="sc-iconwahl">'+
         '<span class="sc-iconvor" id="sc-iconvor"></span>'+
-        '<input class="sc-in" id="sc-icon" value="'+String(c.icon||'')+'" '+
-        'placeholder="rauch, park, wc …" autocomplete="off">'+
-      '</div>'+
-      '<div class="sc-treffer" id="sc-treffer"></div>'+
-      '<p class="sc-hint">Deutsch tippen reicht: „rauch", „park", „wc".</p>');
+        '<span class="sc-iconname" id="sc-iconname">'+(c.icon||'auswählen')+'</span>'+
+        '<span class="sc-iconmehr">Bibliothek</span>'+
+      '</button>'+
+      '<p class="sc-hint">Alle Lucide-Icons, suchbar auf Deutsch: „rauch", „park", „wc".</p>');
 
     html += zeile('Druckhilfen',
       '<label class="sc-schalter"><input type="checkbox" id="sc-hilfen"'+
@@ -265,17 +264,17 @@
           '" data-e="'+id+'"><b>'+(e.size||100)+'%</b></div>';
       }).join(''));
 
-    /* Die Formatwahl gehört hierher, nicht in die Kopfleiste: zwölf
-       Grössen passen dort nicht hin, und hier steht das Datenformat
-       gleich darunter. */
-    html += zeile('Format',
-      '<div class="sc-chips sc-fmt" id="sc-format">' +
-      FORMATREIHE.map(function(k){
-        var f = FORMATS['schild_'+k];
-        if (!f) return '';
-        return '<button class="sc-chip'+(state.fmt==='schild_'+k?' on':'')+
-               '" data-v="'+k+'">'+f.name+'</button>';
-      }).join('') + '</div>');
+    /* Hier steht die Grösse. Hoch und quer sind die zwei Ausgaben dazu
+       und stehen als ankreuzbare Chips oben in der Kopfleiste — genau
+       so wie bei den Flyern. */
+    html += zeile('Grösse',
+      '<div class="sc-chips sc-fmt" id="sc-groesse">' +
+      GROESSEN.map(function(g){
+        return '<button class="sc-chip'+((c.groesse||'a3')===g?' on':'')+
+               '" data-v="'+g+'">'+g.toUpperCase()+'</button>';
+      }).join('') + '</div>' +
+      '<p class="sc-hint">Hoch und quer wählst du oben bei den Ausgaben — '+
+      'beide ankreuzen geht auch.</p>');
 
     var d = TFCZ.schild.datenformat((FORMATS[state.fmt]||{}).schildKey || 'a4');
     html += '<div class="sc-druck">'+
@@ -321,9 +320,12 @@
     var h = p.querySelector('#sc-hilfen');
     if (h) h.onchange = function(){ c.hilfen = h.checked; save(); rebuild(); };
 
-    p.querySelectorAll('#sc-format .sc-chip').forEach(function(b){
+    p.querySelectorAll('#sc-groesse .sc-chip').forEach(function(b){
       b.onclick = function(){
-        state.fmt = 'schild_' + b.dataset.v;
+        /* Die Orientierung bleibt, nur die Grösse wechselt. */
+        var quer = /q$/.test(String(state.fmt).replace('schild_',''));
+        c.groesse = b.dataset.v;
+        state.fmt = 'schild_' + c.groesse + (quer ? 'q' : '');
         state.outs = state.outs || {};
         state.outs.schild = [state.fmt];
         save(); switchAll();
@@ -331,111 +333,72 @@
     });
 
     var pdf = p.querySelector('#sc-pdf');
-    if (pdf) pdf.onclick = function(){
-      var el = document.getElementById(HOST_ID);
-      if (!el) return;
-      var alt = el.style.transform;
-      el.style.transform = '';        // im Druck 1:1, nicht auf Canvas-Pixel skaliert
-      TFCZ.schild.drucken(el);
-      el.style.transform = alt;
-    };
+    if (pdf) pdf.onclick = pdfDrucken;
 
     iconSuche(p);
   }
 
-  /* ---------- Icon-Suche ----------
-     Die Lucide-Stichworte sind englisch, gesucht wird auf Deutsch.
-     Diese Brücke deckt ab, was auf Schildern vorkommt — fehlt ein
-     Wort, kommt es hier dazu. */
-  var DE = {
-    rauch:'smoking', rauchen:'smoking', zigarette:'cigarette',
-    park:'parking', parkplatz:'parking', auto:'car', velo:'bike', fahrrad:'bike',
-    wc:'toilet', toilette:'toilet', klo:'toilet',
-    pfeil:'arrow', richtung:'arrow', weg:'arrow',
-    essen:'food', speise:'utensils', trinken:'drink', bier:'beer', kaffee:'coffee',
-    leise:'volume', laut:'volume', ruhe:'volume', musik:'music',
-    tuer:'door', 'tür':'door', eingang:'door', ausgang:'exit',
-    uhr:'clock', zeit:'clock', kalender:'calendar', datum:'calendar',
-    foto:'camera', kamera:'camera', video:'video', handy:'phone', telefon:'phone',
-    feuer:'fire', warnung:'warning', achtung:'alert', gefahr:'alert',
-    verbot:'ban', gesperrt:'lock', schloss:'lock', schluessel:'key', 'schlüssel':'key',
-    info:'info', hinweis:'info', frage:'help',
-    pokal:'trophy', sieger:'trophy', spiel:'game', tisch:'table',
-    wlan:'wifi', strom:'power', licht:'light',
-    abfall:'trash', muell:'trash', 'müll':'trash', putzen:'clean',
-    garderobe:'shirt', kleidung:'shirt', tasche:'bag',
-    geld:'money', bezahlen:'credit-card', kasse:'wallet',
-    person:'user', leute:'users', gruppe:'users', kind:'baby', hund:'dog',
-    haus:'home', ort:'map-pin', karte:'map', herz:'heart', stern:'star',
-    treppe:'stairs', lift:'elevator', dusche:'shower', wasser:'droplet'
-  };
-
-  var ICONLISTE = null;
-  function iconIndex(){
-    if (ICONLISTE) return Promise.resolve(ICONLISTE);
-    return fetch('assets/icons/lucide-index.json')
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(j){
-        var roh = j && (j.icons || j);
-        ICONLISTE = Array.isArray(roh) ? roh
-          : (roh ? Object.keys(roh).map(function(n){
-              var e = roh[n] || {}; return { name:n, tags:e.tags||[], use:e.use||'' };
-            }) : []);
-        return ICONLISTE;
-      })
-      .catch(function(){ ICONLISTE = []; return ICONLISTE; });
-  }
+  /* Die Icon-Bibliothek ist ein eigener Baustein (system/icon-picker.js)
+     und kennt die deutsche Suche. Hier steht nur die Anbindung. */
 
   function iconSuche(p){
-    var feld = p.querySelector('#sc-icon'),
-        liste = p.querySelector('#sc-treffer'),
-        vor = p.querySelector('#sc-iconvor');
-    if (!feld || !liste) return;
+    var knopf = p.querySelector('#sc-iconwahl'),
+        vor   = p.querySelector('#sc-iconvor'),
+        name  = p.querySelector('#sc-iconname');
+    if (!knopf) return;
     var c = cfg();
 
-    function vorschau(name){
+    function vorschau(n){
       if (!vor) return;
-      fetch(TFCZ.schild.iconQuelle + name + '.svg')
+      if (TFCZ.iconWahl) TFCZ.iconWahl.svg(n).then(function(t){ vor.innerHTML = t || ''; });
+      else fetch(TFCZ.schild.iconQuelle + n + '.svg')
         .then(function(r){ return r.ok ? r.text() : ''; })
         .then(function(t){ vor.innerHTML = t || ''; })
-        .catch(function(){ vor.innerHTML = ''; });
+        .catch(function(){});
     }
     vorschau(c.icon);
 
-    feld.oninput = function(){
-      var eingabe = feld.value.trim().toLowerCase();
-      c.icon = eingabe; save(); rebuild();
-      if (eingabe.length < 2){ liste.innerHTML = ''; return; }
-      var q = DE[eingabe] || eingabe;
-      iconIndex().then(function(alle){
-        /* Reihenfolge: exakt, Namensanfang, eigenes Wort im Namen,
-           irgendwo, zuletzt nur ein Stichwort. Ohne das stünde bei
-           „park" die Weinflasche vor dem Parkplatz. */
-        var rang = function(e){
-          var n = e.name;
-          if (n === q) return 0;
-          if (n.indexOf(q) === 0) return 1;
-          if (n.indexOf('-'+q) >= 0) return 2;
-          if (n.indexOf(q) >= 0) return 3;
-          return (e.tags||[]).some(function(tg){
-            return String(tg).toLowerCase().indexOf(q) >= 0; }) ? 4 : 9;
-        };
-        var treffer = alle.map(function(e){ return { e:e, r:rang(e) }; })
-          .filter(function(x){ return x.r < 9; })
-          .sort(function(a,b){ return a.r - b.r || a.e.name.length - b.e.name.length; })
-          .slice(0, 24).map(function(x){ return x.e; });
-        liste.innerHTML = treffer.map(function(e){
-          return '<button class="sc-treffer-i" data-n="'+e.name+'" title="'+
-                 String(e.use||'').replace(/"/g,'&quot;')+'">'+e.name+'</button>';
-        }).join('') || '<span class="sc-hint">Nichts gefunden.</span>';
-        liste.querySelectorAll('.sc-treffer-i').forEach(function(b){
-          b.onclick = function(){
-            c.icon = b.dataset.n; feld.value = b.dataset.n; liste.innerHTML = '';
-            vorschau(c.icon); save(); rebuild();
-          };
-        });
-      });
+    knopf.onclick = function(){
+      if (!TFCZ.iconWahl){ console.warn('[Schilder] Icon-Bibliothek fehlt'); return; }
+      TFCZ.iconWahl.oeffnen({ wert: c.icon, onWahl: function(n){
+        c.icon = n;
+        if (name) name.textContent = n;
+        vorschau(n);
+        save(); rebuild();
+      }});
     };
+  }
+
+  /* ---------- PDF im Download-Menü ----------
+     Der Studio-Download liefert PNG. Für die Druckerei braucht es ein
+     Vektor-PDF, und der einzige verlässliche Weg dorthin führt aus dem
+     Browser über „Drucken → Als PDF sichern". Deshalb steht der Eintrag
+     dort, wo man den Download sucht, statt nur unten im Bedienfeld. */
+  function pdfEintrag(){
+    var menu = document.getElementById('ddMenu');
+    if (!menu) return null;
+    var b = document.getElementById('schildPdfMenu');
+    if (!b){
+      var kat = document.createElement('div');
+      kat.className = 'tb-mcat'; kat.id = 'schildPdfKat'; kat.textContent = 'Druck';
+      b = document.createElement('button');
+      b.className = 'tb-mitem'; b.id = 'schildPdfMenu';
+      b.innerHTML = '<span data-ic="file-text"></span> PDF für die Druckerei (Vektor)';
+      b.onclick = function(){ pdfDrucken(); };
+      menu.insertBefore(kat, menu.firstChild);
+      menu.insertBefore(b, kat.nextSibling);
+      if (window.TFCZ_ICONS && TFCZ_ICONS.render) TFCZ_ICONS.render(menu);
+    }
+    return b;
+  }
+
+  function pdfDrucken(){
+    var el = document.getElementById(HOST_ID);
+    if (!el) return;
+    var alt = el.style.transform;
+    el.style.transform = '';        // im Druck 1:1, nicht auf Canvas-Pixel skaliert
+    TFCZ.schild.drucken(el);
+    el.style.transform = alt;
   }
 
   /* ---------- Sidebar ---------- */
@@ -449,18 +412,28 @@
       });
       p.style.display = '';
       var nf = document.getElementById('nfHost'); if (nf) nf.style.display = 'none';
+      var mb = pdfEintrag();
+      if (mb){ mb.style.display = ''; 
+        var mk = document.getElementById('schildPdfKat'); if (mk) mk.style.display = ''; }
     } else {
       p.style.display = 'none';
+      var mb2 = document.getElementById('schildPdfMenu');
+      if (mb2){ mb2.style.display = 'none';
+        var mk2 = document.getElementById('schildPdfKat'); if (mk2) mk2.style.display = 'none'; }
     }
     return r;
   };});
 
   /* ---------- Formate: Schild-Grössen nur im Schilder-Motiv ---------- */
-  /* In der Kopfleiste steht nur die gewählte Grösse — die Auswahl
-     selbst liegt im Bedienfeld. Zwölf Chips oben wären unlesbar. */
+  /* Die Kopfleiste zeigt genau zwei Ausgaben: die gewählte Grösse in hoch
+     und in quer. Beide ankreuzbar, „Alle Formate" exportiert dann beide.
+     Die Grösse selbst wählt man im Bedienfeld — zwölf Chips oben wären
+     unlesbar. */
   function nurSchild(){
-    var k = String(state.fmt).indexOf('schild_') === 0 ? state.fmt : 'schild_a3q';
-    return [k];
+    var d = (typeof cur === 'function') ? cur() : null;
+    var g = (d && d.schild && d.schild.groesse) || 'a3';
+    if (!FORMATS['schild_'+g]) g = 'a3';
+    return ['schild_'+g, 'schild_'+g+'q'];
   }
   function ohneSchild(liste){
     if (!Array.isArray(liste)) return liste;

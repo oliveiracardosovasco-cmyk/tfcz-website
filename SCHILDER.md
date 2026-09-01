@@ -11,12 +11,13 @@ Zu finden über **Motiv wählen → Schilder**.
 | `system/schild.css` | die Stile dazu |
 | `system/studio-schilder.js` | Motiv, Formate und Bedienfeld im Studio |
 | `system/studio-schilder.css` | die Stile des Bedienfelds |
+| `system/icon-picker.js` + `.css` | **Icon-Bibliothek** — eigener Baustein, überall anbindbar |
 
 Die Assets waren schon da: `assets/img/pattern.svg`, `logo-horizontal-white.svg`,
 die Lucide-Icons und `lucide-index.json`. Nichts wurde doppelt abgelegt.
 
-In `design-studio.html` sind **vier Zeilen** dazugekommen — drei im `<head>`
-(Z. 20–22) und eine vor `</body>` (Z. 8282). **Keine bestehende Zeile wurde
+In `design-studio.html` sind **sechs Zeilen** dazugekommen — fünf im `<head>`
+(Z. 20–25) und eine vor `</body>` (Z. 8285). **Keine bestehende Zeile wurde
 geändert.** `studio-schilder.js` ergänzt die Datenobjekte (`FORMATS`, `DEF`,
 `TPLNAME`, `READY`, `MEDNM`, `SERIEN`) und legt sich von aussen um sieben
 Funktionen (`rebuild`, `refreshSidebar`, `fmtsFor`, `capApplicableFormats`,
@@ -47,10 +48,35 @@ löst.
 nicht über die Tokens. Die Akzentfarbe färbt Icon, Ring und Rahmen — die
 Linien nie.
 
-**Icon-Suche auf Deutsch:** „rauch" findet `cigarette-off`, „park" findet
-`circle-parking`, „pfeil" die Pfeile. Die Brücke steht in
-`studio-schilder.js` im Objekt `DE` — fehlt ein Wort, kommt es dort dazu.
-Dahinter liegen alle 1750 Lucide-Icons.
+**Icon-Bibliothek:** Klick aufs Icon-Feld öffnet einen Wähler über alle 1750
+Lucide-Icons — mit Suchfeld, sieben thematischen Gruppen (Wege & Verkehr, Haus
+& Raum, Verbot & Warnung, Essen & Trinken, Sport & Turnier, Technik & Medien,
+Zeichen & Symbole) und einem Raster, in dem man die Icons sieht statt nur
+Namen zu lesen. **Die Suche versteht Deutsch:** „rauch" findet `cigarette-off`,
+„park" den Parkplatz, „pokal" den Trophy. Die Wortbrücke steht in
+`icon-picker.js` im Objekt `DE`, die Gruppen darunter in `GRUPPEN` — beides
+lässt sich in einer Zeile erweitern.
+
+Der Wähler ist ein **eigenständiger Baustein**: er weiss nichts über Schilder
+und lässt sich mit drei Zeilen überall anbinden —
+
+```js
+TFCZ.iconWahl.oeffnen({ wert:'trophy', onWahl:function(name){ … } });
+```
+
+**Auf jedem Flyer:** die Bibliothek hängt nicht nur an den Schildern. Im Block
+*Hinzufügen* gibt es den Knopf **Icon** — er setzt eine Icon-Ebene auf den
+Flyer und öffnet gleich die Bibliothek. Danach lässt sie sich verschieben,
+drehen, sperren wie jede andere Ebene; Farbe und Grösse stehen im Inspector.
+Dasselbe Feld erscheint überall, wo eine Brand-Komponente ein Icon führt
+(Icon, Fakten-Liste …): statt einer Auswahlliste ein Knopf mit Vorschau.
+
+Der Renderer `system/brand-components.js` trägt nur die häufigsten Icons als
+Markup bei sich — er muss auch ohne Studio zeichnen können (Brand Guide).
+Alles Übrige holt `system/studio-icons.js` nach: die Komponenten melden über
+`iconsAus()`, welche Icons sie brauchen, fehlende landen in
+`window.TFCZ_ICON_EXTRA`, und es wird **einmal** neu gezeichnet. Darum bleiben
+1750 Pfade aus der Datei draussen und stehen trotzdem alle zur Verfügung.
 
 **Format:** im Bedienfeld, nicht in der Kopfleiste — zwölf Grössen passen dort
 nicht hin. Die Kopfleiste zeigt die gewählte Ausgabe.

@@ -19,6 +19,9 @@
 <!-- Section „Schilder": Renderer und Stile. Einzige Quelle, liegt in system/. -->
 <link rel="stylesheet" href="system/schild.css">
 <link rel="stylesheet" href="system/studio-schilder.css">
+<!-- Icon-Bibliothek: eigenstaendiger Baustein, laesst sich ueberall anbinden. -->
+<link rel="stylesheet" href="system/icon-picker.css">
+<script src="system/icon-picker.js"></script>
 <script src="system/schild-renderer.js"></script>
 <style>
 /* ===== Studio-Shell =====
@@ -1186,6 +1189,7 @@ header{z-index:200;}
       <div class="add-row">
         <button class="add-btn" data-add="photo"><span data-ic="image" data-icsz="15"></span> Foto</button>
         <button class="add-btn" data-add="cta"><span data-ic="external-link" data-icsz="15"></span> Button</button>
+        <button class="add-btn" data-add="icon"><span data-ic="star" data-icsz="15"></span> Icon</button>
         <button class="add-btn" id="addMoreEls"><span data-ic="layers" data-icsz="15"></span> Elemente…</button>
       </div>
     </div>
@@ -6648,6 +6652,8 @@ function buildCompInspector(el){
   if(ov){ var rb=document.createElement('button'); rb.className='btn ghost'; rb.style.cssText='width:100%;justify-content:center;margin-bottom:8px';
     rb.textContent='Auf Master zurücksetzen'; rb.onclick=function(){ compReset(el); }; host.appendChild(rb); }
   def.felder.forEach(function(fd){
+    /* Icon-Felder bekommen die Icon-Bibliothek statt eines Textfelds — system/studio-icons.js. */
+    if(fd.typ==='icon' && window.iconFeldRow){ iconFeldRow(host, el, fd, p); return; }
     var w=document.createElement('div'); w.className='rw';
     var l=document.createElement('label'); l.textContent=fd.label; w.appendChild(l);
     var inp;
@@ -6700,6 +6706,7 @@ function addText(stil){ addComp('text'); var el=getEl(sel); if(el){ el.props={st
     if(a==='h1'||a==='h2'||a==='body')addText(a);
     else if(a==='photo'){ addComp('foto'); openPicker&&openPicker({title:'Foto wählen · Vereinsgalerie'},function(src){ if(!src||!sel)return; var el=getEl(sel); if(el){ el.props=el.props||{}; el.props.src=src; save(); rebuild(); syncInspector(); } }); }
     else if(a==='cta')addComp('cta');
+    else if(a==='icon'){ addComp('icon'); if(window.iconWaehlenFuerSel)iconWaehlenFuerSel(); }
   }; });
   var me=document.getElementById('addMoreEls'); if(me)me.onclick=function(){ document.body.classList.remove('layers-hidden'); var lb=document.getElementById('rpLib'); if(lb)lb.scrollIntoView({behavior:'smooth',block:'start'}); };
   var rt=document.getElementById('tbRatio');
@@ -8279,5 +8286,6 @@ body.rulers #layersPanel{padding-top:18px!important}
 </script>
 <!-- Section „Schilder": ergaenzt Motiv, Formate und Bedienfeld,
      ohne bestehende Logik zu aendern. -->
+<script src="system/studio-icons.js"></script>
 <script src="system/studio-schilder.js"></script>
 </body></html>

@@ -48,20 +48,21 @@
 
 #schildPanel .sc-hint{margin:2px 0 0;font-size:11px;line-height:1.45;color:#8fa6bb}
 
-#schildPanel .sc-iconzeile{display:flex;align-items:center;gap:9px}
-#schildPanel .sc-iconvor{flex:none;width:34px;height:34px;display:grid;place-items:center;
+/* Icon-Feld: Vorschau, Name, Hinweis auf die Bibliothek — ein Knopf. */
+#schildPanel .sc-iconwahl{display:flex;align-items:center;gap:10px;width:100%;
+  border:1px solid rgba(255,255,255,.13);border-radius:12px;
+  background:rgba(255,255,255,.05);padding:8px 11px;cursor:pointer;text-align:left}
+#schildPanel .sc-iconwahl:hover{border-color:transparent;
+  box-shadow:inset 0 2px 0 #5ca7dc, inset 0 -2px 0 #cda857}
+#schildPanel .sc-iconvor{flex:none;width:32px;height:32px;display:grid;place-items:center;
   border-radius:9px;border:1px solid rgba(205,168,87,.42);background:rgba(205,168,87,.10);
   color:#cda857}
-#schildPanel .sc-iconvor svg{width:19px;height:19px;stroke:currentColor;fill:none;
+#schildPanel .sc-iconvor svg{width:18px;height:18px;stroke:currentColor;fill:none;
   stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-
-#schildPanel .sc-treffer{display:flex;flex-wrap:wrap;gap:5px;max-height:132px;overflow-y:auto;
-  overflow-x:hidden}
-#schildPanel .sc-treffer-i{border:1px solid rgba(255,255,255,.13);border-radius:8px;
-  background:rgba(255,255,255,.04);color:#c3d2e0;padding:4px 9px;
-  font:600 11.5px 'Nunito Sans',system-ui,sans-serif;cursor:pointer}
-#schildPanel .sc-treffer-i:hover{border-color:transparent;
-  box-shadow:inset 0 2px 0 #5ca7dc, inset 0 -2px 0 #cda857;color:#fff}
+#schildPanel .sc-iconname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap;font:700 13px 'Nunito Sans',system-ui,sans-serif;color:#eef4fa}
+#schildPanel .sc-iconmehr{flex:none;font:900 10.5px 'Nunito Sans',system-ui,sans-serif;
+  letter-spacing:.12em;text-transform:uppercase;color:#8fa6bb}
 
 #schildPanel .sc-schalter{display:flex;align-items:center;gap:8px;
   font:600 12.5px 'Nunito Sans',system-ui,sans-serif;color:#c3d2e0;cursor:pointer}
