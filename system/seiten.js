@@ -31,14 +31,14 @@
      Von Hand ändern ist erlaubt, aber der nächste Publish überschreibt es mit
      dem Stand aus dem Portal. */
   var STAND = {
-    "stand": "2026-08-28",
+    "stand": "2026-09-01",
     "seiten": {
       "mitglied.html": {
         "status": "live"
       },
       "tfcz-training.html": {
         "status": "live",
-        "variante": "anmeldung"
+        "variante": "laufend"
       },
       "tfcz-firmenevents.html": {
         "status": "live"
