@@ -44,10 +44,25 @@
      Ein Schild ist ein Datensatz, kein Layout — deshalb kein els-Array
      wie bei den Flyern, sondern genau die Felder, die der Renderer
      kennt. `els:[]` bleibt leer, damit die Ebenenliste still bleibt. */
-  DEF.schild = { layout:'schild', v:1, bg:'navy', dark:0, els:[], schild:{
+  /* Jedes Bauteil des Schilds ist eine echte Ebene des Studios. Damit
+     erscheinen Titel und Erklärung im Reiter „Texte", alle sechs in der
+     Ebenenliste (mit Auge zum Ein- und Ausschalten), und das Studio
+     ruft nach jeder Änderung von selbst rebuild(). Was nicht ins
+     Ebenen-Modell passt — Design, Kategorie, Icon-Name, Format —
+     steht im Bedienfeld. */
+  DEF.schild = { layout:'schild', v:1, bg:'navy', dark:0, schild:{
     design:'mitte', kategorie:'verbot', icon:'cigarette-off',
-    titel:'Rauchverbot', sub:'', hilfen:false
-  }};
+    hilfen:false, akzent:''
+  }, els:[
+    { id:'wortmarke', name:'Wortmarke',  type:'image', slot:'logo' },
+    { id:'wappen',    name:'Wappen',     type:'image', slot:'logo' },
+    { id:'kategorie', name:'Kategorie',  type:'image' },
+    { id:'icon',      name:'Icon',       type:'image', size:100 },
+    { id:'titel',     name:'Titel',      type:'text', text:'Rauchverbot',
+      color:'white', weight:900, size:100 },
+    { id:'box',       name:'Erklärung',  type:'text', text:'',
+      color:'white', weight:500, size:100 }
+  ]};
   TPLNAME.schild = 'Schilder';
   READY.schild = 1;
 
@@ -69,7 +84,26 @@
   function cfg(){
     var c = cur();
     if (!c.schild) c.schild = JSON.parse(JSON.stringify(DEF.schild.schild));
+    /* Ältere gespeicherte Schilder hatten noch keine Ebenen — nachrüsten,
+       und den damals in cfg gespeicherten Text übernehmen. */
+    if (!c.els || !c.els.length){
+      c.els = JSON.parse(JSON.stringify(DEF.schild.els));
+      if (c.schild.titel) ebene(c,'titel').text = c.schild.titel;
+      if (c.schild.sub)   ebene(c,'box').text   = c.schild.sub;
+      delete c.schild.titel; delete c.schild.sub;
+    }
     return c.schild;
+  }
+
+  function ebene(d, id){
+    d = d || cur();
+    var e = (d.els||[]).filter(function(x){ return x.id === id; })[0];
+    return e || {};
+  }
+  function sichtbar(id){ return ebene(null,id).vis !== false; }
+  function groesse(id){
+    var v = parseFloat(ebene(null,id).size);
+    return (v > 0) ? v/100 : 1;
   }
 
   /* ============================================================
@@ -116,7 +150,16 @@
 
     TFCZ.schild.render(h, {
       design: c.design, format: k, kategorie: c.kategorie, icon: c.icon,
-      titel: c.titel, sub: c.sub, hilfen: c.hilfen
+      titel: ebene(null,'titel').text || '',
+      sub:   ebene(null,'box').text || '',
+      hilfen: c.hilfen,
+      akzent: c.akzent || null,
+      zeige: {
+        wortmarke: sichtbar('wortmarke'), wappen: sichtbar('wappen'),
+        kategorie: sichtbar('kategorie'), icon: sichtbar('icon'),
+        titel: sichtbar('titel'), box: sichtbar('box')
+      },
+      skala: { icon: groesse('icon'), titel: groesse('titel'), box: groesse('box') }
     });
 
     /* Der Renderer rechnet in Millimetern, der Studio-Canvas in Pixeln.
@@ -191,16 +234,8 @@
                ' style="--kf:'+kat[kk].farbe+'">'+kat[kk].label+'</button>';
       }).join('') + '</div>');
 
-    html += zeile('Titel',
-      '<input class="sc-in" id="sc-titel" value="'+String(c.titel||'').replace(/"/g,'&quot;')+
-      '" placeholder="Rauchverbot">' +
-      '<p class="sc-hint">Ein senkrechter Strich | erzwingt einen Zeilenumbruch.</p>');
-
-    html += zeile('Erklärung (optional)',
-      '<textarea class="sc-in sc-area" id="sc-sub" rows="3" '+
-      'placeholder="Leer lassen, wenn das Schild nur eine Sache sagt.">'+
-      String(c.sub||'').replace(/</g,'&lt;')+'</textarea>');
-
+    /* Titel und Erklärung stehen im Reiter „Texte" — dort erwartet sie
+       jeder, der das Studio kennt. Hier steht, was dort nicht hingehört. */
     html += zeile('Icon',
       '<div class="sc-iconzeile">'+
         '<span class="sc-iconvor" id="sc-iconvor"></span>'+
@@ -213,6 +248,22 @@
     html += zeile('Druckhilfen',
       '<label class="sc-schalter"><input type="checkbox" id="sc-hilfen"'+
       (c.hilfen?' checked':'')+'> Schnittkante und Ösen-Zonen zeigen</label>');
+
+    html += zeile('Akzentfarbe',
+      '<div class="sc-chips" id="sc-akzent">' +
+      [['','Gold','#cda857'],['#5ca7dc','Blau','#5ca7dc'],['#ffffff','Weiss','#ffffff']]
+      .map(function(a){
+        return '<button class="sc-chip'+((c.akzent||'')===a[0]?' on':'')+
+               '" data-v="'+a[0]+'" style="--kf:'+a[2]+'">'+a[1]+'</button>';
+      }).join('') + '</div>');
+
+    html += zeile('Grössen',
+      ['icon','titel','box'].map(function(id){
+        var e = ebene(null,id), n = { icon:'Icon', titel:'Titel', box:'Erklärung' }[id];
+        return '<div class="sc-reg"><span>'+n+'</span>'+
+          '<input type="range" min="60" max="160" step="5" value="'+(e.size||100)+
+          '" data-e="'+id+'"><b>'+(e.size||100)+'%</b></div>';
+      }).join(''));
 
     /* Die Formatwahl gehört hierher, nicht in die Kopfleiste: zwölf
        Grössen passen dort nicht hin, und hier steht das Datenformat
@@ -252,10 +303,21 @@
       b.onclick = function(){ c.kategorie = b.dataset.v; neu(); };
     });
 
-    var t = p.querySelector('#sc-titel');
-    if (t) t.oninput = function(){ c.titel = t.value; save(); rebuild(); };
-    var s = p.querySelector('#sc-sub');
-    if (s) s.oninput = function(){ c.sub = s.value; save(); rebuild(); };
+    p.querySelectorAll('#sc-akzent .sc-chip').forEach(function(b){
+      b.onclick = function(){ c.akzent = b.dataset.v; neu(); };
+    });
+
+    /* Die Regler schreiben in die Ebene, nicht in die Konfiguration —
+       so bleibt die Ebenenliste des Studios die eine Quelle. */
+    p.querySelectorAll('.sc-reg input[data-e]').forEach(function(r){
+      r.oninput = function(){
+        var e = ebene(null, r.dataset.e);
+        e.size = parseInt(r.value, 10);
+        var b = r.parentNode.querySelector('b'); if (b) b.textContent = e.size + '%';
+        save(); rebuild();
+      };
+    });
+
     var h = p.querySelector('#sc-hilfen');
     if (h) h.onchange = function(){ c.hilfen = h.checked; save(); rebuild(); };
 
@@ -387,12 +449,8 @@
       });
       p.style.display = '';
       var nf = document.getElementById('nfHost'); if (nf) nf.style.display = 'none';
-      /* „Dieser Flyer hat keine freien Textfelder" gilt für Schilder nicht —
-         die Felder stehen direkt darunter. */
-      var tf = document.getElementById('txtForm'); if (tf) tf.style.display = 'none';
     } else {
       p.style.display = 'none';
-      var tf2 = document.getElementById('txtForm'); if (tf2) tf2.style.display = '';
     }
     return r;
   };});

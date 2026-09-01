@@ -107,6 +107,16 @@
      was zum Design gehört), abs() das physische (Anschnitt, Ösen,
      Blattgrösse). Wer hier mm() und abs() vertauscht, bekommt ein
      Schild, das in A0 nicht mehr aufgeht. */
+  /* Was der Aufrufer je Schild mitgeben kann (alles optional):
+       zeige:  {wortmarke, wappen, kategorie, icon, titel, box}  — je false = weg
+       skala:  {icon, titel, box}   — Faktor auf die Grundgroesse
+       akzent: '#cda857'            — ersetzt Gold auf diesem Blatt
+     So bleibt jedes Element einzeln schaltbar, ohne dass die Designs
+     ihre Automatik verlieren. */
+  var Z = {}, S = {}, AKZENT = null;
+  function sicht(n){ return Z[n] !== false; }
+  function skala(n){ var v = parseFloat(S[n]); return (v > 0 && v < 6) ? v : 1; }
+
   var K = 1;                                  // aktueller Massstab
   var BEZUG = 210 * 297;                      // A4 als Bezugsfläche
   function massstab(f){ return Math.sqrt((f.b*f.h)/BEZUG); }
@@ -118,6 +128,8 @@
      danach ersetzt — so stehen alle rund 1750 Icons zur Verfügung,
      ohne dass sie hier drinstehen müssen. */
   function icon(name, groesseMm, strich){
+    if (!sicht('icon')) return '';
+    groesseMm = groesseMm * skala('icon');
     if (!IC[name]) return icon_nachladen(name, groesseMm, strich);
     var d = IC[name];
     return '<svg viewBox="0 0 24 24" style="width:'+mm(groesseMm)+';height:'+mm(groesseMm)+
@@ -149,6 +161,8 @@
   /* Titel: jede Zeile ein eigener Block ohne Umbruch — so kann fit()
      messen und die Schrift so weit verkleinern, bis alles passt. */
   function titel(t, groesseMm){
+    if (!sicht('titel') || !String(t||'').trim()) return '';
+    groesseMm = groesseMm * skala('titel');
     return '<h1 class="gross" data-fs="'+groesseMm+'" data-k="'+K+'" style="font-size:'+mm(groesseMm)+'">'+
       zeilen(t).map(function(z){ return '<span class="zl">'+esc(z)+'</span>'; }).join('')+
       '</h1>';
@@ -158,6 +172,7 @@
 
   /* Wortmarke oben mittig — auf JEDEM Schild, immer gleich. */
   function wortmarke(hellerGrund, hoeheMm, obenMm){
+    if (!sicht('wortmarke')) return '';
     return '<img class="tfcz-wm" src="'+IMG.basis+
       (hellerGrund ? IMG.wortmarkeDunkel : IMG.wortmarkeWeiss)+
       '" alt="Tischfussball Club Zürich" style="height:'+mm(hoeheMm)+
@@ -175,6 +190,7 @@
      Das Motiv sitzt in der Bilddatei nach rechts unten versetzt, darum
      -44% statt -50% für die optische Mitte. */
   function wappen(hoeheMm, obenProzent, deck, extra){
+    if (!sicht('wappen')) return '';
     return '<img class="wp" src="'+IMG.basis+IMG.wappen+'" alt="" style="height:'+mm(hoeheMm)+
       ';left:50%;top:'+obenProzent+'%;transform:translate(-50%,-50%);opacity:'+deck+
       (extra||'')+'">';
@@ -188,9 +204,9 @@
   /* Erklärbox unter dem Titel — erscheint nur, wenn Text da ist.
      Ein Schild ohne Erklärung bleibt leer und ruhig. */
   function box(cfg, q, breit){
-    if (!cfg.sub) return '';
+    if (!cfg.sub || !sicht('box')) return '';
     return '<div class="tfcz-box" style="padding:'+mm(q?9:7)+' '+mm(q?14:10)+
-      ';max-width:'+(breit||(q?'76%':'86%'))+';font-size:'+mm(q?8:7)+'">'+
+      ';max-width:'+(breit||(q?'76%':'86%'))+';font-size:'+mm((q?8:7)*skala('box'))+'">'+
       esc(cfg.sub)+'</div>';
   }
 
@@ -306,6 +322,9 @@
            : (typeof cfg.anschnitt === 'number' ? cfg.anschnitt
              : (ANSCHNITT_JE_FORMAT[klasse] || ANSCHNITT));
 
+    Z = cfg.zeige || {};
+    S = cfg.skala || {};
+    AKZENT = cfg.akzent || null;
     K = massstab(f);                     // ab hier rechnet mm() im Zielformat
 
     /* Ränder: der Design-Rand wächst mit dem Format mit, unterschreitet
@@ -322,7 +341,12 @@
     cfg.icon = cfg.icon || 'info';
     cfg._quer = f.quer;
 
-    el.className = 'tfcz-schild d-' + (cfg.design||'mitte') + (f.quer?' quer':'');
+    el.className = 'tfcz-schild d-' + (cfg.design||'mitte') + (f.quer?' quer':'') +
+                   (sicht('kategorie') ? '' : ' ohne-kat');
+    /* Die Akzentfarbe wird als Token gesetzt — dadurch ziehen Icon-Ring,
+       Rahmen, Kategoriestrich und die untere Brand-Linie gemeinsam nach. */
+    if (AKZENT) el.style.setProperty('--gold', AKZENT);
+    else el.style.removeProperty('--gold');
     el.style.width  = abs(f.b + 2*an);
     el.style.height = abs(f.h + 2*an);
     el.setAttribute('data-format', schluessel);
@@ -449,6 +473,16 @@
     farben: C,
     druck: { anschnittJeFormat: ANSCHNITT_JE_FORMAT, oeseFrei: OESE,
              bohrung: 4.5, eckAbstand: 15 },
+    /* Die Bestandteile eines Schilds — Grundlage für die Ebenenliste im
+       Studio. `text` markiert die, die einen freien Text tragen. */
+    ebenen: [
+      { id:'wortmarke', name:'Wortmarke' },
+      { id:'wappen',    name:'Wappen' },
+      { id:'kategorie', name:'Kategorie' },
+      { id:'icon',      name:'Icon',      skalierbar:true },
+      { id:'titel',     name:'Titel',     text:true, skalierbar:true },
+      { id:'box',       name:'Erklärbox', text:true, skalierbar:true }
+    ],
     /* Datenformat (Endformat + Anschnitt) für die Bestellung */
     datenformat: function(schluessel){
       var f = FORMATE[schluessel]; if (!f) return null;

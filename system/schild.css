@@ -29,8 +29,10 @@
 /* Brand-Line: blau oben, gold unten — auf jedem Schild, ohne Ausnahme.
    Sitzt auf der Schnittkante, damit sie nach dem Beschnitt randbündig ist. */
 .tfcz-bl-top,.tfcz-bl-bot{position:absolute;left:0;right:0;z-index:6}
-.tfcz-bl-top{top:0;background:var(--blue)}
-.tfcz-bl-bot{bottom:0;background:var(--gold)}
+/* Fest verdrahtet, NICHT über die Tokens: die Brand-Line ist blau oben
+   und gold unten, immer. Eine Akzentfarbe darf sie nie mitfärben. */
+.tfcz-bl-top{top:0;background:#5ca7dc}
+.tfcz-bl-bot{bottom:0;background:#cda857}
 
 /* Wortmarke — oben mittig, auf jedem Design an derselben Stelle. */
 .tfcz-wm{position:absolute;left:50%;transform:translateX(-50%);z-index:7;display:block}
@@ -119,6 +121,14 @@
 .d-fokus .fk-ic{display:grid;place-items:center;margin-bottom:2mm}
 .d-fokus .fk-strich{width:26mm;height:1.2mm;border-radius:1mm;margin:8mm auto 0}
 .d-fokus .tfcz-box{margin-top:8mm}
+
+/* Kategorie ausgeblendet — jedes Design zeigt sie anders, deshalb hier
+   gesammelt. */
+.tfcz-schild.ohne-kat .mt-kat,
+.tfcz-schild.ohne-kat .sk-band,
+.tfcz-schild.ohne-kat .rh-kat,
+.tfcz-schild.ohne-kat .kp-kat,
+.tfcz-schild.ohne-kat .fk-strich{display:none}
 
 /* ---------- Druck-Hilfen (nur Bildschirm) ---------- */
 .tfcz-hilfe{position:absolute;inset:0;z-index:20;pointer-events:none}

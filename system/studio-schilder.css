@@ -33,6 +33,19 @@
 #schildPanel .sc-in:focus{border-color:#cda857}
 #schildPanel .sc-area{resize:vertical;line-height:1.45;font-weight:500}
 
+/* Grössen-Regler: Name, Schieber, Wert in einer Zeile. */
+#schildPanel .sc-reg{display:flex;align-items:center;gap:9px;margin-bottom:5px}
+#schildPanel .sc-reg span{flex:none;width:62px;font:700 11.5px 'Nunito Sans',system-ui,sans-serif;
+  color:#c3d2e0}
+#schildPanel .sc-reg input[type=range]{flex:1;min-width:0;accent-color:#cda857}
+#schildPanel .sc-reg b{flex:none;width:38px;text-align:right;
+  font:900 11px 'Nunito Sans',system-ui,sans-serif;color:#8fa6bb}
+
+/* Akzent-Chips zeigen die Farbe als Punkt. */
+#schildPanel #sc-akzent .sc-chip{display:inline-flex;align-items:center;gap:7px}
+#schildPanel #sc-akzent .sc-chip::before{content:"";width:8px;height:8px;border-radius:50%;
+  background:var(--kf,#cda857);flex:none}
+
 #schildPanel .sc-hint{margin:2px 0 0;font-size:11px;line-height:1.45;color:#8fa6bb}
 
 #schildPanel .sc-iconzeile{display:flex;align-items:center;gap:9px}
