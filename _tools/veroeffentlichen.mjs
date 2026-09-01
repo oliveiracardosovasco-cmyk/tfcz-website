@@ -162,6 +162,24 @@ kopiere(tmp, ZIEL, liste, tmp, zaehler);
 rmSync(tmp, { recursive: true, force: true });
 console.log(`  aus ${sha}: ${zaehler.kopiert} Dateien gespiegelt, ${zaehler.weg} laut Liste ausgelassen`);
 
+/* ---- Gelöschte Seiten auch drüben löschen ----
+   Der Spiegel oben kopiert nur. Wird eine Seite im Arbeits-Repo gelöscht, bliebe
+   sie sonst ewig auf tfcz.ch stehen — genau so war tfcz-regeln.html nach dem
+   Löschen am 01.09.2026 weiter abrufbar. Aufgeräumt werden NUR HTML-Seiten in
+   der Wurzel: dort merkt es der Besucher. Alles andere bleibt liegen, damit ein
+   Spiegel nie versehentlich Dateien mitnimmt, die es nur drüben gibt.
+
+   NUR-DRÜBEN sind Altbestände aus der Zeit vor dem Umbau — die Datenschutzseite
+   ist die einzige, die noch verlinkt sein könnte, darum steht sie hier. */
+const NUR_DRUEBEN = new Set(['tfcz-datenschutz.html']);
+for (const datei of readdirSync(ZIEL)) {
+  if (!datei.endsWith('.html') || NUR_DRUEBEN.has(datei)) continue;
+  if (existsSync(join(WEB, datei))) continue;                 /* gibt es noch */
+  if (verboten(datei, liste)) continue;                       /* war nie gespiegelt */
+  rmSync(join(ZIEL, datei));
+  console.log(`  ${datei} drüben gelöscht (im Arbeits-Repo entfernt)`);
+}
+
 /* Gegenprobe — dieselbe Idee wie in pages.yml: lieber abbrechen als etwas
    Internes ausliefern. */
 for (const f of ['_secret', 'CLAUDE.md', '_tools', '_to_delete', 'node_modules']) {
