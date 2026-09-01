@@ -16,6 +16,10 @@
 <script src="system/brand-components.js"></script>
 <!-- Tokens = Single Source (CLAUDE.md §9). tfcz-base.css ist geparkt in _module/ (Ebene 2 offen) -> nicht einbinden. -->
 <link rel="stylesheet" href="system/tokens.css">
+<!-- Section „Schilder": Renderer und Stile. Einzige Quelle, liegt in system/. -->
+<link rel="stylesheet" href="system/schild.css">
+<link rel="stylesheet" href="system/studio-schilder.css">
+<script src="system/schild-renderer.js"></script>
 <style>
 /* ===== Studio-Shell =====
    Das Studio ist eine INTERNE, login-geschützte Fläche → Dunkel-Navy (CLAUDE.md §1).
@@ -8273,4 +8277,7 @@ body.rulers #layersPanel{padding-top:18px!important}
   try{ titel(); }catch(e){}
 })();
 </script>
+<!-- Section „Schilder": ergaenzt Motiv, Formate und Bedienfeld,
+     ohne bestehende Logik zu aendern. -->
+<script src="system/studio-schilder.js"></script>
 </body></html>
