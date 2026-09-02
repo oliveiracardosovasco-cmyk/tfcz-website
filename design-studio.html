@@ -4719,6 +4719,81 @@ function boostTextShadow(on,scl){
     n.style.textShadow=neu;
   });
 }
+/* ===== object-fit fuer die Aufnahme einbacken =====
+   html2canvas 1.4.1 kennt `object-fit` und `object-position` NICHT. In der Bibliothek steht genau
+   ein Aufruf:  drawImage(bild, 0,0, natBreite,natHoehe, box.left,box.top,box.width,box.height)
+   Das ganze Quellbild wird also in die Element-Box GEZOGEN, egal welches Seitenverhaeltnis es hat.
+   Auf der Leinwand schneidet `cover` das Foto zu, im PNG wurde es stattdessen gestaucht: gemessen
+   am YouTube-Thumbnail (02.09.2026) brauchte das Foto Faktor 1.63 in der Breite, um wieder zu
+   passen - die Flaeche daneben (blaues Panel, Text, Diagonale) lag mit scaleX 1.000 pixelgenau
+   richtig. Es war also nie das Layout, immer nur das Bild.
+   Betroffen ist JEDER Flyer, nicht nur das Thumbnail: Kopfbild (fb_bg), PRO-Fotos, Ranglisten-Bild
+   (.rimg), Tisch- und Vereinslogos (`contain`) - und jedes Foto, dem im Werkzeug ein Zuschnitt
+   oder Zoom gegeben wurde (el.crop setzt ebenfalls object-fit:cover + object-position).
+   Fuer die Aufnahme wird der sichtbare Ausschnitt darum vorher in einer Offscreen-Leinwand in
+   BOX-GROESSE gemalt und das Bild dagegen getauscht; danach steht `object-fit:fill`. Weil das
+   gebackene Bild jetzt exakt das Seitenverhaeltnis der Box hat, ist die Streckung von html2canvas
+   eine Identitaet. Danach kommt der Original-Stil exakt zurueck (wie bei bakeImgShadows).
+   Laesst sich die Leinwand nicht auslesen (fremde Herkunft / file://), bleibt das Bild unberuehrt.
+   Reihenfolge: LAEUFT VOR bakeImgShadows - der Schatten wird dann ueber das schon richtig
+   zugeschnittene Bild gemalt. Zurueckgesetzt wird in umgekehrter Reihenfolge. */
+var _fitFix=[];
+function _fitVersatz(wert, frei){
+  /* object-position: Prozent = Anteil am freien Platz, px = fester Versatz, Wort = 0/50/100%. */
+  var s=String(wert||'').trim();
+  if(s==='left'||s==='top')return 0;
+  if(s==='right'||s==='bottom')return frei;
+  if(s==='center')return frei/2;
+  if(/%$/.test(s))return frei*(parseFloat(s)/100);
+  var z=parseFloat(s);
+  return isNaN(z)?frei/2:z;                        /* px-Wert oder unbekannt -> Mitte */
+}
+async function bakeObjectFit(on,scl){
+  if(!on){
+    _fitFix.forEach(function(o){
+      if(o.style===null)o.n.removeAttribute('style'); else o.n.setAttribute('style',o.style);
+      if(o.src===null)o.n.removeAttribute('src'); else o.n.setAttribute('src',o.src);
+    });
+    _fitFix=[]; return;
+  }
+  _fitFix=[];
+  [].forEach.call(canvas.querySelectorAll('img'),function(im){
+    var cs; try{ cs=getComputedStyle(im); }catch(e){ return; }
+    var fit=(cs.objectFit||'fill').trim();
+    if(fit==='fill')return;                        /* genau das macht html2canvas ohnehin */
+    var iw=im.naturalWidth, ih=im.naturalHeight;
+    if(!iw||!ih)return;                            /* nicht geladen oder SVG ohne Eigenmass */
+    var dw=parseFloat(cs.width), dh=parseFloat(cs.height);
+    if(!(dw>0)||!(dh>0))return;
+    var s;                                         /* gerenderte Groesse - Rechnung wie im Browser */
+    if(fit==='contain')          s=Math.min(dw/iw,dh/ih);
+    else if(fit==='cover')       s=Math.max(dw/iw,dh/ih);
+    else if(fit==='none')        s=1;
+    else if(fit==='scale-down')  s=Math.min(1,Math.min(dw/iw,dh/ih));
+    else return;
+    var rw=iw*s, rh=ih*s;
+    if(Math.abs(rw-dw)<.5&&Math.abs(rh-dh)<.5)return;   /* passt exakt -> nichts einzubacken */
+    var pos=(cs.objectPosition||'50% 50%').trim().split(/\s+/);
+    var ox=_fitVersatz(pos[0],dw-rw), oy=_fitVersatz(pos.length>1?pos[1]:'50%',dh-rh);
+    var cw=Math.round(dw*scl), ch=Math.round(dh*scl);
+    if(cw<1||ch<1||cw>12000||ch>12000)return;
+    var oc=document.createElement('canvas'); oc.width=cw; oc.height=ch;
+    var g=oc.getContext('2d'); if(!g)return;
+    var url;
+    try{ g.drawImage(im,0,0,iw,ih, ox*scl, oy*scl, rw*scl, rh*scl); url=oc.toDataURL('image/png'); }
+    catch(e){ return; }                            /* fremde Herkunft -> lieber gar nichts aendern */
+    _fitFix.push({ n:im, style:im.getAttribute('style'), src:im.getAttribute('src') });
+    im.setAttribute('src',url);
+    im.style.objectFit='fill';                     /* Box-Verhaeltnis stimmt jetzt -> Streckung 1:1 */
+    im.style.objectPosition='0% 0%';
+  });
+  /* WICHTIG: html2canvas liest `currentSrc` - vor dem Dekodieren zeigt das noch auf die alte
+     Datei, und die waere dann wieder ungeschnitten in die Box gestreckt worden. */
+  await Promise.all(_fitFix.map(function(o){
+    var pr; try{ pr=o.n.decode(); }catch(e){ pr=null; }
+    return pr&&pr.catch?pr.catch(function(){}):Promise.resolve();
+  }));
+}
 async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
   const prev=canvas.style.transform; canvas.style.transform='none';
   /* Das Canvas hängt jetzt in einem skalierten Seiten-Rahmen (.pgin). html2canvas würde diese
@@ -4729,6 +4804,12 @@ async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
   const _scl=(state.active==='stream')?1:2;
   document.body.classList.add('capturing');
   flattenGradientText(true);            /* Verlaufs-Text -> Vollfarbe (html2canvas-Fix) */
+  await bakeObjectFit(true,_scl);      /* object-fit:cover/contain -> Ausschnitt ins Bild gebacken */
+  /* Das await oben ist eine echte Pause - layoutFit() kann die Buehnen-Skalierung darin wieder
+     gesetzt haben. bakeImgShadows misst per getBoundingClientRect und wuerde die Props sonst in
+     der VERKLEINERTEN Groesse einbacken (gemessen 02.09.2026: Kaese, Logo und Flaschen kamen im
+     PNG halb so gross heraus). Darum hier neu auf 1:1 stellen. */
+  canvas.style.transform='none'; if(_pin)_pin.style.transform='none';
   await bakeImgShadows(true,_scl);      /* filter:drop-shadow -> ins Bild gemalt */
   boostTextShadow(true,_scl);           /* halbierten Blur ausgleichen */
   /* Das Warten oben ist eine echte Pause - in der Zwischenzeit kann layoutFit() die
@@ -4747,7 +4828,7 @@ async function renderCapture(){ try{await document.fonts.ready;}catch(e){}
             +'http://localhost und der Export funktioniert.' });
     } else sagInfo({titel:'Render-Fehler',text:m});
   }
-  boostTextShadow(false); bakeImgShadows(false);
+  boostTextShadow(false); bakeImgShadows(false); bakeObjectFit(false);
   flattenGradientText(false);           /* Original-Stile exakt zurück */
   document.body.classList.remove('capturing'); canvas.style.transform=prev;
   if(_pin&&_pinPrev!==null)_pin.style.transform=_pinPrev;

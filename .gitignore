@@ -44,3 +44,6 @@ config.js
 # Aussortiertes bleibt lokal — nie veroeffentlichen (Vasco 16.08.2026).
 # Bisher war nur assets/fotos/_to_delete/ ignoriert, der Ordner im Wurzelverzeichnis nicht.
 _to_delete/
+
+# Editor-/Werkzeug-Sicherungen bleiben lokal (galerie.html.bak, 02.09.2026)
+*.bak
