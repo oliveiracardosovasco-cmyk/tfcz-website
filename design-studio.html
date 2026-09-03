@@ -1323,6 +1323,7 @@ const FORMATS={
   bg_16_9:{name:"Bildschirm-Hintergrund (16:9)",grp:"Screen",w:1920,h:1080,bgOnly:true},
   stream_1080:{name:"Livestream-Overlay (16:9)",grp:"Stream",w:1920,h:1080,streamOnly:true},
   stream_fb:{name:"Livestream-Fallback (Thumbnail)",grp:"Stream",w:1280,h:720,streamOnly:true},
+  stream_zw:{name:"Zwischenscreen (16:9)",grp:"Stream",w:1920,h:1080,streamOnly:true},
   thumb16:{name:"Thumbnail (16:9)",grp:"YouTube",w:1280,h:720,thumbOnly:true},
 };
 const TPLNAME={dyp:"Crazy DYP",kase:"KäseKick",kase2:"KäseKick · Perspektive",profi:"PRO",rank:"Rangliste",events:"Events",yt:"Youtube (alt)",thumb:"Thumbnail",bg:"Hintergründe",stream:"Stream-Overlay"};
@@ -1428,6 +1429,11 @@ const DEF={
   {id:"fb_t2",name:"Fallback · Titel Zeile 2",type:"text",text:"getöggelt wird.",color:"gold",weight:900,size:84},
   {id:"fb_addr",name:"Fallback · Adresse",type:"text",text:"Landenbergstrasse 10  ·  8037 Zürich  ·  tfcz.ch",color:"white",weight:900,ls:0.06,size:20},
   {id:"fb_live",name:"Fallback · Live-Pill",type:"text",text:"LIVESTREAM",color:"navy",weight:900,ls:0.22,size:14,fill:"gold",brad:20},
+  /* Zwischenscreen-Elemente (nur sichtbar wenn Format = stream_zw) */
+  {id:"zw_head",name:"Zwischenscreen · Statuszeile",type:"text",text:"Nächstes Spiel startet bald …",color:"white",weight:900,ls:-0.01,size:60},
+  {id:"zw_kicker",name:"Zwischenscreen · Einladung",type:"text",text:"Willst du auch spielen wie die Profis? Komm gerne vorbei:",color:"#c3d2e0",weight:700,ls:0,size:27},
+  {id:"zw_time",name:"Zwischenscreen · Trainingszeiten",type:"text",text:"Dienstag und Mittwoch ab 19:00",color:"#eef4fa",weight:900,ls:-0.01,size:44},
+  {id:"zw_addr",name:"Zwischenscreen · Adresse",type:"text",text:"Landenbergstrasse 10 · 8037 Zürich",color:"#c3d2e0",weight:400,ls:0.02,size:27},
  ]},
  profi:{layout:"profi",els:[
   {id:"logo",name:"Logo",type:"image",slot:"logo",size:120},
@@ -2797,10 +2803,12 @@ function buildStream(){ const P=document.getElementById('profi'); const W=CW(),H
   /* Livestream-Fallback (Thumbnail 1280×720): eigenständiges Layout mit Foto + Text-Bausteinen.
      Wiederverwendet die bestehende .item + wireItems-Mechanik (Doppelklick = Text, Ziehen = Position). */
   if(state.fmt==='stream_fb'){ buildStreamFb(); return; }
+  /* Zwischenscreen (1920×1080, deckend): Standbild zwischen zwei Partien. Eigener Renderer. */
+  if(state.fmt==='stream_zw'){ buildZwischen(); return; }
   /* Transparenz: Canvas + Fläche durchsichtig, feste Marken-Streifen ausblenden */
   canvas.style.background='transparent';
   const _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot'); if(_lt)_lt.style.display='none'; if(_lb)_lb.style.display='none';
-  P.style.display='block'; P.classList.add('streamlay'); P.style.background='transparent';
+  P.style.display='block'; P.classList.remove('streamfblay','streamzwlay'); P.classList.add('streamlay'); P.style.background='transparent';
   const o=cur();
   /* Sanftes Upgrade alter Overlay-Seiten (v1): Adresse als editierbares Element nachrüsten */
   if(o.els && !o.els.some(function(x){return x.id==='addr';})){
@@ -2883,7 +2891,7 @@ function buildThumb(){
   /* Die globalen Balken bleiben aus: die Brand-Line ist hier ein eigenes, editierbares Element. */
   if(_lt)_lt.style.display='none';
   if(_lb)_lb.style.display='none';
-  P.style.display='block'; P.classList.remove('streamlay','streamfblay','ytlay','bglay','kaselay');
+  P.style.display='block'; P.classList.remove('streamlay','streamfblay','streamzwlay','ytlay','bglay','kaselay');
   P.classList.add('elitelay'); P.style.background=NAVY;
   const g=id=>evEl(getEl(id)), e=esc, vis=el=>el&&el.vis!==false;
   const FS=(id,fb)=>Math.round((((g(id)&&g(id).size)||fb))*k);
@@ -3041,7 +3049,7 @@ function buildStreamFb(){
   const _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot');
   if(_lt){_lt.style.display='';_lt.style.background=BLUE;_lt.style.height=Math.max(4,H*0.008)+'px';}
   if(_lb){_lb.style.display='';_lb.style.background=GOLD;_lb.style.height=Math.max(4,H*0.008)+'px';}
-  P.style.display='block'; P.classList.remove('streamlay'); P.classList.add('streamfblay'); P.style.background=NAVY;
+  P.style.display='block'; P.classList.remove('streamlay','streamzwlay'); P.classList.add('streamfblay'); P.style.background=NAVY;
   const g=id=>evEl(getEl(id)), e=esc, vis=el=>el&&el.vis!==false;
   const FS=(id,fb)=>Math.round((((g(id)&&g(id).size)||fb))*k);
   const WT=id=>((g(id)&&g(id).weight)||900);
@@ -3109,6 +3117,87 @@ function buildStreamFb(){
   }
   P.innerHTML=h;
   wireItems(P);
+}
+
+/* ===== Zwischenscreen (1920×1080, deckend) =====
+   Das Standbild zwischen zwei Partien: Einladung + Zeiten + Adresse links (ruhiges Grau),
+   „Nächstes Spiel startet bald …" rechts als hellste Zeile — einzeilig; der Fokus
+   kommt aus Weiss-gegen-Grau, NICHT aus mehr Schriftgrösse — sie ist die
+   Botschaft, alles andere tritt zurück (Ansage Vasco 02.09.2026).
+   Mitte bewusst LEER (dort liegen in OBS Kamera und Rangliste darüber).
+   Rahmen = derselbe SVG-Rahmen wie beim Livestream-Overlay (streamOverlaySVG) —
+   eine Quelle, damit Overlay und Zwischenscreen im Stream nie auseinanderlaufen.
+   Kein Logo (Ansage Vasco 02.09.2026): das Logo trägt das Overlay, hier wäre es doppelt.
+   Brand: Nunito Sans, Blau #5ca7dc oben / Gold #cda857 unten, Navy-Grund. */
+function buildZwischen(){
+  const P=document.getElementById('profi'); const W=CW(),H=CH(),k=W/1920;
+  const C=COLORS, NAVY=C.navy||'#0d273d', GOLD=C.gold||'#cda857';
+  /* Sanftes Upgrade: gespeicherte Stream-Stände von vorher kennen die Zwischenscreen-
+     Elemente noch nicht — ergänzen, ohne Text oder Position zu überschreiben. */
+  const _o=cur(); _o.els=_o.els||[];
+  [{id:"zw_head",name:"Zwischenscreen · Statuszeile",type:"text",text:"Nächstes Spiel startet bald …",color:"white",weight:900,ls:-0.01,size:60},
+   {id:"zw_kicker",name:"Zwischenscreen · Einladung",type:"text",text:"Willst du auch spielen wie die Profis? Komm gerne vorbei:",color:"#c3d2e0",weight:700,ls:0,size:27},
+   {id:"zw_time",name:"Zwischenscreen · Trainingszeiten",type:"text",text:"Dienstag und Mittwoch ab 19:00",color:"#eef4fa",weight:900,ls:-0.01,size:44},
+   {id:"zw_addr",name:"Zwischenscreen · Adresse",type:"text",text:"Landenbergstrasse 10 · 8037 Zürich",color:"#c3d2e0",weight:400,ls:0.02,size:27}
+  ].forEach(function(d){ if(!_o.els.some(function(x){return x.id===d.id;})) _o.els.push(clone(d)); });
+  /* Deckend, nicht transparent: das ist ein Vollbild, kein Overlay. */
+  canvas.style.background=NAVY;
+  /* Die festen Marken-Streifen bleiben aus — die Brand-Line steckt im SVG-Rahmen. */
+  const _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot');
+  if(_lt)_lt.style.display='none'; if(_lb)_lb.style.display='none';
+  P.style.display='block'; P.classList.remove('streamlay','streamfblay','ytlay','bglay','kaselay');
+  P.classList.add('streamzwlay');
+  P.style.background='linear-gradient(112deg,#081826 0%,#0d273d 42%,#005a94 100%)';
+  const g=id=>evEl(getEl(id)), e=esc, vis=el=>el&&el.vis!==false;
+  const SZ=(id,fb)=>(((g(id)&&g(id).size)||fb));
+  const WT=(id,fb)=>((g(id)&&g(id).weight)||fb);
+  const LS=(id,fb)=>{var v=(g(id)&&g(id).ls); return (v!=null?v:fb);};
+  const px=v=>Math.round(v*k)+'px';
+  const FF="font-family:'Nunito Sans',system-ui,sans-serif;";
+  const SH='text-shadow:0 2px 10px rgba(0,0,0,.45);';
+  /* Alle Masse in der Basis 1920×1080 notiert und mit k skaliert — so sitzt das Layout
+     in jeder Vorschaugrösse gleich (wie bei Elite/Fallback). */
+  const PAD=96, BASE=118;
+  const sHead=SZ('zw_head',60), sKick=SZ('zw_kicker',27), sTime=SZ('zw_time',44), sAddr=SZ('zw_addr',27);
+  /* Rechts von unten nach oben aufbauen: Adresse steht auf derselben Grundlinie wie die
+     Statuszeile links, alles darüber staffelt sich nach oben weg. */
+  const bAddr=BASE, bTime=bAddr+sAddr*1.45+16, bKick=bTime+sTime*1.20+14;
+  const rRule=bKick+sKick*1.30+24;
+  let h='';
+  /* 1) Ruhiger Lichtschein unten rechts — das Bild steht oft minutenlang, nichts soll flirren. */
+  h+='<div style="position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 92% at 84% 84%,rgba(0,90,148,.52) 0%,rgba(13,39,61,0) 62%)"></div>';
+  /* 2) Fuss-Verlauf: hebt die Zeilen ab, ohne eine harte Kante zu ziehen. */
+  h+='<div style="position:absolute;left:0;right:0;bottom:0;height:40%;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(6,16,26,0) 0%,rgba(6,16,26,.52) 100%)"></div>';
+  /* 3) Zwei goldene Marker als Anker der beiden Textblöcke (Deko, bleiben stehen). */
+  h+='<div style="position:absolute;left:'+px(PAD)+';bottom:'+px(rRule)+';width:'+px(72)+';height:'+px(5)+';border-radius:'+px(3)+';background:'+GOLD+';z-index:8;pointer-events:none"></div>';
+  /* 4) Statuszeile links */
+  if(vis(g('zw_head'))){ const T=g('zw_head');
+    h+='<div class="item" data-id="zw_head" style="position:absolute;right:'+px(PAD)+';bottom:'+px(BASE)+';max-width:'+px(1030)+';text-align:right;z-index:12;'
+      +FF+'font-weight:'+WT('zw_head',900)+';font-size:'+px(sHead)+';line-height:1.08;letter-spacing:'+LS('zw_head',-0.01)+'em;'+txtStyle(T.color)+';text-shadow:0 3px 18px rgba(0,0,0,.55);">'+e(T.text)+'</div>'; }
+  /* 5) Einladung rechts (Kicker) */
+  if(vis(g('zw_kicker'))){ const T=g('zw_kicker');
+    h+='<div class="item" data-id="zw_kicker" style="position:absolute;left:'+px(PAD)+';bottom:'+px(bKick)+';max-width:'+px(860)+';z-index:12;'
+      +FF+'font-weight:'+WT('zw_kicker',700)+';font-size:'+px(sKick)+';line-height:1.3;letter-spacing:'+LS('zw_kicker',0)+'em;'+txtStyle(T.color)+';'+SH+'">'+e(T.text)+'</div>'; }
+  /* 6) Trainingszeiten rechts — die Kernaussage, darum die grösste Zeile im Block */
+  if(vis(g('zw_time'))){ const T=g('zw_time');
+    h+='<div class="item" data-id="zw_time" style="position:absolute;left:'+px(PAD)+';bottom:'+px(bTime)+';max-width:'+px(1000)+';z-index:12;'
+      +FF+'font-weight:'+WT('zw_time',900)+';font-size:'+px(sTime)+';line-height:1.14;letter-spacing:'+LS('zw_time',-0.01)+'em;'+txtStyle(T.color)+';'+SH+'">'+e(T.text)+'</div>'; }
+  /* 7) Adresse rechts, mit Gold-Pin (gleiche Sprache wie im Fallback-Thumbnail) */
+  if(vis(g('zw_addr'))){ const T=g('zw_addr');
+    h+='<div class="item" data-id="zw_addr" style="position:absolute;left:'+px(PAD)+';bottom:'+px(bAddr)+';z-index:12;'
+      +'display:inline-flex;align-items:center;gap:'+px(12)+';'
+      +FF+'font-weight:'+WT('zw_addr',400)+';font-size:'+px(sAddr)+';line-height:1.35;letter-spacing:'+LS('zw_addr',0.02)+'em;white-space:nowrap;'+txtStyle(T.color)+';'+SH+'">'
+      +'<span style="display:inline-block;width:'+px(11)+';height:'+px(11)+';border-radius:50%;background:'+GOLD+'"></span>'
+      +e(T.text)+'</div>'; }
+  /* 8) Rahmen ganz zuoberst — identisch zum Livestream-Overlay (dieselbe Funktion). */
+  /* Eigene Rahmen-Werte: der Zwischenscreen ist deckend, das Overlay transparent — wer hier
+     die Linie dicker zieht, soll das Overlay nicht mitverändern. Startwerte sind identisch. */
+  const _fr={variant:(_o.zwVariant||_o.variant||'A'), lw:(_o.zwLw!=null?_o.zwLw:(_o.lw||6)), rad:(_o.zwRad!=null?_o.zwRad:(_o.rad!=null?_o.rad:30))};
+  h+='<img src="'+streamOverlaySVG(_fr)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;z-index:20;pointer-events:none">';
+  P.innerHTML=h;
+  wireItems(P);
+  /* Adresse einzeilig halten (wireItems setzt Text-Items auf pre-line) */
+  var _an=P.querySelector('.item[data-id="zw_addr"]'); if(_an)_an.style.whiteSpace='nowrap';
 }
 
 /* ===== EIN Baustein für ALLE Flyer: Ebenen verdrahten (Single Source) =====
@@ -3195,7 +3284,7 @@ function wireItems(P){
   markSel();
   if(typeof refreshThumbs==='function')refreshThumbs();
 }
-function rebuild(){ const _pf=document.getElementById('profi'); if(_pf){_pf.classList.remove('kaselay');_pf.classList.remove('ytlay');_pf.classList.remove('bglay');_pf.classList.remove('streamlay');_pf.classList.remove('streamfblay');}
+function rebuild(){ const _pf=document.getElementById('profi'); if(_pf){_pf.classList.remove('kaselay');_pf.classList.remove('ytlay');_pf.classList.remove('bglay');_pf.classList.remove('streamlay');_pf.classList.remove('streamfblay');_pf.classList.remove('streamzwlay');}
   canvas.style.background=''; { var _lt=document.querySelector('.ltop'),_lb=document.querySelector('.lbot'); if(_lt)_lt.style.display=''; if(_lb)_lb.style.display=''; }
   if(isThumb()){buildThumb();return;}
   if(isStream()){buildStream();return;}
@@ -3806,7 +3895,7 @@ const SERIEN={
     pro:[{k:'strt',n:'STRT · Züri Tour',v:[['thumb:pro_strt','Thumbnail']]}],
     elite:[{k:'sts',n:'STS Zürich',v:[['thumb:elite_doppel','Doppel-Tag'],['thumb:elite_einzel','Einzel-Tag']]}],
     verein:[{k:'std',n:'Allgemein',v:[['thumb:verein_std','Thumbnail']]}]},
-  stream:{verein:[{k:'ovl',n:'Overlay & Fallback',v:[['stream','Livestream-Overlay']]}]},
+  stream:{verein:[{k:'ovl',n:'Overlay, Fallback & Zwischenscreen',v:[['stream','Livestream-Overlay']]}]},
   bg:{verein:[{k:'bg',n:'Bildschirm-Hintergrund',v:[['bg','16:9 Hintergrund']]}]},
   praesi:{}
 };
@@ -4269,7 +4358,7 @@ function outView(k){ if(state.fmt===k){ buildTabs(); return; }
    und ein Chip, der aus dem Bild scrollt, wird nie angekreuzt. */
 var FMTKURZ={ig_story:'Story',ig_feed:'Feed hoch',ig_square:'Feed quadratisch',wa_msg:'WhatsApp',
   wa_story:'WA Status',yt_thumb:'Thumbnail',thumb16:'Thumbnail',bg_16_9:'Bildschirm',
-  stream_1080:'Overlay',stream_fb:'Fallback',aus:'Ausschreibung',reel:'Reel'};
+  stream_1080:'Overlay',stream_fb:'Fallback',stream_zw:'Zwischenscreen',aus:'Ausschreibung',reel:'Reel'};
 function dlLabel(){ var l=document.getElementById('dlLbl'); if(!l)return;
   var f=FORMATS[state.fmt]||{};
   if(f.doc){ l.textContent='HTML herunterladen'; return; }
@@ -4396,7 +4485,7 @@ function drawMotiv(){
 document.addEventListener('click',function(e){ var ov=document.getElementById('motivOv');
   if(ov&&ov.classList.contains('on')&&e.target===ov)closeMotiv(); });
 document.addEventListener('keydown',function(e){ if(e.key==='Escape')closeMotiv(); });
-const FMTUSE={ig_story:'Instagram/Facebook Story & Reels-Cover · vollflächig 9:16.',ig_feed:'Instagram-Feed Hochformat · bester Platz im Feed.',ig_square:'Feed quadratisch · Instagram & Facebook.',wa_msg:'WhatsApp-Nachricht / Broadcast.',wa_story:'WhatsApp-Status · 9:16.',yt_thumb:'YouTube-Thumbnail · 16:9.',bg_16_9:'Bildschirm-/Desktop-Hintergrund · 1920×1080, randlos & deckend.',stream_1080:'Livestream-Overlay · 1920×1080, transparent (Video scheint durch). Für OBS/YouTube.',stream_fb:'Livestream-Fallback · YT-Thumbnail 1280×720 für Streaming-Tage ohne eigenes Motiv. Foto, Logo, Kicker, Titel, Adresse — alles einzeln editier- und verschiebbar (Doppelklick = Text, Klick + ziehen = Position).',aus:'STF-Ausschreibung als Webseite (A4-artig) zum Teilen & Drucken.',reel:'Animiertes Reel (9:16) · HTML fürs Screen-Recording.'};
+const FMTUSE={ig_story:'Instagram/Facebook Story & Reels-Cover · vollflächig 9:16.',ig_feed:'Instagram-Feed Hochformat · bester Platz im Feed.',ig_square:'Feed quadratisch · Instagram & Facebook.',wa_msg:'WhatsApp-Nachricht / Broadcast.',wa_story:'WhatsApp-Status · 9:16.',yt_thumb:'YouTube-Thumbnail · 16:9.',bg_16_9:'Bildschirm-/Desktop-Hintergrund · 1920×1080, randlos & deckend.',stream_1080:'Livestream-Overlay · 1920×1080, transparent (Video scheint durch). Für OBS/YouTube.',stream_fb:'Livestream-Fallback · YT-Thumbnail 1280×720 für Streaming-Tage ohne eigenes Motiv. Foto, Logo, Kicker, Titel, Adresse — alles einzeln editier- und verschiebbar (Doppelklick = Text, Klick + ziehen = Position).',stream_zw:'Zwischenscreen · 1920×1080 deckend. Standbild zwischen zwei Partien — Mitte bleibt frei für Kamera/Rangliste in OBS.',aus:'STF-Ausschreibung als Webseite (A4-artig) zum Teilen & Drucken.',reel:'Animiertes Reel (9:16) · HTML fürs Screen-Recording.'};
 function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)return; h.innerHTML=''; h.style.display='';
   /* Hier stehen nur noch die FORMAT-EXTRAS (Overlay-Rahmen, Thumbnail-Hinweis).
      Kategorie, Serie und Vorlage sind in die Motiv-Galerie gewandert, die Formate
@@ -4407,6 +4496,9 @@ function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)retur
     h.appendChild(inf); return; }
 
   if(state.active==='stream'){ const o=cur();
+    /* Ein Schieberegler-Helfer für den ganzen Stream-Zweig — Overlay und Zwischenscreen
+       teilen ihn sich, statt ihn je Format zu kopieren. */
+    function _sctrl(label,val,mn,mx,st,cb){ var b=document.createElement('div'); b.style.margin='12px 0 2px'; b.innerHTML='<label style="display:block;font-size:12px;font-weight:800;color:#9fb2c4;margin-bottom:5px">'+label+': <span class="v">'+val+'</span> px</label>'; var r=document.createElement('input'); r.type='range'; r.min=mn; r.max=mx; r.step=st; r.value=val; r.style.width='100%'; r.oninput=function(){ b.querySelector('.v').textContent=r.value; cb(+r.value); }; b.appendChild(r); h.appendChild(b); }
     /* Der Umschalter Overlay/Fallback stand frueher hier — er ist jetzt oben in der
        Ausgaben-Leiste (zwei Chips). Doppelt waere er nur verwirrend. */
     /* Overlay-spezifische Steuerung (Rahmen, Linien, Ecken, Adresse) — NUR beim Overlay-Format */
@@ -4417,7 +4509,6 @@ function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)retur
         +'<div class="fmt-item'+(o.variant==='B'?' on':'')+'" data-v="B"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">B · umlaufend</span></div>';
       sl.querySelectorAll('.fmt-item').forEach(function(it){ it.onclick=function(){ cur().variant=it.dataset.v; save(); rebuild(); buildFmtHost(); }; });
       h.appendChild(sl);
-      function _sctrl(label,val,mn,mx,st,cb){ var b=document.createElement('div'); b.style.margin='12px 0 2px'; b.innerHTML='<label style="display:block;font-size:12px;font-weight:800;color:#9fb2c4;margin-bottom:5px">'+label+': <span class="v">'+val+'</span> px</label>'; var r=document.createElement('input'); r.type='range'; r.min=mn; r.max=mx; r.step=st; r.value=val; r.style.width='100%'; r.oninput=function(){ b.querySelector('.v').textContent=r.value; cb(+r.value); }; b.appendChild(r); h.appendChild(b); }
       _sctrl('Linienstärke', o.lw||6, 2, 30, 1, function(v){ cur().lw=v; save(); rebuild(); });
       _sctrl('Ecken-Radius', (o.rad!=null?o.rad:30), 0, 90, 1, function(v){ cur().rad=v; save(); rebuild(); });
       var _addrEl=function(){ return getEl('addr'); };
@@ -4428,6 +4519,20 @@ function buildFmtHost(){ const h=document.getElementById('fmtHost'); if(!h)retur
       var ai=document.createElement('input'); ai.type='text'; ai.value=(_addrEl()&&_addrEl().text)||''; ai.style.cssText='width:100%;padding:8px 9px;border-radius:7px;border:1px solid #24435c;background:#0f1c28;color:#eef4fa;font:inherit;font-size:13px'; ai.oninput=function(){ var a=_addrEl(); if(a){ a.text=ai.value; save(); rebuild(); } }; ab.appendChild(ai);
       h.appendChild(ab);
       var inf=document.createElement('div'); inf.className='fmt-info'; inf.innerHTML='<b>Livestream-Overlay</b><br>1920×1080 · transparent. Logo &amp; Adresse sind frei verschiebbar (anklicken, Doppelklick = Text ändern). Formen, Brand-Linien &amp; mehr über die Bibliothek links. Export über „PNG herunterladen".'; h.appendChild(inf);
+    } else if(state.fmt==='stream_zw'){
+      /* Zwischenscreen — Rahmen-Steuerung teilt sich die Werte mit dem Overlay (eine Quelle). */
+      const zh=document.createElement('h3'); zh.textContent='Rahmen-Variante'; zh.style.marginTop='16px'; h.appendChild(zh);
+      const zv=(o.zwVariant||o.variant||'A');
+      const zl=document.createElement('div'); zl.className='fmt-list';
+      zl.innerHTML='<div class="fmt-item'+(zv!=='B'?' on':'')+'" data-v="A"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">A · nur oben/unten</span></div>'
+        +'<div class="fmt-item'+(zv==='B'?' on':'')+'" data-v="B"><span class="fmt-thumb" style="width:22px;height:12px"></span><span class="fmt-nm">B · umlaufend</span></div>';
+      zl.querySelectorAll('.fmt-item').forEach(function(it){ it.onclick=function(){ cur().zwVariant=it.dataset.v; save(); rebuild(); buildFmtHost(); }; });
+      h.appendChild(zl);
+      _sctrl('Linienstärke', (o.zwLw!=null?o.zwLw:(o.lw||6)), 2, 30, 1, function(v){ cur().zwLw=v; save(); rebuild(); });
+      _sctrl('Ecken-Radius', (o.zwRad!=null?o.zwRad:(o.rad!=null?o.rad:30)), 0, 90, 1, function(v){ cur().zwRad=v; save(); rebuild(); });
+      var infZ=document.createElement('div'); infZ.className='fmt-info'; infZ.style.marginTop='12px';
+      infZ.innerHTML='<b>Zwischenscreen</b><br>1920×1080 · deckend. Das Standbild zwischen zwei Partien. Vier Textzeilen, alle einzeln editierbar (Doppelklick = Text) und verschiebbar (anklicken &amp; ziehen). <b>Die Mitte bleibt frei</b> — dort liegen in OBS Kamera und Rangliste darüber. Kein Logo: das trägt das Overlay. Export über „PNG herunterladen".';
+      h.appendChild(infZ);
     } else if(state.fmt==='stream_fb'){
       /* Fallback-Thumbnail — Info-Box, editieren geschieht direkt auf der Kachel (Doppelklick + Ziehen) */
       var inf2=document.createElement('div'); inf2.className='fmt-info'; inf2.style.marginTop='12px'; inf2.innerHTML='<b>Livestream-Fallback (Thumbnail)</b><br>1280×720 · generisches YT-Thumbnail für Streaming-Tage ohne eigenes Bild. Foto, Logo, Kicker, Titel &amp; Adresse sind einzeln editierbar (Doppelklick = Text ändern) und verschiebbar (anklicken &amp; ziehen). Foto tauschen: aufs Foto klicken oder ein Bild drauf ziehen. Export über „PNG herunterladen".'; h.appendChild(inf2);
