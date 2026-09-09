@@ -93,6 +93,11 @@ h2{font-weight:900; line-height:1.02; letter-spacing:-.5px; font-size:clamp(44px
 .card.col{flex-direction:column; text-align:center; gap:14px; justify-content:center}
 .card.col svg{width:clamp(46px,5vw,72px); height:clamp(46px,5vw,72px)}
 .card.wide{grid-column:1/-1}
+.card.hero{border-left-width:8px}
+.card.hero .t{font-size:clamp(24px,2.95vw,44px); line-height:1.12}
+.card.hero svg{width:clamp(46px,4.8vw,70px); height:clamp(46px,4.8vw,70px)}
+.card .s{display:block; margin-top:6px; color:var(--ink-mut); font-weight:800;
+  font-size:clamp(15px,1.65vw,24px); line-height:1.2}
 .cards.tight{gap:clamp(11px,1.4vw,18px)}
 .cards.tight .card{padding:clamp(13px,1.7vw,22px) clamp(18px,2.2vw,28px)}
 .segs{display:flex; gap:clamp(10px,1.5vw,20px); flex-wrap:wrap; width:100%}
@@ -342,13 +347,16 @@ h2{font-weight:900; line-height:1.02; letter-spacing:-.5px; font-size:clamp(44px
   </section>
 
   <!-- 8 Verpflegung -->
-  <section class="slide" data-note="Zur Verpflegung: An der Bar gibt es Snacks, Sandwiches und Kuchen. Weitere Verpflegung bringt ihr selbst mit oder holt sie im Coop nebenan — vom Turnier ist nichts vorgesehen.">
+  <section class="slide" data-note="Zum Essen: Heute gibt es Pasta beim Nachbarn — oben, vis-à-vis vom Bahnhof. An der Bar wie gewohnt Sandwiches, Snacks und Kuchen. Und wer etwas anderes will, bringt es selbst mit oder holt es im Coop nebenan.">
     <div class="kick"><i></i><span>Essen & Trinken</span></div>
-    <h2>Verpflegung</h2>
-    <div class="cards c3">
-      <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><div class="t">Snacks, Sandwiches & Kuchen <span class="g">an der Bar</span></div></div>
-      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><div class="t">Weiteres selbst mitbringen oder Coop nebenan</div></div>
-      <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><div class="t">Vom Turnier keine Verpflegung vorgesehen</div></div>
+    <h2>Heute gibt es <span class="g">Pasta</span></h2>
+    <div class="cards c2 tight">
+      <div class="card hero do wide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg>
+        <div class="t">Pasta <span class="g">beim Nachbarn</span><span class="s">Oben, vis-à-vis vom Bahnhof</span></div>
+      </div>
+      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><div class="t">An der Bar wie gewohnt<span class="s">Sandwiches, Snacks & Kuchen</span></div></div>
+      <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><div class="t">Sonst selbst mitbringen<span class="s">Oder Coop nebenan</span></div></div>
     </div>
   </section>
 
