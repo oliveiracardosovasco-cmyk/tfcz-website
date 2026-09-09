@@ -19,12 +19,22 @@
 */
 window.TFCZ_PRAESI = [
   {
+    id: 'zuerich-open-3-eroeffnung',
+    titel: 'Zürich Open #3 — Eröffnung',
+    anlass: 'Turnier',
+    datum: '12.09.2026',
+    datei: 'praesentationen/zuerich-open-3-eroeffnung.html',
+    folien: 13,
+    dauer: '≈ 3 Min',
+    text: 'Eröffnungsrede: 31 Teams, Podeste der Touren 1 & 2, Top 10 im Rennen um den Leonhart-Tisch, Format & Modus, Verhaltensregeln, Livestream, Crazy DYP.'
+  },
+  {
     id: 'sts-zuerich-2026-samstag',
     titel: 'STS Zürich 2026 — Ansage Samstag',
     anlass: 'Turnier',
     datum: '15.08.2026',
     datei: 'praesentationen/sts-zuerich-2026-samstag.html',
-    folien: 14,
+    folien: 13,
     dauer: '≈ 3 Min',
     text: 'Ansage am Turniermorgen: Disziplinen & Zeiten, Coral, Tempo, Stream auf Tisch 1+10, Hausregeln, Hitze, Bar, Parkieren, Preisgeld.'
   },
