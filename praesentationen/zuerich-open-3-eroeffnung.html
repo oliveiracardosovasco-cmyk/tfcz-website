@@ -98,6 +98,23 @@ h2{font-weight:900; line-height:1.02; letter-spacing:-.5px; font-size:clamp(44px
 .card.hero svg{width:clamp(46px,4.8vw,70px); height:clamp(46px,4.8vw,70px)}
 .card .s{display:block; margin-top:6px; color:var(--ink-mut); font-weight:800;
   font-size:clamp(15px,1.65vw,24px); line-height:1.2}
+/* Pasta + angehängte Teller-Warnung: EIN Block, damit die Warnung zur Pasta gehört */
+.pastabox{grid-column:1/-1; border-radius:16px; overflow:hidden; background:var(--card);
+  border:1px solid var(--brd); border-left:8px solid var(--gold); backdrop-filter:blur(9px)}
+.pb-main{display:flex; align-items:center; gap:clamp(16px,2vw,26px); text-align:left;
+  padding:clamp(15px,1.9vw,26px) clamp(18px,2.2vw,30px)}
+.pb-main svg{flex:none; width:clamp(46px,4.8vw,70px); height:clamp(46px,4.8vw,70px);
+  color:var(--gold); stroke-width:2.1}
+.pb-main .t{font-weight:800; font-size:clamp(24px,2.95vw,44px); line-height:1.12}
+.pb-main .s{display:block; margin-top:6px; color:var(--ink-mut); font-weight:800;
+  font-size:clamp(15px,1.65vw,24px); line-height:1.2}
+.pb-note{display:flex; align-items:center; gap:clamp(13px,1.6vw,22px); text-align:left;
+  padding:clamp(11px,1.4vw,19px) clamp(18px,2.2vw,30px);
+  background:linear-gradient(155deg, rgba(70,20,20,.58), rgba(30,12,14,.50));
+  border-top:1px solid rgba(255,255,255,.14)}
+.pb-note svg{flex:none; width:clamp(30px,3.1vw,44px); height:clamp(30px,3.1vw,44px);
+  color:var(--red); stroke-width:2.2}
+.pb-note .t{font-weight:800; font-size:clamp(18px,2.05vw,30px); line-height:1.16}
 .cards.tight{gap:clamp(11px,1.4vw,18px)}
 .cards.tight .card{padding:clamp(13px,1.7vw,22px) clamp(18px,2.2vw,28px)}
 .segs{display:flex; gap:clamp(10px,1.5vw,20px); flex-wrap:wrap; width:100%}
@@ -245,12 +262,12 @@ h2{font-weight:900; line-height:1.02; letter-spacing:-.5px; font-size:clamp(44px
   </section>
 
   <!-- 2 Rückblick / Zahlen -->
-  <section class="slide" data-note="Kurzer Rückblick auf die Serie: An der ersten Tour waren es 36 Teams, an der zweiten 30, und heute stehen wir bei 31. Ausverkauft sind wir bei 48 Teams — da wollen wir im November hin. Helft mit und macht Werbung.">
+  <section class="slide" data-note="Kurzer Rückblick auf die Serie: An der ersten Tour waren es 36 Teams, an der zweiten 30, und heute sind wir wieder bei 30. Ausverkauft sind wir bei 48 Teams — da wollen wir im November hin. Helft mit und macht Werbung.">
     <div class="kick"><i></i><span>Die Serie bisher</span></div>
     <div class="vs">
       <div class="v"><span class="num count" data-to="36">36</span><small>Tour 1</small></div><div class="ar">→</div>
       <div class="v"><span class="num count" data-to="30">30</span><small>Tour 2</small></div><div class="ar">→</div>
-      <div class="v g"><span class="num count" data-to="31">31</span><small>Heute</small></div>
+      <div class="v g"><span class="num count" data-to="30">30</span><small>Heute</small></div>
     </div>
     <div class="sub">Ausverkauft bei <span class="g">48 Teams</span>.</div>
     <div class="cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg><span>Helft mit · macht Werbung für den 14. November</span></div>
@@ -333,7 +350,7 @@ h2{font-weight:900; line-height:1.02; letter-spacing:-.5px; font-size:clamp(44px
   </section>
 
   <!-- 7 Kurz & wichtig -->
-  <section class="slide" data-note="Noch ein paar Hinweise: Es gibt kein WLAN. An der Bar gilt Karte, Twint nur im Notfall — kein Bargeld. Hinter die Bar geht nur das Bar-Team. Bälle werden nicht gestellt, die könnt ihr an der Bar kaufen. Geraucht wird nur draussen. Und: Fotos vom Tag landen mitunter auf unseren Kanälen — wer das nicht möchte, sagt uns bitte kurz Bescheid.">
+  <section class="slide" data-note="Noch ein paar Hinweise: Es gibt kein WLAN. An der Bar gilt Karte, Twint nur im Notfall — kein Bargeld. Hinter die Bar geht nur das Bar-Team. Bälle werden nicht gestellt, die könnt ihr an der Bar kaufen. Geraucht wird nur draussen, und dort nur im markierten Bereich. Und: Fotos vom Tag landen mitunter auf unseren Kanälen — wer das nicht möchte, sagt uns bitte kurz Bescheid.">
     <div class="kick"><i></i><span>Gut zu wissen</span></div>
     <h2>Kurz & <span class="g">wichtig</span></h2>
     <div class="cards c3 tight">
@@ -341,19 +358,25 @@ h2{font-weight:900; line-height:1.02; letter-spacing:-.5px; font-size:clamp(44px
       <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg><div class="t"><span class="g">Kein Bargeld</span> — Karte, Twint im Notfall</div></div>
       <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M9 12v6"/><path d="M13 12v6"/><path d="M14 7.5c-1 0-1.44.5-3 .5s-2-.5-3-.5-1.72.5-2.5.5a2.5 2.5 0 0 1 0-5c.78 0 1.57.5 2.5.5S9.44 3 11 3s2 .5 3 .5 1.72-.5 2.5-.5a2.5 2.5 0 0 1 0 5c-.78 0-1.5-.5-2.5-.5Z"/><path d="M5 8v11a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8"/></svg><div class="t">Nur das Bar-Team hinter die Bar</div></div>
       <div class="card col do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2.5 9h19"/><path d="M2.5 15h19"/><path d="M12 2a10 10 0 0 0 0 20"/><path d="M12 2a10 10 0 0 1 0 20"/></svg><div class="t">Bälle werden nicht gestellt — <span class="g">an der Bar erhältlich</span></div></div>
-      <div class="card col no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h14v6H2z"/><path d="M18 12h4v6h-4z"/><path d="M18 8c0-2-2-2-2-4"/><path d="M22 8c0-2-2-2-2-4"/></svg><div class="t">Rauchen <span class="rd">nur draussen</span></div></div>
+      <div class="card col no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h14v6H2z"/><path d="M18 12h4v6h-4z"/><path d="M18 8c0-2-2-2-2-4"/><path d="M22 8c0-2-2-2-2-4"/></svg><div class="t">Rauchen nur draussen — <span class="rd">im markierten Bereich</span></div></div>
       <div class="card col"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg><div class="t">Fotos evtl. auf Social Media — <span class="g">sagt es uns, wenn nicht</span></div></div>
     </div>
   </section>
 
   <!-- 8 Verpflegung -->
-  <section class="slide" data-note="Zum Essen: Heute gibt es Pasta beim Nachbarn — oben, vis-à-vis vom Bahnhof. An der Bar wie gewohnt Sandwiches, Snacks und Kuchen. Und wer etwas anderes will, bringt es selbst mit oder holt es im Coop nebenan.">
+  <section class="slide" data-note="Zum Essen: Heute gibt es Pasta beim Nachbarn — oben, vis-à-vis vom Bahnhof. Ganz wichtig: Die Teller gehören dem Nachbarn. Bringt sie bitte selbst zurück, oder gebt sie an der Bar ab, dann retournieren wir sie. An der Bar gibt es wie gewohnt Sandwiches, Snacks und Kuchen. Und wer etwas anderes will, bringt es selbst mit oder holt es im Coop nebenan.">
     <div class="kick"><i></i><span>Essen & Trinken</span></div>
     <h2>Heute gibt es <span class="g">Pasta</span></h2>
     <div class="cards c2 tight">
-      <div class="card hero do wide">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg>
-        <div class="t">Pasta <span class="g">beim Nachbarn</span><span class="s">Oben, vis-à-vis vom Bahnhof</span></div>
+      <div class="pastabox">
+        <div class="pb-main">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg>
+          <div class="t">Pasta <span class="g">beim Nachbarn</span><span class="s">Oben, vis-à-vis vom Bahnhof</span></div>
+        </div>
+        <div class="pb-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          <div class="t">Teller bitte <span class="rd">zurückbringen</span> — oder an der Bar abgeben, wir retournieren sie.</div>
+        </div>
       </div>
       <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><div class="t">An der Bar wie gewohnt<span class="s">Sandwiches, Snacks & Kuchen</span></div></div>
       <div class="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><div class="t">Sonst selbst mitbringen<span class="s">Oder Coop nebenan</span></div></div>
@@ -404,11 +427,10 @@ h2{font-weight:900; line-height:1.02; letter-spacing:-.5px; font-size:clamp(44px
   </section>
 
   <!-- 13 Schluss -->
-  <section class="slide" data-note="Das war's von mir. Bleibt wenn möglich bis zum Final als Zuschauer — es lohnt sich. Und jetzt: viel Spass und gutes Spiel!">
+  <section class="slide" data-note="Das war's von mir. Viel Spass und gutes Spiel!">
     <img class="logo" src="../assets/img/logo-horizontal-white.png" alt="TFCZ">
     <div class="kick"><i></i><span>Los geht's</span></div>
     <h1>Viel Spass<br>und <span class="g">gutes Spiel.</span></h1>
-    <div class="sub">Bleibt bis zum Final — es lohnt sich.</div>
   </section>
 
 </div>

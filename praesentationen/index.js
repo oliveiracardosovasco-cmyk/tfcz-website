@@ -26,7 +26,7 @@ window.TFCZ_PRAESI = [
     datei: 'praesentationen/zuerich-open-3-eroeffnung.html',
     folien: 13,
     dauer: '≈ 3 Min',
-    text: 'Eröffnungsrede: 31 Teams, Podeste der Touren 1 & 2, Top 10 im Rennen um den Leonhart-Tisch, Format & Modus, Verhaltensregeln, Pasta beim Nachbarn, Livestream, Crazy DYP.'
+    text: 'Eröffnungsrede: 30 Teams, Podeste der Touren 1 & 2, Top 10 im Rennen um den Leonhart-Tisch, Format & Modus, Verhaltensregeln, Pasta beim Nachbarn, Livestream, Crazy DYP.'
   },
   {
     id: 'sts-zuerich-2026-samstag',
@@ -46,6 +46,6 @@ window.TFCZ_PRAESI = [
     datei: 'praesentationen/zuerich-open-2-eroeffnung.html',
     folien: 13,
     dauer: '≈ 3 Min',
-    text: 'Eröffnungsrede: 31 Teams, Top-Teams je Tableau, Format & Modus, Verhaltensregeln, Verpflegung, Livestream, Crazy DYP als Side-Event.'
+    text: 'Eröffnungsrede: 30 Teams, Top-Teams je Tableau, Format & Modus, Verhaltensregeln, Verpflegung, Livestream, Crazy DYP als Side-Event.'
   }
 ];
